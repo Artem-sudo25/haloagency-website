@@ -64,7 +64,7 @@ export default function Packages() {
   return (
     <section id="pricing" className="py-12 md:py-16 lg:py-20 bg-[#0A1628] overflow-hidden" aria-labelledby="pricing-heading">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 md:mb-20">
+        <div className="text-center mb-16 md:mb-28">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm font-medium text-gray-300">💎 Тарифы</span>
