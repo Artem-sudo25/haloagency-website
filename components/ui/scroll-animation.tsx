@@ -43,7 +43,7 @@ export function ScrollAnimation({
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={variants}
-            className={className}
+            className={`overflow-hidden ${className}`}
         >
             {children}
         </motion.div>
