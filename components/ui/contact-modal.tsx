@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,10 +9,23 @@ import { Textarea } from "@/components/ui/textarea";
 import { useContactModal } from "@/context/contact-modal-context";
 
 export function ContactModal() {
-    const { isOpen, close } = useContactModal();
+    const { isOpen, close, prefilledData } = useContactModal();
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [selectedService, setSelectedService] = useState("");
+    const [message, setMessage] = useState("");
+
+    // Set prefilled data when modal opens
+    useEffect(() => {
+        if (isOpen && prefilledData) {
+            if (prefilledData.service) {
+                setSelectedService(prefilledData.service);
+            }
+            if (prefilledData.message) {
+                setMessage(prefilledData.message);
+            }
+        }
+    }, [isOpen, prefilledData]);
 
     const services = [
         { value: "web", label: "Разработка сайтов", color: "from-blue-500 to-blue-600" },
@@ -38,6 +51,7 @@ export function ContactModal() {
             setTimeout(() => {
                 setIsSuccess(false);
                 setSelectedService("");
+                setMessage("");
             }, 300);
         }, 2000);
     };
@@ -138,6 +152,8 @@ export function ContactModal() {
                                                 <label className="text-sm font-medium text-slate-300">О проекте</label>
                                                 <Textarea
                                                     placeholder="Кратко о вашей задаче..."
+                                                    value={message}
+                                                    onChange={(e) => setMessage(e.target.value)}
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500 min-h-[100px] resize-none"
                                                 />
                                             </div>

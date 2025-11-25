@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, Sparkles, Gift } from "lucide-react";
 import Link from "next/link";
+import { useContactModal } from "@/context/contact-modal-context";
 
 const packages = [
   {
@@ -60,7 +61,49 @@ const packages = [
   },
 ];
 
+// Helper function to generate message from package
+function generatePackageMessage(pkg: typeof packages[0]): string {
+  let message = `Интересует пакет "${pkg.title}" (${pkg.price}`;
+  if (pkg.priceMonthly) {
+    message += ` ${pkg.priceMonthly}`;
+  }
+  message += `).\n\n`;
+  message += `${pkg.description}\n\n`;
+  
+  if (pkg.features) {
+    message += `Включает:\n`;
+    pkg.features.forEach(f => {
+      message += `• ${f}\n`;
+    });
+  }
+  
+  if (pkg.setupFeatures) {
+    message += `Setup:\n`;
+    pkg.setupFeatures.forEach(f => {
+      message += `• ${f}\n`;
+    });
+    if (pkg.monthlyFeatures) {
+      message += `\nЕжемесячно:\n`;
+      pkg.monthlyFeatures.forEach(f => {
+        message += `• ${f}\n`;
+      });
+    }
+  }
+  
+  return message;
+}
+
 export default function Packages() {
+  const { open: openContactModal } = useContactModal();
+
+  const handlePackageClick = (pkg: typeof packages[0]) => {
+    const message = generatePackageMessage(pkg);
+    openContactModal({
+      service: "package",
+      message: message,
+    });
+  };
+
   return (
     <section id="pricing" className="py-12 md:py-16 lg:py-20 bg-[#0A1628] overflow-hidden" aria-labelledby="pricing-heading">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -193,16 +236,14 @@ export default function Packages() {
                 <CardFooter className="p-6 md:p-8 pt-0">
                   <Button
                     size="lg"
+                    onClick={() => handlePackageClick(pkg)}
                     className={`w-full text-base font-medium transition-all duration-300 ${
                       pkg.highlight
                         ? 'h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105'
                         : 'h-12 bg-white/5 border border-white/10 hover:bg-white/10 text-white'
                     }`}
-                    asChild
                   >
-                    <Link href="/packages">
-                      {pkg.highlight ? 'Запустить за 7 дней →' : 'Подробнее →'}
-                    </Link>
+                    {pkg.highlight ? 'Запустить за 7 дней →' : 'Выбрать →'}
                   </Button>
                 </CardFooter>
               </Card>
