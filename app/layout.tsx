@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layout/Header";
 import { ContactModalProvider } from "@/context/contact-modal-context";
 import { ContactModal } from "@/components/ui/contact-modal";
+import { CookieBanner } from "@/components/ui/cookie-banner";
 import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin", "cyrillic"] });
@@ -21,11 +22,23 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* CookieYes Consent Management - REPLACE YOUR_ID with actual CookieYes ID */}
+        {/* GTM Consent Mode v2 - Initialize BEFORE GTM loads */}
         <Script
-          id="cookieyes"
-          src="https://cdn-cookieyes.com/client_data/YOUR_ID/script.js"
+          id="gtm-consent-init"
           strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('consent', 'default', {
+                'analytics_storage': 'denied',
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'wait_for_update': 500
+              });
+            `,
+          }}
         />
 
         {/* Google Tag Manager - REPLACE GTM-XXXXXXX with actual GTM ID */}
@@ -56,6 +69,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <Header />
           {children}
           <ContactModal />
+          <CookieBanner />
         </ContactModalProvider>
       </body>
     </html>
