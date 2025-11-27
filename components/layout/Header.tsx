@@ -100,7 +100,7 @@ export default function Header() {
                     <div className="flex items-center gap-4">
                         <Button
                             onClick={() => openContactModal()}
-                            className="hidden md:flex bg-white text-black hover:bg-gray-200 rounded-full px-6"
+                            className="hidden md:flex bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border border-blue-500/20 shadow-lg shadow-blue-500/20 rounded-full px-6"
                         >
                             Связаться
                         </Button>

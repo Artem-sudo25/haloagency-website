@@ -48,16 +48,16 @@
   --color-ha-surface: #F5F5F7;
   --color-ha-card-dark: #020617;
   --color-ha-card-light: #FFFFFF;
-  --color-ha-border-dark: rgba(148,163,184,0.25);
+  --color-ha-border-dark: rgba(148, 163, 184, 0.25);
   --color-ha-border-light: #E5E7EB;
   --color-ha-primary: #2563EB;
-  --color-ha-primary-soft: rgba(37,99,235,0.08);
+  --color-ha-primary-soft: rgba(37, 99, 235, 0.08);
   --color-ha-accent-orange: #F97316;
   --color-ha-accent-green: #22C55E;
   --color-ha-text-main: #0F172A;
   --color-ha-text-muted: #6B7280;
 
-  --shadow-ha-card: 0 18px 45px rgba(15,23,42,0.7);
+  --shadow-ha-card: 0 18px 45px rgba(15, 23, 42, 0.7);
 }
 
 :root {
@@ -133,11 +133,12 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html,
-  body {
-    @apply overflow-x-hidden;
+
+  html {
+    @apply scroll-smooth;
   }
+
   body {
-    @apply bg-ha-bg text-white antialiased;
+    @apply overflow-x-hidden bg-ha-bg text-white antialiased;
   }
 }

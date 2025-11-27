@@ -1,9 +1,8 @@
-
 "use client";
 
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, TrendingUp, Zap } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useContactModal } from "@/context/contact-modal-context";
 import { CountUp } from "@/components/animated/CountUp";
@@ -39,7 +38,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Современные сайты за 3-7 дней, server-side tracking с точностью 70-85%, реклама на данных. Быстро, прозрачно, измеримо.
+            Современные сайты за 3-7 дней, server-side tracking с точностью
+            70-85%, реклама на данных. Быстро, прозрачно, измеримо.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
@@ -48,9 +48,7 @@ export default function Hero() {
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-blue-500/25"
               asChild
             >
-              <Link href="/#projects">
-                Посмотреть кейсы ↓
-              </Link>
+              <Link href="/#projects">Посмотреть кейсы ↓</Link>
             </Button>
             <Button
               variant="outline"
@@ -58,9 +56,7 @@ export default function Hero() {
               asChild
               className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm"
             >
-              <Link href="/#pricing">
-                Узнать цены →
-              </Link>
+              <Link href="/#pricing">Узнать цены →</Link>
             </Button>
           </div>
 
@@ -69,7 +65,7 @@ export default function Hero() {
             <div className="font-semibold">GOOGLE</div>
             <div className="font-semibold">META</div>
             <div className="font-semibold">NEXT.JS</div>
-            <div className="font-semibold">STAPE</div>
+            <div className="font-semibold">WOOCOMMERCE</div>
           </div>
         </motion.div>
 
@@ -107,7 +103,10 @@ export default function Hero() {
               />
 
               {/* Digital Lines (SVG) */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 600 600">
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 600 600"
+              >
                 <motion.path
                   d="M100,300 Q250,100 400,300 T700,300"
                   fill="none"
@@ -127,12 +126,24 @@ export default function Hero() {
                   transition={{ duration: 2.5, ease: "easeInOut", delay: 0.5 }}
                 />
                 <defs>
-                  <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient
+                    id="gradient1"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
                     <stop offset="0%" stopColor="#3B82F6" stopOpacity="0" />
                     <stop offset="50%" stopColor="#3B82F6" />
                     <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
                   </linearGradient>
-                  <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient
+                    id="gradient2"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
                     <stop offset="0%" stopColor="#EC4899" stopOpacity="0" />
                     <stop offset="50%" stopColor="#EC4899" />
                     <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
@@ -148,7 +159,9 @@ export default function Hero() {
                 className="absolute top-[8%] right-[2%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-52"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-slate-400 uppercase tracking-wider">ПРОДАЖИ</span>
+                  <span className="text-xs text-slate-400 uppercase tracking-wider">
+                    ПРОДАЖИ
+                  </span>
                   <div className="w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center">
                     <ArrowRight className="w-4 h-4 text-green-500 -rotate-45" />
                   </div>
@@ -178,10 +191,12 @@ export default function Hero() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.7 }}
-                className="absolute top-[42%] right-[8%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-48"
+                className="absolute top-[42%] right-[30%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-48"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-slate-400 uppercase tracking-wider">КОНВЕРСИИ</span>
+                  <span className="text-xs text-slate-400 uppercase tracking-wider">
+                    КОНВЕРСИИ
+                  </span>
                   <Sparkles className="w-4 h-4 text-blue-400" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">
@@ -194,10 +209,12 @@ export default function Hero() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.9 }}
-                className="absolute bottom-[8%] right-[18%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-44"
+                className="absolute bottom-[8%] right-[55%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-44"
               >
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs text-slate-400 uppercase tracking-wider">ROI</span>
+                  <span className="text-xs text-slate-400 uppercase tracking-wider">
+                    ROI
+                  </span>
                   <div className="text-purple-400 text-xl font-bold">×</div>
                 </div>
                 <div className="text-4xl font-bold text-white mb-1">

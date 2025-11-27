@@ -7,7 +7,7 @@ import {
   CheckCircle2,
   BarChart3,
   Zap,
-  Layout,
+  Video,
   XCircle,
   AlertTriangle,
 } from "lucide-react";
@@ -21,7 +21,7 @@ import {
   type WebsiteAnalysisData,
 } from "@/lib/validations";
 
-export default function LeadMagnet() {
+export default function TrackingAudit() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisSuccess, setAnalysisSuccess] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
@@ -112,7 +112,7 @@ export default function LeadMagnet() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-bold text-white mb-6"
             >
-              Узнайте, почему ваш сайт теряет клиентов
+              Почему ваши конверсии не отслеживаются?
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -121,7 +121,9 @@ export default function LeadMagnet() {
               transition={{ delay: 0.2 }}
               className="text-xl text-slate-400 mb-8 leading-relaxed"
             >
-              Проверка скорости, мобильной версии, SEO и аналитики за 30 секунд.
+              Проверим ваш сайт на наличие Google Analytics, GTM, Meta Pixel и
+              других инструментов трекинга. Узнайте, что работает, а что нет —
+              за 30 секунд.
             </motion.p>
 
             {/* Key Points */}
@@ -133,10 +135,10 @@ export default function LeadMagnet() {
               className="space-y-3 mb-8"
             >
               {[
-                "Скорость загрузки и PageSpeed",
-                "Мобильная адаптивность",
-                "Базовое SEO и видимость",
-                "Наличие систем аналитики",
+                "Мгновенный анализ (30 секунд)",
+                "Детальный отчёт на email",
+                "Конкретные рекомендации",
+                "Оценка потерянных конверсий",
               ].map((point, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
@@ -158,7 +160,7 @@ export default function LeadMagnet() {
               className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-6 shadow-2xl"
             >
               {/* Animated gradient border */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/20 via-red-500/20 to-orange-500/20 opacity-50 blur-xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-green-500/20 via-emerald-500/20 to-green-500/20 opacity-50 blur-xl" />
 
               {/* Status Indicators */}
               <div className="space-y-3 relative z-10 mb-6">
@@ -175,10 +177,10 @@ export default function LeadMagnet() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
-                      Скорость сайта (PageSpeed)
+                      Google Tag Manager
                     </div>
                     <div className="text-xs text-slate-400">
-                      Отличные показатели
+                      Обнаружен и работает
                     </div>
                   </div>
                 </motion.div>
@@ -193,11 +195,9 @@ export default function LeadMagnet() {
                   <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
-                      Мобильная оптимизация
+                      Google Analytics 4
                     </div>
-                    <div className="text-xs text-slate-400">
-                      Требует внимания
-                    </div>
+                    <div className="text-xs text-slate-400">Не найден</div>
                   </div>
                 </motion.div>
 
@@ -214,9 +214,11 @@ export default function LeadMagnet() {
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
-                      SEO основы
+                      Meta Pixel
                     </div>
-                    <div className="text-xs text-slate-400">Есть ошибки</div>
+                    <div className="text-xs text-slate-400">
+                      Обнаружен, но не работает
+                    </div>
                   </div>
                 </motion.div>
 
@@ -230,9 +232,9 @@ export default function LeadMagnet() {
                   <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
-                      Наличие аналитики (GA4 / GTM / Pixel)
+                      Server-side tracking
                     </div>
-                    <div className="text-xs text-slate-400">Не настроена</div>
+                    <div className="text-xs text-slate-400">Не настроен</div>
                   </div>
                 </motion.div>
 
@@ -242,10 +244,10 @@ export default function LeadMagnet() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.9 }}
-                  className="p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl border border-orange-500/30 text-center"
+                  className="p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-xl border border-green-500/30 text-center"
                 >
                   <div className="text-6xl font-bold text-white mb-2">52%</div>
-                  <div className="text-sm text-orange-300 font-medium">
+                  <div className="text-sm text-green-300 font-medium">
                     Вы теряете ~48% конверсий
                   </div>
                 </motion.div>
@@ -342,9 +344,9 @@ export default function LeadMagnet() {
                 <Button
                   type="submit"
                   disabled={isAnalyzing}
-                  className="w-full h-12 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-12 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isAnalyzing ? "Анализ..." : "Проверить сайт →"}
+                  {isAnalyzing ? "Анализ..." : "Проверить трекинг →"}
                 </Button>
 
                 <p className="text-xs text-slate-500 text-center">
@@ -352,20 +354,6 @@ export default function LeadMagnet() {
                   email.
                 </p>
               </form>
-
-              {/* Alternative CTA */}
-              <div className="pt-4 border-t border-slate-700 relative z-10">
-                <p className="text-sm text-slate-400 text-center mb-3">
-                  Планируете новый проект?
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full h-11 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white rounded-xl gap-2"
-                >
-                  <Layout className="w-4 h-4" />У меня нет сайта → получить
-                  бесплатный прототип
-                </Button>
-              </div>
             </motion.div>
           </div>
         </div>

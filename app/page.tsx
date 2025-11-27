@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="overflow-x-hidden">
+    <main>
       <Hero />
       <ScrollAnimation delay={0.2}>
         <Services />

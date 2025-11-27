@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Check, BarChart3, Lock, Server, Zap } from "lucide-react";
 import Link from "next/link";
+import TrackingAudit from "@/components/sections/TrackingAudit";
 
 export const metadata = {
   title: "Аналитика и Tracking - HaloAgency",
-  description: "Server-side tracking + Meta CAPI. Восстанавливаем 20-40% потерянных данных. Точность 70-85%.",
+  description:
+    "Server-side tracking + Meta CAPI. Восстанавливаем 20-40% потерянных данных. Точность 70-85%.",
 };
 
 export default function TrackingPage() {
@@ -32,7 +34,8 @@ export default function TrackingPage() {
           </h1>
 
           <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Server-side tracking и Meta CAPI. Мы восстанавливаем 20-40% данных, которые теряются из-за блокировщиков и iOS.
+            Server-side tracking и Meta CAPI. Мы восстанавливаем 20-40% данных,
+            которые теряются из-за блокировщиков и iOS.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -55,6 +58,9 @@ export default function TrackingPage() {
         </div>
       </section>
 
+      {/* Tracking Audit */}
+      <TrackingAudit />
+
       {/* The Problem */}
       <section className="py-20 border-y border-ha-border-dark bg-ha-bg-soft">
         <div className="container mx-auto max-w-6xl px-4">
@@ -63,16 +69,37 @@ export default function TrackingPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { title: "iOS 14.5+", desc: "Блокирует трекинг по умолчанию. Минус 20-30% данных.", icon: Lock },
-              { title: "Ad Blockers", desc: "30-40% пользователей блокируют скрипты аналитики.", icon: Zap },
-              { title: "Cookies", desc: "Браузеры ограничивают срок жизни cookies до 7 дней.", icon: Server },
-              { title: "Ошибки", desc: "Неверная атрибуция и дублирование транзакций.", icon: BarChart3 },
+              {
+                title: "iOS 14.5+",
+                desc: "Блокирует трекинг по умолчанию. Минус 20-30% данных.",
+                icon: Lock,
+              },
+              {
+                title: "Ad Blockers",
+                desc: "30-40% пользователей блокируют скрипты аналитики.",
+                icon: Zap,
+              },
+              {
+                title: "Cookies",
+                desc: "Браузеры ограничивают срок жизни cookies до 7 дней.",
+                icon: Server,
+              },
+              {
+                title: "Ошибки",
+                desc: "Неверная атрибуция и дублирование транзакций.",
+                icon: BarChart3,
+              },
             ].map((item, i) => (
-              <div key={i} className="bg-ha-card-dark border border-ha-border-dark rounded-2xl p-6 hover:border-green-500/30 transition-colors">
+              <div
+                key={i}
+                className="bg-ha-card-dark border border-ha-border-dark rounded-2xl p-6 hover:border-green-500/30 transition-colors"
+              >
                 <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center mb-4 text-slate-300">
                   <item.icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{item.title}</h3>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {item.title}
+                </h3>
                 <p className="text-sm text-slate-400">{item.desc}</p>
               </div>
             ))}
@@ -88,18 +115,34 @@ export default function TrackingPage() {
               Решение: Server-side Tracking
             </h2>
             <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Мы переносим сбор данных с браузера пользователя на ваш сервер. Это делает аналитику неуязвимой для блокировщиков.
+              Мы переносим сбор данных с браузера пользователя на ваш сервер.
+              Это делает аналитику неуязвимой для блокировщиков.
             </p>
           </div>
 
           <div className="space-y-4">
             {[
-              { title: "Server-side GTM", desc: "Установка контейнера на облачный сервер (Stape.io)." },
-              { title: "Meta CAPI (Facebook)", desc: "Передача событий (Purchase, Lead) напрямую в API Facebook." },
-              { title: "Google Enhanced Conversions", desc: "Хеширование данных пользователей для точного матчинга." },
-              { title: "Data Layer Validation", desc: "Проверка корректности данных на уровне кода сайта." },
+              {
+                title: "Server-side GTM",
+                desc: "Установка контейнера на облачный сервер (Stape.io).",
+              },
+              {
+                title: "Meta CAPI (Facebook)",
+                desc: "Передача событий (Purchase, Lead) напрямую в API Facebook.",
+              },
+              {
+                title: "Google Enhanced Conversions",
+                desc: "Хеширование данных пользователей для точного матчинга.",
+              },
+              {
+                title: "Data Layer Validation",
+                desc: "Проверка корректности данных на уровне кода сайта.",
+              },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-6 p-6 rounded-2xl bg-ha-card-dark border border-ha-border-dark">
+              <div
+                key={i}
+                className="flex items-center gap-6 p-6 rounded-2xl bg-ha-card-dark border border-ha-border-dark"
+              >
                 <div className="flex-shrink-0 w-8 h-8 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 font-bold">
                   {i + 1}
                 </div>
@@ -121,15 +164,21 @@ export default function TrackingPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8 rounded-3xl bg-ha-card-dark border border-ha-border-dark">
-              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">85%</p>
+              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
+                85%
+              </p>
               <p className="text-slate-400">Точность данных вместо 60%</p>
             </div>
             <div className="p-8 rounded-3xl bg-ha-card-dark border border-ha-border-dark">
-              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">+30%</p>
+              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
+                +30%
+              </p>
               <p className="text-slate-400">Больше отслеженных конверсий</p>
             </div>
             <div className="p-8 rounded-3xl bg-ha-card-dark border border-ha-border-dark">
-              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">-20%</p>
+              <p className="text-4xl md:text-5xl font-bold text-green-500 mb-4">
+                -20%
+              </p>
               <p className="text-slate-400">Снижение стоимости лида (CPA)</p>
             </div>
           </div>
@@ -142,9 +191,15 @@ export default function TrackingPage() {
           <div className="bg-ha-card-dark border border-ha-border-dark rounded-3xl p-8 md:p-12">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-bold text-white mb-2">Стоимость настройки</h3>
-                <p className="text-slate-400 mb-6">Полный комплекс server-side отслеживания.</p>
-                <div className="text-4xl font-bold text-white mb-2">8,000 CZK</div>
+                <h3 className="text-2xl font-bold text-white mb-2">
+                  Стоимость настройки
+                </h3>
+                <p className="text-slate-400 mb-6">
+                  Полный комплекс server-side отслеживания.
+                </p>
+                <div className="text-4xl font-bold text-white mb-2">
+                  8,000 CZK
+                </div>
                 <p className="text-sm text-slate-500">Единоразовый платеж</p>
               </div>
               <div className="space-y-4">
