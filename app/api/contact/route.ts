@@ -108,7 +108,9 @@ export async function POST(request: Request) {
       `,
       });
       
-      console.log("Confirmation email sent:", confirmationResult);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Confirmation email sent:", confirmationResult);
+      }
     } catch (emailError) {
       console.error("Failed to send confirmation email:", emailError);
       // Continue even if confirmation email fails - still send notification
@@ -211,7 +213,9 @@ export async function POST(request: Request) {
       `,
       });
       
-      console.log("Notification email sent:", notificationResult);
+      if (process.env.NODE_ENV === "development") {
+        console.log("Notification email sent:", notificationResult);
+      }
     } catch (emailError) {
       console.error("Failed to send notification email:", emailError);
       // Still return success to user even if notification fails
