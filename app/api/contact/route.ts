@@ -5,6 +5,11 @@ import { ZodError } from "zod";
 
 const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
+// Email configuration from environment variables
+// RESEND_API_KEY - Your Resend API key (required)
+// NOTIFICATION_EMAIL - Your email address to receive contact form submissions (optional, defaults to artem@haloagency.cz)
+const NOTIFICATION_EMAIL = process.env.NOTIFICATION_EMAIL || "artem@haloagency.cz";
+
 export async function POST(request: Request) {
   try {
     // Parse request body
@@ -27,10 +32,11 @@ export async function POST(request: Request) {
     }
 
     // Send confirmation email to user
-    await resend.emails.send({
-      from: "HaloAgency <noreply@haloagency.cz>",
-      to: email,
-      subject: "Спасибо за вашу заявку!",
+    try {
+      const confirmationResult = await resend.emails.send({
+        from: "HaloAgency <noreply@haloagency.cz>",
+        to: email,
+        subject: "Спасибо за вашу заявку!",
       html: `
         <!DOCTYPE html>
         <html>
@@ -100,12 +106,19 @@ export async function POST(request: Request) {
           </body>
         </html>
       `,
-    });
+      });
+      
+      console.log("Confirmation email sent:", confirmationResult);
+    } catch (emailError) {
+      console.error("Failed to send confirmation email:", emailError);
+      // Continue even if confirmation email fails - still send notification
+    }
 
     // Send notification email to agency
-    await resend.emails.send({
+    try {
+      const notificationResult = await resend.emails.send({
       from: "HaloAgency Contact Form <noreply@haloagency.cz>",
-      to: "artem@haloagency.cz",
+      to: NOTIFICATION_EMAIL,
       replyTo: email,
       subject: `Новая заявка от ${name}`,
       html: `
@@ -196,7 +209,13 @@ export async function POST(request: Request) {
           </body>
         </html>
       `,
-    });
+      });
+      
+      console.log("Notification email sent:", notificationResult);
+    } catch (emailError) {
+      console.error("Failed to send notification email:", emailError);
+      // Still return success to user even if notification fails
+    }
 
     return NextResponse.json(
       {
