@@ -99,7 +99,7 @@ export default function Header() {
                     {/* CTA & Mobile Toggle */}
                     <div className="flex items-center gap-4">
                         <Button
-                            onClick={openContactModal}
+                            onClick={() => openContactModal()}
                             className="hidden md:flex bg-white text-black hover:bg-gray-200 rounded-full px-6"
                         >
                             Связаться

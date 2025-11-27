@@ -170,7 +170,7 @@ export default function CaseStudiesPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              onClick={openContactModal}
+              onClick={() => openContactModal()}
               className="rounded-full px-10 h-14 text-lg bg-ha-primary hover:bg-blue-600 text-white shadow-xl shadow-blue-500/20"
             >
               Обсудить проект
