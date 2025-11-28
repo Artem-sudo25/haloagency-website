@@ -11,14 +11,14 @@ export default function Hero() {
   const { open: openContactModal } = useContactModal();
 
   return (
-    <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-12 md:pb-16">
+    <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16 md:pb-16">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-ha-bg z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
         <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-12 items-center">
+      <div className="container mx-auto px-6 sm:px-4 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
