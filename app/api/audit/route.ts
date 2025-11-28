@@ -45,10 +45,15 @@ export async function POST(request: Request) {
         speedScore = Math.round(
           psi.lighthouseResult.categories.performance.score * 100,
         );
-        // Using "viewport" audit as a proxy for mobile friendliness check availability
-        // or just use the performance score on mobile strategy as the main metric
-        mobileScore =
-          psi.lighthouseResult.audits["viewport"]?.score === 1 ? 100 : 0;
+        // Use Accessibility score as a proxy for Mobile Optimization (since Mobile Friendly is deprecated)
+        // Fallback to viewport check if accessibility is missing
+        mobileScore = psi.lighthouseResult.categories.accessibility
+          ? Math.round(
+              psi.lighthouseResult.categories.accessibility.score * 100,
+            )
+          : psi.lighthouseResult.audits["viewport"]?.score === 1
+            ? 100
+            : 50;
       }
     } catch (e) {
       console.error("PageSpeed API error:", e);
