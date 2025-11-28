@@ -45,41 +45,26 @@ export default function LeadMagnet() {
   });
 
   const onSubmit = async (data: WebsiteAnalysisData) => {
+    // Show success immediately
     setIsAnalyzing(true);
     setAnalysisError("");
-    setAnalysisSuccess(false);
-    // setAuditResult(null);
+    setAnalysisSuccess(true);
+    setShowSuccessPopup(true);
 
+    // Reset form immediately
+    reset();
+
+    // Run audit in background (fire and forget from UI perspective)
     try {
-      const response = await fetch("/api/audit", {
+      fetch("/api/audit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || "Ошибка анализа");
-      }
-
-      // setAuditResult(result); // Don't show dynamic results
-      setShowSuccessPopup(true);
-      setAnalysisSuccess(true);
-      reset();
-
-      // Hide success message after 7 seconds
-      // setTimeout(() => {
-      //   setAnalysisSuccess(false);
-      // }, 7000);
+      }).catch((err) => console.error("Background audit error:", err));
     } catch (error) {
-      setAnalysisError(
-        error instanceof Error
-          ? error.message
-          : "Произошла ошибка при анализе. Попробуйте позже.",
-      );
+      console.error("Failed to start audit:", error);
     } finally {
       setIsAnalyzing(false);
     }
