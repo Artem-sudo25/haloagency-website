@@ -23,7 +23,8 @@ export default function LeadMagnet() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisSuccess, setAnalysisSuccess] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
-  const [auditResult, setAuditResult] = useState<any>(null);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  // const [auditResult, setAuditResult] = useState<any>(null); // Removed dynamic result state
 
   // Demo metrics to show before user submits
   const demoMetrics = {
@@ -47,7 +48,7 @@ export default function LeadMagnet() {
     setIsAnalyzing(true);
     setAnalysisError("");
     setAnalysisSuccess(false);
-    setAuditResult(null);
+    // setAuditResult(null);
 
     try {
       const response = await fetch("/api/audit", {
@@ -64,14 +65,15 @@ export default function LeadMagnet() {
         throw new Error(result.message || "Ошибка анализа");
       }
 
-      setAuditResult(result);
+      // setAuditResult(result); // Don't show dynamic results
+      setShowSuccessPopup(true);
       setAnalysisSuccess(true);
       reset();
 
       // Hide success message after 7 seconds
-      setTimeout(() => {
-        setAnalysisSuccess(false);
-      }, 7000);
+      // setTimeout(() => {
+      //   setAnalysisSuccess(false);
+      // }, 7000);
     } catch (error) {
       setAnalysisError(
         error instanceof Error
@@ -178,23 +180,14 @@ export default function LeadMagnet() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
-                      ? auditResult.speedScore > 60
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                      : demoMetrics.speedScore > 60
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                    }`}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                    demoMetrics.speedScore > 60
+                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                  }`}
                 >
                   <div className="relative">
-                    {auditResult ? (
-                      auditResult.speedScore > 60 ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      )
-                    ) : demoMetrics.speedScore > 60 ? (
+                    {demoMetrics.speedScore > 60 ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
@@ -205,9 +198,7 @@ export default function LeadMagnet() {
                       Скорость сайта (PageSpeed)
                     </div>
                     <div className="text-xs text-slate-400">
-                      {auditResult
-                        ? `${auditResult.speedScore}/100`
-                        : `${demoMetrics.speedScore}/100 (пример)`}
+                      {`${demoMetrics.speedScore}/100 (пример)`}
                     </div>
                   </div>
                 </motion.div>
@@ -218,23 +209,14 @@ export default function LeadMagnet() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
-                      ? auditResult.mobileScore > 0
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                      : demoMetrics.mobileScore > 0
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                    }`}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                    demoMetrics.mobileScore > 0
+                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                  }`}
                 >
                   <div className="relative">
-                    {auditResult ? (
-                      auditResult.mobileScore > 0 ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      )
-                    ) : demoMetrics.mobileScore > 0 ? (
+                    {demoMetrics.mobileScore > 0 ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
@@ -245,13 +227,9 @@ export default function LeadMagnet() {
                       Мобильная оптимизация
                     </div>
                     <div className="text-xs text-slate-400">
-                      {auditResult
-                        ? auditResult.mobileScore > 0
-                          ? "Оптимизировано"
-                          : "Есть проблемы"
-                        : demoMetrics.mobileScore > 0
-                          ? "Оптимизировано (пример)"
-                          : "Есть проблемы (пример)"}
+                      {demoMetrics.mobileScore > 0
+                        ? "Оптимизировано (пример)"
+                        : "Есть проблемы (пример)"}
                     </div>
                   </div>
                 </motion.div>
@@ -262,23 +240,14 @@ export default function LeadMagnet() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
-                      ? auditResult.seo.hasTitle && auditResult.seo.hasH1
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
-                      : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
-                    }`}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                    demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                      : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
+                  }`}
                 >
                   <div className="relative">
-                    {auditResult ? (
-                      auditResult.seo.hasTitle && auditResult.seo.hasH1 ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
-                      )
-                    ) : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1 ? (
+                    {demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1 ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
@@ -289,13 +258,9 @@ export default function LeadMagnet() {
                       SEO основы
                     </div>
                     <div className="text-xs text-slate-400">
-                      {auditResult
-                        ? auditResult.seo.hasTitle && auditResult.seo.hasH1
-                          ? "Базовые теги найдены"
-                          : "Отсутствуют важные теги"
-                        : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
-                          ? "Базовые теги найдены (пример)"
-                          : "Отсутствуют важные теги (пример)"}
+                      {demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                        ? "Базовые теги найдены (пример)"
+                        : "Отсутствуют важные теги (пример)"}
                     </div>
                   </div>
                 </motion.div>
@@ -306,31 +271,18 @@ export default function LeadMagnet() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
-                      ? auditResult.analytics.hasGA4 ||
-                        auditResult.analytics.hasGTM ||
-                        auditResult.analytics.hasPixel
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                      : demoMetrics.analytics.hasGA4 ||
-                        demoMetrics.analytics.hasGTM ||
-                        demoMetrics.analytics.hasPixel
-                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                    }`}
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                    demoMetrics.analytics.hasGA4 ||
+                    demoMetrics.analytics.hasGTM ||
+                    demoMetrics.analytics.hasPixel
+                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                  }`}
                 >
                   <div className="relative">
-                    {auditResult ? (
-                      auditResult.analytics.hasGA4 ||
-                        auditResult.analytics.hasGTM ||
-                        auditResult.analytics.hasPixel ? (
-                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                      ) : (
-                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                      )
-                    ) : demoMetrics.analytics.hasGA4 ||
-                      demoMetrics.analytics.hasGTM ||
-                      demoMetrics.analytics.hasPixel ? (
+                    {demoMetrics.analytics.hasGA4 ||
+                    demoMetrics.analytics.hasGTM ||
+                    demoMetrics.analytics.hasPixel ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
@@ -341,17 +293,11 @@ export default function LeadMagnet() {
                       Наличие аналитики
                     </div>
                     <div className="text-xs text-slate-400">
-                      {auditResult
-                        ? auditResult.analytics.hasGA4 ||
-                          auditResult.analytics.hasGTM ||
-                          auditResult.analytics.hasPixel
-                          ? "Системы найдены"
-                          : "Не найдены"
-                        : demoMetrics.analytics.hasGA4 ||
-                          demoMetrics.analytics.hasGTM ||
-                          demoMetrics.analytics.hasPixel
-                          ? "Системы найдены (пример)"
-                          : "Не найдены (пример)"}
+                      {demoMetrics.analytics.hasGA4 ||
+                      demoMetrics.analytics.hasGTM ||
+                      demoMetrics.analytics.hasPixel
+                        ? "Системы найдены (пример)"
+                        : "Не найдены (пример)"}
                     </div>
                   </div>
                 </motion.div>
@@ -365,26 +311,14 @@ export default function LeadMagnet() {
                   className="p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl border border-orange-500/30 text-center"
                 >
                   <div className="text-6xl font-bold text-white mb-2">
-                    {auditResult
-                      ? 100 - auditResult.conversionLoss
-                      : 100 - demoMetrics.conversionLoss}
-                    %
+                    {100 - demoMetrics.conversionLoss}%
                   </div>
                   <div className="text-sm text-orange-300 font-medium">
-                    {auditResult
-                      ? `Вы теряете ~${auditResult.conversionLoss}% конверсий`
-                      : `Вы можете терять ~${demoMetrics.conversionLoss}% конверсий`}
+                    {`Вы можете терять ~${demoMetrics.conversionLoss}% конверсий`}
                   </div>
-                  {!auditResult && (
-                    <p className="text-xs text-orange-200/50 mt-2">
-                      (пример чужого сайта)
-                    </p>
-                  )}
-                  {auditResult && (
-                    <p className="text-xs text-orange-200/70 mt-3">
-                      📧 Детальный отчёт отправлен на ваш email
-                    </p>
-                  )}
+                  <p className="text-xs text-orange-200/50 mt-2">
+                    (пример чужого сайта)
+                  </p>
                 </motion.div>
               </div>
 
@@ -428,8 +362,9 @@ export default function LeadMagnet() {
                     type="url"
                     {...register("url")}
                     placeholder="https://yoursite.com"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.url ? "border-red-500" : ""
-                      }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
+                      errors.url ? "border-red-500" : ""
+                    }`}
                   />
                   {errors.url && (
                     <p className="text-red-400 text-xs mt-1">
@@ -443,8 +378,9 @@ export default function LeadMagnet() {
                     type="email"
                     {...register("email")}
                     placeholder="ivan@company.cz"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.email ? "border-red-500" : ""
-                      }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
+                      errors.email ? "border-red-500" : ""
+                    }`}
                   />
                   {errors.email && (
                     <p className="text-red-400 text-xs mt-1">
@@ -459,8 +395,9 @@ export default function LeadMagnet() {
                       type="checkbox"
                       id="privacy"
                       {...register("consent")}
-                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${errors.consent ? "border-red-500" : ""
-                        }`}
+                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${
+                        errors.consent ? "border-red-500" : ""
+                      }`}
                     />
                     <label htmlFor="privacy" className="text-xs text-slate-400">
                       Согласен с политикой конфиденциальности
@@ -486,6 +423,38 @@ export default function LeadMagnet() {
                   email.
                 </p>
               </form>
+
+              {/* Success Popup */}
+              {showSuccessPopup && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/95 backdrop-blur-sm rounded-2xl p-6"
+                >
+                  <div className="text-center max-w-md">
+                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <CheckCircle2 className="w-8 h-8 text-green-500" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">
+                      Анализ запущен!
+                    </h3>
+                    <p className="text-slate-300 mb-6 leading-relaxed">
+                      Спасибо за заявку. Мы начали технический аудит вашего
+                      сайта.
+                      <br />
+                      <br />
+                      Подробный PDF-отчет с результатами и рекомендациями будет
+                      отправлен на ваш email в течение 5-10 минут.
+                    </p>
+                    <Button
+                      onClick={() => setShowSuccessPopup(false)}
+                      className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 w-full"
+                    >
+                      Закрыть
+                    </Button>
+                  </div>
+                </motion.div>
+              )}
 
               {/* Alternative CTA */}
               <div className="pt-4 border-t border-slate-700 relative z-10">

@@ -43,7 +43,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} bg-ha-bg text-white antialiased`}>
+      <body className={`${inter.className} bg-ha-bg text-white antialiased`} suppressHydrationWarning>
         {/* Google Tag Manager - Must be in body, immediately after opening tag */}
         {gtmId && (
           <>

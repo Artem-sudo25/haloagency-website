@@ -106,10 +106,15 @@ export default function Header() {
                         </Button>
 
                         <button
-                            className="md:hidden text-white z-50"
+                            className="md:hidden text-white z-50 p-2"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle menu"
                         >
-                            {mobileMenuOpen ? <X /> : <Menu />}
+                            {mobileMenuOpen ? (
+                                <X className="w-6 h-6" />
+                            ) : (
+                                <Menu className="w-6 h-6" />
+                            )}
                         </button>
                     </div>
                 </div>
