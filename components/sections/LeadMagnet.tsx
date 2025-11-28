@@ -5,13 +5,11 @@ import { Input } from "@/components/ui/input";
 import {
   AlertCircle,
   CheckCircle2,
-  BarChart3,
-  Zap,
   Layout,
   XCircle,
   AlertTriangle,
 } from "lucide-react";
-import Link from "next/link";
+
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -25,6 +23,16 @@ export default function LeadMagnet() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisSuccess, setAnalysisSuccess] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
+  const [auditResult, setAuditResult] = useState<any>(null);
+
+  // Demo metrics to show before user submits
+  const demoMetrics = {
+    speedScore: 68,
+    mobileScore: 100,
+    seo: { hasTitle: false, hasH1: true },
+    analytics: { hasGA4: true, hasGTM: false, hasPixel: false },
+    conversionLoss: 45,
+  };
 
   const {
     register,
@@ -39,9 +47,10 @@ export default function LeadMagnet() {
     setIsAnalyzing(true);
     setAnalysisError("");
     setAnalysisSuccess(false);
+    setAuditResult(null);
 
     try {
-      const response = await fetch("/api/check-tracking", {
+      const response = await fetch("/api/audit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,6 +64,7 @@ export default function LeadMagnet() {
         throw new Error(result.message || "Ошибка анализа");
       }
 
+      setAuditResult(result);
       setAnalysisSuccess(true);
       reset();
 
@@ -137,8 +147,8 @@ export default function LeadMagnet() {
                 "Мобильная адаптивность",
                 "Базовое SEO и видимость",
                 "Наличие систем аналитики",
-              ].map((point, i) => (
-                <div key={i} className="flex items-center gap-3">
+              ].map((point) => (
+                <div key={point} className="flex items-center gap-3">
                   <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
                     <CheckCircle2 className="w-3 h-3 text-green-500" />
                   </div>
@@ -162,77 +172,187 @@ export default function LeadMagnet() {
 
               {/* Status Indicators */}
               <div className="space-y-3 relative z-10 mb-6">
+                {/* Speed */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-                  className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-green-500/10 to-transparent rounded-xl border border-green-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
+                      ? auditResult.speedScore > 60
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                      : demoMetrics.speedScore > 60
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    }`}
                 >
                   <div className="relative">
-                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                    <div className="absolute top-0 right-0 w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    {auditResult ? (
+                      auditResult.speedScore > 60 ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      )
+                    ) : demoMetrics.speedScore > 60 ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    )}
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
                       Скорость сайта (PageSpeed)
                     </div>
                     <div className="text-xs text-slate-400">
-                      Отличные показатели
+                      {auditResult
+                        ? `${auditResult.speedScore}/100`
+                        : `${demoMetrics.speedScore}/100 (пример)`}
                     </div>
                   </div>
                 </motion.div>
 
+                {/* Mobile */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
-                  className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-red-500/10 to-transparent rounded-xl border border-red-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
+                      ? auditResult.mobileScore > 0
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                      : demoMetrics.mobileScore > 0
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    }`}
                 >
-                  <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <div className="relative">
+                    {auditResult ? (
+                      auditResult.mobileScore > 0 ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      )
+                    ) : demoMetrics.mobileScore > 0 ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    )}
+                  </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
                       Мобильная оптимизация
                     </div>
                     <div className="text-xs text-slate-400">
-                      Требует внимания
+                      {auditResult
+                        ? auditResult.mobileScore > 0
+                          ? "Оптимизировано"
+                          : "Есть проблемы"
+                        : demoMetrics.mobileScore > 0
+                          ? "Оптимизировано (пример)"
+                          : "Есть проблемы (пример)"}
                     </div>
                   </div>
                 </motion.div>
 
+                {/* SEO */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
-                  className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-orange-500/10 to-transparent rounded-xl border border-orange-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
+                      ? auditResult.seo.hasTitle && auditResult.seo.hasH1
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
+                      : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
+                    }`}
                 >
                   <div className="relative">
-                    <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
-                    <div className="absolute top-0 right-0 w-2 h-2 bg-orange-500 rounded-full animate-pulse" />
+                    {auditResult ? (
+                      auditResult.seo.hasTitle && auditResult.seo.hasH1 ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                      )
+                    ) : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1 ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                    )}
                   </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
                       SEO основы
                     </div>
-                    <div className="text-xs text-slate-400">Есть ошибки</div>
+                    <div className="text-xs text-slate-400">
+                      {auditResult
+                        ? auditResult.seo.hasTitle && auditResult.seo.hasH1
+                          ? "Базовые теги найдены"
+                          : "Отсутствуют важные теги"
+                        : demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                          ? "Базовые теги найдены (пример)"
+                          : "Отсутствуют важные теги (пример)"}
+                    </div>
                   </div>
                 </motion.div>
 
+                {/* Analytics */}
                 <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-                  className="flex items-center gap-3 p-3.5 bg-gradient-to-r from-red-500/10 to-transparent rounded-xl border border-red-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${auditResult
+                      ? auditResult.analytics.hasGA4 ||
+                        auditResult.analytics.hasGTM ||
+                        auditResult.analytics.hasPixel
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                      : demoMetrics.analytics.hasGA4 ||
+                        demoMetrics.analytics.hasGTM ||
+                        demoMetrics.analytics.hasPixel
+                        ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                        : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    }`}
                 >
-                  <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                  <div className="relative">
+                    {auditResult ? (
+                      auditResult.analytics.hasGA4 ||
+                        auditResult.analytics.hasGTM ||
+                        auditResult.analytics.hasPixel ? (
+                        <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      ) : (
+                        <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      )
+                    ) : demoMetrics.analytics.hasGA4 ||
+                      demoMetrics.analytics.hasGTM ||
+                      demoMetrics.analytics.hasPixel ? (
+                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    ) : (
+                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                    )}
+                  </div>
                   <div className="flex-1">
                     <div className="text-sm font-medium text-white">
-                      Наличие аналитики (GA4 / GTM / Pixel)
+                      Наличие аналитики
                     </div>
-                    <div className="text-xs text-slate-400">Не настроена</div>
+                    <div className="text-xs text-slate-400">
+                      {auditResult
+                        ? auditResult.analytics.hasGA4 ||
+                          auditResult.analytics.hasGTM ||
+                          auditResult.analytics.hasPixel
+                          ? "Системы найдены"
+                          : "Не найдены"
+                        : demoMetrics.analytics.hasGA4 ||
+                          demoMetrics.analytics.hasGTM ||
+                          demoMetrics.analytics.hasPixel
+                          ? "Системы найдены (пример)"
+                          : "Не найдены (пример)"}
+                    </div>
                   </div>
                 </motion.div>
 
@@ -244,10 +364,27 @@ export default function LeadMagnet() {
                   transition={{ delay: 0.9 }}
                   className="p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl border border-orange-500/30 text-center"
                 >
-                  <div className="text-6xl font-bold text-white mb-2">52%</div>
-                  <div className="text-sm text-orange-300 font-medium">
-                    Вы теряете ~48% конверсий
+                  <div className="text-6xl font-bold text-white mb-2">
+                    {auditResult
+                      ? 100 - auditResult.conversionLoss
+                      : 100 - demoMetrics.conversionLoss}
+                    %
                   </div>
+                  <div className="text-sm text-orange-300 font-medium">
+                    {auditResult
+                      ? `Вы теряете ~${auditResult.conversionLoss}% конверсий`
+                      : `Вы можете терять ~${demoMetrics.conversionLoss}% конверсий`}
+                  </div>
+                  {!auditResult && (
+                    <p className="text-xs text-orange-200/50 mt-2">
+                      (пример чужого сайта)
+                    </p>
+                  )}
+                  {auditResult && (
+                    <p className="text-xs text-orange-200/70 mt-3">
+                      📧 Детальный отчёт отправлен на ваш email
+                    </p>
+                  )}
                 </motion.div>
               </div>
 
@@ -291,9 +428,8 @@ export default function LeadMagnet() {
                     type="url"
                     {...register("url")}
                     placeholder="https://yoursite.com"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                      errors.url ? "border-red-500" : ""
-                    }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.url ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.url && (
                     <p className="text-red-400 text-xs mt-1">
@@ -307,9 +443,8 @@ export default function LeadMagnet() {
                     type="email"
                     {...register("email")}
                     placeholder="ivan@company.cz"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                      errors.email ? "border-red-500" : ""
-                    }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.email ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.email && (
                     <p className="text-red-400 text-xs mt-1">
@@ -324,9 +459,8 @@ export default function LeadMagnet() {
                       type="checkbox"
                       id="privacy"
                       {...register("consent")}
-                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${
-                        errors.consent ? "border-red-500" : ""
-                      }`}
+                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${errors.consent ? "border-red-500" : ""
+                        }`}
                     />
                     <label htmlFor="privacy" className="text-xs text-slate-400">
                       Согласен с политикой конфиденциальности
