@@ -11,7 +11,7 @@ export default function Hero() {
   const { open: openContactModal } = useContactModal();
 
   return (
-    <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-16 md:pb-16">
+    <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-16 md:pt-20 pb-8 md:pb-16">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-ha-bg z-0">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
@@ -25,24 +25,24 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
           className="text-center lg:text-left lg:col-span-3"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-6 md:mb-6 backdrop-blur-sm">
             <span className="text-sm font-medium text-gray-300">
               🚀 Digital Agency of the Future
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-6 md:mb-6 leading-[1.1] tracking-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 animate-gradient-x">
               Технический маркетинг для бизнеса в Чехии
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-300 mb-8 md:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
             Современные сайты за 3-7 дней, server-side tracking с точностью
             70-85%, реклама на данных. Быстро, прозрачно, измеримо.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 md:mb-12">
             <Button
               size="lg"
               className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-blue-500/25"
