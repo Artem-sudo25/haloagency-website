@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     const apiKey = process.env.GOOGLE_PAGESPEED_API_KEY;
     const psiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(
       url,
-    )}&strategy=mobile&key=${apiKey}`;
+    )}&strategy=mobile&category=performance&category=accessibility&key=${apiKey}`;
 
     let speedScore = 0;
     let mobileScore = 0;
