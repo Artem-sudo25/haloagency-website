@@ -39,9 +39,15 @@ export async function POST(request: Request) {
     let mobileScore = 0;
 
     try {
-      const psi = await fetch(psiUrl).then((r) => r.json());
+      const response = await fetch(psiUrl);
+      const psi = await response.json();
 
-      if (psi.lighthouseResult) {
+      if (psi.error) {
+        console.error("PageSpeed API returned error:", psi.error);
+        // Fallback if API returns error (e.g. invalid key or quota)
+        speedScore = 50;
+        mobileScore = 50;
+      } else if (psi.lighthouseResult) {
         speedScore = Math.round(
           psi.lighthouseResult.categories.performance.score * 100,
         );
@@ -54,9 +60,13 @@ export async function POST(request: Request) {
           : psi.lighthouseResult.audits["viewport"]?.score === 1
             ? 100
             : 50;
+      } else {
+        // No error but no result? Fallback.
+        speedScore = 50;
+        mobileScore = 50;
       }
     } catch (e) {
-      console.error("PageSpeed API error:", e);
+      console.error("PageSpeed API network error:", e);
       // Fallback if API fails
       speedScore = 50;
       mobileScore = 50;
