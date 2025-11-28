@@ -16,6 +16,11 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "HaloAgency - Digital Agency",
   description: "Web Development, Ads & Tracking",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({

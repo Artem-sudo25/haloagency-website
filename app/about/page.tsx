@@ -252,9 +252,9 @@ export default function AboutPage() {
                 />
                 <div className="relative z-10">
                   <div
-                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} opacity-20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                    className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} opacity-80 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:opacity-100 transition-all`}
                   >
-                    <item.icon className="w-6 h-6 text-white" />
+                    <item.icon className="w-6 h-6 text-white drop-shadow-lg" />
                   </div>
                   <h3 className="text-lg font-bold text-white mb-2">
                     {item.title}
