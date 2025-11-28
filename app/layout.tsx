@@ -7,7 +7,11 @@ import { ContactModal } from "@/components/ui/contact-modal";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import Script from "next/script";
 
-const inter = Inter({ subsets: ["latin", "cyrillic"] });
+const inter = Inter({
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: "HaloAgency - Digital Agency",
@@ -24,6 +28,8 @@ export default function RootLayout({
   return (
     <html lang="ru" className="scroll-smooth" suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
         {/* GTM Consent Mode v2 - Initialize BEFORE GTM loads */}
         <Script
           id="gtm-consent-init"
@@ -43,7 +49,10 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} bg-ha-bg text-white antialiased`} suppressHydrationWarning>
+      <body
+        className={`${inter.className} bg-ha-bg text-white antialiased`}
+        suppressHydrationWarning
+      >
         {/* Google Tag Manager - Must be in body, immediately after opening tag */}
         {gtmId && (
           <>
@@ -64,7 +73,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                 src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
                 height="0"
                 width="0"
-                style={{ display: 'none', visibility: 'hidden' }}
+                style={{ display: "none", visibility: "hidden" }}
+                title="Google Tag Manager"
               />
             </noscript>
           </>
