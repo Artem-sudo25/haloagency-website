@@ -430,6 +430,12 @@ export default function LeadMagnet() {
                       <br />
                       Подробный PDF-отчет с результатами и рекомендациями будет
                       отправлен на ваш email в течение 5-10 минут.
+                      <br />
+                      <br />
+                      <span className="text-orange-300">
+                        ⚠️ Если письма нет во входящих, пожалуйста, проверьте
+                        папку «Спам».
+                      </span>
                     </p>
                     <Button
                       onClick={() => setShowSuccessPopup(false)}
