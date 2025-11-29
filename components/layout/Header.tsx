@@ -40,7 +40,7 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 w-screen z-50 transition-all duration-300 overflow-visible ${scrolled || mobileMenuOpen
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-visible ${scrolled || mobileMenuOpen
                 ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
                 : "bg-transparent py-6"
                 }`}
@@ -130,7 +130,7 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "100vh" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden w-screen"
+                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden w-full"
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (

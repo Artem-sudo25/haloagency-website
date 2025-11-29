@@ -1,17 +1,96 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Code2, Globe, Rocket, Smartphone } from "lucide-react";
+import {
+  ArrowRight,
+  Code2,
+  Globe,
+  Layout,
+  Rocket,
+  ShoppingCart,
+  Smartphone,
+} from "lucide-react";
 import Link from "next/link";
+import FAQ from "@/components/sections/FAQ";
+import WebProjectForm from "@/components/sections/WebProjectForm";
 import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
 
+// Data Definitions
+const techStack = [
+  { name: "Next.js 14", label: "Framework", icon: Globe },
+  { name: "TypeScript", label: "Reliability", icon: Code2 },
+  { name: "Tailwind CSS", label: "Styling", icon: Rocket },
+  { name: "Framer Motion", label: "Animations", icon: Smartphone },
+];
+
+const services = [
+  {
+    id: "landing",
+    title: "Landing Page",
+    description:
+      "Идеально для запуска продукта или услуги. Высокая конверсия, формы захвата и продающая структура.",
+    price: "от 8,000 CZK",
+    time: "3-5 дней",
+    icon: <Rocket className="w-6 h-6" />,
+    colSpan: false,
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    border: "group-hover:border-blue-500/50",
+    text: "group-hover:text-blue-400",
+    bg: "bg-blue-500/10",
+  },
+  {
+    id: "corporate",
+    title: "Корпоративный",
+    description: "Многостраничный сайт для компании. Блог, услуги, о нас.",
+    price: "от 15,000 CZK",
+    time: "1-2 недели",
+    icon: <Layout className="w-6 h-6" />,
+    colSpan: false,
+    gradient: "from-purple-500/20 to-pink-500/20",
+    border: "group-hover:border-purple-500/50",
+    text: "group-hover:text-purple-400",
+    bg: "bg-purple-500/10",
+  },
+  {
+    id: "ecommerce",
+    title: "E-commerce",
+    description: "Полноценный интернет-магазин с корзиной и оплатой.",
+    price: "от 50,000 CZK",
+    time: "3-4 недели",
+    icon: <ShoppingCart className="w-6 h-6" />,
+    colSpan: false,
+    gradient: "from-emerald-500/20 to-green-500/20",
+    border: "group-hover:border-emerald-500/50",
+    text: "group-hover:text-emerald-400",
+    bg: "bg-emerald-500/10",
+  },
+];
+
+// Simple typewriter effect component
+function Typewriter({ text }: { text: string }) {
+  return (
+    <motion.span
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
+    >
+      {text}|
+    </motion.span>
+  );
+}
+
 export default function WebDevelopmentPage() {
   const { open } = useContactModal();
+
+  const openModal = (service: string) => {
+    open({ service });
+  };
+
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
-      {/* Hero Section */}
+      {/* 1. Hero Section */}
       <section className="relative py-20 md:py-32 px-4">
         <SpotlightHero />
 
@@ -133,183 +212,145 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* Intro Section */}
-      <section className="py-12 border-y border-white/5 bg-white/[0.02]">
-        <div className="container mx-auto max-w-4xl px-4 text-center">
-          <p className="text-2xl md:text-3xl font-medium text-slate-200 leading-relaxed">
-            "В 2026 году ваш сайт — это ваша цифровая штаб-квартира. Это не
-            просто брошюра, это ваш{" "}
-            <span className="text-blue-400">лучший продавец</span>, работающий
-            24/7. Скорость, доверие и мобильная версия определяют, купит клиент
-            или уйдет."
-          </p>
+      {/* 2. Services (What we develop) */}
+      <section className="py-20 bg-ha-bg-soft">
+        <div className="container mx-auto max-w-6xl px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Что мы разрабатываем
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              От простых лендингов до сложных экосистем. Мы создаем решения,
+              которые приносят прибыль.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            {services.map((service) => (
+              <div
+                key={service.id}
+                className={`group p-8 rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-sm transition-all duration-500 flex flex-col relative overflow-hidden ${service.border}`}
+              >
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
+
+                <div className="relative z-10 h-full flex flex-col">
+                  <div
+                    className={`mb-6 inline-flex p-3 rounded-xl ${service.bg} text-white group-hover:scale-110 transition-transform duration-300 w-fit`}
+                  >
+                    {service.icon}
+                  </div>
+
+                  <h3
+                    className={`text-2xl font-bold text-white mb-3 ${service.text} transition-colors`}
+                  >
+                    {service.title}
+                  </h3>
+                  <p className="text-slate-400 mb-6 flex-grow">
+                    {service.description}
+                  </p>
+
+                  <div className="pt-6 border-t border-white/5 mt-auto">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-lg font-bold text-white">
+                        {service.price}
+                      </span>
+                      <span className="text-sm text-slate-500">
+                        {service.time}
+                      </span>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-between text-white hover:text-white ${service.bg} hover:opacity-90 group-hover:translate-x-1 transition-all p-0 px-4`}
+                      onClick={() => openModal(service.title)}
+                    >
+                      Заказать <ArrowRight className="w-4 h-4" />
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => openModal("Индивидуальное решение")}
+              className="text-slate-400 hover:text-blue-400 transition-colors border-b border-transparent hover:border-blue-400 pb-0.5"
+            >
+              Не нашли нужный формат? Обсудить индивидуальное решение →
+            </button>
+          </div>
         </div>
       </section>
 
-      {/* Tech Stack - Glassmorphism */}
-      <section className="py-20">
-        <div className="container mx-auto max-w-6xl px-4">
+      {/* 3. Lead Gen Form */}
+      <WebProjectForm />
+
+      {/* 4. Tech Stack */}
+      <section className="py-24 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Технологический стек
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Используем современные инструменты для максимальной
+              производительности и масштабируемости.
+            </p>
+          </div>
+
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { name: "Next.js 14", label: "Framework", icon: Globe },
-              { name: "TypeScript", label: "Reliability", icon: Code2 },
-              { name: "Tailwind CSS", label: "Styling", icon: Rocket },
-              { name: "Framer Motion", label: "Animations", icon: Smartphone },
-            ].map((tech) => (
-              <div
+            {techStack.map((tech, i) => (
+              <motion.div
                 key={tech.name}
-                className="group relative p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 overflow-hidden"
               >
-                <div className="absolute inset-0 bg-blue-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10 flex flex-col items-center text-center">
                   <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300">
                     <tech.icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
                     {tech.name}
                   </h3>
                   <p className="text-sm text-slate-500">{tech.label}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* What We Build - Bento Grid */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-16 text-center">
-            Что мы разрабатываем
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[minmax(300px,auto)]">
-            {/* Landing Page - Large Card */}
-            <div className="md:col-span-2 p-8 rounded-3xl bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                <Rocket className="w-48 h-48" />
-              </div>
-              <div className="relative z-10 h-full flex flex-col">
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  Landing Page
-                </h3>
-                <p className="text-slate-400 text-lg mb-8 max-w-md">
-                  Идеально для запуска продукта или услуги. Высокая конверсия,
-                  формы захвата и продающая структура.
-                </p>
-                <div className="mt-auto flex items-end justify-between">
-                  <div>
-                    <div className="text-3xl font-bold text-blue-400">
-                      от 8,000 CZK
-                    </div>
-                    <div className="text-slate-500">3-5 дней</div>
-                  </div>
-                  <div className="flex gap-2">
-                    {["Адаптив", "SEO", "Формы"].map((tag) => (
-                      <span
-                        key={tag}
-                        className="px-3 py-1 rounded-full bg-white/5 text-sm text-slate-300 border border-white/10"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
+      {/* 5. FAQ */}
+      <FAQ />
 
-            {/* Corporate Site */}
-            <div className="p-8 rounded-3xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
-              <div className="relative z-10 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Корпоративный
-                </h3>
-                <p className="text-slate-400 mb-6">
-                  Многостраничный сайт для компании. Блог, услуги, о нас.
-                </p>
-                <div className="mt-auto">
-                  <div className="text-2xl font-bold text-white mb-1">
-                    от 15,000 CZK
-                  </div>
-                  <div className="text-slate-500 text-sm">1-2 недели</div>
-                </div>
-              </div>
-            </div>
-
-            {/* E-commerce */}
-            <div className="p-8 rounded-3xl bg-slate-900 border border-white/10 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
-              <div className="relative z-10 h-full flex flex-col">
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  E-commerce
-                </h3>
-                <p className="text-slate-400 mb-6">
-                  Полноценный интернет-магазин с корзиной и оплатой.
-                </p>
-                <div className="mt-auto">
-                  <div className="text-2xl font-bold text-white mb-1">
-                    от 50,000 CZK
-                  </div>
-                  <div className="text-slate-500 text-sm">3-4 недели</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Custom Dev - Wide */}
-            <div className="md:col-span-2 p-8 rounded-3xl bg-blue-600 border border-blue-500 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20" />
-              <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">
-                    Индивидуальная разработка
-                  </h3>
-                  <p className="text-blue-100">
-                    Сложные веб-приложения, SaaS, личные кабинеты.
-                  </p>
-                </div>
-                <Button
-                  onClick={() => open({ service: "web" })}
-                  className="bg-white text-blue-600 hover:bg-blue-50 rounded-full px-8"
-                >
-                  Обсудить задачу
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-24 px-4">
+      {/* 6. CTA */}
+      <section className="py-24 px-4 bg-ha-bg-soft border-t border-ha-border-dark">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Готовы начать?
+            Готовы начать проект?
           </h2>
           <p className="text-xl text-slate-400 mb-10">
-            Запустим ваш проект в кратчайшие сроки с гарантией качества.
+            Оставьте заявку, и мы подготовим для вас персональное предложение и
+            стратегию развития.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              onClick={() => open({ service: "web" })}
+              onClick={() => openModal("Обсудить проект")}
               className="rounded-full px-10 h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/20"
             >
-              Начать проект
+              Обсудить проект
             </Button>
           </div>
         </div>
       </section>
     </main>
-  );
-}
-
-// Simple typewriter effect component
-function Typewriter({ text }: { text: string }) {
-  return (
-    <motion.span
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
-    >
-      {text}|
-    </motion.span>
   );
 }

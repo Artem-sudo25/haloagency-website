@@ -31,7 +31,7 @@ export default function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
-    <html lang="ru" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning style={{ width: '100%', maxWidth: '100vw', position: 'relative' }}>
+    <html lang="ru" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning style={{ width: '100%' }}>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
