@@ -4,7 +4,6 @@ import Projects from "@/components/sections/Projects";
 import LeadMagnet from "@/components/sections/LeadMagnet";
 import Packages from "@/components/sections/Packages";
 import Contact from "@/components/sections/Contact";
-import { ScrollAnimation } from "@/components/ui/scroll-animation";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,21 +22,11 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
       <Hero />
-      <ScrollAnimation delay={0.2}>
-        <Services />
-      </ScrollAnimation>
-      <ScrollAnimation direction="left">
-        <Projects />
-      </ScrollAnimation>
-      <ScrollAnimation delay={0.1}>
-        <LeadMagnet />
-      </ScrollAnimation>
-      <ScrollAnimation direction="right">
-        <Packages />
-      </ScrollAnimation>
-      <ScrollAnimation delay={0.2}>
-        <Contact />
-      </ScrollAnimation>
+      <Services />
+      <Projects />
+      <LeadMagnet />
+      <Packages />
+      <Contact />
     </main>
   );
 }
