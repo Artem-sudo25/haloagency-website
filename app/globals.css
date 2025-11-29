@@ -136,27 +136,9 @@
 
   html {
     @apply scroll-smooth;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    /* Prevent viewport width issues on mobile */
-    -webkit-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    position: relative;
   }
 
   body {
-    @apply bg-ha-bg text-white antialiased;
-    width: 100%;
-    max-width: 100%;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    touch-action: pan-y;
-    /* Prevent horizontal scrolling on mobile */
-    overscroll-behavior-x: none;
-    position: relative;
+    @apply overflow-x-hidden bg-ha-bg text-white antialiased;
   }
 }

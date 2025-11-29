@@ -33,31 +33,10 @@ export default function Header() {
             setScrolled(window.scrollY > 50);
         };
         
-        // Fix viewport width calculation on mobile devices
-        const fixViewport = () => {
-            // Force correct viewport width calculation
-            const vw = window.innerWidth;
-            document.documentElement.style.setProperty('--vw', `${vw}px`);
-            // Trigger reflow
-            void document.body.offsetHeight;
-        };
-        
         // Set initial scroll state on mount
         handleScroll();
-        fixViewport();
-        
-        // Fix on resize and orientation change
-        window.addEventListener("resize", fixViewport);
-        window.addEventListener("orientationchange", () => {
-            setTimeout(fixViewport, 100);
-        });
         window.addEventListener("scroll", handleScroll);
-        
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-            window.removeEventListener("resize", fixViewport);
-            window.removeEventListener("orientationchange", fixViewport);
-        };
+        return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
     return (
@@ -66,84 +45,82 @@ export default function Header() {
                 ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
                 : "bg-ha-bg/40 backdrop-blur-sm py-6"
                 }`}
-            style={{ width: '100%', maxWidth: '100%', left: 0, right: 0 }}
         >
-            <div className="container max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 overflow-visible">
-                <div className="flex items-center justify-between gap-2">
-                    {/* Logo */}
-                    <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter z-50 flex-shrink-0">
-                        Halo<span className="text-blue-500">Agency</span>
-                    </Link>
+            <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+                {/* Logo */}
+                <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter z-50 flex-shrink-0">
+                    Halo<span className="text-blue-500">Agency</span>
+                </Link>
 
-                    {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center gap-8 overflow-visible">
-                        {navLinks.map((link) => (
-                            <div
-                                key={link.name}
-                                className="relative group z-50"
-                                onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
-                                onMouseLeave={() => setActiveDropdown(null)}
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex items-center gap-8">
+                    {navLinks.map((link) => (
+                        <div
+                            key={link.name}
+                            className="relative group z-50"
+                            onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
+                            onMouseLeave={() => setActiveDropdown(null)}
+                        >
+                            <Link
+                                href={link.href}
+                                className="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1"
                             >
-                                <Link
-                                    href={link.href}
-                                    className="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1"
-                                >
-                                    {link.name}
-                                    {link.dropdown && <ChevronDown className="w-4 h-4" />}
-                                </Link>
+                                {link.name}
+                                {link.dropdown && <ChevronDown className="w-4 h-4" />}
+                            </Link>
 
-                                {/* Dropdown */}
-                                {link.dropdown && (
-                                    <AnimatePresence>
-                                        {activeDropdown === link.name && (
-                                            <motion.div
-                                                initial={{ opacity: 0, y: 10 }}
-                                                animate={{ opacity: 1, y: 0 }}
-                                                exit={{ opacity: 0, y: 10 }}
-                                                transition={{ duration: 0.2 }}
-                                                className="absolute top-full left-0 mt-2 w-56 z-[60]"
-                                            >
-                                                <div className="bg-ha-card-dark border border-ha-border-dark rounded-xl shadow-xl overflow-hidden">
-                                                    {link.dropdown.map((item) => (
-                                                        <Link
-                                                            key={item.name}
-                                                            href={item.href}
-                                                            className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                                                        >
-                                                            {item.name}
-                                                        </Link>
-                                                    ))}
-                                                </div>
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                )}
-                            </div>
-                        ))}
-                    </nav>
-
-                    {/* CTA & Mobile Toggle */}
-                    <div className="flex items-center gap-4">
-                        <Button
-                            onClick={() => openContactModal()}
-                            className="hidden md:flex bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border border-blue-500/20 shadow-lg shadow-blue-500/20 rounded-full px-6"
-                        >
-                            Связаться
-                        </Button>
-
-                        <button
-                            className="md:hidden text-white z-[110] p-2 flex-shrink-0 -mr-1 bg-slate-800/80 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-slate-700/80 transition-colors"
-                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            aria-label="Toggle menu"
-                        >
-                            {mobileMenuOpen ? (
-                                <X className="w-6 h-6" />
-                            ) : (
-                                <Menu className="w-6 h-6" />
+                            {/* Dropdown */}
+                            {link.dropdown && (
+                                <AnimatePresence>
+                                    {activeDropdown === link.name && (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 10 }}
+                                            transition={{ duration: 0.2 }}
+                                            className="absolute top-full left-0 mt-2 w-56 z-[60]"
+                                        >
+                                            <div className="bg-ha-card-dark border border-ha-border-dark rounded-xl shadow-xl overflow-hidden">
+                                                {link.dropdown.map((item) => (
+                                                    <Link
+                                                        key={item.name}
+                                                        href={item.href}
+                                                        className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                                                    >
+                                                        {item.name}
+                                                    </Link>
+                                                ))}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             )}
-                        </button>
-                    </div>
+                        </div>
+                    ))}
+                </nav>
+
+                {/* Desktop CTA */}
+                <div className="hidden md:flex items-center gap-4">
+                    <Button
+                        onClick={() => openContactModal()}
+                        className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border border-blue-500/20 shadow-lg shadow-blue-500/20 rounded-full px-6"
+                    >
+                        Связаться
+                    </Button>
                 </div>
+
+                {/* Mobile Toggle */}
+                <button
+                    className="md:hidden text-white p-2 flex-shrink-0"
+                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    {mobileMenuOpen ? (
+                        <X className="w-6 h-6" />
+                    ) : (
+                        <Menu className="w-6 h-6" />
+                    )}
+                </button>
             </div>
 
             {/* Mobile Menu */}
@@ -153,8 +130,7 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "100vh" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden w-full"
-                        style={{ width: '100%', maxWidth: '100%', left: 0, right: 0 }}
+                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden"
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (

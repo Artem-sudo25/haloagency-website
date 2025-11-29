@@ -22,7 +22,6 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -33,7 +32,7 @@ export default function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
-    <html lang="ru" className="scroll-smooth overflow-x-hidden" suppressHydrationWarning style={{ width: '100%', maxWidth: '100%' }}>
+    <html lang="ru" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
