@@ -135,7 +135,7 @@
   }
 
   html {
-    @apply scroll-smooth overflow-x-hidden;
+    @apply scroll-smooth;
   }
 
   body {
@@ -144,5 +144,19 @@
     min-height: 100dvh;
     /* Use dynamic viewport height for mobile */
     touch-action: pan-y;
+    /* Safari performance fixes */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Optimize Framer Motion animations for Safari */
+  [data-framer-component-type],
+  div[style*="opacity"],
+  div[style*="transform"] {
+    will-change: transform, opacity;
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
   }
 }
