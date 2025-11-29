@@ -32,16 +32,31 @@ export default function Header() {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
-        // Set initial scroll state on mount - IMMEDIATELY
+        
+        // Fix viewport width calculation on mobile devices
+        const fixViewport = () => {
+            // Force correct viewport width calculation
+            const vw = window.innerWidth;
+            document.documentElement.style.setProperty('--vw', `${vw}px`);
+            // Trigger reflow
+            void document.body.offsetHeight;
+        };
+        
+        // Set initial scroll state on mount
         handleScroll();
-
-        // Force a second check after a brief delay to catch any layout shifts
-        const timeoutId = setTimeout(handleScroll, 100);
-
+        fixViewport();
+        
+        // Fix on resize and orientation change
+        window.addEventListener("resize", fixViewport);
+        window.addEventListener("orientationchange", () => {
+            setTimeout(fixViewport, 100);
+        });
         window.addEventListener("scroll", handleScroll);
+        
         return () => {
             window.removeEventListener("scroll", handleScroll);
-            clearTimeout(timeoutId);
+            window.removeEventListener("resize", fixViewport);
+            window.removeEventListener("orientationchange", fixViewport);
         };
     }, []);
 
@@ -51,6 +66,7 @@ export default function Header() {
                 ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
                 : "bg-ha-bg/40 backdrop-blur-sm py-6"
                 }`}
+            style={{ width: '100%', maxWidth: '100%', left: 0, right: 0 }}
         >
             <div className="container max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 overflow-visible">
                 <div className="flex items-center justify-between gap-2">
@@ -138,6 +154,7 @@ export default function Header() {
                         animate={{ opacity: 1, height: "100vh" }}
                         exit={{ opacity: 0, height: 0 }}
                         className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden w-full"
+                        style={{ width: '100%', maxWidth: '100%', left: 0, right: 0 }}
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (
