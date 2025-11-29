@@ -32,20 +32,27 @@ export default function Header() {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
         };
-        // Set initial scroll state on mount
+        // Set initial scroll state on mount - IMMEDIATELY
         handleScroll();
+
+        // Force a second check after a brief delay to catch any layout shifts
+        const timeoutId = setTimeout(handleScroll, 100);
+
         window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            clearTimeout(timeoutId);
+        };
     }, []);
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-visible ${scrolled || mobileMenuOpen
+            className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled || mobileMenuOpen
                 ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
-                : "bg-transparent py-6"
+                : "bg-ha-bg/40 backdrop-blur-sm py-6"
                 }`}
         >
-            <div className="container max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div className="container max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 overflow-visible">
                 <div className="flex items-center justify-between gap-2">
                     {/* Logo */}
                     <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter z-50 flex-shrink-0">
@@ -109,7 +116,7 @@ export default function Header() {
                         </Button>
 
                         <button
-                            className="md:hidden text-white z-50 p-1.5 flex-shrink-0"
+                            className="md:hidden text-white z-[110] p-2 flex-shrink-0 -mr-1 bg-slate-800/80 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-slate-700/80 transition-colors"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label="Toggle menu"
                         >

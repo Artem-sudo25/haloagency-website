@@ -70,7 +70,9 @@ export default function WebProjectForm() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Focus input on step change
   useEffect(() => {
-    if (inputRef.current) {
+    // Only auto-focus if user has already started interacting with the form
+    // This prevents keyboard from opening on page load on mobile
+    if (inputRef.current && currentStep > 0) {
       inputRef.current.focus();
     }
   }, [currentStep]);
@@ -311,11 +313,10 @@ export default function WebProjectForm() {
                       type="button"
                       onClick={handleNext}
                       disabled={!inputValue.trim() || isSubmitting}
-                      className={`p-3 rounded-full transition-all duration-300 ${
-                        inputValue.trim() && !isSubmitting
+                      className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting
                           ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
                           : "bg-slate-800 text-slate-600 cursor-not-allowed"
-                      }`}
+                        }`}
                     >
                       {isSubmitting ? (
                         <Loader2 className="w-6 h-6 animate-spin" />
