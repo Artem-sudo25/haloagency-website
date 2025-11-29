@@ -84,7 +84,9 @@ export default function LeadMagnet() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 mb-6 relative"
             >
               <div className="absolute inset-0 rounded-full bg-orange-500/30 blur-xl" />
@@ -94,7 +96,9 @@ export default function LeadMagnet() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6"
             >
               <span className="text-sm font-medium text-orange-300">
@@ -105,8 +109,9 @@ export default function LeadMagnet() {
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="text-4xl md:text-5xl font-bold text-white mb-6"
             >
               Узнайте, почему ваш сайт теряет клиентов
@@ -114,8 +119,9 @@ export default function LeadMagnet() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="text-xl text-slate-400 mb-8 leading-relaxed"
             >
               Проверка скорости, мобильной версии, SEO и аналитики за 30 секунд.
@@ -125,8 +131,9 @@ export default function LeadMagnet() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="space-y-3 mb-8"
             >
               {[
@@ -148,10 +155,11 @@ export default function LeadMagnet() {
           {/* Right: Status Indicators + Form */}
           <div className="relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
+              initial={{ opacity: 0.5, scale: 0.98 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+              viewport={{ once: true, margin: "-150px" }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              style={{ willChange: "opacity, transform" }}
               className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-6 shadow-2xl"
             >
               {/* Animated gradient border */}
@@ -161,10 +169,11 @@ export default function LeadMagnet() {
               <div className="space-y-3 relative z-10 mb-6">
                 {/* Speed */}
                 <motion.div
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0.4, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.05, duration: 0.25, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${
                     demoMetrics.speedScore > 60
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
@@ -190,10 +199,11 @@ export default function LeadMagnet() {
 
                 {/* Mobile */}
                 <motion.div
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0.4, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.6, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.08, duration: 0.25, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${
                     demoMetrics.mobileScore > 0
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
@@ -221,10 +231,11 @@ export default function LeadMagnet() {
 
                 {/* SEO */}
                 <motion.div
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0.4, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.7, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.11, duration: 0.25, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${
                     demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
@@ -252,10 +263,11 @@ export default function LeadMagnet() {
 
                 {/* Analytics */}
                 <motion.div
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0.4, x: -10 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.14, duration: 0.25, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${
                     demoMetrics.analytics.hasGA4 ||
                     demoMetrics.analytics.hasGTM ||
@@ -289,10 +301,11 @@ export default function LeadMagnet() {
 
                 {/* Accuracy Score - Large Card */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
+                  initial={{ opacity: 0.5, scale: 0.98 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.9 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ delay: 0.17, duration: 0.25, ease: "easeOut" }}
+                  style={{ willChange: "opacity, transform" }}
                   className="p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl border border-orange-500/30 text-center"
                 >
                   <div className="text-6xl font-bold text-white mb-2">

@@ -48,9 +48,10 @@ export default function Services() {
 
             <div className="container mx-auto max-w-6xl relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    initial={{ y: 10, opacity: 0.9 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                     className="text-center mb-12 md:mb-16"
                 >
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
@@ -69,12 +70,13 @@ export default function Services() {
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {services.map((service) => (
+                    {services.map((service, index) => (
                         <Link key={service.link} href={service.link}>
                             <motion.div
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                initial={{ y: 12, opacity: 0.9 }}
+                                whileInView={{ y: 0, opacity: 1 }}
+                                viewport={{ once: true, margin: "-100px" }}
+                                transition={{ delay: index * 0.1, duration: 0.3, ease: "easeOut" }}
                                 whileHover={{ y: -8, scale: 1.02 }}
                                 className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20 hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer h-full"
                             >

@@ -139,7 +139,7 @@
   }
 
   body {
-    @apply bg-ha-bg text-white antialiased;
+    @apply overflow-x-hidden bg-ha-bg text-white antialiased;
     min-height: 100vh;
     min-height: 100dvh;
     /* Use dynamic viewport height for mobile */
@@ -147,16 +147,85 @@
     /* Safari performance fixes */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
   }
 
-  /* Optimize Framer Motion animations for Safari */
-  [data-framer-component-type],
-  div[style*="opacity"],
-  div[style*="transform"] {
-    will-change: transform, opacity;
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
+  /* Optimize initial render - prevent layout shift */
+  section {
+    contain: layout style;
+  }
+
+  /* Simple CSS animations - no flicker */
+  @keyframes slide-up {
+    from {
+      transform: translateY(10px);
+      opacity: 0.95;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      transform: translateY(15px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes progress-bar {
+    from {
+      width: 0;
+    }
+    to {
+      width: 85%;
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out;
+    opacity: 1;
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out;
+    opacity: 1;
+  }
+
+  .animate-progress-bar {
+    animation: progress-bar 1.5s ease-out;
+  }
+
+  /* Safari-specific animation performance optimizations */
+  @supports (-webkit-touch-callout: none) {
+    /* Force GPU acceleration for animated elements */
+    [data-framer-component-type],
+    [data-framer-name] {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+
+    /* Optimize backdrop-blur for Safari */
+    .backdrop-blur-sm,
+    .backdrop-blur-md,
+    .backdrop-blur-lg,
+    .backdrop-blur-xl {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+
+    /* Optimize sections with overflow-hidden and animations */
+    section[class*="overflow-hidden"] {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
   }
 }

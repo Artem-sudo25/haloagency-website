@@ -75,10 +75,10 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              initial={{ y: 8, opacity: 0.9 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
               className={`group relative overflow-hidden rounded-3xl bg-white/5 backdrop-blur-lg border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] ${project.span}`}
             >
               {/* Background Gradient */}

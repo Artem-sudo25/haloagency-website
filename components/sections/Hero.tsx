@@ -22,7 +22,8 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{ willChange: "opacity, transform" }}
           className="text-center lg:text-left lg:col-span-3"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
@@ -152,11 +153,9 @@ export default function Hero() {
               </svg>
 
               {/* Floating Metric Cards - Well Spaced for Readability */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="absolute top-[8%] right-[2%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-52"
+              <div
+                className="absolute top-[8%] right-[2%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-52 animate-fade-in-up"
+                style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-slate-400 uppercase tracking-wider">
@@ -172,26 +171,17 @@ export default function Hero() {
                 <div className="text-xs text-slate-500">Рост за квартал</div>
 
                 {/* Progress bar */}
-                <motion.div
-                  className="mt-3 h-1.5 bg-slate-800 rounded-full overflow-hidden"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
-                    initial={{ width: 0 }}
-                    animate={{ width: "85%" }}
-                    transition={{ delay: 1, duration: 1.5, ease: "easeOut" }}
+                <div className="mt-3 h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-green-500 to-emerald-500 animate-progress-bar"
+                    style={{ animationDelay: '0.8s', animationFillMode: 'both' }}
                   />
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
 
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="absolute top-[42%] right-[30%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-48"
+              <div
+                className="absolute top-[42%] right-[30%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-48 animate-fade-in-up"
+                style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-slate-400 uppercase tracking-wider">
@@ -203,13 +193,11 @@ export default function Hero() {
                   +<CountUp end={87} duration={2000} />%
                 </div>
                 <div className="text-xs text-slate-500">Рост за квартал</div>
-              </motion.div>
+              </div>
 
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="absolute bottom-[8%] right-[55%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-44"
+              <div
+                className="absolute bottom-[8%] right-[55%] bg-ha-card-dark/90 backdrop-blur-md border border-ha-border-dark p-5 rounded-2xl shadow-2xl w-44 animate-fade-in-up"
+                style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
               >
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-xs text-slate-400 uppercase tracking-wider">
@@ -221,7 +209,7 @@ export default function Hero() {
                   <CountUp end={3.2} decimals={1} duration={2000} />x
                 </div>
                 <div className="text-xs text-slate-500">Окупаемость</div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
