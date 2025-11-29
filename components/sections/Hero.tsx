@@ -13,9 +13,9 @@ export default function Hero() {
   return (
     <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-8 md:pb-16">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-ha-bg z-0">
+      <div className="absolute inset-0 bg-ha-bg z-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
-        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-full max-w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6 sm:px-4 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">

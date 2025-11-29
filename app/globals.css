@@ -134,11 +134,18 @@
     @apply border-border outline-ring/50;
   }
 
+  html,
+  body {
+    @apply overflow-x-hidden;
+  }
+
   html {
     @apply scroll-smooth;
   }
 
   body {
-    @apply overflow-x-hidden bg-ha-bg text-white antialiased;
+    @apply bg-ha-bg text-white antialiased;
+    min-height: 100vh;
+    touch-action: pan-y;
   }
 }
