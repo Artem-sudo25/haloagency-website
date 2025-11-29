@@ -45,10 +45,10 @@ export default function Header() {
                 : "bg-transparent py-6"
                 }`}
         >
-            <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-between">
+            <div className="container max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+                <div className="flex items-center justify-between gap-2">
                     {/* Logo */}
-                    <Link href="/" className="text-2xl font-bold text-white tracking-tighter z-50">
+                    <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter z-50 flex-shrink-0">
                         Halo<span className="text-blue-500">Agency</span>
                     </Link>
 
@@ -109,7 +109,7 @@ export default function Header() {
                         </Button>
 
                         <button
-                            className="md:hidden text-white z-50 p-2"
+                            className="md:hidden text-white z-50 p-1.5 flex-shrink-0"
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             aria-label="Toggle menu"
                         >

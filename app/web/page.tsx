@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -9,6 +11,7 @@ import {
   Rocket,
   ShoppingCart,
   Smartphone,
+  Sparkles,
 } from "lucide-react";
 import Link from "next/link";
 import FAQ from "@/components/sections/FAQ";
@@ -87,6 +90,18 @@ export default function WebDevelopmentPage() {
   const openModal = (service: string) => {
     open({ service });
   };
+
+  // Prevent browser scroll restoration and ensure page starts at top
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      // Disable automatic scroll restoration
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      // Scroll to top on mount
+      window.scrollTo(0, 0);
+    }
+  }, []);
 
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
@@ -285,8 +300,62 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* 3. Lead Gen Form */}
-      <WebProjectForm />
+      {/* 3. Lead Gen Form - Enhanced */}
+      <section className="py-24 px-4 relative overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-purple-500/5 to-transparent" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+
+        <div className="container mx-auto max-w-4xl relative z-10">
+          {/* Section header */}
+          <div className="text-center mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6"
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-medium text-blue-300">
+                Бесплатный концепт за 48 часов
+              </span>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-4xl font-bold text-white mb-4"
+            >
+              Получите персональное демо вашего сайта
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-slate-400 text-lg max-w-2xl mx-auto"
+            >
+              Нейросеть под присмотром арт-директора создаст концепт специально для вас
+            </motion.p>
+          </div>
+
+          {/* Form wrapper with glassmorphism */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="relative rounded-3xl bg-slate-900/50 backdrop-blur-xl border border-white/10 p-8 md:p-12 shadow-2xl"
+          >
+            {/* Gradient border glow */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-50 blur-xl -z-10" />
+
+            <WebProjectForm />
+          </motion.div>
+        </div>
+      </section>
 
       {/* 4. Tech Stack */}
       <section className="py-24 px-4">
