@@ -45,7 +45,7 @@ export default function Header() {
                 : "bg-ha-bg/40 backdrop-blur-sm py-6"
                 }`}
         >
-            <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+            <div className="w-full px-4 md:px-8 flex items-center justify-between md:max-w-7xl md:mx-auto">
                 {/* Logo */}
                 <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter z-50 flex-shrink-0">
                     Halo<span className="text-blue-500">Agency</span>
@@ -110,7 +110,7 @@ export default function Header() {
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden text-white p-2 flex-shrink-0"
+                    className="md:hidden text-white p-2 flex-shrink-0 relative z-[110] bg-slate-900/90 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-slate-800/90 transition-colors shadow-lg"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-label="Toggle menu"
                 >

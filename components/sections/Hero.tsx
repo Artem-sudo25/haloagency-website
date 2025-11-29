@@ -18,7 +18,7 @@ export default function Hero() {
         <div className="absolute bottom-0 right-0 w-full max-w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 sm:px-4 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
