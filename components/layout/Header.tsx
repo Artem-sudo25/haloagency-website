@@ -33,7 +33,17 @@ export default function Header() {
             setScrolled(window.scrollY > 50);
         };
         
-        // Set initial scroll state on mount
+        // Minimal fix: ensure header is viewport width on mobile (runs once on mount)
+        if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+            const header = document.querySelector('header');
+            if (header) {
+                // Use requestAnimationFrame to ensure DOM is ready
+                requestAnimationFrame(() => {
+                    header.style.width = `${window.innerWidth}px`;
+                });
+            }
+        }
+        
         handleScroll();
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
