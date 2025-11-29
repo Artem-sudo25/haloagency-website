@@ -136,9 +136,13 @@
 
   html {
     @apply scroll-smooth;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   body {
     @apply overflow-x-hidden bg-ha-bg text-white antialiased;
+    width: 100%;
+    position: relative;
   }
 }

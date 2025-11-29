@@ -454,10 +454,14 @@ export default function LeadMagnet() {
                 </p>
                 <Button
                   variant="outline"
-                  className="w-full h-11 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white rounded-xl gap-2"
+                  className="w-full min-h-11 border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white rounded-xl gap-2 px-3 py-2.5 text-sm sm:text-base whitespace-normal break-words"
                 >
-                  <Layout className="w-4 h-4" />У меня нет сайта → получить
-                  бесплатный прототип
+                  <Layout className="w-4 h-4 flex-shrink-0" />
+                  <span className="text-left">
+                    <span className="block sm:inline">У меня нет сайта</span>
+                    <span className="hidden sm:inline"> → </span>
+                    <span className="block sm:inline">получить бесплатный прототип</span>
+                  </span>
                 </Button>
               </div>
             </motion.div>
