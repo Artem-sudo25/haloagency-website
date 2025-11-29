@@ -136,9 +136,20 @@
 
   html {
     @apply scroll-smooth;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   body {
-    @apply overflow-x-hidden bg-ha-bg text-white antialiased;
+    @apply bg-ha-bg text-white antialiased;
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    touch-action: pan-y;
   }
 }

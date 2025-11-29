@@ -40,7 +40,7 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 w-screen z-50 transition-all duration-300 overflow-x-hidden ${scrolled || mobileMenuOpen
+            className={`fixed top-0 left-0 right-0 w-screen z-50 transition-all duration-300 overflow-visible ${scrolled || mobileMenuOpen
                 ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
                 : "bg-transparent py-6"
                 }`}
@@ -53,11 +53,11 @@ export default function Header() {
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center gap-8">
+                    <nav className="hidden md:flex items-center gap-8 overflow-visible">
                         {navLinks.map((link) => (
                             <div
                                 key={link.name}
-                                className="relative group"
+                                className="relative group z-50"
                                 onMouseEnter={() => link.dropdown && setActiveDropdown(link.name)}
                                 onMouseLeave={() => setActiveDropdown(null)}
                             >
@@ -78,7 +78,7 @@ export default function Header() {
                                                 animate={{ opacity: 1, y: 0 }}
                                                 exit={{ opacity: 0, y: 10 }}
                                                 transition={{ duration: 0.2 }}
-                                                className="absolute top-full left-0 mt-2 w-56"
+                                                className="absolute top-full left-0 mt-2 w-56 z-[60]"
                                             >
                                                 <div className="bg-ha-card-dark border border-ha-border-dark rounded-xl shadow-xl overflow-hidden">
                                                     {link.dropdown.map((item) => (
@@ -130,7 +130,7 @@ export default function Header() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "100vh" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto"
+                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden w-screen"
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (
