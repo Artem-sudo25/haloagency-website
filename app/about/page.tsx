@@ -59,7 +59,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative"
+              className="relative overflow-hidden px-4"
             >
               <div className="relative max-w-md mx-auto">
                 {/* Animated gradient glow */}
@@ -72,7 +72,7 @@ export default function AboutPage() {
                     repeat: Infinity,
                     ease: "linear",
                   }}
-                  className="absolute -inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30"
+                  className="absolute inset-0 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-30"
                 />
 
                 {/* Floating animation */}
@@ -115,9 +115,9 @@ export default function AboutPage() {
                   </div>
                 </motion.div>
 
-                {/* Decorative elements */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl" />
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl" />
+                {/* Decorative elements - adjusted positioning */}
+                <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/20 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-purple-500/20 rounded-full blur-2xl pointer-events-none" />
               </div>
             </motion.div>
           </div>
