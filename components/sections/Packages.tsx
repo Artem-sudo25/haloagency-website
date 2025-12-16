@@ -8,8 +8,8 @@ import { useContactModal } from "@/context/contact-modal-context";
 
 const packages = [
   {
-    title: "Старт",
-    subtitle: "Entry Level",
+    title: "Фундамент",
+    subtitle: "Основа для онлайн-присутствия",
     priceSetup: "60,000 Kč",
     priceMonthly: "15,000 Kč/мес",
     description: "Для быстрого старта",
@@ -18,20 +18,20 @@ const packages = [
       "Настройка Meta Ads или Google Ads (одна платформа)",
       "Базовая аналитика (GA4 + GTM)",
       "Email отчеты раз в месяц",
-      "Support via email"
+      "Поддержка по email"
     ],
     highlight: false,
     icon: Rocket
   },
   {
-    title: "Рост",
-    subtitle: "Most Popular",
+    title: "Трафик",
+    subtitle: "Привлечение клиентов из рекламы",
     priceSetup: "70,000 Kč",
     priceMonthly: "18,000 Kč/мес",
     description: "Оптимально для роста",
     features: [
-      "Все из пакета \"Старт\"",
-      "E-commerce или многостраничный сайт (до 10 страниц)",
+      "Все из пакета \"Фундамент\"",
+      "E-commerce или многостраничный сайт (до 15 страниц)",
       "Meta + Google Ads (обе платформы)",
       "Полная аналитика (Server-side tracking)",
       "Еженедельные отчеты",
@@ -42,27 +42,27 @@ const packages = [
     icon: Zap
   },
   {
-    title: "Масштаб",
-    subtitle: "Advanced",
+    title: "Рост",
+    subtitle: "Полная система роста бизнеса",
     priceSetup: "85,000 Kč",
     priceMonthly: "20,000 Kč/мес",
     description: "Максимальный охват",
     features: [
-      "Все из пакета \"Рост\"",
-      "Премиум дизайн (до 15 страниц + кастомизация)",
-      "Meta + Google + Seznam Sklik",
+      "Все из пакета \"Трафик\"",
+      "Автоматизация обработки заявок",
+      "Связка сайта, рекламы и внутренних процессов",
       "Advanced tracking (Meta CAPI, Enhanced)",
-      "Автоматизация (n8n/Make интеграции)",
+      "AI для аналитики и оптимизации",
       "Еженедельные video-call и менеджер"
     ],
     highlight: false,
     icon: Trophy
   },
   {
-    title: "VIP",
-    subtitle: "Custom",
-    priceSetup: "Custom quote",
-    priceMonthly: "Custom retainer",
+    title: "Масштаб",
+    subtitle: "Индивидуальное решение под ваш бизнес",
+    priceSetup: "По запросу",
+    priceMonthly: "Индивидуально",
     description: "Индивидуальное решение",
     features: [
       "Полностью кастомное решение",
@@ -81,7 +81,7 @@ export default function Packages() {
   const { open: openContactModal } = useContactModal();
 
   const handlePackageClick = (pkg: typeof packages[0]) => {
-    const message = `Интересует пакет "${pkg.title}"\nSetup: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
+    const message = `Интересует пакет "${pkg.title}"\nНастройка: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
     openContactModal({
       service: "package",
       message: message,
@@ -146,11 +146,11 @@ export default function Packages() {
 
                   <div className="space-y-1 mb-2">
                     <div className="flex items-baseline gap-1">
-                      <span className="text-sm text-gray-400">Setup:</span>
+                      <span className="text-sm text-gray-400">Настройка:</span>
                       <span className="text-lg font-bold text-white">{pkg.priceSetup}</span>
                     </div>
                     <div className="flex items-baseline gap-1">
-                      <span className="text-sm text-gray-400">Monthly:</span>
+                      <span className="text-sm text-gray-400">В месяц:</span>
                       <span className={`text-base font-semibold ${pkg.highlight ? 'text-blue-400' : 'text-gray-300'}`}>
                         {pkg.priceMonthly}
                       </span>
@@ -193,7 +193,7 @@ export default function Packages() {
           <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 flex items-center justify-center text-center">
             <p className="text-lg md:text-xl text-blue-200 font-medium flex items-center gap-2">
               <span className="text-2xl">🎯</span>
-              Первым 5 клиентам — скидка <span className="text-white font-bold">20%</span> на setup!
+              Новогодний подарок — скидка <span className="text-white font-bold">20%</span> на настройку!
             </p>
           </div>
         </div>

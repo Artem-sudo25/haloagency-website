@@ -10,7 +10,7 @@ export default function Services() {
             icon: Code2,
             title: "Разработка сайтов",
             description:
-                "Современные сайты на Next.js за 3-7 дней. От landing page до полноценного e-commerce. Быстро, SEO-ready, mobile-first.",
+                "Современные сайты за 3-7 дней. От лендинга до интернет-магазина — адаптированы для мобильных устройств и поисковых систем.",
             price: "От 8,000 CZK",
             link: "/web",
             gradient: "from-blue-500 via-blue-600 to-purple-600",
@@ -18,9 +18,9 @@ export default function Services() {
         },
         {
             icon: Megaphone,
-            title: "Реклама (Ads)",
+            title: "Онлайн Реклама",
             description:
-                "Google Ads + Meta с правильным server-side tracking. Настройка за 2 дня, ведение от 8k/мес. Оптимизация на данных, не на догадках.",
+                "Google и Meta Ads для стабильного потока заявок и продаж. Запуск, ведение и оптимизация с фокусом на рост бизнеса.",
             price: "От 10,000 CZK/мес",
             link: "/ads",
             gradient: "from-orange-500 via-red-500 to-pink-600",
@@ -30,8 +30,8 @@ export default function Services() {
             icon: BarChart3,
             title: "Аналитика и трекинг",
             description:
-                "Server-side GTM + Meta CAPI через Stape.io. Восстанавливаем 20-40% потерянных данных. Точность 70-85% против 50-60% стандартного setup.",
-            price: "От 8,000 CZK setup",
+                "Точный учёт заявок и продаж даже при блокировке cookies.Вы видите на 20–40% больше реальных данных.",
+            price: "От 8,000 CZK",
             link: "/tracking",
             gradient: "from-green-500 via-emerald-500 to-teal-600",
             iconColor: "text-green-400",
@@ -40,8 +40,8 @@ export default function Services() {
             icon: Cog,
             title: "Автоматизация процессов",
             description:
-                "Автоматизируем рутинные задачи с помощью n8n, Make и AI. Интеграции CRM, email-маркетинга, отчетности и коммуникаций. Экономим ваше время и снижаем ошибки.",
-            price: "По запросу",
+                "Автоматизация вместо хаоса: меньше ручных процессов, меньше ошибок, ниже операционные затраты.",
+            price: "От 10,000 CZK",
             link: "/automation",
             gradient: "from-violet-500 via-purple-500 to-fuchsia-600",
             iconColor: "text-violet-400",
@@ -75,7 +75,7 @@ export default function Services() {
                         </span>
                     </h2>
                     <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-                        Полный цикл digital-маркетинга: от разработки до аналитики
+                        Полный цикл digital-маркетинга: от разработки до автоматизации
                     </p>
                 </motion.div>
 

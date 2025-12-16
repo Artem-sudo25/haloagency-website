@@ -28,19 +28,19 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
             <span className="text-sm font-medium text-gray-300">
-              🚀 Digital Agency of the Future
+              🚀 Ваш онлайн маркетинг в Чехии
             </span>
           </div>
 
           <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 animate-gradient-x">
-              Технический маркетинг для бизнеса в Чехии
+              Весь маркетинг под одной крышей
             </span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            Современные сайты за 3-7 дней, server-side tracking с точностью
-            70-85%, реклама на данных. Быстро, прозрачно, измеримо.
+            От сайта и аналитики до онлайн рекламы и автоматизации процессов — один партнёр, одна ответственность.
+            Фиксированная ежемесячная оплата, прозрачные цифры, без хаоса и скрытых комиссий.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 md:mb-12">
