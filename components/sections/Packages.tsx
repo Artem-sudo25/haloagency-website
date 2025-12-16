@@ -2,102 +2,86 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Sparkles, Gift } from "lucide-react";
+import { Check, Sparkles, Zap, Trophy, Rocket, Crown } from "lucide-react";
 import Link from "next/link";
 import { useContactModal } from "@/context/contact-modal-context";
 
 const packages = [
   {
-    title: "Start",
-    price: "от 15,000 Kč",
-    description: "Идеально для малого бизнеса",
+    title: "Старт",
+    subtitle: "Entry Level",
+    priceSetup: "60,000 Kč",
+    priceMonthly: "15,000 Kč/мес",
+    description: "Для быстрого старта",
     features: [
-      "Landing (до 5 блоков)",
-      "Адаптивный дизайн",
-      "Базовая SEO",
-      "Форма заявки",
-      "1 месяц поддержки"
+      "Landing page или простой сайт (до 5 страниц)",
+      "Настройка Meta Ads или Google Ads (одна платформа)",
+      "Базовая аналитика (GA4 + GTM)",
+      "Email отчеты раз в месяц",
+      "Support via email"
     ],
-    timeline: "Срок: 3-5 дней",
     highlight: false,
+    icon: Rocket
   },
   {
-    title: "Business",
-    price: "от 35,000 Kč",
-    priceMonthly: "+ 8,000 Kč/мес",
-    description: "Комплексное решение для роста",
-    setupFeatures: [
-      "Многостраничный сайт",
-      "CMS для управления",
-      "Расширенная аналитика (GA4 + GTM)",
-      "Интеграция с CRM",
-      "3 месяца поддержки"
+    title: "Рост",
+    subtitle: "Most Popular",
+    priceSetup: "70,000 Kč",
+    priceMonthly: "18,000 Kč/мес",
+    description: "Оптимально для роста",
+    features: [
+      "Все из пакета \"Старт\"",
+      "E-commerce или многостраничный сайт (до 10 страниц)",
+      "Meta + Google Ads (обе платформы)",
+      "Полная аналитика (Server-side tracking)",
+      "Еженедельные отчеты",
+      "Приоритетная поддержка (WhatsApp/Telegram)"
     ],
-    monthlyFeatures: [
-      "Настройка рекламы (Google + Meta)",
-      "Server-side tracking (Stape.io)",
-      "Ежемесячная оптимизация",
-      "Детальные отчёты"
-    ],
-    timeline: "Срок setup: 7-10 дней",
-    socialProof: "80% наших клиентов выбирают это",
-    promo: "🎄 Новогоднее предложение: 25,000 CZK",
     highlight: true,
+    badge: "⭐ POPULAR",
+    icon: Zap
   },
   {
-    title: "Enterprise",
-    price: "Индивидуально",
-    pricingNote: "От 50,000 CZK + 12,000/мес",
-    description: "Сложные веб-сервисы",
+    title: "Масштаб",
+    subtitle: "Advanced",
+    priceSetup: "85,000 Kč",
+    priceMonthly: "20,000 Kč/мес",
+    description: "Максимальный охват",
     features: [
-      "Уникальный дизайн",
-      "Сложная архитектура",
-      "Личные кабинеты",
-      "API интеграции",
-      "Приоритетная поддержка",
-      "SLA"
+      "Все из пакета \"Рост\"",
+      "Премиум дизайн (до 15 страниц + кастомизация)",
+      "Meta + Google + Seznam Sklik",
+      "Advanced tracking (Meta CAPI, Enhanced)",
+      "Автоматизация (n8n/Make интеграции)",
+      "Еженедельные video-call и менеджер"
     ],
     highlight: false,
+    icon: Trophy
   },
+  {
+    title: "VIP",
+    subtitle: "Custom",
+    priceSetup: "Custom quote",
+    priceMonthly: "Custom retainer",
+    description: "Индивидуальное решение",
+    features: [
+      "Полностью кастомное решение",
+      "Любые интеграции и автоматизации",
+      "AI-ассистенты для бизнеса",
+      "Полный технический аудит",
+      "Стратегическое консультирование",
+      "24/7 приоритетная поддержка"
+    ],
+    highlight: false,
+    icon: Crown
+  }
 ];
-
-// Helper function to generate message from package
-function generatePackageMessage(pkg: typeof packages[0]): string {
-  let message = `Интересует пакет "${pkg.title}" (${pkg.price}`;
-  if (pkg.priceMonthly) {
-    message += ` ${pkg.priceMonthly}`;
-  }
-  message += `).\n\n`;
-  message += `${pkg.description}\n\n`;
-  
-  if (pkg.features) {
-    message += `Включает:\n`;
-    pkg.features.forEach(f => {
-      message += `• ${f}\n`;
-    });
-  }
-  
-  if (pkg.setupFeatures) {
-    message += `Setup:\n`;
-    pkg.setupFeatures.forEach(f => {
-      message += `• ${f}\n`;
-    });
-    if (pkg.monthlyFeatures) {
-      message += `\nЕжемесячно:\n`;
-      pkg.monthlyFeatures.forEach(f => {
-        message += `• ${f}\n`;
-      });
-    }
-  }
-  
-  return message;
-}
 
 export default function Packages() {
   const { open: openContactModal } = useContactModal();
 
   const handlePackageClick = (pkg: typeof packages[0]) => {
-    const message = generatePackageMessage(pkg);
+    const message = `Интересует пакет "${pkg.title}"\nSetup: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
     openContactModal({
       service: "package",
       message: message,
@@ -105,145 +89,98 @@ export default function Packages() {
   };
 
   return (
-    <section id="pricing" className="py-12 md:py-16 lg:py-20 bg-[#0A1628] overflow-hidden" aria-labelledby="pricing-heading">
+    <section id="pricing" className="py-16 md:py-24 bg-[#0A1628] overflow-hidden" aria-labelledby="pricing-heading">
       <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 md:mb-28">
+
+        {/* Header */}
+        <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm font-medium text-gray-300">💎 Тарифы</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 px-4 text-white">
-            Пакеты услуг
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+            Выберите подходящий пакет
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4">
-            Выберите подходящий тариф
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+            Прозрачное ценообразование. Без скрытых платежей.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
           {packages.map((pkg, index) => (
             <div
               key={index}
-              className={`relative ${pkg.highlight ? 'md:scale-110 md:-translate-y-8 z-10' : ''}`}
+              className={`relative h-full ${pkg.highlight ? 'lg:-mt-6 lg:mb-6 z-10' : ''}`}
             >
-              {/* Glow effect for Tier 2 */}
-              {pkg.highlight && (
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 blur-3xl -z-10" />
-              )}
-
               <Card
-                className={`relative flex flex-col h-full transition-all duration-300 ${
-                  pkg.highlight
-                    ? 'bg-white/5 border-2 border-blue-500 shadow-2xl shadow-blue-500/20'
-                    : 'bg-white/5 border border-white/10 hover:border-white/20'
-                }`}
+                className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
+                  ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20'
+                  : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
+                  } rounded-2xl overflow-hidden`}
               >
-                {/* Popular badge for Tier 2 */}
+                {/* Popular Badge */}
                 {pkg.highlight && (
-                  <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 z-20">
-                    <Sparkles className="w-3 h-3" /> Популярный
+                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                )}
+
+                {pkg.badge && (
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
+                    {pkg.badge}
                   </div>
                 )}
 
-                <CardHeader className="p-6 md:p-8 pb-4">
-                  <CardTitle className={`font-bold text-white mb-2 ${pkg.highlight ? 'text-3xl' : 'text-2xl'}`}>
+                <CardHeader className="p-6 pb-2">
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pkg.highlight ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-gray-400'
+                    }`}>
+                    <pkg.icon className="w-6 h-6" />
+                  </div>
+
+                  <CardTitle className="text-2xl font-bold text-white mb-1">
                     {pkg.title}
                   </CardTitle>
-                  <div className="mb-4">
-                    <div className={`font-bold text-white ${pkg.highlight ? 'text-4xl' : 'text-3xl'}`}>
-                      {pkg.price}
-                    </div>
-                    {pkg.priceMonthly && (
-                      <div className="text-xl font-medium text-blue-400 mt-1">
-                        {pkg.priceMonthly}
-                      </div>
-                    )}
-                    {pkg.pricingNote && (
-                      <div className="text-sm text-gray-400 mt-2">
-                        {pkg.pricingNote}
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-base text-gray-400 leading-relaxed">
-                    {pkg.description}
+
+                  <p className="text-sm text-gray-400 font-medium mb-4">
+                    {pkg.subtitle}
                   </p>
 
-                  {/* Social proof for Tier 2 */}
-                  {pkg.socialProof && (
-                    <div className="mt-4 p-3 rounded-lg bg-green-500/20 border border-green-500/30">
-                      <p className="text-sm text-green-400 font-medium">{pkg.socialProof}</p>
+                  <div className="space-y-1 mb-2">
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-sm text-gray-400">Setup:</span>
+                      <span className="text-lg font-bold text-white">{pkg.priceSetup}</span>
                     </div>
-                  )}
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-sm text-gray-400">Monthly:</span>
+                      <span className={`text-base font-semibold ${pkg.highlight ? 'text-blue-400' : 'text-gray-300'}`}>
+                        {pkg.priceMonthly}
+                      </span>
+                    </div>
+                  </div>
                 </CardHeader>
 
-                <CardContent className="p-6 md:p-8 pt-4 flex-grow">
-                  <div className="w-full h-px bg-gray-700 mb-6" />
+                <CardContent className="p-6 pt-2 flex-grow">
+                  <div className="w-full h-px bg-white/10 mb-4" />
 
-                  {/* Tier 2 has two feature sections */}
-                  {pkg.setupFeatures ? (
-                    <div className="space-y-6">
-                      <div>
-                        <p className="text-sm font-semibold text-gray-300 mb-3">
-                          Setup (35,000 Kč):
-                        </p>
-                        <ul className="space-y-3">
-                          {pkg.setupFeatures.map((feature, i) => (
-                            <li key={i} className="flex items-start gap-3 text-gray-300 text-sm">
-                              <Check className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-300 mb-3">
-                          Ежемесячно (8,000 Kč):
-                        </p>
-                        <ul className="space-y-3">
-                          {pkg.monthlyFeatures?.map((feature, i) => (
-                            <li key={i} className="flex items-start gap-3 text-gray-300 text-sm">
-                              <Check className="w-4 h-4 mt-0.5 text-blue-400 flex-shrink-0" />
-                              <span>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  ) : (
-                    <ul className="space-y-3">
-                      {pkg.features?.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-3 text-gray-300 text-sm">
-                          <Check className="w-4 h-4 mt-0.5 text-green-500 flex-shrink-0" />
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
-                  {/* Timeline */}
-                  {pkg.timeline && (
-                    <p className="text-sm text-gray-500 mt-6">{pkg.timeline}</p>
-                  )}
-
-                  {/* Promo box for Tier 2 */}
-                  {pkg.promo && (
-                    <div className="mt-6 p-4 rounded-lg bg-gradient-to-r from-orange-500/20 to-red-500/20 border border-orange-500/30">
-                      <p className="text-sm text-orange-300 font-medium">{pkg.promo}</p>
-                    </div>
-                  )}
+                  <ul className="space-y-3">
+                    {pkg.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-2.5">
+                        <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-green-500'
+                          }`} />
+                        <span className="text-sm text-gray-300 leading-tight">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
 
-                <CardFooter className="p-6 md:p-8 pt-0">
+                <CardFooter className="p-6 pt-0 mt-auto">
                   <Button
-                    size="lg"
                     onClick={() => handlePackageClick(pkg)}
-                    className={`w-full text-base font-medium transition-all duration-300 ${
-                      pkg.highlight
-                        ? 'h-14 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105'
-                        : 'h-12 bg-white/5 border border-white/10 hover:bg-white/10 text-white'
-                    }`}
+                    className={`w-full font-medium transition-all ${pkg.highlight
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25'
+                      : 'bg-white/10 hover:bg-white/20 text-white'
+                      }`}
                   >
-                    {pkg.highlight ? 'Запустить за 7 дней →' : 'Выбрать →'}
+                    {pkg.title === "VIP" ? "Связаться" : "Выбрать"}
                   </Button>
                 </CardFooter>
               </Card>
@@ -251,15 +188,22 @@ export default function Packages() {
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12 md:mt-16">
-          <p className="text-gray-400">
-            Не уверены какой пакет?{' '}
-            <Link href="/packages" className="text-blue-400 hover:text-blue-300 underline">
-              Бесплатная консультация - 30 минут
-            </Link>
-          </p>
+        {/* Bottom Discount Banner */}
+        <div className="mt-12 mx-auto max-w-3xl">
+          <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 flex items-center justify-center text-center">
+            <p className="text-lg md:text-xl text-blue-200 font-medium flex items-center gap-2">
+              <span className="text-2xl">🎯</span>
+              Первым 5 клиентам — скидка <span className="text-white font-bold">20%</span> на setup!
+            </p>
+          </div>
         </div>
+
+        <div className="text-center mt-8">
+          <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-300 underline underline-offset-4">
+            Нужна помощь в выборе?
+          </Link>
+        </div>
+
       </div>
     </section>
   );

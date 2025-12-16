@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, BarChart3, Code2, Megaphone } from "lucide-react";
+import { ArrowRight, BarChart3, Code2, Cog, Megaphone } from "lucide-react";
 import Link from "next/link";
 
 export default function Services() {
@@ -36,6 +36,16 @@ export default function Services() {
             gradient: "from-green-500 via-emerald-500 to-teal-600",
             iconColor: "text-green-400",
         },
+        {
+            icon: Cog,
+            title: "Автоматизация процессов",
+            description:
+                "Автоматизируем рутинные задачи с помощью n8n, Make и AI. Интеграции CRM, email-маркетинга, отчетности и коммуникаций. Экономим ваше время и снижаем ошибки.",
+            price: "По запросу",
+            link: "/automation",
+            gradient: "from-violet-500 via-purple-500 to-fuchsia-600",
+            iconColor: "text-violet-400",
+        },
     ];
     return (
         <section
@@ -69,7 +79,7 @@ export default function Services() {
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     {services.map((service, index) => (
                         <Link key={service.link} href={service.link}>
                             <motion.div

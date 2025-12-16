@@ -71,7 +71,7 @@ export default function LeadMagnet() {
   };
 
   return (
-    <section className="py-16 md:py-24 px-4 bg-ha-bg border-y border-ha-border-dark relative overflow-hidden">
+    <section id="audit" className="py-16 md:py-24 px-4 bg-ha-bg border-y border-ha-border-dark relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
@@ -174,11 +174,10 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.05, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
-                    demoMetrics.speedScore > 60
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.speedScore > 60
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
                       : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                  }`}
+                    }`}
                 >
                   <div className="relative">
                     {demoMetrics.speedScore > 60 ? (
@@ -204,11 +203,10 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.08, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
-                    demoMetrics.mobileScore > 0
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.mobileScore > 0
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
                       : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                  }`}
+                    }`}
                 >
                   <div className="relative">
                     {demoMetrics.mobileScore > 0 ? (
@@ -236,11 +234,10 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.11, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
-                    demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
                       : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
-                  }`}
+                    }`}
                 >
                   <div className="relative">
                     {demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1 ? (
@@ -268,18 +265,17 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.14, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${
-                    demoMetrics.analytics.hasGA4 ||
-                    demoMetrics.analytics.hasGTM ||
-                    demoMetrics.analytics.hasPixel
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.analytics.hasGA4 ||
+                      demoMetrics.analytics.hasGTM ||
+                      demoMetrics.analytics.hasPixel
                       ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
                       : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
-                  }`}
+                    }`}
                 >
                   <div className="relative">
                     {demoMetrics.analytics.hasGA4 ||
-                    demoMetrics.analytics.hasGTM ||
-                    demoMetrics.analytics.hasPixel ? (
+                      demoMetrics.analytics.hasGTM ||
+                      demoMetrics.analytics.hasPixel ? (
                       <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
                     ) : (
                       <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
@@ -291,8 +287,8 @@ export default function LeadMagnet() {
                     </div>
                     <div className="text-xs text-slate-400">
                       {demoMetrics.analytics.hasGA4 ||
-                      demoMetrics.analytics.hasGTM ||
-                      demoMetrics.analytics.hasPixel
+                        demoMetrics.analytics.hasGTM ||
+                        demoMetrics.analytics.hasPixel
                         ? "Системы найдены (пример)"
                         : "Не найдены (пример)"}
                     </div>
@@ -360,9 +356,8 @@ export default function LeadMagnet() {
                     type="url"
                     {...register("url")}
                     placeholder="https://yoursite.com"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                      errors.url ? "border-red-500" : ""
-                    }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.url ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.url && (
                     <p className="text-red-400 text-xs mt-1">
@@ -376,9 +371,8 @@ export default function LeadMagnet() {
                     type="email"
                     {...register("email")}
                     placeholder="ivan@company.cz"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                      errors.email ? "border-red-500" : ""
-                    }`}
+                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.email ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.email && (
                     <p className="text-red-400 text-xs mt-1">
@@ -393,9 +387,8 @@ export default function LeadMagnet() {
                       type="checkbox"
                       id="privacy"
                       {...register("consent")}
-                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${
-                        errors.consent ? "border-red-500" : ""
-                      }`}
+                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${errors.consent ? "border-red-500" : ""
+                        }`}
                     />
                     <label htmlFor="privacy" className="text-xs text-slate-400">
                       Согласен с политикой конфиденциальности

@@ -1,8 +1,11 @@
 import Hero from "@/components/sections/Hero";
 import Services from "@/components/sections/Services";
+import About from "@/components/sections/About";
 import Projects from "@/components/sections/Projects";
 import LeadMagnet from "@/components/sections/LeadMagnet";
 import Packages from "@/components/sections/Packages";
+import FAQ from "@/components/sections/FAQ";
+import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
 import type { Metadata } from "next";
 
@@ -23,9 +26,12 @@ export default function Home() {
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
       <Hero />
       <Services />
+      <About />
       <Projects />
-      <LeadMagnet />
       <Packages />
+      <FAQ />
+      <LeadMagnet />
+      <Process />
       <Contact />
     </main>
   );

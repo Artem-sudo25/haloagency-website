@@ -15,6 +15,7 @@ const navLinks = [
             { name: "Разработка сайтов", href: "/web" },
             { name: "Реклама (Ads)", href: "/ads" },
             { name: "Трекинг и Аналитика", href: "/tracking" },
+            { name: "Автоматизация", href: "/automation" },
         ],
     },
     { name: "Пакеты", href: "/packages" },

@@ -76,7 +76,7 @@ export default function Contact() {
   };
 
   return (
-    <footer className="bg-ha-bg py-16 md:py-20 pb-10 border-t border-ha-border-dark relative overflow-hidden" aria-labelledby="contact-heading">
+    <section className="bg-ha-bg py-16 md:py-20 pb-10 border-t border-ha-border-dark relative overflow-hidden" aria-labelledby="contact-heading">
       {/* Background gradients */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
@@ -189,9 +189,8 @@ export default function Contact() {
                       id="name"
                       {...register("name")}
                       placeholder="Иван Иванов"
-                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${
-                        errors.name ? "border-red-500" : ""
-                      }`}
+                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.name ? "border-red-500" : ""
+                        }`}
                     />
                     {errors.name && (
                       <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
@@ -206,9 +205,8 @@ export default function Contact() {
                       type="email"
                       {...register("email")}
                       placeholder="ivan@company.com"
-                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${
-                        errors.email ? "border-red-500" : ""
-                      }`}
+                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.email ? "border-red-500" : ""
+                        }`}
                     />
                     {errors.email && (
                       <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
@@ -262,9 +260,8 @@ export default function Contact() {
                     id="message"
                     {...register("message")}
                     placeholder="Расскажите немного о вашей задаче..."
-                    className={`min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors resize-none ${
-                      errors.message ? "border-red-500" : ""
-                    }`}
+                    className={`min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors resize-none ${errors.message ? "border-red-500" : ""
+                      }`}
                   />
                   {errors.message && (
                     <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
@@ -287,18 +284,7 @@ export default function Contact() {
             </div>
           </motion.div>
         </div>
-
-        {/* Footer Bottom */}
-        <div className="pt-8 border-t border-ha-border-dark flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-slate-500 text-sm">
-            © 2024 HaloAgency. All rights reserved.
-          </div>
-          <div className="flex gap-6 text-sm text-slate-500">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-          </div>
-        </div>
       </div>
-    </footer>
+    </section>
   );
 }

@@ -11,7 +11,7 @@ export default function Hero() {
   const { open: openContactModal } = useContactModal();
 
   return (
-    <section className="relative min-h-[75vh] md:min-h-[60vh] lg:min-h-[65vh] flex items-center justify-center overflow-hidden pt-24 md:pt-20 pb-8 md:pb-16">
+    <section className="relative flex items-center justify-center overflow-hidden pt-28 md:pt-32 pb-12 md:pb-16">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-ha-bg z-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
@@ -62,11 +62,48 @@ export default function Hero() {
           </div>
 
           {/* Trust Badges */}
-          <div className="flex items-center justify-center lg:justify-start gap-6 md:gap-8 text-gray-500 text-sm uppercase tracking-wider">
-            <div className="font-semibold">GOOGLE</div>
-            <div className="font-semibold">META</div>
-            <div className="font-semibold">NEXT.JS</div>
-            <div className="font-semibold">WOOCOMMERCE</div>
+          {/* Tech Stack Row */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-gray-500 text-sm font-semibold uppercase tracking-wider mb-8">
+            <div>GOOGLE</div>
+            <div>META</div>
+            <div>NEXT.JS</div>
+            <div>WOOCOMMERCE</div>
+          </div>
+
+          {/* Small Navigation Buttons */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              asChild
+            >
+              <Link href="/#projects">Портфолио</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              asChild
+            >
+              <Link href="/#process">Как мы работаем</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              asChild
+            >
+              <Link href="/#faq">FAQ</Link>
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              asChild
+            >
+              <Link href="/#audit">Анализ вашего сайта</Link>
+            </Button>
           </div>
         </motion.div>
 
