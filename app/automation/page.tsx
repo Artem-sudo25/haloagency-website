@@ -20,6 +20,11 @@ import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
 
+// Unified divider to separate sections consistently
+const SectionDivider = () => (
+    <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500/15 to-transparent border-t border-white/5" />
+);
+
 // Custom Python Icon
 function CodePython(props: any) {
     return (
@@ -329,6 +334,8 @@ export default function AutomationPage() {
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* 2. Services (What we automate) */}
             <section className="py-20 bg-ha-bg-soft">
                 <div className="container mx-auto max-w-6xl px-4">
@@ -392,6 +399,8 @@ export default function AutomationPage() {
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* 3. Tech Stack */}
             <section className="py-24 px-4 bg-ha-bg">
                 <div className="container mx-auto max-w-6xl">
@@ -430,8 +439,12 @@ export default function AutomationPage() {
                 </div>
             </section>
 
+            <SectionDivider />
+
             {/* 4. FAQ */}
             <FAQ />
+
+            <SectionDivider />
 
             {/* 5. CTA */}
             <section className="py-24 px-4 bg-ha-bg-soft border-t border-ha-border-dark">

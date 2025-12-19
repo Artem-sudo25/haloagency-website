@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  Check,
   Code2,
   Globe,
   Layout,
@@ -15,9 +16,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FAQ from "@/components/sections/FAQ";
-import Process from "@/components/sections/Process";
 import WebProjectForm from "@/components/sections/WebProjectForm";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
 
@@ -29,46 +30,55 @@ const techStack = [
   { name: "Framer Motion", label: "Animations", icon: Smartphone },
 ];
 
-const services = [
-  {
-    id: "landing",
-    title: "Landing Page",
-    description:
-      "Идеально для запуска продукта или услуги. Высокая конверсия, формы захвата и продающая структура.",
-    price: "от 8,000 CZK",
-    time: "3-5 дней",
-    icon: <Rocket className="w-6 h-6" />,
-    colSpan: false,
-    gradient: "from-blue-500/20 to-cyan-500/20",
-    border: "group-hover:border-blue-500/50",
-    text: "group-hover:text-blue-400",
-    bg: "bg-blue-500/10",
-  },
+const webPackages = [
   {
     id: "corporate",
     title: "Корпоративный",
-    description: "Многостраничный сайт для компании. Блог, услуги, о нас.",
+    subtitle: "Многостраничный сайт для компании",
     price: "от 15,000 CZK",
-    time: "1-2 недели",
-    icon: <Layout className="w-6 h-6" />,
-    colSpan: false,
-    gradient: "from-purple-500/20 to-pink-500/20",
-    border: "group-hover:border-purple-500/50",
-    text: "group-hover:text-purple-400",
-    bg: "bg-purple-500/10",
+    time: "от 7 дней",
+    features: [
+      "До 10 страниц",
+      "Блог, услуги, о нас",
+      "SEO-основа",
+      "Базовая аналитика",
+      "Адаптив под все устройства",
+    ],
+    highlight: false,
+    icon: Layout,
+  },
+  {
+    id: "landing",
+    title: "Landing Page",
+    subtitle: "Идеально для запуска продукта",
+    price: "от 8,000 CZK",
+    time: "от 3 дней",
+    features: [
+      "Продающая структура",
+      "Формы захвата лидов",
+      "Интеграция с CRM",
+      "Готов к рекламе",
+      "Быстрая загрузка",
+    ],
+    highlight: true,
+    badge: "⭐ POPULAR",
+    icon: Rocket,
   },
   {
     id: "ecommerce",
     title: "E-commerce",
-    description: "Полноценный интернет-магазин с корзиной и оплатой.",
+    subtitle: "Полноценный интернет-магазин",
     price: "от 50,000 CZK",
-    time: "3-4 недели",
-    icon: <ShoppingCart className="w-6 h-6" />,
-    colSpan: false,
-    gradient: "from-emerald-500/20 to-green-500/20",
-    border: "group-hover:border-emerald-500/50",
-    text: "group-hover:text-emerald-400",
-    bg: "bg-emerald-500/10",
+    time: "от 14 дней",
+    features: [
+      "Каталог + корзина",
+      "Онлайн-оплата",
+      "Интеграция со складом",
+      "Server-side tracking",
+      "Готов к масштабированию",
+    ],
+    highlight: false,
+    icon: ShoppingCart,
   },
 ];
 
@@ -84,6 +94,11 @@ function Typewriter({ text }: { text: string }) {
     </motion.span>
   );
 }
+
+// Unified section divider to keep consistent separation between blocks
+const SectionDivider = () => (
+  <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500/15 to-transparent border-t border-white/5" />
+);
 
 export default function WebDevelopmentPage() {
   const { open } = useContactModal();
@@ -175,7 +190,7 @@ export default function WebDevelopmentPage() {
                   className="rounded-full px-8 border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm h-12"
                   asChild
                 >
-                  <Link href="/#packages">Цены и сроки</Link>
+                  <Link href="#packages">Цены и сроки</Link>
                 </Button>
               </motion.div>
             </div>
@@ -237,47 +252,130 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* 2. For Whom - Target Audience */}
-      <section className="py-20 bg-ha-bg relative overflow-hidden">
-        {/* Subtle background glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <section className="py-24 bg-ha-bg-soft border-t border-ha-border-dark relative overflow-hidden">
+        {/* Premium background effects */}
+        <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-gradient-to-tl from-indigo-500/8 to-transparent rounded-full blur-[100px] pointer-events-none" />
+        
 
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
-          <div className="text-center mb-12">
-            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Целевая аудитория</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 mb-6 backdrop-blur-sm"
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Целевая аудитория</p>
+            </motion.div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Кому подойдут наши сайты
             </h2>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">Сервисный бизнес</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Заявки, бронирования, звонки — всё, что приносит клиентов.</p>
-            </div>
-            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">E-commerce</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">Готовность к рекламе и аналитике с первого дня.</p>
-            </div>
-            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
-              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">Локальные компании в Чехии</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">SEO, скорость, доверие — то, что ценят местные клиенты.</p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+            >
+              {/* Premium gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Animated border glow */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+              
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Rocket className="w-6 h-6 text-blue-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">Сервисный бизнес</h3>
+                <p className="text-slate-400 leading-relaxed">Заявки, бронирования, звонки — всё, что приносит клиентов.</p>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+            >
+              {/* Premium gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Animated border glow */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+              
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <ShoppingCart className="w-6 h-6 text-blue-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">E-commerce</h3>
+                <p className="text-slate-400 leading-relaxed">Готовность к рекламе и аналитике с первого дня.</p>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-500 overflow-hidden"
+            >
+              {/* Premium gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* Animated border glow */}
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+              
+              <div className="relative z-10">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Globe className="w-6 h-6 text-indigo-400" />
+                </div>
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">Локальные компании в Чехии</h3>
+                <p className="text-slate-400 leading-relaxed">SEO, скорость, доверие — то, что ценят местные клиенты.</p>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* What You Get - Outcomes */}
-      <section className="py-20 bg-ha-bg-soft relative overflow-hidden">
-        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <SectionDivider />
+
+      {/* 3. Results - What You Get */}
+      <section className="py-24 bg-ha-bg border-t border-ha-border-dark relative overflow-hidden">
+        {/* Premium background effects */}
+        <div className="absolute top-1/2 left-0 w-[500px] h-[400px] bg-gradient-to-r from-blue-500/10 via-cyan-500/5 to-transparent rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-gradient-to-tl from-blue-500/8 via-cyan-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
+        
 
         <div className="container mx-auto max-w-4xl px-4 relative z-10">
-          <div className="text-center mb-12">
-            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Результаты</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 mb-6 backdrop-blur-sm"
+            >
+              <Sparkles className="w-4 h-4 text-blue-400" />
+              <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Результаты</p>
+            </motion.div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Что даёт сайт от HaloAgency
             </h2>
-          </div>
-          <div className="space-y-3">
+          </motion.div>
+          <div className="space-y-4">
             {[
               "Быстрая загрузка и Core Web Vitals",
               "Готовность к рекламе (Google / Meta)",
@@ -285,88 +383,147 @@ export default function WebDevelopmentPage() {
               "Понятная аналитика и события",
               "Возможность масштабирования без переделок"
             ].map((item, i) => (
-              <div key={i} className="group flex items-center gap-4 p-5 rounded-xl bg-gradient-to-r from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center text-blue-300 font-bold text-sm flex-shrink-0 group-hover:from-blue-500/40 group-hover:to-indigo-500/30 transition-colors">
-                  {i + 1}
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative flex items-center gap-5 p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+              >
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10 flex items-center gap-5 w-full">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-500/10 flex items-center justify-center text-blue-300 font-bold text-lg flex-shrink-0 group-hover:scale-110 group-hover:from-blue-500/40 group-hover:via-cyan-500/30 transition-all duration-300 shadow-lg shadow-blue-500/20">
+                    {i + 1}
+                  </div>
+                  <span className="text-white font-semibold text-lg group-hover:text-blue-300 transition-colors">{item}</span>
                 </div>
-                <span className="text-white font-medium">{item}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      <SectionDivider />
+
       {/* 4. Services (What we develop) */}
-      <section className="py-20 bg-ha-bg relative overflow-hidden">
-        <div className="container mx-auto max-w-6xl px-4">
+      <section id="packages" className="py-20 bg-[#0A1628] relative overflow-hidden">
+        <div className="container mx-auto max-w-5xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Что мы разрабатываем
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Мы подбираем формат сайта под задачу бизнеса, а не наоборот..
+              Мы подбираем формат сайта под задачу бизнеса, а не наоборот.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            {services.map((service) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+            {webPackages.map((pkg, index) => (
               <div
-                key={service.id}
-                className={`group p-8 rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-sm transition-all duration-500 flex flex-col relative overflow-hidden ${service.border}`}
+                key={index}
+                className={`relative h-full ${pkg.highlight ? "lg:-mt-6 lg:mb-6 z-10" : ""}`}
               >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                />
+                <Card
+                  className={`relative flex flex-col h-full transition-all duration-300 ${
+                    pkg.highlight
+                      ? "bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20"
+                      : "bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10"
+                  } rounded-2xl overflow-hidden`}
+                >
+                  {/* Popular Badge - gradient line */}
+                  {pkg.highlight && (
+                    <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                  )}
 
-                <div className="relative z-10 h-full flex flex-col">
-                  <div
-                    className={`mb-6 inline-flex p-3 rounded-xl ${service.bg} text-white group-hover:scale-110 transition-transform duration-300 w-fit`}
-                  >
-                    {service.icon}
-                  </div>
-
-                  <h3
-                    className={`text-2xl font-bold text-white mb-3 ${service.text} transition-colors`}
-                  >
-                    {service.title}
-                  </h3>
-                  <p className="text-slate-400 mb-6 flex-grow">
-                    {service.description}
-                  </p>
-
-                  <div className="pt-6 border-t border-white/5 mt-auto">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-lg font-bold text-white">
-                        {service.price}
-                      </span>
-                      <span className="text-sm text-slate-500">
-                        {service.time}
-                      </span>
+                  {/* Popular Badge - text */}
+                  {pkg.badge && (
+                    <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
+                      {pkg.badge}
                     </div>
-                    <Button
-                      variant="ghost"
-                      className={`w-full justify-between text-white hover:text-white ${service.bg} hover:opacity-90 group-hover:translate-x-1 transition-all p-0 px-4`}
-                      onClick={() => openModal(service.title)}
+                  )}
+
+                  <CardHeader className="p-6 pb-2">
+                    <div
+                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
+                        pkg.highlight ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-gray-400"
+                      }`}
                     >
-                      Заказать <ArrowRight className="w-4 h-4" />
+                      <pkg.icon className="w-6 h-6" />
+                    </div>
+
+                    <CardTitle className="text-2xl font-bold text-white mb-1">
+                      {pkg.title}
+                    </CardTitle>
+
+                    <p className="text-sm text-gray-400 font-medium mb-4">
+                      {pkg.subtitle}
+                    </p>
+
+                    <div className="space-y-1 mb-2">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-2xl font-bold text-white">{pkg.price}</span>
+                      </div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-sm text-gray-400">Срок:</span>
+                        <span className={`text-base font-semibold ${pkg.highlight ? "text-blue-400" : "text-gray-300"}`}>
+                          {pkg.time}
+                        </span>
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent className="p-6 pt-2 flex-grow">
+                    <div className="w-full h-px bg-white/10 mb-4" />
+
+                    <ul className="space-y-3">
+                      {pkg.features.map((feature, i) => (
+                        <li key={i} className="flex items-start gap-2.5">
+                          <Check
+                            className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
+                              pkg.highlight ? "text-blue-400" : "text-green-500"
+                            }`}
+                          />
+                          <span className="text-sm text-gray-300 leading-tight">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+
+                  <CardFooter className="p-6 pt-0 mt-auto">
+                    <Button
+                      onClick={() => openModal(pkg.title)}
+                      className={`w-full font-medium transition-all ${
+                        pkg.highlight
+                          ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25"
+                          : "bg-white/10 hover:bg-white/20 text-white"
+                      }`}
+                    >
+                      Заказать
                     </Button>
-                  </div>
-                </div>
+                  </CardFooter>
+                </Card>
               </div>
             ))}
           </div>
 
-          <div className="text-center">
+          <div className="text-center mt-12">
             <button
               type="button"
               onClick={() => openModal("Индивидуальное решение")}
-              className="text-slate-400 hover:text-blue-400 transition-colors border-b border-transparent hover:border-blue-400 pb-0.5"
+              className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
             >
-              Не нашли нужный формат? Обсудить индивидуальное решение →
+              Нужен индивидуальный проект? Обсудим →
             </button>
           </div>
         </div>
       </section>
+
+      <SectionDivider />
 
       {/* 3. Lead Gen Form - Enhanced */}
       <section className="py-24 px-4 relative overflow-hidden">
@@ -425,11 +582,56 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* Process - How We Work */}
-      <Process />
+      <SectionDivider />
 
-      {/* Cases - Web-Dev Focus */}
-      <section className="py-20 bg-ha-bg relative overflow-hidden">
+      {/* 4. Tech Stack */}
+      <section className="py-24 px-4">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+              Технологический стек
+            </h2>
+            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+              Используем современные инструменты для максимальной
+              производительности и масштабируемости.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {techStack.map((tech, i) => (
+              <motion.div
+                key={tech.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative z-10 flex flex-col items-center text-center">
+                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300">
+                    <tech.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
+                    {tech.name}
+                  </h3>
+                  <p className="text-sm text-slate-500">{tech.label}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <SectionDivider />
+
+      {/* 5. FAQ */}
+      <FAQ />
+
+      <SectionDivider />
+
+      {/* 6. Cases - Web-Dev Focus */}
+      <section className="py-24 bg-ha-bg relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="container mx-auto max-w-6xl px-4 relative z-10">
@@ -486,10 +688,9 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* 5. FAQ */}
-      <FAQ />
+      <SectionDivider />
 
-      {/* 6. CTA */}
+      {/* 7. CTA */}
       <section className="py-24 px-4 bg-ha-bg-soft border-t border-ha-border-dark">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

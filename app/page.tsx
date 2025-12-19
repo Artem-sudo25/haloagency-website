@@ -9,6 +9,11 @@ import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
 import type { Metadata } from "next";
 
+// Unified divider for consistent separation between sections
+const SectionDivider = () => (
+  <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500/15 to-transparent border-t border-white/5" />
+);
+
 export const metadata: Metadata = {
   title: "HaloAgency - Технический маркетинг для бизнеса в Чехии",
   description: "Современные сайты за 3-7 дней, server-side tracking с точностью 70-85%, реклама на данных. Быстро, прозрачно, измеримо. От 15,000 CZK.",
@@ -25,13 +30,21 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
       <Hero />
+      <SectionDivider />
       <Services />
+      <SectionDivider />
       <About />
+      <SectionDivider />
       <Projects />
+      <SectionDivider />
       <Packages />
+      <SectionDivider />
       <FAQ />
+      <SectionDivider />
       <GrowthPlanMagnet />
+      <SectionDivider />
       <Process />
+      <SectionDivider />
       <Contact />
     </main>
   );
