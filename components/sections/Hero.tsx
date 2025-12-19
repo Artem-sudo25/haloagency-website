@@ -11,7 +11,7 @@ export default function Hero() {
   const { open: openContactModal } = useContactModal();
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden pt-28 md:pt-32 pb-12 md:pb-16">
+    <section className="relative flex items-center justify-center overflow-hidden pt-12 md:pt-32 pb-8 md:pb-16">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-ha-bg z-0 overflow-hidden">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
@@ -26,13 +26,13 @@ export default function Hero() {
           style={{ willChange: "opacity, transform" }}
           className="text-center lg:text-left lg:col-span-3"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-5 md:mb-6 backdrop-blur-sm">
             <span className="text-sm font-medium text-gray-300">
               🚀 Ваш онлайн маркетинг в Чехии
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-5 md:mb-6 leading-[1.1] tracking-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 animate-gradient-x">
               Весь маркетинг под одной крышей
             </span>
@@ -75,7 +75,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="sm"
-              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               asChild
             >
               <Link href="/#projects">Портфолио</Link>
@@ -83,7 +83,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="sm"
-              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               asChild
             >
               <Link href="/#process">Как мы работаем</Link>
@@ -91,7 +91,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="sm"
-              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               asChild
             >
               <Link href="/#faq">FAQ</Link>
@@ -99,7 +99,7 @@ export default function Hero() {
             <Button
               variant="outline"
               size="sm"
-              className="rounded-full border-white/10 bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
+              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               asChild
             >
               <Link href="/#audit">Анализ вашего сайта</Link>

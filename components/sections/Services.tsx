@@ -70,7 +70,7 @@ export default function Services() {
                         </span>
                     </div>
                     <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-3 md:mb-4 px-4">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+                        <span className="text-white">
                             Что мы делаем
                         </span>
                     </h2>

@@ -98,7 +98,7 @@ export default function Packages() {
             <Sparkles className="w-4 h-4 text-purple-400" />
             <span className="text-sm font-medium text-gray-300">💎 Тарифы</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
             Выберите подходящий пакет
           </h2>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
@@ -192,16 +192,19 @@ export default function Packages() {
         <div className="mt-12 mx-auto max-w-3xl">
           <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 flex items-center justify-center text-center">
             <p className="text-lg md:text-xl text-blue-200 font-medium flex items-center gap-2">
-              <span className="text-2xl">🎯</span>
+              <span className="text-2xl">🎄</span>
               Новогодний подарок — скидка <span className="text-white font-bold">20%</span> на настройку!
             </p>
           </div>
         </div>
 
         <div className="text-center mt-8">
-          <Link href="/contact" className="text-sm text-gray-500 hover:text-gray-300 underline underline-offset-4">
+          <button
+            onClick={() => openContactModal({ service: "consultation", message: "Нужна помощь в выборе пакета" })}
+            className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
+          >
             Нужна помощь в выборе?
-          </Link>
+          </button>
         </div>
 
       </div>

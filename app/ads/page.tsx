@@ -12,7 +12,7 @@ export default function AdsPage() {
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 md:py-32 px-4">
+      <section className="relative py-6 md:py-32 px-4">
         <SpotlightHero />
 
         <div className="container mx-auto max-w-7xl relative z-10">

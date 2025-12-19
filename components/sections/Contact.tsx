@@ -95,10 +95,8 @@ export default function Contact() {
               <span className="text-sm font-medium text-gray-300">Свяжитесь с нами</span>
             </div>
 
-            <h2 id="contact-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-100 to-purple-200">
-                Готовы обсудить проект?
-              </span>
+            <h2 id="contact-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 text-white">
+              Готовы обсудить проект?
             </h2>
             <p className="text-base md:text-lg text-slate-400 mb-8 md:mb-10 max-w-md">
               Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы обсудить детали.

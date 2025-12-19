@@ -49,3 +49,28 @@ export const websiteAnalysisSchema = z.object({
 });
 
 export type WebsiteAnalysisData = z.infer<typeof websiteAnalysisSchema>;
+
+// Growth Plan Lead Magnet Schema
+export const growthPlanSchema = z.object({
+  websiteOrProfile: z
+    .string()
+    .min(1, "Укажите сайт или профиль бизнеса"),
+  businessType: z
+    .string()
+    .min(1, "Выберите тип бизнеса"),
+  mainGoal: z
+    .string()
+    .min(1, "Выберите главную цель"),
+  triedBefore: z
+    .array(z.string())
+    .optional(),
+  mainProblem: z
+    .string()
+    .min(1, "Расскажите о главной проблеме")
+    .max(500, "Текст слишком длинный"),
+  contact: z
+    .string()
+    .min(1, "Укажите способ связи"),
+});
+
+export type GrowthPlanData = z.infer<typeof growthPlanSchema>;
