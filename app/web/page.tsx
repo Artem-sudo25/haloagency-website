@@ -120,7 +120,7 @@ export default function WebDevelopmentPage() {
               >
                 <Code2 className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-medium text-blue-300 tracking-wide uppercase">
-                  Web Development
+                  Веб-разработка
                 </span>
               </motion.div>
 
@@ -130,9 +130,9 @@ export default function WebDevelopmentPage() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
               >
-                Сайты, которые <br />
+                Сайты, которые продают <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                  продают за вас
+                  за вас 24/7
                 </span>
               </motion.h1>
 
@@ -142,8 +142,8 @@ export default function WebDevelopmentPage() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed"
               >
-                Разрабатываем на Next.js. Это значит: мгновенная загрузка,
-                идеальное SEO и удобство для мобильных пользователей.
+                Современные web-решения для малого и среднего бизнеса в Чехии 
+                — быстрые, SEO-ready и готовые к рекламе.. 
               </motion.p>
 
               <motion.div

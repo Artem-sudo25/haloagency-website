@@ -3,8 +3,15 @@ import { Mail, Smartphone } from "lucide-react";
 
 export default function Footer() {
     return (
-        <footer className="bg-ha-bg pt-16 pb-8 border-t border-white/10 text-slate-400">
-            <div className="container mx-auto px-4">
+        <footer className="relative bg-ha-bg pt-20 pb-10 overflow-hidden border-t border-white/5">
+            {/* Top Gradient Accent */}
+            <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
+            <div className="absolute top-0 inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-purple-500/30 to-transparent blur-sm" />
+
+            {/* Background Flare */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+            <div className="container mx-auto px-4 relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
                     {/* Left Column - Branding & Contacts */}
                     <div className="lg:col-span-2 space-y-6">

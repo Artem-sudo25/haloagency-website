@@ -241,9 +241,9 @@ export default function WebProjectForm() {
   }
 
   return (
-    <section className="py-20 px-4" id="project-form">
+    <section className="py-10 px-2" id="project-form">
       <div className="container mx-auto max-w-3xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
             <Sparkles className="w-4 h-4 text-blue-400" />
             <span className="text-sm font-medium text-blue-400">
@@ -258,7 +258,7 @@ export default function WebProjectForm() {
           </p>
         </div>
 
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[400px] flex flex-col relative">
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[300px] flex flex-col relative">
           {/* Progress Bar */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 z-20">
             <motion.div
@@ -269,7 +269,7 @@ export default function WebProjectForm() {
             />
           </div>
 
-          <div className="flex-grow flex flex-col justify-center p-6 md:p-12 relative z-10">
+          <div className="flex-grow flex flex-col justify-center px-4 py-8 md:p-12 relative z-10">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentStep}
@@ -298,39 +298,46 @@ export default function WebProjectForm() {
                   {currentQuestion.question_text}
                 </h3>
 
-                <div className="relative">
+                <div>
+                  <p className="text-slate-500 text-sm mb-2">
+                    {currentQuestion.placeholder_text}
+                  </p>
                   <input
+                    // @ts-ignore
                     ref={inputRef}
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder={currentQuestion.placeholder_text}
-                    className="w-full bg-transparent border-b-2 border-white/20 py-4 text-xl md:text-2xl text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && inputValue.trim()) {
+                        e.preventDefault();
+                        handleNext();
+                      }
+                    }}
+                    placeholder="Ваш ответ..."
+                    className="w-full bg-transparent border-b-2 border-white/20 py-3 text-lg text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                   />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2">
+                  <div className="flex justify-end mt-4">
                     <button
                       type="button"
                       onClick={handleNext}
                       disabled={!inputValue.trim() || isSubmitting}
                       className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting
-                          ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
-                          : "bg-slate-800 text-slate-600 cursor-not-allowed"
+                        ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
+                        : "bg-slate-800 text-slate-600 cursor-not-allowed"
                         }`}
                     >
                       {isSubmitting ? (
-                        <Loader2 className="w-6 h-6 animate-spin" />
+                        <Loader2 className="w-5 h-5 animate-spin" />
                       ) : currentStep === totalSteps - 1 ? (
-                        <Send className="w-5 h-5" />
+                        <Send className="w-4 h-4" />
                       ) : (
-                        <ChevronRight className="w-6 h-6" />
+                        <ChevronRight className="w-5 h-5" />
                       )}
                     </button>
                   </div>
                 </div>
-                <p className="text-slate-500 text-sm mt-4">
-                  Нажмите Enter ↵ чтобы продолжить
-                </p>
+
               </motion.div>
             </AnimatePresence>
           </div>

@@ -102,7 +102,7 @@ export default function Hero() {
               className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
               asChild
             >
-              <Link href="/#audit">Анализ вашего сайта</Link>
+              <Link href="/#growth-plan">Бесплатный план роста</Link>
             </Button>
           </div>
         </motion.div>

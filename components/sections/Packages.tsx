@@ -191,8 +191,8 @@ export default function Packages() {
         {/* Bottom Discount Banner */}
         <div className="mt-12 mx-auto max-w-3xl">
           <div className="p-6 rounded-2xl bg-gradient-to-r from-blue-900/30 to-purple-900/30 border border-blue-500/30 flex items-center justify-center text-center">
-            <p className="text-lg md:text-xl text-blue-200 font-medium flex items-center gap-2">
-              <span className="text-2xl">🎄</span>
+            <p className="text-lg md:text-xl text-blue-200 font-medium text-center">
+              <span className="text-2xl mr-2">🎄</span>
               Новогодний подарок — скидка <span className="text-white font-bold">20%</span> на настройку!
             </p>
           </div>
