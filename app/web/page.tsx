@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import FAQ from "@/components/sections/FAQ";
+import Process from "@/components/sections/Process";
 import WebProjectForm from "@/components/sections/WebProjectForm";
 import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
@@ -140,10 +141,19 @@ export default function WebDevelopmentPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed"
+                className="text-xl text-slate-400 mb-4 max-w-xl leading-relaxed"
               >
-                Современные web-решения для малого и среднего бизнеса в Чехии 
-                — быстрые, SEO-ready и готовые к рекламе.. 
+                Современные web-решения для малого и среднего бизнеса в Чехии
+                — быстрые, SEO-ready и готовые к рекламе.
+              </motion.p>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.25 }}
+                className="text-sm text-slate-500 mb-10 max-w-xl"
+              >
+                Подходит для сервисного бизнеса, e-commerce и локальных компаний в Чехии
               </motion.p>
 
               <motion.div
@@ -227,16 +237,74 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* 2. Services (What we develop) */}
-      <section className="py-20 bg-ha-bg-soft">
+      {/* 2. For Whom - Target Audience */}
+      <section className="py-20 bg-ha-bg relative overflow-hidden">
+        {/* Subtle background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto max-w-5xl px-4 relative z-10">
+          <div className="text-center mb-12">
+            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Целевая аудитория</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Кому подойдут наши сайты
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">Сервисный бизнес</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Заявки, бронирования, звонки — всё, что приносит клиентов.</p>
+            </div>
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">E-commerce</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">Готовность к рекламе и аналитике с первого дня.</p>
+            </div>
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10">
+              <h3 className="text-lg font-semibold text-white mb-3 group-hover:text-blue-300 transition-colors">Локальные компании в Чехии</h3>
+              <p className="text-slate-400 text-sm leading-relaxed">SEO, скорость, доверие — то, что ценят местные клиенты.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You Get - Outcomes */}
+      <section className="py-20 bg-ha-bg-soft relative overflow-hidden">
+        <div className="absolute top-1/2 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto max-w-4xl px-4 relative z-10">
+          <div className="text-center mb-12">
+            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Результаты</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Что даёт сайт от HaloAgency
+            </h2>
+          </div>
+          <div className="space-y-3">
+            {[
+              "Быстрая загрузка и Core Web Vitals",
+              "Готовность к рекламе (Google / Meta)",
+              "SEO-база с первого дня",
+              "Понятная аналитика и события",
+              "Возможность масштабирования без переделок"
+            ].map((item, i) => (
+              <div key={i} className="group flex items-center gap-4 p-5 rounded-xl bg-gradient-to-r from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center text-blue-300 font-bold text-sm flex-shrink-0 group-hover:from-blue-500/40 group-hover:to-indigo-500/30 transition-colors">
+                  {i + 1}
+                </div>
+                <span className="text-white font-medium">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Services (What we develop) */}
+      <section className="py-20 bg-ha-bg relative overflow-hidden">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Что мы разрабатываем
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              От простых лендингов до сложных экосистем. Мы создаем решения,
-              которые приносят прибыль.
+              Мы подбираем формат сайта под задачу бизнеса, а не наоборот..
             </p>
           </div>
 
@@ -357,41 +425,63 @@ export default function WebDevelopmentPage() {
         </div>
       </section>
 
-      {/* 4. Tech Stack */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Технологический стек
+      {/* Process - How We Work */}
+      <Process />
+
+      {/* Cases - Web-Dev Focus */}
+      <section className="py-20 bg-ha-bg relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="container mx-auto max-w-6xl px-4 relative z-10">
+          <div className="text-center mb-12">
+            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Кейсы</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Как это работает на практике
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Используем современные инструменты для максимальной
-              производительности и масштабируемости.
-            </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {techStack.map((tech, i) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                    <tech.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
-                    {tech.name}
-                  </h3>
-                  <p className="text-sm text-slate-500">{tech.label}</p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Nejbalonky */}
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300">
+              <div className="text-blue-400 text-sm font-mono mb-2">01</div>
+              <h3 className="text-xl font-bold text-white mb-3">Nejbalonky.cz</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                E-commerce архитектура на Next.js + WooCommerce. Масштабируемая система, готовая к росту трафика.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 text-xs bg-blue-500/20 text-blue-300 rounded">Архитектура</span>
+                <span className="px-2 py-1 text-xs bg-blue-500/20 text-blue-300 rounded">E-commerce</span>
+                <span className="px-2 py-1 text-xs bg-blue-500/20 text-blue-300 rounded">Масштаб</span>
+              </div>
+            </div>
+
+            {/* ProPradlo */}
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 to-transparent border border-teal-500/20 hover:border-teal-500/40 transition-all duration-300">
+              <div className="text-teal-400 text-sm font-mono mb-2">02</div>
+              <h3 className="text-xl font-bold text-white mb-3">ProPradlo.cz</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                Web-app с real-time бронированием и интеграцией в CRM. Логика заказов и автоматизация.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 text-xs bg-teal-500/20 text-teal-300 rounded">Web-app</span>
+                <span className="px-2 py-1 text-xs bg-teal-500/20 text-teal-300 rounded">Бронирование</span>
+                <span className="px-2 py-1 text-xs bg-teal-500/20 text-teal-300 rounded">CRM</span>
+              </div>
+            </div>
+
+            {/* Segway */}
+            <div className="group p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border border-amber-500/20 hover:border-amber-500/40 transition-all duration-300">
+              <div className="text-amber-400 text-sm font-mono mb-2">03</div>
+              <h3 className="text-xl font-bold text-white mb-3">Segway Tours</h3>
+              <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                SEO-структура, оптимизированный контент и Core Web Vitals. Быстрый сайт для туризма.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <span className="px-2 py-1 text-xs bg-amber-500/20 text-amber-300 rounded">SEO</span>
+                <span className="px-2 py-1 text-xs bg-amber-500/20 text-amber-300 rounded">Скорость</span>
+                <span className="px-2 py-1 text-xs bg-amber-500/20 text-amber-300 rounded">Контент</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
