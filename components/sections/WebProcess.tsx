@@ -7,99 +7,105 @@ import { useRef, useState, useEffect } from "react";
 const pipelineSteps = [
   {
     id: "discovery",
-    command: "halo init --project",
+    stage: "DISCOVERY",
+    title: "Понимание задачи",
+    duration: "1–2 дня",
     status: "complete",
-    label: "Discovery",
-    duration: "2 дня",
-    output: [
-      "Анализ бизнес-целей...",
-      "Исследование конкурентов...",
-      "Определение структуры сайта...",
+    tasks: [
+      "Обсуждаем ваш бизнес и цель сайта",
+      "Определяем, для кого сайт и что он должен делать",
+      "Согласовываем формат и структуру",
     ],
-    result: "✓ Бриф и roadmap готовы",
+    result: "Чёткое понимание, какой сайт нужен и зачем",
+    terminalTitle: "Анализ проекта",
+    terminalChecks: [
+      "Цели и задачи определены",
+      "Целевая аудитория понятна",
+      "Структура согласована",
+      "Формат выбран",
+    ],
   },
   {
     id: "design",
-    command: "halo design --ui --ux",
+    stage: "DESIGN",
+    title: "Структура и внешний вид",
+    duration: "3–5 дней",
     status: "complete",
-    label: "Design",
-    duration: "3-5 дней",
-    output: [
-      "Создание wireframes...",
-      "UI Kit и компоненты...",
-      "Прототип в Figma...",
+    tasks: [
+      "Продумываем логику страниц",
+      "Делаем понятную структуру и пользовательский путь",
+      "Согласовываем стиль и подачу",
     ],
-    result: "✓ Дизайн согласован",
+    result: "Понятный макет и структура будущего сайта",
+    terminalTitle: "Дизайн-система",
+    terminalChecks: [
+      "Wireframes готовы",
+      "UI-компоненты спроектированы",
+      "Мобильная версия продумана",
+      "Стиль согласован",
+    ],
   },
   {
     id: "develop",
-    command: "halo build --next --typescript",
+    stage: "DEVELOPMENT",
+    title: "Разработка сайта",
+    duration: "5–10 дней",
     status: "complete",
-    label: "Development",
-    duration: "5-10 дней",
-    output: [
-      "Компоненты React...",
-      "API интеграции...",
-      "SEO оптимизация...",
+    tasks: [
+      "Реализуем сайт на современной технологии",
+      "Адаптируем под мобильные устройства",
+      "Оптимизируем скорость и стабильность",
     ],
-    result: "✓ Код готов к деплою",
+    result: "Готовый, быстрый сайт, который корректно работает",
+    terminalTitle: "Сборка проекта",
+    terminalChecks: [
+      "Код написан и проверен",
+      "Адаптив под все устройства",
+      "Скорость оптимизирована",
+      "Формы работают",
+    ],
   },
   {
     id: "test",
-    command: "halo test --e2e --performance",
+    stage: "TESTING",
+    title: "Проверка и финальные правки",
+    duration: "1–2 дня",
     status: "complete",
-    label: "Testing",
-    duration: "1-2 дня",
-    output: [
-      "Core Web Vitals check...",
-      "Кроссбраузерное тестирование...",
-      "Mobile responsive audit...",
+    tasks: [
+      "Проверяем сайт на разных устройствах",
+      "Тестируем скорость и удобство",
+      "Вносим финальные правки",
     ],
-    result: "✓ Все тесты пройдены",
+    result: "Сайт готов к запуску без неприятных сюрпризов",
+    terminalTitle: "Проверка перед запуском",
+    terminalChecks: [
+      "Проверка скорости загрузки",
+      "Адаптация под мобильные устройства",
+      "Проверка форм и заявок",
+      "Подготовка к рекламе и аналитике",
+    ],
   },
   {
-    id: "deploy",
-    command: "halo deploy --production",
-    status: "running",
-    label: "Launch",
+    id: "launch",
+    stage: "LAUNCH",
+    title: "Запуск сайта",
     duration: "1 день",
-    output: [
-      "Настройка домена...",
-      "SSL сертификат...",
-      "Analytics подключена...",
+    status: "running",
+    tasks: [
+      "Публикуем сайт",
+      "Проверяем корректную работу",
+      "Передаём доступы и инструкции",
     ],
-    result: "→ Сайт в продакшене",
+    result: "Сайт запущен и готов принимать клиентов",
+    terminalTitle: "Публикация",
+    terminalChecks: [
+      "Домен подключён",
+      "SSL-сертификат активен",
+      "Аналитика настроена",
+      "Сайт доступен",
+    ],
   },
 ];
-
-function TerminalLine({ 
-  children, 
-  delay = 0, 
-  isCommand = false,
-  isResult = false,
-}: { 
-  children: React.ReactNode; 
-  delay?: number;
-  isCommand?: boolean;
-  isResult?: boolean;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: -10 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ delay, duration: 0.3 }}
-      className={`font-mono text-sm ${
-        isCommand 
-          ? "text-emerald-400" 
-          : isResult 
-            ? "text-blue-400 font-medium"
-            : "text-slate-500"
-      }`}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function PipelineStep({ 
   step, 
@@ -124,7 +130,7 @@ function PipelineStep({
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
       className={`
-        relative flex items-center gap-4 p-4 rounded-xl w-full text-left
+        relative flex items-start gap-4 p-5 rounded-2xl w-full text-left
         transition-all duration-300 group
         ${isActive 
           ? "bg-slate-800/80 border border-blue-500/50 shadow-lg shadow-blue-500/10" 
@@ -134,7 +140,7 @@ function PipelineStep({
     >
       {/* Status Indicator */}
       <div className={`
-        relative w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
+        relative w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5
         ${isComplete 
           ? "bg-emerald-500/20 border border-emerald-500/30" 
           : isRunning 
@@ -159,40 +165,53 @@ function PipelineStep({
           <motion.div
             animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}
-            className="absolute inset-0 rounded-lg bg-blue-500/30"
+            className="absolute inset-0 rounded-xl bg-blue-500/30"
           />
         )}
       </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
+        {/* Header */}
+        <div className="flex items-center gap-2 mb-1.5">
           <span className={`
-            text-xs font-mono uppercase tracking-wider
-            ${isComplete ? "text-emerald-400" : isRunning ? "text-blue-400" : "text-slate-500"}
+            text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded
+            ${isComplete 
+              ? "bg-emerald-500/20 text-emerald-400" 
+              : isRunning 
+                ? "bg-blue-500/20 text-blue-400" 
+                : "bg-slate-800 text-slate-500"
+            }
           `}>
-            {step.label}
+            {step.stage}
           </span>
           <span className="text-xs text-slate-600">•</span>
           <span className="text-xs text-slate-500">{step.duration}</span>
         </div>
-        <code className={`
-          text-sm font-mono truncate block
-          ${isActive ? "text-white" : "text-slate-400 group-hover:text-slate-300"}
+
+        {/* Title */}
+        <h3 className={`
+          text-lg font-semibold mb-2 transition-colors
+          ${isActive ? "text-white" : "text-slate-300 group-hover:text-white"}
         `}>
-          $ {step.command}
-        </code>
+          {step.title}
+        </h3>
+
+        {/* Result Preview */}
+        <p className="text-sm text-slate-500 line-clamp-1">
+          → {step.result}
+        </p>
       </div>
 
       {/* Arrow */}
       <ChevronRight className={`
-        w-5 h-5 flex-shrink-0 transition-all duration-300
+        w-5 h-5 flex-shrink-0 mt-3 transition-all duration-300
         ${isActive ? "text-blue-400 translate-x-1" : "text-slate-600 group-hover:text-slate-400"}
       `} />
 
       {/* Connection Line */}
       {index < pipelineSteps.length - 1 && (
-        <div className="absolute left-[2.25rem] top-full w-px h-2 bg-gradient-to-b from-white/10 to-transparent" />
+        <div className="absolute left-[2.1rem] top-full w-px h-2 bg-gradient-to-b from-white/10 to-transparent" />
       )}
     </motion.button>
   );
@@ -209,7 +228,7 @@ export default function WebProcess() {
     
     const interval = setInterval(() => {
       setActiveStep((prev) => (prev + 1) % pipelineSteps.length);
-    }, 4000);
+    }, 5000);
     
     return () => clearInterval(interval);
   }, [isInView]);
@@ -223,7 +242,7 @@ export default function WebProcess() {
     >
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[600px] h-[400px] bg-gradient-to-r from-emerald-500/5 via-blue-500/5 to-transparent rounded-full blur-[120px]" />
+        <div className="absolute top-1/4 left-0 w-[600px] h-[400px] bg-gradient-to-r from-blue-500/5 via-indigo-500/5 to-transparent rounded-full blur-[120px]" />
         <div className="absolute bottom-1/4 right-0 w-[500px] h-[300px] bg-gradient-to-l from-blue-500/8 to-transparent rounded-full blur-[100px]" />
         
         {/* Grid Pattern */}
@@ -247,22 +266,22 @@ export default function WebProcess() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-6">
-            <Terminal className="w-4 h-4 text-emerald-400" />
-            <span className="text-sm font-mono text-emerald-400">build.pipeline</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+            <Terminal className="w-4 h-4 text-blue-400" />
+            <span className="text-sm font-medium text-blue-400">Процесс</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
             Процесс разработки
           </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             От идеи до запуска — прозрачный процесс с понятными этапами
           </p>
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Pipeline Steps */}
-          <div className="space-y-2">
+          <div className="space-y-3 flex flex-col">
             {pipelineSteps.map((step, index) => (
               <PipelineStep
                 key={step.id}
@@ -274,15 +293,15 @@ export default function WebProcess() {
             ))}
           </div>
 
-          {/* Terminal Output */}
+          {/* Terminal Output - Human Readable */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="sticky top-24"
+            className="flex flex-col"
           >
-            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col h-full">
               {/* Terminal Header */}
               <div className="flex items-center gap-2 px-4 py-3 bg-slate-900 border-b border-white/5">
                 <div className="flex gap-1.5">
@@ -291,58 +310,85 @@ export default function WebProcess() {
                   <div className="w-3 h-3 rounded-full bg-green-500/60" />
                 </div>
                 <span className="text-xs text-slate-500 font-mono ml-2">
-                  halo-cli — {currentStep.label.toLowerCase()}
+                  {currentStep.terminalTitle}
                 </span>
               </div>
 
               {/* Terminal Body */}
-              <div className="bg-[#0a0f1a] p-6 min-h-[280px]">
+              <div className="bg-[#0a0f1a] p-6 flex-1 flex flex-col justify-between">
                 <motion.div
                   key={activeStep}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="space-y-3"
+                  className="space-y-6"
                 >
-                  {/* Command */}
-                  <div className="flex items-center gap-2">
-                    <span className="text-emerald-400 font-mono text-sm">❯</span>
-                    <TerminalLine isCommand delay={0}>
-                      {currentStep.command}
-                    </TerminalLine>
+                  {/* Stage Header */}
+                  <div className="pb-4 border-b border-slate-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-emerald-400 font-mono text-sm">❯</span>
+                      <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">
+                        {currentStep.stage}
+                      </span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">
+                      {currentStep.title}
+                    </h3>
+                    <p className="text-sm text-slate-500 mt-1">
+                      Срок: {currentStep.duration}
+                    </p>
                   </div>
 
-                  {/* Progress indicator */}
-                  <div className="flex items-center gap-3 py-2">
-                    <motion.div 
-                      className="h-1 bg-slate-800 rounded-full flex-1 overflow-hidden"
-                    >
-                      <motion.div
-                        initial={{ width: "0%" }}
-                        animate={{ width: "100%" }}
-                        transition={{ duration: 3.5, ease: "easeInOut" }}
-                        className="h-full bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full"
-                      />
-                    </motion.div>
-                    <span className="text-xs text-slate-600 font-mono">
-                      {currentStep.duration}
-                    </span>
+                  {/* What happens */}
+                  <div>
+                    <p className="text-xs text-slate-600 uppercase tracking-wider mb-3 font-medium">
+                      Что происходит:
+                    </p>
+                    <ul className="space-y-2">
+                      {currentStep.tasks.map((task, i) => (
+                        <motion.li
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 + i * 0.1 }}
+                          className="flex items-start gap-2 text-sm text-slate-400"
+                        >
+                          <span className="text-slate-600 mt-0.5">•</span>
+                          {task}
+                        </motion.li>
+                      ))}
+                    </ul>
                   </div>
 
-                  {/* Output Lines */}
-                  <div className="space-y-1.5 pl-4 border-l border-slate-800">
-                    {currentStep.output.map((line, i) => (
-                      <TerminalLine key={i} delay={0.5 + i * 0.3}>
-                        {line}
-                      </TerminalLine>
-                    ))}
+                  {/* Checklist */}
+                  <div className="pt-4 border-t border-slate-800/50">
+                    <p className="text-xs text-slate-600 uppercase tracking-wider mb-3 font-medium">
+                      Чек-лист:
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {currentStep.terminalChecks.map((check, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.3 + i * 0.1 }}
+                          className="flex items-center gap-2"
+                        >
+                          <Check className="w-3.5 h-3.5 text-emerald-400 flex-shrink-0" />
+                          <span className="text-xs text-slate-400">{check}</span>
+                        </motion.div>
+                      ))}
+                    </div>
                   </div>
 
                   {/* Result */}
-                  <div className="pt-3 mt-3 border-t border-slate-800/50">
-                    <TerminalLine isResult delay={1.4}>
-                      {currentStep.result}
-                    </TerminalLine>
+                  <div className="pt-4 border-t border-slate-800/50">
+                    <p className="text-xs text-slate-600 uppercase tracking-wider mb-2 font-medium">
+                      Результат:
+                    </p>
+                    <p className="text-blue-400 text-sm font-medium">
+                      → {currentStep.result}
+                    </p>
                   </div>
                 </motion.div>
               </div>
@@ -356,18 +402,30 @@ export default function WebProcess() {
                       : "bg-emerald-400"
                   }`} />
                   <span className="text-xs text-slate-500 font-mono">
-                    {currentStep.status === "running" ? "in progress" : "completed"}
+                    {currentStep.status === "running" ? "в процессе" : "готово к запуску"}
                   </span>
                 </div>
                 <span className="text-xs text-slate-600 font-mono">
-                  step {activeStep + 1}/{pipelineSteps.length}
+                  этап {activeStep + 1}/{pipelineSteps.length}
                 </span>
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Trust Line */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <p className="text-sm text-slate-500">
+            Вы всегда понимаете, на каком этапе находится проект и что будет дальше.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
 }
-

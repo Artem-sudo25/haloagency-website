@@ -148,7 +148,7 @@ export default function WebFAQ() {
             <ShieldCheck className="w-4 h-4 text-blue-400" />
             <span className="text-sm font-medium text-blue-400">Частые вопросы</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
             Вопросы о<br className="hidden md:block" /> веб-разработке
           </h2>
         </div>

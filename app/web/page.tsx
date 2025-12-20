@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 import { motion } from "framer-motion";
 import {
+  AlertTriangle,
+  Briefcase,
   Check,
   Code2,
   Globe,
@@ -12,6 +14,8 @@ import {
   ShoppingCart,
   Smartphone,
   Sparkles,
+  TrendingUp,
+  Users,
 } from "lucide-react";
 import Link from "next/link";
 import WebFAQ from "@/components/sections/WebFAQ";
@@ -25,13 +29,6 @@ import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
 
 // Data Definitions
-const techStack = [
-  { name: "Next.js 14", label: "Framework", icon: Globe },
-  { name: "TypeScript", label: "Reliability", icon: Code2 },
-  { name: "Tailwind CSS", label: "Styling", icon: Rocket },
-  { name: "Framer Motion", label: "Animations", icon: Smartphone },
-];
-
 const webPackages = [
   {
     id: "corporate",
@@ -274,9 +271,9 @@ export default function WebDevelopmentPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-indigo-500/10 border border-blue-500/20 mb-6 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6"
             >
-              <Sparkles className="w-4 h-4 text-blue-400" />
+              <Users className="w-4 h-4 text-blue-400" />
               <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Целевая аудитория</p>
             </motion.div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
@@ -367,9 +364,9 @@ export default function WebDevelopmentPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-cyan-500/10 border border-blue-500/20 mb-6 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6"
             >
-              <Sparkles className="w-4 h-4 text-blue-400" />
+              <TrendingUp className="w-4 h-4 text-blue-400" />
               <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Результаты</p>
             </motion.div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
@@ -439,18 +436,22 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 5. Services (What we develop) */}
-      <section id="packages" className="py-20 bg-[#0A1628] relative overflow-hidden">
-        <div className="container mx-auto max-w-5xl px-4">
+      <section id="packages" className="py-24 bg-[#0A1628] relative overflow-hidden">
+        <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+              <ShoppingCart className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-medium text-blue-400">Ценник услуг</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Что мы разрабатываем
             </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
               Мы подбираем формат сайта под задачу бизнеса, а не наоборот.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             {webPackages.map((pkg, index) => (
               <div
                 key={index}
@@ -475,7 +476,7 @@ export default function WebDevelopmentPage() {
                     </div>
                   )}
 
-                  <CardHeader className="p-6 pb-2">
+                  <CardHeader className="p-8 pb-3">
                     <div
                       className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
                         pkg.highlight ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-gray-400"
@@ -505,10 +506,10 @@ export default function WebDevelopmentPage() {
                     </div>
                   </CardHeader>
 
-                  <CardContent className="p-6 pt-2 flex-grow">
+                  <CardContent className="p-8 pt-3 flex-grow">
                     <div className="w-full h-px bg-white/10 mb-4" />
 
-                    <ul className="space-y-3">
+                    <ul className="space-y-4">
                       {pkg.features.map((feature, i) => (
                         <li key={i} className="flex items-start gap-2.5">
                           <Check
@@ -522,7 +523,7 @@ export default function WebDevelopmentPage() {
                     </ul>
                   </CardContent>
 
-                  <CardFooter className="p-6 pt-0 mt-auto">
+                  <CardFooter className="p-8 pt-0 mt-auto">
                     <Button
                       onClick={() => openModal(pkg.title)}
                       className={`w-full font-medium transition-all ${
@@ -556,41 +557,40 @@ export default function WebDevelopmentPage() {
       {/* 3. Lead Gen Form - Enhanced */}
       <section className="py-24 px-4 relative overflow-hidden">
         {/* Background decoration */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-500/5 via-purple-500/5 to-transparent" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
 
         <div className="container mx-auto max-w-4xl relative z-10">
           {/* Section header */}
           <div className="text-center mb-12">
+            {/* Icon like home page */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20 mb-6"
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 mb-6 relative"
             >
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-medium text-blue-300">
-                Бесплатный концепт за 48 часов
-              </span>
+              <div className="absolute inset-0 rounded-full bg-orange-500/30 blur-xl" />
+              <AlertTriangle className="w-8 h-8 text-orange-500 relative z-10" />
             </motion.div>
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl font-bold text-white mb-4"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
             >
-              Получите персональное демо вашего сайта
+              Бесплатный концепт сайта
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="text-slate-400 text-lg max-w-2xl mx-auto"
+              className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
             >
-              Нейросеть под присмотром арт-директора создаст концепт специально для вас
+              Получите персональное демо до 48 часов
             </motion.p>
           </div>
 
@@ -600,56 +600,16 @@ export default function WebDevelopmentPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="relative rounded-3xl bg-slate-900/50 backdrop-blur-xl border border-white/10 p-8 md:p-12 shadow-2xl"
+            className="relative rounded-3xl bg-slate-900/50 backdrop-blur-xl border border-orange-500/20 p-8 md:p-12 shadow-2xl"
           >
             {/* Gradient border glow */}
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-50 blur-xl -z-10" />
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/20 via-orange-600/10 to-orange-500/20 opacity-60 blur-xl -z-10" />
 
             <WebProjectForm />
           </motion.div>
         </div>
       </section>
 
-      <SectionDivider />
-
-      {/* 4. Tech Stack */}
-      <section className="py-24 px-4">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Технологический стек
-            </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              Используем современные инструменты для максимальной
-              производительности и масштабируемости.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {techStack.map((tech, i) => (
-              <motion.div
-                key={tech.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300 overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center mb-4 text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                    <tech.icon className="w-6 h-6" />
-                  </div>
-                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">
-                    {tech.name}
-                  </h3>
-                  <p className="text-sm text-slate-500">{tech.label}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <SectionDivider />
 
@@ -664,8 +624,11 @@ export default function WebDevelopmentPage() {
 
         <div className="container mx-auto max-w-6xl px-4 relative z-10">
           <div className="text-center mb-12">
-            <p className="text-blue-400 text-sm font-medium uppercase tracking-wider mb-3">Кейсы</p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
+              <Briefcase className="w-4 h-4 text-blue-400" />
+              <span className="text-sm font-medium text-blue-400">Кейсы</span>
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Как это работает на практике
             </h2>
           </div>

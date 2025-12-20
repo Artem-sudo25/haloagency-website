@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ChevronRight, Loader2, Send, Sparkles } from "lucide-react";
+import { ArrowLeft, ChevronRight, Loader2, Send } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -179,7 +179,7 @@ export default function WebProjectForm() {
             className="bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl" />
 
             <div className="relative z-10">
               <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -241,28 +241,12 @@ export default function WebProjectForm() {
   }
 
   return (
-    <section className="py-10 px-2" id="project-form">
-      <div className="container mx-auto max-w-3xl">
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-4">
-            <Sparkles className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">
-              AI Prototype Generator
-            </span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            {formData.form_meta.title}
-          </h2>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            {formData.form_meta.description}
-          </p>
-        </div>
-
-        <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[300px] flex flex-col relative">
+    <div id="project-form">
+      <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[300px] flex flex-col relative">
           {/* Progress Bar */}
           <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 z-20">
             <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
+              className="h-full bg-gradient-to-r from-orange-500 to-orange-600"
               initial={{ width: 0 }}
               animate={{ width: `${getProgress()}%` }}
               transition={{ duration: 0.5 }}
@@ -342,7 +326,6 @@ export default function WebProjectForm() {
             </AnimatePresence>
           </div>
         </div>
-      </div>
-    </section>
+    </div>
   );
 }
