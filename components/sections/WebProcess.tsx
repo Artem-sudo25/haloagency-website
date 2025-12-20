@@ -293,13 +293,13 @@ export default function WebProcess() {
             ))}
           </div>
 
-          {/* Terminal Output - Human Readable */}
+          {/* Terminal Output - Human Readable (Desktop only) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
-            className="flex flex-col"
+            className="hidden lg:flex flex-col"
           >
             <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex flex-col h-full">
               {/* Terminal Header */}

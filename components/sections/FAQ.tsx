@@ -91,14 +91,14 @@ export default function FAQ() {
                 <button
                   type="button"
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className={`w-full text-left p-5 rounded-xl transition-all duration-300 border ${openIndex === index
+                  className={`w-full text-left p-4 md:p-5 rounded-xl transition-all duration-300 border ${openIndex === index
                     ? "bg-white/10 border-blue-500/50"
                     : "bg-transparent border-white/5 hover:bg-white/5 hover:border-white/20"
                     }`}
                 >
-                  <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start justify-between gap-3 md:gap-4">
                     <span
-                      className={`text-lg font-medium transition-colors pr-8 ${openIndex === index ? "text-blue-400" : "text-white group-hover:text-blue-200"
+                      className={`text-base md:text-lg font-medium transition-colors ${openIndex === index ? "text-blue-400" : "text-white group-hover:text-blue-200"
                         }`}
                     >
                       {faq.question}
