@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 import AdsProcess from "@/components/sections/AdsProcess";
 import AdsLeadMagnet from "@/components/sections/AdsLeadMagnet";
 import AdsFAQ from "@/components/sections/AdsFAQ";
@@ -98,45 +99,36 @@ export default function AdsPage() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-8"
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-8 animate-fade-in-up"
               >
                 <Megaphone className="w-4 h-4 text-orange-400" />
                 <span className="text-sm font-medium text-orange-300 tracking-wide uppercase">
                   Реклама
                 </span>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
+              <h1
+                className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
+                style={{ animationDelay: "0.1s" }}
               >
                 Реклама, которая <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-red-400">
                   приводит клиентов
                 </span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed"
+              <p
+                className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed animate-fade-in-up"
+                style={{ animationDelay: "0.2s" }}
               >
                 Настраиваем и ведём рекламу в Google, Meta и Seznam. 
                 Фокус на заявках и продажах, а не на кликах и охватах.
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4"
+              <div
+                className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
+                style={{ animationDelay: "0.3s" }}
               >
                 <Button
                   size="lg"
@@ -153,7 +145,7 @@ export default function AdsPage() {
                 >
                   <Link href="#pricing">Стоимость</Link>
                 </Button>
-              </motion.div>
+              </div>
             </div>
 
             {/* Hero Graphic: Floating Ad Cards */}
@@ -252,99 +244,72 @@ export default function AdsPage() {
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-gradient-to-tl from-orange-500/8 to-transparent rounded-full blur-[100px] pointer-events-none" />
         
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6"
-            >
+          <CSSScrollAnimation className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
               <Users className="w-4 h-4 text-orange-400" />
               <p className="text-orange-400 text-sm font-medium uppercase tracking-wider">Для кого</p>
-            </motion.div>
+        </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Кому подойдёт реклама
             </h2>
-          </motion.div>
+          </CSSScrollAnimation>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Target className="w-6 h-6 text-orange-400" />
+          <CSSStagger className="grid md:grid-cols-3 gap-6">
+            <CSSStaggerItem index={0}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Target className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Локальный сервисный бизнес</h3>
+                  <p className="text-slate-400 leading-relaxed">Салоны, клиники, ремонт, доставка — всё, где важен поток заявок из города или региона.</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Локальный сервисный бизнес</h3>
-                <p className="text-slate-400 leading-relaxed">Салоны, клиники, ремонт, доставка — всё, где важен поток заявок из города или региона.</p>
               </div>
-            </motion.div>
+            </CSSStaggerItem>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
+            <CSSStaggerItem index={1}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
               <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-amber-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="w-6 h-6 text-orange-400" />
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-amber-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <TrendingUp className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Компании с понятным предложением</h3>
+                  <p className="text-slate-400 leading-relaxed">Чёткий продукт или услуга с нормальной маржой, где реклама может окупиться.</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Компании с понятным предложением</h3>
-                <p className="text-slate-400 leading-relaxed">Чёткий продукт или услуга с нормальной маржой, где реклама может окупиться.</p>
               </div>
-            </motion.div>
+            </CSSStaggerItem>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="w-6 h-6 text-orange-400" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Бизнес, которому нужны заявки</h3>
-                <p className="text-slate-400 leading-relaxed">Не красивые отчёты, а реальные лиды и продажи, которые можно посчитать.</p>
+            <CSSStaggerItem index={2}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-orange-500/20 hover:border-orange-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/0 via-orange-500/20 to-orange-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/30 to-red-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <BarChart3 className="w-6 h-6 text-orange-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">Бизнес, которому нужны заявки</h3>
+                  <p className="text-slate-400 leading-relaxed">Не красивые отчёты, а реальные лиды и продажи, которые можно посчитать.</p>
+            </div>
               </div>
-            </motion.div>
-          </div>
+            </CSSStaggerItem>
+          </CSSStagger>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-slate-500 text-sm mt-10"
-          >
+          <CSSScrollAnimation delay={0.3} className="text-center text-slate-500 text-sm mt-10">
             Если чего-то не хватает (сайт, аналитика) — подскажем следующий шаг.
-          </motion.p>
+          </CSSScrollAnimation>
         </div>
       </section>
 
@@ -357,12 +322,7 @@ export default function AdsPage() {
         </div>
 
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <CSSScrollAnimation className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
               <Settings className="w-4 h-4 text-orange-400" />
               <span className="text-sm font-medium text-orange-400">Услуги</span>
@@ -370,9 +330,9 @@ export default function AdsPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Что мы делаем в рамках рекламы
             </h2>
-          </motion.div>
+          </CSSScrollAnimation>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <CSSStagger className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
               { icon: Search, text: "Анализ бизнеса и конкурентов" },
               { icon: Target, text: "Выбор рекламных каналов под задачу" },
@@ -380,46 +340,34 @@ export default function AdsPage() {
               { icon: TrendingUp, text: "Регулярная оптимизация по результатам" },
               { icon: BarChart3, text: "Понятные отчёты и рекомендации" },
             ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-orange-500/20 hover:bg-white/10 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                  <item.icon className="w-5 h-5" />
+              <CSSStaggerItem key={index} index={index}>
+                <div className="group flex items-center gap-4 p-5 rounded-2xl bg-white/5 border border-white/5 hover:border-orange-500/20 hover:bg-white/10 transition-all duration-300 h-full">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center text-orange-400 flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                    <item.icon className="w-5 h-5" />
+                  </div>
+                  <span className="text-white font-medium">{item.text}</span>
                 </div>
-                <span className="text-white font-medium">{item.text}</span>
-              </motion.div>
+              </CSSStaggerItem>
             ))}
 
             {/* CTA Card - Desktop only */}
-            <motion.button
-              type="button"
-              onClick={() => open({ service: "ads-consultation" })}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.25 }}
-              className="hidden lg:flex group items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/30 hover:border-orange-500/60 hover:from-orange-500/30 hover:to-orange-600/20 transition-all duration-300 cursor-pointer"
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/30">
-                <ArrowRight className="w-5 h-5" />
-              </div>
-              <span className="text-orange-300 font-medium group-hover:text-orange-200 transition-colors">Обсудить вашу задачу</span>
-            </motion.button>
-          </div>
+            <CSSStaggerItem index={5}>
+              <button
+                type="button"
+                onClick={() => open({ service: "ads-consultation" })}
+                className="hidden lg:flex group items-center gap-4 p-5 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/30 hover:border-orange-500/60 hover:from-orange-500/30 hover:to-orange-600/20 transition-all duration-300 cursor-pointer h-full"
+              >
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-orange-500/30">
+                  <ArrowRight className="w-5 h-5" />
+                </div>
+                <span className="text-orange-300 font-medium group-hover:text-orange-200 transition-colors">Обсудить вашу задачу</span>
+              </button>
+            </CSSStaggerItem>
+          </CSSStagger>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-orange-400 text-sm mt-12 font-medium"
-          >
+          <CSSScrollAnimation delay={0.3} className="text-center text-orange-400 text-sm mt-12 font-medium">
             Мы оптимизируем рекламу под результат, а не под клики.
-          </motion.p>
+          </CSSScrollAnimation>
         </div>
       </section>
 
@@ -428,12 +376,7 @@ export default function AdsPage() {
       {/* 4. Рекламные каналы */}
       <section className="py-24 bg-ha-bg relative overflow-hidden">
         <div className="container mx-auto max-w-4xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <CSSScrollAnimation className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
               <Megaphone className="w-4 h-4 text-orange-400" />
               <span className="text-sm font-medium text-orange-400">Каналы</span>
@@ -441,80 +384,63 @@ export default function AdsPage() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Рекламные каналы
             </h2>
-          </motion.div>
+          </CSSScrollAnimation>
 
-          <div className="grid md:grid-cols-3 gap-4 mb-8">
+          <CSSStagger className="grid md:grid-cols-3 gap-4 mb-8">
             {/* Google Ads */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0 }}
-              className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
-                  <path d="M22.5 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09h-.06Z" fill="#4285F4"/>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23Z" fill="#34A853"/>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62Z" fill="#FBBC05"/>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53Z" fill="#EA4335"/>
-                </svg>
+            <CSSStaggerItem index={0}>
+              <div className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300 h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
+                  <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                    <path d="M22.5 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09h-.06Z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23Z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62Z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53Z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold text-lg mb-2">Google Ads</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Для тех, кто уже ищет вашу услугу или продукт в поиске
+                </p>
               </div>
-              <h3 className="text-white font-semibold text-lg mb-2">Google Ads</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Для тех, кто уже ищет вашу услугу или продукт в поиске
-              </p>
-            </motion.div>
+            </CSSStaggerItem>
 
             {/* Meta Ads */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10Z" fill="#1877F2"/>
-                </svg>
+            <CSSStaggerItem index={1}>
+              <div className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300 h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
+                  <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10Z" fill="#1877F2"/>
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold text-lg mb-2">Meta Ads</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Для привлечения внимания и формирования спроса через соцсети
+                </p>
               </div>
-              <h3 className="text-white font-semibold text-lg mb-2">Meta Ads</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Для привлечения внимания и формирования спроса через соцсети
-              </p>
-            </motion.div>
+            </CSSStaggerItem>
 
             {/* Seznam Sklik */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300"
-            >
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" fill="#CC0000"/>
-                  <path d="M7 12.5c0-1.38 1.12-2.5 2.5-2.5h5c1.38 0 2.5 1.12 2.5 2.5S15.88 15 14.5 15h-5C8.12 15 7 13.88 7 12.5Z" fill="white"/>
-                  <circle cx="12" cy="8" r="2" fill="white"/>
-                </svg>
+            <CSSStaggerItem index={2}>
+              <div className="group p-6 rounded-2xl bg-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-300 h-full">
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-white/10 mb-4">
+                  <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="10" fill="#CC0000"/>
+                    <path d="M7 12.5c0-1.38 1.12-2.5 2.5-2.5h5c1.38 0 2.5 1.12 2.5 2.5S15.88 15 14.5 15h-5C8.12 15 7 13.88 7 12.5Z" fill="white"/>
+                    <circle cx="12" cy="8" r="2" fill="white"/>
+                  </svg>
+                </div>
+                <h3 className="text-white font-semibold text-lg mb-2">Seznam Sklik</h3>
+                <p className="text-slate-400 text-sm leading-relaxed">
+                  Для чешскоговорящей аудитории и локального бизнеса в Чехии
+                </p>
               </div>
-              <h3 className="text-white font-semibold text-lg mb-2">Seznam Sklik</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">
-                Для чешскоговорящей аудитории и локального бизнеса в Чехии
-              </p>
-            </motion.div>
-          </div>
+            </CSSStaggerItem>
+          </CSSStagger>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-slate-500 text-sm"
-          >
+          <CSSScrollAnimation delay={0.2} className="text-center text-slate-500 text-sm">
             Каналы подбираются под нишу и цель бизнеса.
-          </motion.p>
+          </CSSScrollAnimation>
         </div>
       </section>
 
@@ -523,66 +449,59 @@ export default function AdsPage() {
       {/* 5. Аналитика + 6. Подготовка сайта */}
       <section className="py-24 bg-ha-bg-soft relative overflow-hidden">
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8">
+          <CSSStagger className="grid md:grid-cols-2 gap-8">
             {/* Аналитика */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="group relative p-8 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center mb-6 text-orange-400 group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="w-7 h-7" />
+            <CSSStaggerItem index={0}>
+              <div className="group relative p-8 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center mb-6 text-orange-400 group-hover:scale-110 transition-transform duration-300">
+                    <BarChart3 className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Аналитика для принятия решений
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed mb-6">
+                    Чтобы реклама не работала «вслепую», мы используем базовую аналитику для оценки эффективности кампаний.
+                  </p>
+                  <Link 
+                    href="/tracking" 
+                    className="inline-flex items-center gap-2 text-orange-400 font-medium hover:text-orange-300 transition-colors group/link"
+                  >
+                    Подробнее о трекинге
+                    <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  Аналитика для принятия решений
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
-                  Чтобы реклама не работала «вслепую», мы используем базовую аналитику для оценки эффективности кампаний.
-                </p>
-                <Link 
-                  href="/tracking" 
-                  className="inline-flex items-center gap-2 text-orange-400 font-medium hover:text-orange-300 transition-colors group/link"
-                >
-                  Подробнее о трекинге
-                  <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
               </div>
-            </motion.div>
+            </CSSStaggerItem>
 
             {/* Подготовка сайта */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group relative p-8 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center mb-6 text-orange-400 group-hover:scale-110 transition-transform duration-300">
-                  <Target className="w-7 h-7" />
+            <CSSStaggerItem index={1}>
+              <div className="group relative p-8 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-white/10 hover:border-orange-500/30 transition-all duration-500 overflow-hidden h-full">
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                
+                <div className="relative z-10">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/10 border border-orange-500/20 flex items-center justify-center mb-6 text-orange-400 group-hover:scale-110 transition-transform duration-300">
+                    <Target className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Подготовка посадочных страниц
+                  </h3>
+                  <p className="text-slate-400 leading-relaxed mb-6">
+                    Если сайт или страница не готовы к рекламе, мы помогаем выявить и устранить ключевые блокеры конверсии.
+                  </p>
+                  <Link 
+                    href="/web" 
+                    className="inline-flex items-center gap-2 text-orange-400 font-medium hover:text-orange-300 transition-colors group/link"
+                  >
+                    Подробнее о веб-разработке
+                    <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3">
-                  Подготовка посадочных страниц
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
-                  Если сайт или страница не готовы к рекламе, мы помогаем выявить и устранить ключевые блокеры конверсии.
-                </p>
-                <Link 
-                  href="/web" 
-                  className="inline-flex items-center gap-2 text-orange-400 font-medium hover:text-orange-300 transition-colors group/link"
-                >
-                  Подробнее о веб-разработке
-                  <ExternalLink className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                </Link>
               </div>
-            </motion.div>
-          </div>
+            </CSSStaggerItem>
+          </CSSStagger>
         </div>
       </section>
 
@@ -601,12 +520,7 @@ export default function AdsPage() {
         </div>
 
         <div className="container mx-auto max-w-6xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+          <CSSScrollAnimation className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
               <TrendingUp className="w-4 h-4 text-orange-400" />
               <span className="text-sm font-medium text-orange-400">Стоимость</span>
@@ -618,7 +532,7 @@ export default function AdsPage() {
               Стоимость зависит от количества рекламных каналов и объёма работ. 
               Ниже — ориентиры для большинства проектов в Чехии.
             </p>
-          </motion.div>
+          </CSSScrollAnimation>
 
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start mb-12">
@@ -717,16 +631,11 @@ export default function AdsPage() {
           </div>
 
           {/* Важные условия */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center text-slate-500 text-xs space-y-1 mb-12"
-          >
+          <CSSScrollAnimation delay={0.3} className="text-center text-slate-500 text-xs space-y-1 mb-12">
             <p>• Рекламный бюджет оплачивается отдельно</p>
             <p>• Минимальный срок сотрудничества — 1 месяц</p>
             <p>• Итоговый объём работ и стоимость подтверждаются до старта</p>
-          </motion.div>
+          </CSSScrollAnimation>
 
         </div>
       </section>
@@ -750,30 +659,17 @@ export default function AdsPage() {
         </div>
 
         <div className="container mx-auto max-w-4xl text-center relative z-10">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
-          >
-            Готовы запустить рекламу?
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-slate-400 mb-10"
-          >
-            Обсудим ваш проект и предложим план действий.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-          >
+          <CSSScrollAnimation>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Готовы запустить рекламу?
+            </h2>
+          </CSSScrollAnimation>
+          <CSSScrollAnimation delay={0.1}>
+            <p className="text-xl text-slate-400 mb-10">
+              Обсудим ваш проект и предложим план действий.
+            </p>
+          </CSSScrollAnimation>
+          <CSSScrollAnimation delay={0.2} className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
               onClick={() => open({ service: "ads" })}
@@ -781,7 +677,7 @@ export default function AdsPage() {
             >
               Обсудить проект
             </Button>
-          </motion.div>
+          </CSSScrollAnimation>
         </div>
       </section>
     </main>

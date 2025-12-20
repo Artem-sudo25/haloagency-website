@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Zap } from "lucide-react";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 const processSteps = [
   {
@@ -42,12 +42,7 @@ export default function AdsProcess() {
 
       <div className="container mx-auto max-w-3xl px-4 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <CSSScrollAnimation className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
             <Zap className="w-4 h-4 text-orange-400" />
             <span className="text-sm font-medium text-orange-400">Процесс</span>
@@ -58,23 +53,16 @@ export default function AdsProcess() {
           <p className="text-gray-400 text-lg md:text-xl max-w-xl mx-auto">
             От первого разговора до результата — понятные этапы
           </p>
-        </motion.div>
+        </CSSScrollAnimation>
 
         {/* Process Steps */}
         <div className="relative">
           {/* Connecting Line */}
           <div className="absolute left-6 top-8 bottom-8 w-px bg-gradient-to-b from-orange-500/50 via-orange-500/20 to-transparent hidden md:block" />
           
-          <div className="space-y-4">
+          <CSSStagger className="space-y-4">
             {processSteps.map((step, index) => (
-              <motion.div
-                key={step.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ delay: index * 0.1, duration: 0.4 }}
-                className="group relative"
-              >
+              <CSSStaggerItem key={step.id} index={index} className="group relative">
                 <div className="relative flex gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-orange-500/30 transition-all duration-300">
                   {/* Hover glow */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
@@ -100,21 +88,15 @@ export default function AdsProcess() {
                     </p>
                   </div>
                 </div>
-              </motion.div>
+              </CSSStaggerItem>
             ))}
-          </div>
+          </CSSStagger>
         </div>
 
         {/* Trust Line */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="text-center text-slate-500 text-sm mt-12"
-        >
+        <CSSScrollAnimation delay={0.3} className="text-center text-slate-500 text-sm mt-12">
           Мы объясняем, что происходит с рекламой, простым языком — без лишних терминов.
-        </motion.p>
+        </CSSScrollAnimation>
       </div>
     </section>
   );

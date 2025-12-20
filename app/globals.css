@@ -200,6 +200,94 @@
     animation: progress-bar 1.5s ease-out;
   }
 
+  /* CSS Scroll Animations - Safari-friendly */
+  .css-animate-hidden {
+    opacity: 0;
+  }
+
+  .css-animate-fade-up {
+    animation: css-fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .css-animate-fade-in {
+    animation: css-fade-in 0.5s ease-out forwards;
+  }
+
+  .css-animate-fade-left {
+    animation: css-fade-left 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .css-animate-fade-right {
+    animation: css-fade-right 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .css-animate-scale-in {
+    animation: css-scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes css-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes css-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes css-fade-left {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes css-fade-right {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes css-scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Stagger animation system */
+  .css-stagger-container .css-stagger-item {
+    opacity: 0;
+  }
+
+  .css-stagger-container.css-stagger-visible .css-stagger-item {
+    animation: css-fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: calc(var(--stagger-index, 0) * 0.08s);
+  }
+
   /* Safari-specific animation performance optimizations */
   @supports (-webkit-touch-callout: none) {
     /* Force GPU acceleration for animated elements */

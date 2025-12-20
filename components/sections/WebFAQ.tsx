@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { Minus, Plus, ShieldCheck } from "lucide-react";
 import { useState } from "react";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 const faqs = [
   {
@@ -153,17 +153,10 @@ export default function WebFAQ() {
           </h2>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
+        <CSSStagger className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="group"
-              >
+              <CSSStaggerItem key={index} index={index} className="group">
                 <button
                   type="button"
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
@@ -192,26 +185,23 @@ export default function WebFAQ() {
                       )}
                     </div>
                   </div>
-                  <AnimatePresence>
-                    {openIndex === index && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="pt-4 text-slate-300 leading-relaxed text-base border-t border-white/5 mt-4">
-                          {faq.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {/* CSS-based accordion */}
+                  <div
+                    className={`grid transition-all duration-300 ease-out ${
+                      openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="pt-4 text-slate-300 leading-relaxed text-base border-t border-white/5 mt-4">
+                        {faq.answer}
+                      </div>
+                    </div>
+                  </div>
                 </button>
-              </motion.div>
+              </CSSStaggerItem>
             ))}
           </div>
-        </div>
+        </CSSStagger>
       </div>
     </section>
   );
