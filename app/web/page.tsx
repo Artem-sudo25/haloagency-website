@@ -4,7 +4,6 @@ import { useEffect } from "react";
 
 import { motion } from "framer-motion";
 import {
-  ArrowRight,
   Check,
   Code2,
   Globe,
@@ -15,8 +14,11 @@ import {
   Sparkles,
 } from "lucide-react";
 import Link from "next/link";
-import FAQ from "@/components/sections/FAQ";
+import WebFAQ from "@/components/sections/WebFAQ";
+import WebGuarantees from "@/components/sections/WebGuarantees";
+import WebProcess from "@/components/sections/WebProcess";
 import WebProjectForm from "@/components/sections/WebProjectForm";
+import WebSocialProof from "@/components/sections/WebSocialProof";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
@@ -168,7 +170,7 @@ export default function WebDevelopmentPage() {
                 transition={{ duration: 0.5, delay: 0.25 }}
                 className="text-sm text-slate-500 mb-10 max-w-xl"
               >
-                Подходит для сервисного бизнеса, e-commerce и локальных компаний в Чехии
+                Лендинг — от 3 дней. Онлайн магазин — до 3 недель
               </motion.p>
 
               <motion.div
@@ -353,7 +355,6 @@ export default function WebDevelopmentPage() {
         {/* Premium background effects */}
         <div className="absolute top-1/2 left-0 w-[500px] h-[400px] bg-gradient-to-r from-blue-500/10 via-cyan-500/5 to-transparent rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-gradient-to-tl from-blue-500/8 via-cyan-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
-        
 
         <div className="container mx-auto max-w-4xl px-4 relative z-10">
           <motion.div
@@ -375,13 +376,28 @@ export default function WebDevelopmentPage() {
               Что даёт сайт от HaloAgency
             </h2>
           </motion.div>
-          <div className="space-y-4">
+          <div className="space-y-5">
             {[
-              "Быстрая загрузка и Core Web Vitals",
-              "Готовность к рекламе (Google / Meta)",
-              "SEO-база с первого дня",
-              "Понятная аналитика и события",
-              "Возможность масштабирования без переделок"
+              {
+                title: "Быстрая работа сайта — без потери клиентов",
+                description: "Сайт быстро открывается на телефоне и компьютере, не «тормозит» и не раздражает посетителей. Это напрямую влияет на количество заявок и доверие к бизнесу."
+              },
+              {
+                title: "Готовность к рекламе с первого дня",
+                description: "Структура сайта сразу подходит для Google Ads и Meta. Не нужно переделывать сайт после запуска рекламы или «допиливать на ходу»."
+              },
+              {
+                title: "Видимость бизнеса в Google и AI-поиске",
+                description: "Структура сайта помогает современным поисковым системам и AI правильно понимать ваш бизнес и показывать его потенциальным клиентам."
+              },
+              {
+                title: "Понимание, откуда приходят клиенты",
+                description: "Настраиваем аналитику так, чтобы вы понимали: какие страницы работают, откуда приходят заявки, что приносит результат, а что нет. Без лишних графиков и путаницы."
+              },
+              {
+                title: "Возможность развиваться без переделки сайта",
+                description: "Сайт не «одноразовый». Его можно спокойно дополнять, расширять и адаптировать под рост бизнеса — без полного редизайна через год."
+              }
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -389,18 +405,25 @@ export default function WebDevelopmentPage() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="group relative flex items-center gap-5 p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
+                className="group relative p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
               >
                 {/* Premium gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Animated border glow */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
                 
-                <div className="relative z-10 flex items-center gap-5 w-full">
+                <div className="relative z-10 flex gap-5">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-500/10 flex items-center justify-center text-blue-300 font-bold text-lg flex-shrink-0 group-hover:scale-110 group-hover:from-blue-500/40 group-hover:via-cyan-500/30 transition-all duration-300 shadow-lg shadow-blue-500/20">
                     {i + 1}
                   </div>
-                  <span className="text-white font-semibold text-lg group-hover:text-blue-300 transition-colors">{item}</span>
+                  <div className="flex-1">
+                    <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-blue-300 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -410,7 +433,12 @@ export default function WebDevelopmentPage() {
 
       <SectionDivider />
 
-      {/* 4. Services (What we develop) */}
+      {/* 4. Process - Build Pipeline */}
+      <WebProcess />
+
+      <SectionDivider />
+
+      {/* 5. Services (What we develop) */}
       <section id="packages" className="py-20 bg-[#0A1628] relative overflow-hidden">
         <div className="container mx-auto max-w-5xl px-4">
           <div className="text-center mb-16">
@@ -626,7 +654,7 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 5. FAQ */}
-      <FAQ />
+      <WebFAQ />
 
       <SectionDivider />
 
@@ -690,7 +718,17 @@ export default function WebDevelopmentPage() {
 
       <SectionDivider />
 
-      {/* 7. CTA */}
+      {/* 7. Social Proof */}
+      <WebSocialProof />
+
+      <SectionDivider />
+
+      {/* 8. Guarantees */}
+      <WebGuarantees />
+
+      <SectionDivider />
+
+      {/* 9. CTA */}
       <section className="py-24 px-4 bg-ha-bg-soft border-t border-ha-border-dark">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
