@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowLeft, ChevronRight, Loader2, Send } from "lucide-react";
+import { ArrowLeft, ChevronRight, Loader2, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 
