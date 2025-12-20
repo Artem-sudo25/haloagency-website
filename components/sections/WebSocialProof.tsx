@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
 import { 
   ArrowUpRight, 
   CheckCircle2, 
@@ -12,6 +11,7 @@ import {
   Zap
 } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 // Activity feed items
 const activityFeed = [
@@ -102,12 +102,9 @@ const stats = [
 function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: number }) {
   if (item.type === "review") {
     return (
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 20 }}
-        transition={{ delay: index * 0.1 }}
+      <div
         className="group relative p-5 rounded-2xl bg-slate-900/60 border border-white/5 hover:border-white/10 transition-all duration-300"
+        style={{ animationDelay: `${index * 0.1}s` }}
       >
         <div className="flex gap-4">
           {/* Avatar */}
@@ -131,7 +128,7 @@ function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: nu
             
             {/* Message */}
             <p className="text-slate-300 text-sm leading-relaxed mb-3">
-              "{item.message}"
+              &ldquo;{item.message}&rdquo;
             </p>
             
             {/* Footer */}
@@ -151,7 +148,7 @@ function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: nu
         
         {/* Quote decoration */}
         <MessageSquare className="absolute top-4 right-4 w-5 h-5 text-white/5 group-hover:text-white/10 transition-colors" />
-      </motion.div>
+      </div>
     );
   }
 
@@ -164,20 +161,15 @@ function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: nu
     const colorClass = colorClasses[item.color as keyof typeof colorClasses] || colorClasses.blue;
     
     return (
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 20 }}
-        transition={{ delay: index * 0.1 }}
+      <div
         className={`
           relative p-4 rounded-xl bg-gradient-to-r ${colorClass.split(" ").slice(0, 2).join(" ")}
           border ${colorClass.split(" ")[2]}
         `}
+        style={{ animationDelay: `${index * 0.1}s` }}
       >
         <div className="flex items-center gap-3">
-          <div className={`
-            w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center
-          `}>
+          <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
             <IconComponent className={`w-4 h-4 ${colorClass.split(" ")[3]}`} />
           </div>
           <div className="flex-1">
@@ -186,18 +178,15 @@ function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: nu
           </div>
           <span className="text-xs text-slate-500">{item.time}</span>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
   if (item.type === "metric") {
     return (
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: 20 }}
-        transition={{ delay: index * 0.1 }}
+      <div
         className="relative p-4 rounded-xl bg-slate-900/60 border border-white/5"
+        style={{ animationDelay: `${index * 0.1}s` }}
       >
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-lg bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
@@ -212,7 +201,7 @@ function ActivityItem({ item, index }: { item: typeof activityFeed[0]; index: nu
             <span className="text-xs text-emerald-400 ml-1">{item.change}</span>
           </div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
@@ -265,37 +254,32 @@ function StatCard({ stat, index }: { stat: typeof stats[0]; index: number }) {
   const colorClass = colorClasses[stat.color as keyof typeof colorClasses];
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.15 }}
-      className={`
-        relative p-6 rounded-2xl bg-gradient-to-br ${colorClass.split(" ").slice(0, 2).join(" ")}
-        border ${colorClass.split(" ")[2]} group hover:scale-[1.02] transition-transform duration-300
-      `}
-    >
-      <div className="flex items-start justify-between mb-4">
-        <div className={`
-          w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center
-          group-hover:scale-110 transition-transform duration-300
-        `}>
-          <stat.icon className={`w-5 h-5 ${colorClass.split(" ")[3]}`} />
+    <CSSStaggerItem index={index}>
+      <div
+        ref={ref}
+        className={`
+          relative p-6 rounded-2xl bg-gradient-to-br ${colorClass.split(" ").slice(0, 2).join(" ")}
+          border ${colorClass.split(" ")[2]} group hover:scale-[1.02] transition-transform duration-300
+        `}
+      >
+        <div className="flex items-start justify-between mb-4">
+          <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <stat.icon className={`w-5 h-5 ${colorClass.split(" ")[3]}`} />
+          </div>
+          <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/40 transition-colors" />
         </div>
-        <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/40 transition-colors" />
-      </div>
-      
-      <div className="space-y-1">
-        <div className="flex items-baseline gap-1">
-          <span className="text-3xl font-bold text-white">
-            {stat.value.includes("+") ? count + "+" : stat.value.includes("%") ? count + "%" : count}
-          </span>
+        
+        <div className="space-y-1">
+          <div className="flex items-baseline gap-1">
+            <span className="text-3xl font-bold text-white">
+              {stat.value.includes("+") ? count + "+" : stat.value.includes("%") ? count + "%" : count}
+            </span>
+          </div>
+          <p className="text-sm text-slate-400">{stat.label}</p>
+          <p className="text-xs text-slate-600">{stat.subtext}</p>
         </div>
-        <p className="text-sm text-slate-400">{stat.label}</p>
-        <p className="text-xs text-slate-600">{stat.subtext}</p>
       </div>
-    </motion.div>
+    </CSSStaggerItem>
   );
 }
 
@@ -338,12 +322,7 @@ export default function WebSocialProof() {
 
       <div className="container mx-auto max-w-6xl px-4 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <CSSScrollAnimation className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
             <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             <span className="text-sm font-medium text-blue-400">Отзывы клиентов</span>
@@ -354,55 +333,39 @@ export default function WebSocialProof() {
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             Реальные отзывы и метрики от компаний, с которыми мы работали
           </p>
-        </motion.div>
+        </CSSScrollAnimation>
 
         {/* Main Grid */}
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Stats Dashboard */}
           <div className="lg:col-span-1 space-y-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-2 flex items-center gap-2"
-            >
+            <CSSScrollAnimation className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-2 flex items-center gap-2">
               <span className="w-8 h-px bg-slate-700" />
               Метрики
-            </motion.div>
+            </CSSScrollAnimation>
             
-            {stats.map((stat, index) => (
-              <StatCard key={stat.label} stat={stat} index={index} />
-            ))}
+            <CSSStagger className="space-y-4">
+              {stats.map((stat, index) => (
+                <StatCard key={stat.label} stat={stat} index={index} />
+              ))}
+            </CSSStagger>
           </div>
 
           {/* Activity Feed */}
           <div className="lg:col-span-2">
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-4 flex items-center gap-2"
-            >
+            <CSSScrollAnimation className="text-xs uppercase tracking-wider text-slate-500 font-medium mb-4 flex items-center gap-2">
               <span className="w-8 h-px bg-slate-700" />
               Последняя активность
-            </motion.div>
+            </CSSScrollAnimation>
 
             <div className="space-y-3">
-              <AnimatePresence mode="popLayout">
-                {visibleItems.map((item, index) => (
-                  <ActivityItem key={item.id} item={item} index={index} />
-                ))}
-              </AnimatePresence>
+              {visibleItems.map((item, index) => (
+                <ActivityItem key={item.id} item={item} index={index} />
+              ))}
             </div>
 
             {/* Feed Footer */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between"
-            >
+            <CSSScrollAnimation delay={0.3} className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
               <span className="text-xs text-slate-600">
                 Обновляется в реальном времени
               </span>
@@ -410,11 +373,10 @@ export default function WebSocialProof() {
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="text-xs text-slate-500">Live</span>
               </div>
-            </motion.div>
+            </CSSScrollAnimation>
           </div>
         </div>
       </div>
     </section>
   );
 }
-

@@ -24,6 +24,7 @@ import WebProcess from "@/components/sections/WebProcess";
 import WebProjectForm from "@/components/sections/WebProjectForm";
 import WebSocialProof from "@/components/sections/WebSocialProof";
 import { Button } from "@/components/ui/button";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
@@ -127,54 +128,43 @@ export default function WebDevelopmentPage() {
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8"
+              <div
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-8 animate-fade-in-up"
               >
                 <Code2 className="w-4 h-4 text-blue-400" />
                 <span className="text-sm font-medium text-blue-300 tracking-wide uppercase">
                   Веб-разработка
                 </span>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
+              <h1
+                className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
+                style={{ animationDelay: "0.1s" }}
               >
                 Сайты, которые продают <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
                   за вас 24/7
                 </span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-slate-400 mb-4 max-w-xl leading-relaxed"
+              <p
+                className="text-xl text-slate-400 mb-4 max-w-xl leading-relaxed animate-fade-in-up"
+                style={{ animationDelay: "0.2s" }}
               >
                 Современные web-решения для малого и среднего бизнеса в Чехии
                 — быстрые, SEO-ready и готовые к рекламе.
-              </motion.p>
+              </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.25 }}
-                className="text-sm text-slate-500 mb-10 max-w-xl"
+              <p
+                className="text-sm text-slate-500 mb-10 max-w-xl animate-fade-in-up"
+                style={{ animationDelay: "0.25s" }}
               >
                 Лендинг — от 3 дней. Онлайн магазин — до 3 недель
-              </motion.p>
+              </p>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-col sm:flex-row gap-4"
+              <div
+                className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
+                style={{ animationDelay: "0.3s" }}
               >
                 <Button
                   size="lg"
@@ -191,15 +181,13 @@ export default function WebDevelopmentPage() {
                 >
                   <Link href="#packages">Цены и сроки</Link>
                 </Button>
-              </motion.div>
+              </div>
             </div>
 
             {/* Hero Graphic: 3D Code Window */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="relative hidden lg:block"
+            <div
+              className="relative hidden lg:block animate-fade-in-up"
+              style={{ animationDelay: "0.2s" }}
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-30 animate-pulse" />
               <div className="relative bg-[#0f172a] border border-slate-800 rounded-xl shadow-2xl overflow-hidden">
@@ -246,7 +234,7 @@ export default function WebDevelopmentPage() {
                   <div className="text-purple-400">{"}"}</div>
                 </div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -261,87 +249,68 @@ export default function WebDevelopmentPage() {
         
 
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6"
-            >
+          <CSSScrollAnimation className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
               <Users className="w-4 h-4 text-blue-400" />
               <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Целевая аудитория</p>
-            </motion.div>
+            </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Кому подойдут наши сайты
             </h2>
-          </motion.div>
-          <div className="grid md:grid-cols-3 gap-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Rocket className="w-6 h-6 text-blue-400" />
+          </CSSScrollAnimation>
+
+          <CSSStagger className="grid md:grid-cols-3 gap-6">
+            <CSSStaggerItem index={0}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Rocket className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">Сервисный бизнес</h3>
+                  <p className="text-slate-400 leading-relaxed">Заявки, бронирования, звонки — всё, что приносит клиентов.</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">Сервисный бизнес</h3>
-                <p className="text-slate-400 leading-relaxed">Заявки, бронирования, звонки — всё, что приносит клиентов.</p>
               </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <ShoppingCart className="w-6 h-6 text-blue-400" />
+            </CSSStaggerItem>
+
+            <CSSStaggerItem index={1}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <ShoppingCart className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">E-commerce</h3>
+                  <p className="text-slate-400 leading-relaxed">Готовность к рекламе и аналитике с первого дня.</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-300 transition-colors">E-commerce</h3>
-                <p className="text-slate-400 leading-relaxed">Готовность к рекламе и аналитике с первого дня.</p>
               </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-500 overflow-hidden"
-            >
-              {/* Premium gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              {/* Animated border glow */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-              
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Globe className="w-6 h-6 text-indigo-400" />
+            </CSSStaggerItem>
+
+            <CSSStaggerItem index={2}>
+              <div className="group relative p-8 rounded-3xl bg-slate-900/40 backdrop-blur-sm border border-indigo-500/20 hover:border-indigo-500/50 transition-all duration-500 overflow-hidden h-full">
+                {/* Premium gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                {/* Animated border glow */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <Globe className="w-6 h-6 text-indigo-400" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">Локальные компании в Чехии</h3>
+                  <p className="text-slate-400 leading-relaxed">SEO, скорость, доверие — то, что ценят местные клиенты.</p>
                 </div>
-                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors">Локальные компании в Чехии</h3>
-                <p className="text-slate-400 leading-relaxed">SEO, скорость, доверие — то, что ценят местные клиенты.</p>
               </div>
-            </motion.div>
-          </div>
+            </CSSStaggerItem>
+          </CSSStagger>
         </div>
       </section>
 
@@ -354,26 +323,17 @@ export default function WebDevelopmentPage() {
         <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-gradient-to-tl from-blue-500/8 via-cyan-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
 
         <div className="container mx-auto max-w-4xl px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6"
-            >
+          <CSSScrollAnimation className="text-center mb-16">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
               <TrendingUp className="w-4 h-4 text-blue-400" />
               <p className="text-blue-400 text-sm font-medium uppercase tracking-wider">Результаты</p>
-            </motion.div>
+            </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Что даёт сайт от HaloAgency
             </h2>
-          </motion.div>
-          <div className="space-y-5">
+          </CSSScrollAnimation>
+
+          <CSSStagger className="space-y-5">
             {[
               {
                 title: "Быстрая работа сайта — без потери клиентов",
@@ -396,35 +356,30 @@ export default function WebDevelopmentPage() {
                 description: "Сайт не «одноразовый». Его можно спокойно дополнять, расширять и адаптировать под рост бизнеса — без полного редизайна через год."
               }
             ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group relative p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden"
-              >
-                {/* Premium gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                {/* Animated border glow */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-                
-                <div className="relative z-10 flex gap-5">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-500/10 flex items-center justify-center text-blue-300 font-bold text-lg flex-shrink-0 group-hover:scale-110 group-hover:from-blue-500/40 group-hover:via-cyan-500/30 transition-all duration-300 shadow-lg shadow-blue-500/20">
-                    {i + 1}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-blue-300 transition-colors">
-                      {item.title}
-                    </h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
-                      {item.description}
-                    </p>
+              <CSSStaggerItem key={i} index={i}>
+                <div className="group relative p-6 rounded-2xl bg-slate-900/40 backdrop-blur-sm border border-blue-500/20 hover:border-blue-500/50 transition-all duration-500 overflow-hidden">
+                  {/* Premium gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  {/* Animated border glow */}
+                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
+                  
+                  <div className="relative z-10 flex gap-5">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-500/10 flex items-center justify-center text-blue-300 font-bold text-lg flex-shrink-0 group-hover:scale-110 group-hover:from-blue-500/40 group-hover:via-cyan-500/30 transition-all duration-300 shadow-lg shadow-blue-500/20">
+                      {i + 1}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-white font-semibold text-lg mb-2 group-hover:text-blue-300 transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
+              </CSSStaggerItem>
             ))}
-          </div>
+          </CSSStagger>
         </div>
       </section>
 
@@ -562,51 +517,27 @@ export default function WebDevelopmentPage() {
 
         <div className="container mx-auto max-w-4xl relative z-10">
           {/* Section header */}
-          <div className="text-center mb-12">
+          <CSSScrollAnimation className="text-center mb-12">
             {/* Icon like home page */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 mb-6 relative"
-            >
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 mb-6 relative">
               <div className="absolute inset-0 rounded-full bg-orange-500/30 blur-xl" />
               <AlertTriangle className="w-8 h-8 text-orange-500 relative z-10" />
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
-            >
+            </div>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
               Бесплатный концепт сайта
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
-            >
+            </h2>
+            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
               Получите персональное демо до 48 часов
-            </motion.p>
-          </div>
+            </p>
+          </CSSScrollAnimation>
 
           {/* Form wrapper with glassmorphism */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="relative rounded-3xl bg-slate-900/50 backdrop-blur-xl border border-orange-500/20 p-8 md:p-12 shadow-2xl"
-          >
+          <CSSScrollAnimation delay={0.2} className="relative rounded-3xl bg-slate-900/50 backdrop-blur-xl border border-orange-500/20 p-8 md:p-12 shadow-2xl">
             {/* Gradient border glow */}
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/20 via-orange-600/10 to-orange-500/20 opacity-60 blur-xl -z-10" />
 
             <WebProjectForm />
-          </motion.div>
+          </CSSScrollAnimation>
         </div>
       </section>
 

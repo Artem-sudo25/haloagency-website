@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { 
   BadgeCheck, 
   Calendar,
@@ -10,6 +9,7 @@ import {
   RefreshCcw,
   Shield,
 } from "lucide-react";
+import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 const guarantees = [
   {
@@ -54,38 +54,34 @@ const trustBadges = [
 
 function GuaranteeCard({ guarantee, index }: { guarantee: typeof guarantees[0]; index: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className="group relative p-6 rounded-2xl bg-gradient-to-br from-blue-500/5 via-slate-900/50 to-slate-900/50 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300"
-    >
-      {/* Clause Number - Document Style */}
-      <div className="absolute top-4 right-4 text-xl font-serif font-bold text-blue-400/30">
-        {guarantee.clause}
-      </div>
+    <CSSStaggerItem index={index}>
+      <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-blue-500/5 via-slate-900/50 to-slate-900/50 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300 h-full">
+        {/* Clause Number - Document Style */}
+        <div className="absolute top-4 right-4 text-xl font-serif font-bold text-blue-400/30">
+          {guarantee.clause}
+        </div>
 
-      {/* Icon */}
-      <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-5 group-hover:bg-blue-500/15 group-hover:border-blue-500/30 transition-all duration-300">
-        <guarantee.icon className="w-6 h-6" />
-      </div>
+        {/* Icon */}
+        <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-5 group-hover:bg-blue-500/15 group-hover:border-blue-500/30 transition-all duration-300">
+          <guarantee.icon className="w-6 h-6" />
+        </div>
 
-      {/* Content */}
-      <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
-        {guarantee.title}
-      </h3>
-      
-      <p className="text-slate-400 text-sm leading-relaxed mb-5">
-        {guarantee.description}
-      </p>
+        {/* Content */}
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
+          {guarantee.title}
+        </h3>
+        
+        <p className="text-slate-400 text-sm leading-relaxed mb-5">
+          {guarantee.description}
+        </p>
 
-      {/* Seal Badge */}
-      <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs font-bold tracking-wider text-blue-300">
-        <BadgeCheck className="w-3.5 h-3.5" />
-        {guarantee.seal}
+        {/* Seal Badge */}
+        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs font-bold tracking-wider text-blue-300">
+          <BadgeCheck className="w-3.5 h-3.5" />
+          {guarantee.seal}
+        </div>
       </div>
-    </motion.div>
+    </CSSStaggerItem>
   );
 }
 
@@ -99,12 +95,7 @@ export default function WebGuarantees() {
 
       <div className="container mx-auto max-w-6xl px-4 relative z-10">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
+        <CSSScrollAnimation className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
             <Shield className="w-4 h-4 text-blue-400" />
             <span className="text-sm font-medium text-blue-400">Гарантии</span>
@@ -117,47 +108,31 @@ export default function WebGuarantees() {
           <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
             Не просто обещания — юридически закреплённые обязательства
           </p>
-        </motion.div>
+        </CSSScrollAnimation>
 
         {/* Trust Badges Row */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-4 mb-12"
-        >
+        <CSSStagger className="flex flex-wrap justify-center gap-4 mb-12">
           {trustBadges.map((badge, index) => (
-            <motion.div
-              key={badge.label}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/5 border border-blue-500/10"
-            >
-              <badge.icon className="w-4 h-4 text-blue-400/60" />
-              <span className="text-sm text-slate-400">{badge.label}</span>
-            </motion.div>
+            <CSSStaggerItem key={badge.label} index={index}>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/5 border border-blue-500/10">
+                <badge.icon className="w-4 h-4 text-blue-400/60" />
+                <span className="text-sm text-slate-400">{badge.label}</span>
+              </div>
+            </CSSStaggerItem>
           ))}
-        </motion.div>
+        </CSSStagger>
 
         {/* Guarantees Grid */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <CSSStagger className="grid md:grid-cols-2 gap-6">
           {guarantees.map((guarantee, index) => (
             <GuaranteeCard key={guarantee.id} guarantee={guarantee} index={index} />
           ))}
-        </div>
+        </CSSStagger>
 
         {/* Bottom Note - Plain text */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="mt-12 text-center text-sm text-slate-500"
-        >
+        <CSSScrollAnimation delay={0.3} className="mt-12 text-center text-sm text-slate-500">
           Все условия обсуждаются индивидуально и фиксируются до начала работ
-        </motion.p>
+        </CSSScrollAnimation>
       </div>
     </section>
   );
