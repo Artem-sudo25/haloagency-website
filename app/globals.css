@@ -278,6 +278,24 @@
     }
   }
 
+  /* Move particle animation for tracking page */
+  @keyframes moveParticle {
+    0% {
+      left: 0%;
+      opacity: 0;
+    }
+    10% {
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
   /* Stagger animation system */
   .css-stagger-container .css-stagger-item {
     opacity: 0;
