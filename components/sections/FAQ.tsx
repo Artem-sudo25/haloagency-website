@@ -1,10 +1,22 @@
 "use client";
 
 import { Minus, Plus, ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
-const faqs = [
+type FAQItem = {
+  question: string;
+  answer: string;
+};
+
+type FAQProps = {
+  items?: FAQItem[];
+  title?: ReactNode;
+  eyebrow?: string;
+  footer?: ReactNode;
+};
+
+const defaultFaqs = [
   {
     question: "Вы больше про сайты, рекламу или автоматизацию?",
     answer:
@@ -57,7 +69,18 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+const defaultTitle = (
+  <>
+    Частые вопросы о<br className="hidden md:block" /> работе с нами
+  </>
+);
+
+export default function FAQ({
+  items = defaultFaqs,
+  title = defaultTitle,
+  eyebrow = "Как мы работаем",
+  footer,
+}: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
@@ -70,16 +93,16 @@ export default function FAQ() {
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
             <ShieldCheck className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">Как мы работаем</span>
+            <span className="text-sm font-medium text-blue-400">{eyebrow}</span>
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
-            Частые вопросы о<br className="hidden md:block" /> работе с нами
+            {title}
           </h2>
         </div>
 
         <CSSStagger className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {items.map((faq, index) => (
               <CSSStaggerItem key={index} index={index} className="group">
                 <button
                   type="button"
@@ -126,6 +149,7 @@ export default function FAQ() {
             ))}
           </div>
         </CSSStagger>
+        {footer ? <div className="mt-6 text-center">{footer}</div> : null}
       </div>
     </section>
   );

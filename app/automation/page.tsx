@@ -45,10 +45,39 @@ function CodePython(props: any) {
 
 // Data Definitions
 const techStack = [
-    { name: "Make / n8n", label: "Orchestration", icon: Workflow },
-    { name: "OpenAI API", label: "Intelligence", icon: Bot },
-    { name: "Python", label: "Scripting", icon: CodePython },
-    { name: "AirTable", label: "Database", icon: Database },
+    {
+        name: "Make / n8n",
+        label: "Связка сервисов",
+        helper: "Автоматически передаём данные между сайтом, CRM, почтой и мессенджерами.",
+        icon: Workflow,
+    },
+    {
+        name: "OpenAI API",
+        label: "AI для рутины",
+        helper: "Ответы, анализ и классификация заявок — там, где это реально экономит время.",
+        icon: Bot,
+    },
+    {
+        name: "Python",
+        label: "Скрипты и логика",
+        helper: "Когда нужно нестандартно: проверки, расчёты, интеграции и обработка данных.",
+        icon: CodePython,
+    },
+    {
+        name: "Airtable",
+        label: "База данных",
+        helper: "Храним заявки и статусы в порядке — чтобы всё было видно и можно было развивать.",
+        icon: Database,
+    },
+];
+
+const commonAutomations = [
+    { text: "Заявка с сайта → Telegram/WhatsApp → таблица/CRM", note: "ни одна заявка не теряется" },
+    { text: "Автоответ в WhatsApp → сбор контакта", note: "клиент получает ответ сразу" },
+    { text: "Запись/бронь → напоминание за 24 часа", note: "меньше неявок" },
+    { text: "Счёт/квитанция → отправка клиенту → статус “оплачено”", note: "меньше ручной проверки" },
+    { text: "Еженедельный отчёт: лиды/расход/выручка на email", note: "понятно, что происходит" },
+    { text: "Уведомления команде: “новая заявка”, “просрочено”, “отменено”", note: "все знают, что делать" },
 ];
 
 const services = [
@@ -56,7 +85,14 @@ const services = [
         id: "chatbots",
         title: "AI Ассистенты",
         description:
-            "Умные чат-боты для поддержки 24/7. Обработка заявок, ответы на вопросы и запись клиентов.",
+            "Автоответы, обработка заявок и запись клиентов 24/7 — чтобы вы не теряли клиентов, даже когда заняты.",
+        included: [
+            "Сценарии ответов под ваш бизнес (RU/CZ/EN)",
+            "Интеграция с WhatsApp/Telegram/сайтом",
+            "Передача контакта в таблицу или CRM",
+            "Фильтр: спам / нецелевые / срочные",
+            "Логи + короткая инструкция для команды",
+        ],
         price: "от 15,000 CZK",
         time: "1-2 недели",
         icon: <Bot className="w-6 h-6" />,
@@ -70,7 +106,14 @@ const services = [
         id: "crm",
         title: "CRM Интеграции",
         description:
-            "Автоматическая передача лидов, уведомления в Telegram, синхронизация баз данных.",
+            "Чтобы ни одна заявка не потерялась: лиды попадают в таблицу/CRM, команда получает уведомления, статусы обновляются автоматически.",
+        included: [
+            "Заявка → таблица/CRM (Pipedrive/HubSpot/и др.)",
+            "Уведомления в Telegram или Email",
+            "Статусы: новая / в работе / закрыта",
+            "Дедупликация (убираем повторы)",
+            "Мини-отчёт: сколько заявок и откуда",
+        ],
         price: "от 10,000 CZK",
         time: "3-5 дней",
         icon: <Database className="w-6 h-6" />,
@@ -84,7 +127,14 @@ const services = [
         id: "parsing",
         title: "Парсинг и Данные",
         description:
-            "Сбор данных с сайтов конкурентов, обогащение лидов, автоматическая отчетность.",
+            "Автосбор данных и отчёты без ручной рутины: собираем, приводим в порядок, обновляем по расписанию.",
+        included: [
+            "Сбор данных по расписанию (сайты/таблицы/API)",
+            "Очистка и структура данных “в порядок”",
+            "Обогащение данных (по задаче)",
+            "Еженедельный отчёт на email",
+            "Логи + защита от ошибок/падений",
+        ],
         price: "от 20,000 CZK",
         time: "2-3 недели",
         icon: <Zap className="w-6 h-6" />,
@@ -93,6 +143,49 @@ const services = [
         border: "group-hover:border-emerald-500/50",
         text: "group-hover:text-emerald-400",
         bg: "bg-emerald-500/10",
+    },
+];
+
+const automationFaqs = [
+    {
+        question: "Это не слишком сложно для моего бизнеса?",
+        answer:
+            "Нет. Вам не нужно разбираться в AI, API или автоматизациях. Мы сами проектируем логику, а вы просто пользуетесь результатом.",
+    },
+    {
+        question: "Это заменяет сотрудников?",
+        answer:
+            "Нет. Автоматизация убирает рутину: ответы, перенос данных, напоминания. Люди остаются заниматься клиентами и продажами, а не копипастой.",
+    },
+    {
+        question: "А если у меня мало заявок — имеет ли смысл?",
+        answer:
+            "Да, особенно в этом случае. Когда заявок немного, каждая потерянная — больно. Автоматизация помогает не терять даже единичные обращения.",
+    },
+    {
+        question: "Это работает с WhatsApp, Telegram и email?",
+        answer:
+            "Да. Мы часто строим автоматизации именно вокруг WhatsApp и Telegram — это самый популярный сценарий у бизнеса в Чехии.",
+    },
+    {
+        question: "Сколько времени занимает внедрение?",
+        answer:
+            "Обычно от нескольких дней до 2–3 недель, в зависимости от количества сценариев и интеграций.",
+    },
+    {
+        question: "Можно ли начать с малого и расширяться?",
+        answer:
+            "Да, и так мы рекомендуем делать. Сначала — один процесс (например, заявки), потом добавляются отчеты, напоминания, AI-ответы и другое.",
+    },
+    {
+        question: "Это безопасно?",
+        answer:
+            "Да. Мы используем проверенные инструменты и не храним лишние данные. Доступы и данные всегда остаются под вашим контролем.",
+    },
+    {
+        question: "А если я не знаю, что именно автоматизировать?",
+        answer:
+            "Это нормально. Вы описываете, где сейчас больно или неудобно, а мы предлагаем конкретные сценарии под ваш бизнес.",
     },
 ];
 
@@ -154,8 +247,7 @@ export default function AutomationPage() {
                                 transition={{ duration: 0.5, delay: 0.2 }}
                                 className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed"
                             >
-                                Внедряем AI и автоматизацию, чтобы вы забыли о рутине. Экономьте
-                                до 40 часов в неделю на повторяющихся задачах.
+                                Внедряем AI и автоматизацию, чтобы заявки обрабатывались быстрее, клиенты не терялись, а рутина исчезла из вашего дня.
                             </motion.p>
 
                             <motion.div
@@ -199,17 +291,17 @@ export default function AutomationPage() {
                                         </div>
                                         <div>
                                             <div className="text-sm font-medium text-white">
-                                                Lead Processing
+                                                Обработка заявок
                                             </div>
                                             <div className="text-xs text-slate-400">
-                                                Running • 24/7
+                                                В работе • 24/7
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                                         <span className="text-xs text-green-400 font-medium">
-                                            Active
+                                            Активно
                                         </span>
                                     </div>
                                 </div>
@@ -233,15 +325,15 @@ export default function AutomationPage() {
                                     {[
                                         {
                                             icon: MessageSquare,
-                                            title: "New Lead",
-                                            sub: "Website Form",
+                                            title: "Новая заявка",
+                                            sub: "Форма на сайте",
                                             color: "text-blue-400",
                                             bg: "bg-blue-500/10",
                                             border: "border-blue-500/20",
                                         },
                                         {
                                             icon: Database,
-                                            title: "Enrich Data",
+                                            title: "Обогащение данных",
                                             sub: "Clearbit API",
                                             color: "text-orange-400",
                                             bg: "bg-orange-500/10",
@@ -249,7 +341,7 @@ export default function AutomationPage() {
                                         },
                                         {
                                             icon: Bot,
-                                            title: "AI Analysis",
+                                            title: "AI-анализ",
                                             sub: "OpenAI GPT-4",
                                             color: "text-purple-400",
                                             bg: "bg-purple-500/10",
@@ -257,7 +349,7 @@ export default function AutomationPage() {
                                         },
                                         {
                                             icon: Mail,
-                                            title: "Send Offer",
+                                            title: "Отправка предложения",
                                             sub: "Gmail SMTP",
                                             color: "text-green-400",
                                             bg: "bg-green-500/10",
@@ -307,23 +399,23 @@ export default function AutomationPage() {
                                 <div className="mt-6 pt-4 border-t border-white/5 grid grid-cols-2 gap-4">
                                     <div className="p-3 rounded-lg bg-white/5">
                                         <div className="text-xs text-slate-400 mb-1">
-                                            Time Saved
+                                            Экономия времени
                                         </div>
                                         <div className="text-lg font-bold text-white">
                                             42h{" "}
                                             <span className="text-xs font-normal text-slate-500">
-                                                / week
+                                                / нед
                                             </span>
                                         </div>
                                     </div>
                                     <div className="p-3 rounded-lg bg-white/5">
                                         <div className="text-xs text-slate-400 mb-1">
-                                            Money Saved
+                                            Экономия денег
                                         </div>
                                         <div className="text-lg font-bold text-white">
                                             $2,400{" "}
                                             <span className="text-xs font-normal text-slate-500">
-                                                / mo
+                                                / мес
                                             </span>
                                         </div>
                                     </div>
@@ -336,8 +428,152 @@ export default function AutomationPage() {
 
             <SectionDivider />
 
-            {/* 2. Services (What we automate) */}
-            <section className="py-20 bg-ha-bg-soft">
+            {/* 1.5 Intro */}
+            <section className="py-16 px-4 bg-ha-bg">
+                <div className="container mx-auto max-w-6xl">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                            Автоматизация — это не про «роботов».
+                            <br />
+                            Это про меньше хаоса и больше контроля.
+                        </h2>
+                        <p className="text-slate-400 text-lg max-w-3xl mx-auto">
+                            Большинство бизнесов в Чехии теряют клиентов и время не из-за
+                            плохих услуг, а из-за ручной рутины и человеческого фактора.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                        <div className="rounded-3xl bg-slate-900/40 border border-white/10 backdrop-blur-sm p-6">
+                            <div className="text-sm font-semibold text-rose-300 mb-4">
+                                ❌ Что обычно происходит
+                            </div>
+                            <ul className="space-y-3 text-sm text-slate-300">
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-rose-400/60 shrink-0" />
+                                    <span>Заявки теряются в WhatsApp, почте или формах</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-rose-400/60 shrink-0" />
+                                    <span>Клиент ждёт ответ — и уходит к конкуренту</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-rose-400/60 shrink-0" />
+                                    <span>Рутина съедает время владельца и команды</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="rounded-3xl bg-slate-900/40 border border-white/10 backdrop-blur-sm p-6">
+                            <div className="text-sm font-semibold text-emerald-300 mb-4">
+                                ✅ Что делает автоматизация
+                            </div>
+                            <ul className="space-y-3 text-sm text-slate-300">
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400/60 shrink-0" />
+                                    <span>Каждая заявка фиксируется и не теряется</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400/60 shrink-0" />
+                                    <span>Клиент получает ответ сразу, 24/7</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-emerald-400/60 shrink-0" />
+                                    <span>
+                                        Вы видите, что происходит в бизнесе, а не «где-то там»
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="rounded-3xl bg-slate-900/40 border border-white/10 backdrop-blur-sm p-6">
+                            <div className="text-sm font-semibold text-amber-300 mb-4">
+                                🎯 Для чего это бизнесу
+                            </div>
+                            <ul className="space-y-3 text-sm text-slate-300">
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400/60 shrink-0" />
+                                    <span>Больше заявок → без увеличения штата</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400/60 shrink-0" />
+                                    <span>Быстрее обработка → выше конверсия</span>
+                                </li>
+                                <li className="flex gap-2">
+                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-amber-400/60 shrink-0" />
+                                    <span>Меньше ручной работы → меньше ошибок</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center gap-4">
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            className="rounded-full px-8 border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm h-12"
+                            asChild
+                        >
+                            <Link href="#services">Посмотреть примеры автоматизаций</Link>
+                        </Button>
+                        <p className="text-xs text-slate-500 text-center max-w-2xl">
+                            Мы не автоматизируем «всё подряд». Только те процессы, которые
+                            реально экономят время или деньги.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <SectionDivider />
+
+            {/* 2. Tech Stack */}
+            <section className="py-24 px-4 bg-ha-bg">
+                <div className="container mx-auto max-w-6xl">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                            Инструменты автоматизации
+                        </h2>
+                        <p className="text-slate-400 text-lg max-w-3xl mx-auto">
+                            Вам не нужно разбираться в Make, API или скриптах. Мы выбираем
+                            подход под задачу и отвечаем за стабильную работу и поддержку.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {techStack.map((tech, i) => (
+                            <motion.div
+                                key={tech.name}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: i * 0.1 }}
+                                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-purple-500/30 transition-all duration-300 overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                <div className="relative z-10 flex flex-col items-center text-center">
+                                    <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-4 text-purple-400 group-hover:scale-110 transition-transform duration-300">
+                                        <tech.icon className="w-6 h-6" />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
+                                        {tech.name}
+                                    </h3>
+                                    <p className="text-sm text-slate-400 font-medium">
+                                        {tech.label}
+                                    </p>
+                                    <p className="text-xs text-slate-500 mt-2 leading-relaxed">
+                                        {tech.helper}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <SectionDivider />
+
+            {/* 3. Services (What we automate) */}
+            <section id="services" className="py-20 bg-ha-bg-soft">
                 <div className="container mx-auto max-w-6xl px-4">
                     <div className="text-center mb-16">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
@@ -371,9 +607,23 @@ export default function AutomationPage() {
                                     >
                                         {service.title}
                                     </h3>
-                                    <p className="text-slate-400 mb-6 flex-grow">
+                                    <p className="text-slate-400 mb-4 flex-grow">
                                         {service.description}
                                     </p>
+
+                                    <div className="mb-6">
+                                        <div className="text-sm font-semibold text-slate-200 mb-3">
+                                            Что входит:
+                                        </div>
+                                        <ul className="space-y-2 text-sm text-slate-400">
+                                            {service.included?.map((line) => (
+                                                <li key={line} className="flex gap-2">
+                                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/25 shrink-0" />
+                                                    <span className="leading-relaxed">{line}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
 
                                     <div className="pt-6 border-t border-white/5 mt-auto">
                                         <div className="flex items-center justify-between mb-4">
@@ -401,52 +651,182 @@ export default function AutomationPage() {
 
             <SectionDivider />
 
-            {/* 3. Tech Stack */}
-            <section className="py-24 px-4 bg-ha-bg">
-                <div className="container mx-auto max-w-6xl">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                            Инструменты автоматизации
+            {/* 4. Lead Magnet: Plan */}
+            <section className="py-20 bg-ha-bg">
+                <div className="container mx-auto max-w-6xl px-4">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                            Получите план автоматизации под ваш бизнес (в Чехии)
                         </h2>
-                        <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-                            No-code, Low-code и кастомная разработка для решения любых задач.
+                        <p className="text-slate-400 text-lg max-w-3xl mx-auto">
+                            Опишите, что у вас происходит сейчас — мы подскажем 1–2
+                            автоматизации, которые дадут максимум эффекта и сколько это будет
+                            стоить.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        {techStack.map((tech, i) => (
-                            <motion.div
-                                key={tech.name}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group relative p-6 rounded-2xl bg-slate-900/50 border border-white/10 backdrop-blur-sm hover:border-purple-500/30 transition-all duration-300 overflow-hidden"
-                            >
-                                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                                <div className="relative z-10 flex flex-col items-center text-center">
-                                    <div className="w-12 h-12 rounded-full bg-purple-500/10 flex items-center justify-center mb-4 text-purple-400 group-hover:scale-110 transition-transform duration-300">
-                                        <tech.icon className="w-6 h-6" />
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                        {/* Examples */}
+                        <div className="rounded-3xl bg-slate-900/40 border border-white/10 backdrop-blur-sm p-8">
+                            <div className="text-sm font-semibold text-slate-200 mb-5">
+                                Примеры, которые чаще всего внедряют
+                            </div>
+
+                            <div className="flex flex-wrap gap-3">
+                                {commonAutomations.slice(0, 5).map((item) => (
+                                    <div
+                                        key={item.text}
+                                        className="group rounded-full border border-white/10 bg-slate-900/40 backdrop-blur-sm px-4 py-2 hover:border-purple-500/30 hover:bg-white/5 transition-colors"
+                                        title={item.note}
+                                    >
+                                        <span className="text-sm md:text-base text-slate-200">
+                                            {item.text}
+                                        </span>
+                                        <span className="ml-2 text-xs text-slate-500 group-hover:text-slate-400 transition-colors">
+                                            • {item.note}
+                                        </span>
                                     </div>
-                                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
-                                        {tech.name}
-                                    </h3>
-                                    <p className="text-sm text-slate-500">{tech.label}</p>
+                                ))}
+                            </div>
+
+                            <div className="mt-6 text-sm text-slate-500 leading-relaxed">
+                                Если не уверены, что именно автоматизировать — это нормально.
+                                Мы зададим несколько вопросов и предложим самый простой старт.
+                            </div>
+                        </div>
+
+                        {/* Form */}
+                        <div className="rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-sm p-8">
+                            <div className="flex items-center gap-2 mb-6">
+                                <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-400">
+                                    <Sparkles className="w-5 h-5" />
                                 </div>
-                            </motion.div>
-                        ))}
+                                <div>
+                                    <div className="text-lg font-bold text-white">
+                                        План автоматизации
+                                    </div>
+                                    <div className="text-sm text-slate-400">
+                                        Ответим обычно в течение 24 часов
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const form = e.currentTarget;
+                                    const data = new FormData(form);
+                                    const name = String(data.get("name") || "").trim();
+                                    const contact = String(data.get("contact") || "").trim();
+                                    const site = String(data.get("site") || "").trim();
+                                    const details = String(data.get("details") || "").trim();
+
+                                    open({
+                                        service: "automation",
+                                        message: `Запрос: План автоматизации\nИмя: ${name || "—"}\nКонтакт: ${contact || "—"}\nСайт: ${site || "—"}\nЗадача: ${details || "—"}`,
+                                    });
+
+                                    form.reset();
+                                }}
+                                className="space-y-4"
+                            >
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="text-sm text-slate-300">Имя</label>
+                                        <input
+                                            name="name"
+                                            type="text"
+                                            className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                                            placeholder="Иван"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="text-sm text-slate-300">
+                                            Телефон или Telegram/WhatsApp
+                                        </label>
+                                        <input
+                                            name="contact"
+                                            type="text"
+                                            required
+                                            className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                                            placeholder="+420… / @username"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="text-sm text-slate-300">
+                                        Сайт (необязательно)
+                                    </label>
+                                    <input
+                                        name="site"
+                                        type="url"
+                                        className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                                        placeholder="https://example.cz"
+                                    />
+                                </div>
+
+                                <div>
+                                    <label className="text-sm text-slate-300">
+                                        Что хотите автоматизировать?
+                                    </label>
+                                    <textarea
+                                        name="details"
+                                        rows={4}
+                                        className="mt-2 w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-purple-500/40"
+                                        placeholder="Например: заявки с сайта → Telegram, автоответ в WhatsApp, напоминания о записи…"
+                                    />
+                                </div>
+
+                                <label className="flex items-start gap-3 text-sm text-slate-400">
+                                    <input
+                                        name="consent"
+                                        type="checkbox"
+                                        required
+                                        className="mt-1 h-4 w-4 rounded border-white/20 bg-white/5"
+                                    />
+                                    <span>
+                                        Согласен с{" "}
+                                        <Link
+                                            href="/privacy-policy"
+                                            className="text-slate-200 hover:text-white underline underline-offset-4"
+                                        >
+                                            политикой конфиденциальности
+                                        </Link>
+                                        .
+                                    </span>
+                                </label>
+
+                                <Button
+                                    type="submit"
+                                    size="lg"
+                                    className="w-full rounded-full h-12 bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/20"
+                                >
+                                    Получить план автоматизации{" "}
+                                    <ArrowRight className="ml-2 w-4 h-4" />
+                                </Button>
+
+                                <div className="text-xs text-slate-500 text-center">
+                                    Без спама. Обычно отвечаем в течение 24 часов.
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <SectionDivider />
 
-            {/* 4. FAQ */}
-            <FAQ />
+            {/* 5. FAQ */}
+            <FAQ
+                items={automationFaqs}
+                eyebrow="FAQ по автоматизации"
+                title="Частые вопросы об автоматизации"
+            />
 
             <SectionDivider />
 
-            {/* 5. CTA */}
+            {/* 6. CTA */}
             <section className="py-24 px-4 bg-ha-bg-soft border-t border-ha-border-dark">
                 <div className="container mx-auto max-w-4xl text-center">
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">

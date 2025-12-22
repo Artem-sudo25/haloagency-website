@@ -32,22 +32,6 @@ import { useContactModal } from "@/context/contact-modal-context";
 // Data Definitions
 const webPackages = [
   {
-    id: "corporate",
-    title: "Корпоративный",
-    subtitle: "Многостраничный сайт для компании",
-    price: "от 15,000 CZK",
-    time: "от 7 дней",
-    features: [
-      "До 10 страниц",
-      "Блог, услуги, о нас",
-      "SEO-основа",
-      "Базовая аналитика",
-      "Адаптив под все устройства",
-    ],
-    highlight: false,
-    icon: Layout,
-  },
-  {
     id: "landing",
     title: "Landing Page",
     subtitle: "Идеально для запуска продукта",
@@ -60,9 +44,25 @@ const webPackages = [
       "Готов к рекламе",
       "Быстрая загрузка",
     ],
+    highlight: false,
+    icon: Rocket,
+  },
+  {
+    id: "corporate",
+    title: "Корпоративный",
+    subtitle: "Многостраничный сайт для компании",
+    price: "от 15,000 CZK",
+    time: "от 7 дней",
+    features: [
+      "До 10 страниц",
+      "Блог, услуги, о нас",
+      "SEO-основа",
+      "Базовая аналитика",
+      "Адаптив под все устройства",
+    ],
     highlight: true,
     badge: "⭐ POPULAR",
-    icon: Rocket,
+    icon: Layout,
   },
   {
     id: "ecommerce",

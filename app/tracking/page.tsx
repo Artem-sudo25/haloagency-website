@@ -1,9 +1,12 @@
 "use client";
 
 import {
-  AlertTriangle,
+  Apple,
   BarChart3,
+  Ban,
   Check,
+  CircleX,
+  Cookie,
   Globe,
   Lock,
   Server,
@@ -62,17 +65,9 @@ export default function TrackingPage() {
                 данных, которые теряются из-за блокировщиков и iOS.
               </p>
 
-              {/* New line for SMB */}
-              <p
-                className="text-base text-slate-500 mb-4 max-w-xl animate-fade-in-up"
-                style={{ animationDelay: "0.25s" }}
-              >
-                Даже если реклама запущена, часть заявок и покупок просто не попадает в отчёты.
-              </p>
-
               {/* HaloTrack positioning */}
               <p
-                className="text-sm text-green-400/80 mb-10 max-w-xl animate-fade-in-up font-medium"
+                className="text-sm text-slate-400 mb-10 max-w-xl animate-fade-in-up font-medium"
                 style={{ animationDelay: "0.28s" }}
               >
                 HaloTrack — first-party server-side трекинг от HaloAgency, адаптированный под GDPR, iOS и рекламу в Чехии.
@@ -156,7 +151,7 @@ export default function TrackingPage() {
               
               <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
                 <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                  <AlertTriangle className="w-7 h-7 text-amber-400" />
+                  <TrendingDown className="w-7 h-7 text-amber-400" />
                 </div>
                 <div className="flex-1">
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
@@ -178,8 +173,6 @@ export default function TrackingPage() {
         </div>
       </section>
 
-      <SectionDivider />
-
       {/* The Problem - Glassmorphism Cards */}
       <section id="problem" className="py-20 bg-ha-bg-soft">
         <div className="container mx-auto max-w-6xl px-4">
@@ -198,30 +191,30 @@ export default function TrackingPage() {
               {
                 title: "iOS 14.5+",
                 desc: "Блокирует трекинг по умолчанию. Минус 20-30% данных.",
-                icon: Lock,
+                icon: Apple,
                 color: "text-red-400",
                 bg: "bg-red-500/10",
               },
               {
                 title: "Ad Blockers",
                 desc: "30-40% пользователей блокируют скрипты аналитики.",
-                icon: Zap,
+                icon: Ban,
                 color: "text-yellow-400",
                 bg: "bg-yellow-500/10",
               },
               {
                 title: "Cookies",
                 desc: "Браузеры ограничивают срок жизни cookies до 7 дней.",
-                icon: Server,
+                icon: Cookie,
                 color: "text-blue-400",
                 bg: "bg-blue-500/10",
               },
               {
                 title: "Ошибки",
                 desc: "Неверная атрибуция и дублирование транзакций.",
-                icon: BarChart3,
-                color: "text-purple-400",
-                bg: "bg-purple-500/10",
+                icon: CircleX,
+                color: "text-rose-400",
+                bg: "bg-rose-500/10",
               },
             ].map((item, index) => (
               <CSSStaggerItem key={item.title} index={index}>
@@ -277,18 +270,18 @@ export default function TrackingPage() {
           <CSSStagger className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               {
-                title: "First-party подход",
-                desc: "Данные собираются через ваш домен и сервер, а не сторонние скрипты. Это повышает стабильность и соответствие GDPR.",
+                title: "Данные идут напрямую с вашего сайта",
+                desc: "Заявки и покупки сначала фиксируются на вашем сервере, а не теряются в браузере или блокировщиках. Это делает данные стабильнее — даже на iPhone и при строгих ограничениях.",
                 icon: Globe,
               },
               {
-                title: "Server-side там, где это оправдано",
-                desc: "Мы используем HaloTrack как основное решение, а GTM Server-side (Stape) — когда проект или платформа этого требует.",
+                title: "Данные доходят до Google и Meta",
+                desc: "Обычно браузер решает, какие события отправить в рекламу, а какие — нет. Мы меняем маршрут: сначала фиксируем событие на сервере сайта и уже оттуда корректно передаём в Google и Meta — легально, в рамках GDPR.",
                 icon: Server,
               },
               {
-                title: "Фокус на рекламе и результатах",
-                desc: "Трекинг настраивается под реальные цели: заявки, покупки, лиды — а не просто «чтобы цифры были».",
+                title: "Фокус на заявках и продажах",
+                desc: "Настраиваем трекинг под реальные цели бизнеса: заявки, покупки, лиды. Чтобы вы понимали, что работает в рекламе, а за что вы просто платите. И вы перестаёте гадать, откуда пришёл клиент.",
                 icon: Target,
               },
             ].map((item, index) => (
@@ -305,6 +298,52 @@ export default function TrackingPage() {
               </CSSStaggerItem>
             ))}
           </CSSStagger>
+        </div>
+      </section>
+
+      {/* Server-side Tracking Explanation */}
+      <section className="py-16 px-4">
+        <div className="container mx-auto max-w-4xl">
+          <CSSScrollAnimation>
+            <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-8 md:p-10">
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 mb-4">
+                    <Server className="w-4 h-4 text-green-400" />
+                    <span className="text-sm font-medium text-green-300">
+                      Server-side для бизнеса
+                    </span>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                    Server-side трекинг — выбор тех, кто считает заявки
+                  </h2>
+                </div>
+                <div className="md:pt-2">
+                  <Link
+                    href="/blog/server-side-tracking"
+                    className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors"
+                  >
+                    Читать подробно в блоге →
+                  </Link>
+                </div>
+              </div>
+              <div className="space-y-4 text-slate-300 leading-relaxed">
+                <p>
+                  Обычно Google, Meta и аналитика получают информацию о заявках прямо из браузера пользователя.
+                  Если браузер, iPhone или блокировщики что-то ограничивают — данные просто не доходят.
+                </p>
+                <p>
+                  Server-side трекинг меняет путь данных и аккуратно обходит эти ограничения.
+                  Сначала заявка фиксируется на сервере сайта — там, где данные сложнее заблокировать браузеру, —
+                  и уже оттуда корректно и легально передаётся в Google и Meta.
+                </p>
+                <p className="text-green-400 font-medium">
+                  За счёт этого рекламные системы видят больше реальных заявок, а не только ту часть,
+                  которую удалось поймать браузеру.
+                </p>
+              </div>
+            </div>
+          </CSSScrollAnimation>
         </div>
       </section>
 
@@ -463,25 +502,37 @@ export default function TrackingPage() {
           <CSSStagger className="space-y-4">
             {[
               {
-                q: "Это легально с точки зрения GDPR?",
-                a: "Да. Мы используем first-party подход и настраиваем трекинг с учётом consent-баннера и европейских требований."
+                q: "Это законно с точки зрения GDPR в Чехии?",
+                a: "Да. Мы настраиваем трекинг в рамках GDPR: учитываем consent-баннер, минимизируем данные и передаём события в рекламные системы только при корректных основаниях. Наша цель — сохранить максимум возможного законным способом, а не «обходить правила»."
               },
               {
-                q: "Это заменяет Google Analytics?",
-                a: "Нет. HaloTrack дополняет Google Analytics ( который мы тоже настраиваем ) и передаёт более точные данные в Google и Meta."
+                q: "HaloTrack заменяет Google Analytics (GA4)?",
+                a: "Нет. GA4 остаётся основной аналитикой, а HaloTrack усиливает её: помогает корректно собирать события и передавать более точные сигналы в Google Ads и Meta. В результате отчёты и реклама начинают совпадать лучше."
               },
               {
-                q: "Подойдёт ли это для небольшого бизнеса?",
-                a: "Да, если вы уже тратите деньги на рекламу и хотите понимать, что реально работает."
+                q: "Что именно вы настраиваете?",
+                a: "Обычно это: события (Lead / Purchase и др.), связка сайта с GA4, Google Ads и Meta, server-side передача событий (Meta CAPI / Enhanced Conversions — по необходимости), проверка dataLayer и финальная верификация, чтобы данные не «дублились» и не терялись."
               },
               {
-                q: "Можно ли без server-side?",
-                a: "Можно, но данные будут теряться. Мы показываем разницу и объясняем её до запуска."
+                q: "Подойдёт ли это для малого бизнеса?",
+                a: "Да — если у вас уже есть реклама или вы планируете её запускать. Когда данные неполные, вы платите больше за лиды и сложнее понимаете, что реально работает. Если рекламы нет совсем — сначала лучше сфокусироваться на сайте/оффере."
+              },
+              {
+                q: "Можно ли без server-side трекинга?",
+                a: "Можно, но часть данных будет неизбежно теряться из‑за iOS, блокировщиков и ограничений cookies. Мы заранее объясняем, какие потери будут именно у вас, и показываем разницу после настройки — без «магии» и обещаний 100%."
+              },
+              {
+                q: "Гарантируете ли вы +20–40% данных?",
+                a: "Нет, потому что это зависит от ниши, источников трафика, доли iOS и настроек consent. Мы гарантируем другое: аккуратную настройку, прозрачную проверку и отчёт «что было / что стало», чтобы вы видели реальный эффект."
               },
               {
                 q: "Сколько времени занимает настройка?",
-                a: "Обычно от нескольких дней до 1 недели, в зависимости от сайта и рекламных систем."
+                a: "Чаще всего — от нескольких дней до 1 недели. Срок зависит от платформы сайта, текущих настроек и количества рекламных систем. Перед стартом согласуем план и точки проверки."
               },
+              {
+                q: "Нужен ли доступ к сайту/хостингу?",
+                a: "Обычно нужен доступ к GTM/GA4 и рекламным кабинетам. Доступ к сайту зависит от реализации: иногда достаточно GTM и настроек домена, иногда — небольших правок на сайте (например, для событий или формы). Мы согласуем это заранее."
+              }
             ].map((item, index) => (
               <CSSStaggerItem key={index} index={index}>
                 <details className="group rounded-2xl bg-slate-900/50 border border-white/10 hover:border-green-500/20 transition-colors overflow-hidden">
