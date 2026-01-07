@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Rocket, CheckCircle2, ArrowRight, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { growthPlanSchema, type GrowthPlanData } from "@/lib/validations";
+import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
 
 const businessTypes = [
     { value: "service", label: "Сервис / услуги" },
@@ -35,6 +36,7 @@ export default function GrowthPlanMagnet() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [selectedTried, setSelectedTried] = useState<string[]>([]);
+    const [haloSessionId, setHaloSessionId] = useState<string>("");
 
     const {
         register,
@@ -48,6 +50,14 @@ export default function GrowthPlanMagnet() {
             triedBefore: [],
         },
     });
+
+    // Load HaloTrack session ID on mount
+    useEffect(() => {
+        waitForHaloTrack().then(() => {
+            const sessionId = getHaloTrackSessionId();
+            setHaloSessionId(sessionId);
+        });
+    }, []);
 
     const toggleTried = (value: string) => {
         setSelectedTried((prev) =>
@@ -64,14 +74,20 @@ export default function GrowthPlanMagnet() {
         const formData = {
             ...data,
             triedBefore: selectedTried,
+            session_id: haloSessionId,
         };
 
         try {
-            // Send to webhook (fire and forget)
-            fetch("/api/growth-plan", {
+            // Send to unified webhook (fire and forget)
+            fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    type: "growth-plan",
+                    ...formData,
+                    source: "growth_plan_form",
+                    timestamp: new Date().toISOString(),
+                }),
             }).catch((err) => console.error("Background submission error:", err));
 
             setShowSuccess(true);
@@ -252,8 +268,8 @@ export default function GrowthPlanMagnet() {
                                             type="button"
                                             onClick={() => toggleTried(option.value)}
                                             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedTried.includes(option.value)
-                                                    ? "bg-orange-500/20 border-orange-500/50 text-orange-300 border"
-                                                    : "bg-white/5 border-white/10 text-slate-400 border hover:bg-white/10 hover:text-white"
+                                                ? "bg-orange-500/20 border-orange-500/50 text-orange-300 border"
+                                                : "bg-white/5 border-white/10 text-slate-400 border hover:bg-white/10 hover:text-white"
                                                 }`}
                                         >
                                             {option.label}

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ChevronRight, Loader2, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
 
 // Form data from JSON structure
 const formData = {
@@ -63,10 +64,19 @@ export default function WebProjectForm() {
   const [isCompleted, setIsCompleted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [haloSessionId, setHaloSessionId] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentQuestion = formData.steps[currentStep];
   const totalSteps = formData.steps.length;
+
+  // Load HaloTrack session ID on mount
+  useEffect(() => {
+    waitForHaloTrack().then(() => {
+      const sessionId = getHaloTrackSessionId();
+      setHaloSessionId(sessionId);
+    });
+  }, []);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: Focus input on step change
   useEffect(() => {
@@ -90,35 +100,18 @@ export default function WebProjectForm() {
   const submitToN8N = async (finalAnswers: Record<string, string>) => {
     setIsSubmitting(true);
     try {
-      // 1. Send to n8n
-      const webhookUrl = process.env.NEXT_PUBLIC_WEB_DEV_LEAD_WEBHOOK;
-
-      if (webhookUrl) {
-        await fetch(webhookUrl, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            ...finalAnswers,
-            source: "lead_gen_n8n_webdev",
-            timestamp: new Date().toISOString(),
-          }),
-        });
-      } else {
-        console.warn("N8N Webhook URL not configured");
-      }
-
-      // 2. Send confirmation email
-      await fetch("/api/send-confirmation", {
+      // Send to unified lead webhook
+      await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: finalAnswers.email,
-          name: finalAnswers.business_identity,
-          projectType: finalAnswers.business_identity, // Using same field for now as it captures "what do you do"
+          type: "web-project",
+          ...finalAnswers,
+          session_id: haloSessionId,
+          source: "web_project_form",
+          timestamp: new Date().toISOString(),
         }),
       });
     } catch (error) {
@@ -243,89 +236,89 @@ export default function WebProjectForm() {
   return (
     <div id="project-form">
       <div className="bg-slate-900/50 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden shadow-2xl min-h-[300px] flex flex-col relative">
-          {/* Progress Bar */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 z-20">
-            <motion.div
-              className="h-full bg-gradient-to-r from-orange-500 to-orange-600"
-              initial={{ width: 0 }}
-              animate={{ width: `${getProgress()}%` }}
-              transition={{ duration: 0.5 }}
-            />
-          </div>
-
-          <div className="flex-grow flex flex-col justify-center px-4 py-8 md:p-12 relative z-10">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentStep}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-                className="w-full"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <div className="text-sm text-blue-400 font-mono">
-                    Вопрос {currentStep + 1} из {totalSteps}
-                  </div>
-                  {currentStep > 0 && (
-                    <button
-                      type="button"
-                      onClick={handleBack}
-                      className="text-sm text-slate-500 hover:text-white flex items-center gap-1 transition-colors"
-                    >
-                      <ArrowLeft className="w-4 h-4" /> Назад
-                    </button>
-                  )}
-                </div>
-
-                <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-tight">
-                  {currentQuestion.question_text}
-                </h3>
-
-                <div>
-                  <p className="text-slate-500 text-sm mb-2">
-                    {currentQuestion.placeholder_text}
-                  </p>
-                  <input
-                    // @ts-ignore
-                    ref={inputRef}
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && inputValue.trim()) {
-                        e.preventDefault();
-                        handleNext();
-                      }
-                    }}
-                    placeholder="Ваш ответ..."
-                    className="w-full bg-transparent border-b-2 border-white/20 py-3 text-lg text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
-                  />
-                  <div className="flex justify-end mt-4">
-                    <button
-                      type="button"
-                      onClick={handleNext}
-                      disabled={!inputValue.trim() || isSubmitting}
-                      className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting
-                        ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
-                        : "bg-slate-800 text-slate-600 cursor-not-allowed"
-                        }`}
-                    >
-                      {isSubmitting ? (
-                        <Loader2 className="w-5 h-5 animate-spin" />
-                      ) : currentStep === totalSteps - 1 ? (
-                        <Send className="w-4 h-4" />
-                      ) : (
-                        <ChevronRight className="w-5 h-5" />
-                      )}
-                    </button>
-                  </div>
-                </div>
-
-              </motion.div>
-            </AnimatePresence>
-          </div>
+        {/* Progress Bar */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-slate-800 z-20">
+          <motion.div
+            className="h-full bg-gradient-to-r from-orange-500 to-orange-600"
+            initial={{ width: 0 }}
+            animate={{ width: `${getProgress()}%` }}
+            transition={{ duration: 0.5 }}
+          />
         </div>
+
+        <div className="flex-grow flex flex-col justify-center px-4 py-8 md:p-12 relative z-10">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentStep}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+              className="w-full"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="text-sm text-blue-400 font-mono">
+                  Вопрос {currentStep + 1} из {totalSteps}
+                </div>
+                {currentStep > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="text-sm text-slate-500 hover:text-white flex items-center gap-1 transition-colors"
+                  >
+                    <ArrowLeft className="w-4 h-4" /> Назад
+                  </button>
+                )}
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-8 leading-tight">
+                {currentQuestion.question_text}
+              </h3>
+
+              <div>
+                <p className="text-slate-500 text-sm mb-2">
+                  {currentQuestion.placeholder_text}
+                </p>
+                <input
+                  // @ts-ignore
+                  ref={inputRef}
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && inputValue.trim()) {
+                      e.preventDefault();
+                      handleNext();
+                    }
+                  }}
+                  placeholder="Ваш ответ..."
+                  className="w-full bg-transparent border-b-2 border-white/20 py-3 text-lg text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
+                />
+                <div className="flex justify-end mt-4">
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    disabled={!inputValue.trim() || isSubmitting}
+                    className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting
+                      ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
+                      : "bg-slate-800 text-slate-600 cursor-not-allowed"
+                      }`}
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="w-5 h-5 animate-spin" />
+                    ) : currentStep === totalSteps - 1 ? (
+                      <Send className="w-4 h-4" />
+                    ) : (
+                      <ChevronRight className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
     </div>
   );
 }

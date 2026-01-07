@@ -55,6 +55,13 @@ export default function RootLayout({
             `,
           }}
         />
+        {/* HaloTrack Attribution Tracking */}
+        {process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN && (
+          <Script
+            src={`https://${process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN}/t.js`}
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body
         className={`${inter.className} bg-ha-bg text-white antialiased`}

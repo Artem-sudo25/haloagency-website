@@ -8,7 +8,7 @@ import {
   AlertTriangle,
   XCircle,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,11 +16,13 @@ import {
   type WebsiteAnalysisData,
 } from "@/lib/validations";
 import { CSSScrollAnimation } from "@/components/ui/css-scroll-animation";
+import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
 
 export default function TrackingAudit() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisSuccess, setAnalysisSuccess] = useState(false);
   const [analysisError, setAnalysisError] = useState("");
+  const [haloSessionId, setHaloSessionId] = useState<string>("");
 
   const {
     register,
@@ -31,18 +33,32 @@ export default function TrackingAudit() {
     resolver: zodResolver(websiteAnalysisSchema),
   });
 
+  // Load HaloTrack session ID on mount
+  useEffect(() => {
+    waitForHaloTrack().then(() => {
+      const sessionId = getHaloTrackSessionId();
+      setHaloSessionId(sessionId);
+    });
+  }, []);
+
   const onSubmit = async (data: WebsiteAnalysisData) => {
     setIsAnalyzing(true);
     setAnalysisError("");
     setAnalysisSuccess(false);
 
     try {
-      const response = await fetch("/api/check-tracking", {
+      const response = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          type: "tracking-audit",
+          ...data,
+          session_id: haloSessionId,
+          source: "tracking_audit_form",
+          timestamp: new Date().toISOString(),
+        }),
       });
 
       const result = await response.json();
@@ -252,9 +268,8 @@ export default function TrackingAudit() {
                       type="url"
                       {...register("url")}
                       placeholder="https://yoursite.com"
-                      className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                        errors.url ? "border-red-500" : ""
-                      }`}
+                      className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.url ? "border-red-500" : ""
+                        }`}
                     />
                     {errors.url && (
                       <p className="text-red-400 text-xs mt-1">
@@ -268,9 +283,8 @@ export default function TrackingAudit() {
                       type="email"
                       {...register("email")}
                       placeholder="ivan@company.cz"
-                      className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${
-                        errors.email ? "border-red-500" : ""
-                      }`}
+                      className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.email ? "border-red-500" : ""
+                        }`}
                     />
                     {errors.email && (
                       <p className="text-red-400 text-xs mt-1">
@@ -285,9 +299,8 @@ export default function TrackingAudit() {
                         type="checkbox"
                         id="privacy"
                         {...register("consent")}
-                        className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${
-                          errors.consent ? "border-red-500" : ""
-                        }`}
+                        className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${errors.consent ? "border-red-500" : ""
+                          }`}
                       />
                       <label htmlFor="privacy" className="text-xs text-slate-400">
                         Согласен с политикой конфиденциальности
