@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactModal } from "@/context/contact-modal-context";
+import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
 
 export function ContactModal() {
     const { isOpen, close, prefilledData } = useContactModal();
@@ -14,6 +15,18 @@ export function ContactModal() {
     const [isSuccess, setIsSuccess] = useState(false);
     const [selectedService, setSelectedService] = useState("");
     const [message, setMessage] = useState("");
+    const [name, setName] = useState("");
+    const [contact, setContact] = useState("");
+    const [haloSessionId, setHaloSessionId] = useState<string>("");
+    const [consent, setConsent] = useState(false);
+    const [error, setError] = useState("");
+
+    // Load HaloTrack session ID on mount
+    useEffect(() => {
+        waitForHaloTrack().then(() => {
+            setHaloSessionId(getHaloTrackSessionId());
+        });
+    }, []);
 
     // Set prefilled data when modal opens
     useEffect(() => {
@@ -37,23 +50,56 @@ export function ContactModal() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!consent) {
+            setError("Необходимо согласие с политикой конфиденциальности");
+            return;
+        }
+
         setIsLoading(true);
+        setError("");
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+        try {
+            const isEmail = contact.includes("@");
 
-        setIsLoading(false);
-        setIsSuccess(true);
+            await fetch("/api/webhook/lead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    type: "contact",
+                    name,
+                    email: isEmail ? contact : undefined,
+                    telegram: !isEmail ? contact : undefined,
+                    contact_info: contact,
+                    service: selectedService,
+                    message,
+                    session_id: haloSessionId,
+                    source: "popup_modal",
+                    consent_given: true,
+                    timestamp: new Date().toISOString(),
+                }),
+            });
 
-        // Reset after showing success
-        setTimeout(() => {
-            close();
+            setIsLoading(false);
+            setIsSuccess(true);
+
+            // Reset after showing success
             setTimeout(() => {
-                setIsSuccess(false);
-                setSelectedService("");
-                setMessage("");
-            }, 300);
-        }, 2000);
+                close();
+                setTimeout(() => {
+                    setIsSuccess(false);
+                    setSelectedService("");
+                    setMessage("");
+                    setName("");
+                    setContact("");
+                    setConsent(false);
+                }, 300);
+            }, 2000);
+        } catch (err) {
+            console.error(err);
+            setIsLoading(false);
+            setError("Произошла ошибка при отправке");
+        }
     };
 
     return (
@@ -108,6 +154,8 @@ export function ContactModal() {
                                                 <label className="text-sm font-medium text-slate-300">Имя</label>
                                                 <Input
                                                     required
+                                                    value={name}
+                                                    onChange={(e) => setName(e.target.value)}
                                                     placeholder="Иван Иванов"
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
                                                 />
@@ -117,6 +165,8 @@ export function ContactModal() {
                                                 <label className="text-sm font-medium text-slate-300">Email или Telegram</label>
                                                 <Input
                                                     required
+                                                    value={contact}
+                                                    onChange={(e) => setContact(e.target.value)}
                                                     placeholder="@username или email@example.com"
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
                                                 />
@@ -132,8 +182,8 @@ export function ContactModal() {
                                                             type="button"
                                                             onClick={() => setSelectedService(service.value)}
                                                             className={`relative p-2.5 rounded-lg border transition-all duration-300 ${selectedService === service.value
-                                                                    ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
-                                                                    : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                                                                ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
+                                                                : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
                                                                 }`}
                                                         >
                                                             {selectedService === service.value && (
@@ -156,6 +206,28 @@ export function ContactModal() {
                                                     onChange={(e) => setMessage(e.target.value)}
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500 min-h-[100px] resize-none"
                                                 />
+                                            </div>
+
+                                            {/* Consent */}
+                                            <div>
+                                                <div className="flex items-start gap-2 mt-4">
+                                                    <input
+                                                        type="checkbox"
+                                                        id="consent-modal"
+                                                        checked={consent}
+                                                        onChange={(e) => setConsent(e.target.checked)}
+                                                        className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
+                                                    />
+                                                    <label htmlFor="consent-modal" className="text-sm text-slate-400 cursor-pointer">
+                                                        Согласен с{" "}
+                                                        <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
+                                                            политикой конфиденциальности
+                                                        </a>
+                                                    </label>
+                                                </div>
+                                                {error && (
+                                                    <p className="text-red-400 text-xs mt-2 text-center">{error}</p>
+                                                )}
                                             </div>
 
                                             <Button

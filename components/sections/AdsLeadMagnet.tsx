@@ -35,6 +35,7 @@ export default function AdsLeadMagnet() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [haloSessionId, setHaloSessionId] = useState<string>("");
+  const [consent, setConsent] = useState(false);
 
   // Load HaloTrack session ID on mount
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function AdsLeadMagnet() {
   };
 
   const canProceedStep1 = formData.business && formData.goal && formData.hadAds;
-  const canSubmit = formData.budget && formData.hasWebsite && formData.contactMethod && formData.contact;
+  const canSubmit = formData.budget && formData.hasWebsite && formData.contactMethod && formData.contact && consent;
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -66,6 +67,7 @@ export default function AdsLeadMagnet() {
           session_id: haloSessionId,
           ...formData,
           source: "ads_lead_form",
+          consent_given: true,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -366,6 +368,23 @@ export default function AdsLeadMagnet() {
                     }
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                   />
+                </div>
+
+                {/* Consent */}
+                <div className="flex items-start gap-3 mt-4 mb-4">
+                  <input
+                    type="checkbox"
+                    id="consent-ads"
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
+                    className="mt-1 w-4 h-4 text-orange-500 border-slate-600 rounded focus:ring-orange-500 bg-slate-800"
+                  />
+                  <label htmlFor="consent-ads" className="text-sm text-slate-400">
+                    Согласен с{" "}
+                    <a href="/privacy" target="_blank" className="text-orange-400 hover:text-orange-300 underline">
+                      политикой конфиденциальности
+                    </a>
+                  </label>
                 </div>
 
                 {/* Error */}

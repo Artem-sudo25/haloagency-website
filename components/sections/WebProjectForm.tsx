@@ -65,10 +65,12 @@ export default function WebProjectForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [haloSessionId, setHaloSessionId] = useState<string>("");
+  const [consent, setConsent] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const currentQuestion = formData.steps[currentStep];
   const totalSteps = formData.steps.length;
+  const isLastStep = currentStep === totalSteps - 1;
 
   // Load HaloTrack session ID on mount
   useEffect(() => {
@@ -111,6 +113,7 @@ export default function WebProjectForm() {
           ...finalAnswers,
           session_id: haloSessionId,
           source: "web_project_form",
+          consent_given: true,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -294,12 +297,31 @@ export default function WebProjectForm() {
                   placeholder="Ваш ответ..."
                   className="w-full bg-transparent border-b-2 border-white/20 py-3 text-lg text-white placeholder:text-slate-600 focus:outline-none focus:border-blue-500 transition-colors"
                 />
+
+                {isLastStep && (
+                  <div className="flex items-start gap-3 mt-6 mb-2">
+                    <input
+                      type="checkbox"
+                      id="consent-web"
+                      checked={consent}
+                      onChange={(e) => setConsent(e.target.checked)}
+                      className="mt-1 w-4 h-4 text-blue-600 border-slate-600 rounded focus:ring-blue-500 bg-slate-800"
+                    />
+                    <label htmlFor="consent-web" className="text-sm text-slate-400">
+                      Согласен с{" "}
+                      <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
+                        политикой конфиденциальности
+                      </a>
+                    </label>
+                  </div>
+                )}
+
                 <div className="flex justify-end mt-4">
                   <button
                     type="button"
                     onClick={handleNext}
-                    disabled={!inputValue.trim() || isSubmitting}
-                    className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting
+                    disabled={!inputValue.trim() || isSubmitting || (isLastStep && !consent)}
+                    className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting && (!isLastStep || consent)
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
                       : "bg-slate-800 text-slate-600 cursor-not-allowed"
                       }`}

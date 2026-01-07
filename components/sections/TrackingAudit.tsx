@@ -57,6 +57,7 @@ export default function TrackingAudit() {
           ...data,
           session_id: haloSessionId,
           source: "tracking_audit_form",
+          consent_given: true,
           timestamp: new Date().toISOString(),
         }),
       });

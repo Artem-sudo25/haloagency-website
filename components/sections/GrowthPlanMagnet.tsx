@@ -86,6 +86,7 @@ export default function GrowthPlanMagnet() {
                     type: "growth-plan",
                     ...formData,
                     source: "growth_plan_form",
+                    consent_given: true,
                     timestamp: new Date().toISOString(),
                 }),
             }).catch((err) => console.error("Background submission error:", err));
@@ -312,6 +313,29 @@ export default function GrowthPlanMagnet() {
                                 {errors.contact && (
                                     <p className="text-red-400 text-sm mt-1">
                                         {errors.contact.message}
+                                    </p>
+                                )}
+                            </div>
+
+                            {/* Consent */}
+                            <div>
+                                <div className="flex items-start gap-2 mt-2">
+                                    <input
+                                        type="checkbox"
+                                        id="consent-growth"
+                                        {...register("consent")}
+                                        className="mt-1 w-4 h-4 rounded bg-white/5 border-white/10 text-orange-500 focus:ring-orange-500 bg-slate-900 cursor-pointer"
+                                    />
+                                    <label htmlFor="consent-growth" className="text-xs text-slate-400 cursor-pointer">
+                                        Согласен с{" "}
+                                        <a href="/privacy" target="_blank" className="text-orange-400 hover:text-orange-300 underline">
+                                            политикой конфиденциальности
+                                        </a>
+                                    </label>
+                                </div>
+                                {errors.consent && (
+                                    <p className="text-red-400 text-xs mt-1">
+                                        {errors.consent.message}
                                     </p>
                                 )}
                             </div>

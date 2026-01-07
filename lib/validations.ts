@@ -16,6 +16,9 @@ export const contactFormSchema = z.object({
     .min(10, "Сообщение должно содержать минимум 10 символов")
     .max(1000, "Сообщение слишком длинное"),
   service: z.string().optional(),
+  consent: z.boolean().refine((val) => val === true, {
+    message: "Необходимо согласие с политикой конфиденциальности",
+  }),
 });
 
 export type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -71,6 +74,11 @@ export const growthPlanSchema = z.object({
   contact: z
     .string()
     .min(1, "Укажите способ связи"),
+  consent: z
+    .boolean()
+    .refine((val) => val === true, {
+      message: "Необходимо согласие с политикой конфиденциальности",
+    }),
 });
 
 export type GrowthPlanData = z.infer<typeof growthPlanSchema>;

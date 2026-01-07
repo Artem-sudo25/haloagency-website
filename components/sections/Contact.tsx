@@ -5,16 +5,24 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactFormSchema, type ContactFormData } from "@/lib/validations";
+import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
 
 export default function Contact() {
   const [selectedService, setSelectedService] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [haloSessionId, setHaloSessionId] = useState<string>("");
+
+  useEffect(() => {
+    waitForHaloTrack().then(() => {
+      setHaloSessionId(getHaloTrackSessionId());
+    });
+  }, []);
 
   const {
     register,
@@ -39,14 +47,19 @@ export default function Contact() {
     setSubmitSuccess(false);
 
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          type: "contact",
           ...data,
           service: selectedService || undefined,
+          session_id: haloSessionId,
+          source: "contact_form",
+          consent_given: true,
+          timestamp: new Date().toISOString(),
         }),
       });
 
@@ -263,6 +276,26 @@ export default function Contact() {
                   />
                   {errors.message && (
                     <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
+                  )}
+                </div>
+
+                <div className="space-y-2 mb-4">
+                  <div className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      id="consent-contact"
+                      {...register("consent")}
+                      className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
+                    />
+                    <label htmlFor="consent-contact" className="text-sm text-slate-400 cursor-pointer">
+                      Согласен с{" "}
+                      <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
+                        политикой конфиденциальности
+                      </a>
+                    </label>
+                  </div>
+                  {errors.consent && (
+                    <p className="text-red-400 text-xs mt-1">{errors.consent.message}</p>
                   )}
                 </div>
 
