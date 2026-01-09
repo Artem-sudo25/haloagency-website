@@ -16,7 +16,6 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
-import TrackingAudit from "@/components/sections/TrackingAudit";
 import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
 import { useContactModal } from "@/context/contact-modal-context";
@@ -242,11 +241,6 @@ export default function TrackingPage() {
           </CSSScrollAnimation>
         </div>
       </section>
-
-      <SectionDivider />
-
-      {/* Lead Magnet - Tracking Audit */}
-      <TrackingAudit />
 
       <SectionDivider />
 

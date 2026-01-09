@@ -163,7 +163,7 @@ export default function Header() {
                                 className="w-full mt-8 rounded-full bg-ha-primary text-white"
                                 onClick={() => {
                                     setMobileMenuOpen(false);
-                                    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                                    openContactModal();
                                 }}
                             >
                                 Связаться с нами

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactModal } from "@/context/contact-modal-context";
-import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
 
 export function ContactModal() {
     const { isOpen, close, prefilledData } = useContactModal();
@@ -62,7 +62,7 @@ export function ContactModal() {
         try {
             const isEmail = contact.includes("@");
 
-            await fetch("/api/webhook/lead", {
+            const response = await fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -80,8 +80,22 @@ export function ContactModal() {
                 }),
             });
 
+            const data = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                console.error("Submission failed:", data);
+                throw new Error(data?.error || "Ошибка сервера");
+            }
+
             setIsLoading(false);
             setIsSuccess(true);
+
+            // Track conversion event
+            trackFormEvent("contact_form_submit", {
+                service: selectedService,
+                has_email: isEmail,
+                has_telegram: !isEmail
+            });
 
             // Reset after showing success
             setTimeout(() => {
@@ -98,7 +112,7 @@ export function ContactModal() {
         } catch (err) {
             console.error(err);
             setIsLoading(false);
-            setError("Произошла ошибка при отправке");
+            setError(err instanceof Error ? err.message : "Произошла ошибка при отправке");
         }
     };
 

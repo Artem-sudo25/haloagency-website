@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { growthPlanSchema, type GrowthPlanData } from "@/lib/validations";
-import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
 
 const businessTypes = [
     { value: "service", label: "Сервис / услуги" },
@@ -78,8 +78,8 @@ export default function GrowthPlanMagnet() {
         };
 
         try {
-            // Send to unified webhook (fire and forget)
-            fetch("/api/webhook/lead", {
+            // Send to unified webhook
+            const response = await fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -89,13 +89,24 @@ export default function GrowthPlanMagnet() {
                     consent_given: true,
                     timestamp: new Date().toISOString(),
                 }),
-            }).catch((err) => console.error("Background submission error:", err));
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to submit");
+            }
+
+            // Track conversion
+            trackFormEvent("growth_plan_submit", {
+                business_type: data.businessType,
+                goal: data.mainGoal
+            });
 
             setShowSuccess(true);
             reset();
             setSelectedTried([]);
         } catch (error) {
             console.error("Failed to submit:", error);
+            // Optionally set error state here if UI supports it
         } finally {
             setIsSubmitting(false);
         }

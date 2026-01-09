@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ChevronRight, Loader2, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
 
 // Form data from JSON structure
 const formData = {
@@ -103,7 +103,7 @@ export default function WebProjectForm() {
     setIsSubmitting(true);
     try {
       // Send to unified lead webhook
-      await fetch("/api/webhook/lead", {
+      const response = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -117,8 +117,20 @@ export default function WebProjectForm() {
           timestamp: new Date().toISOString(),
         }),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      // Track conversion
+      trackFormEvent("web_project_lead", {
+        step_completed: 6,
+        business_identity: finalAnswers.business_identity
+      });
+
     } catch (error) {
       console.error("Failed to submit form:", error);
+      // We still show success step to user, but maybe log it
     } finally {
       setIsSubmitting(false);
       setIsCompleted(true);

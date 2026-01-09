@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Loader2, Megaphone, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { waitForHaloTrack, getHaloTrackSessionId } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
 
 type FormData = {
   business: string;
@@ -77,6 +77,13 @@ export default function AdsLeadMagnet() {
       }
 
       setIsSuccess(true);
+
+      // Track conversion
+      trackFormEvent("ads_lead_submit", {
+        business: formData.business,
+        budget: formData.budget,
+        has_website: formData.hasWebsite
+      });
     } catch {
       setError("Произошла ошибка. Попробуйте ещё раз.");
     } finally {
