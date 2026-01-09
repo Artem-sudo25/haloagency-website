@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, ChevronRight, Loader2, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 // Form data from JSON structure
 const formData = {
@@ -126,6 +126,22 @@ export default function WebProjectForm() {
       trackFormEvent("web_project_lead", {
         step_completed: 6,
         business_identity: finalAnswers.business_identity
+      });
+
+      // Send Lead Direct (Client-Side)
+      sendLeadToHaloTrack({
+        lead_id: crypto.randomUUID(),
+        source: "web_project_form",
+        form_type: "web-project",
+        email: finalAnswers.email, // WebProjectForm has explicit email field
+        name: "",
+        phone: "",
+        message: finalAnswers.hero_headline, // Or summary of project
+        session_id: haloSessionId,
+        consent_given: true,
+        lead_value: 0,
+        currency: "CZK",
+        custom_fields: finalAnswers // Submit all answers as custom fields
       });
 
     } catch (error) {

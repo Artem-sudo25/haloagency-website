@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Check, Loader2, Megaphone, ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 type FormData = {
   business: string;
@@ -79,12 +79,34 @@ export default function AdsLeadMagnet() {
 
       setIsSuccess(true);
 
-      // Track conversion
+      // 1. Client-Side Track Event (Conversion)
       trackFormEvent("ads_lead_submit", {
         business: formData.business,
         budget: formData.budget,
         has_website: formData.hasWebsite
       });
+
+      // 2. Client-Side Send Lead (Attribution) - Matches Propradlo
+      sendLeadToHaloTrack({
+        lead_id: crypto.randomUUID(),
+        source: "ads_lead_form",
+        form_type: "ads-lead",
+        email: formData.contact, // Fallback if no specific email field
+        name: "", // Not collected
+        phone: "", // Not collected
+        message: "",
+        session_id: haloSessionId,
+        consent_given: true,
+        lead_value: 0,
+        currency: "CZK",
+        custom_fields: {
+          business: formData.business,
+          budget: formData.budget,
+          has_website: formData.hasWebsite,
+          goal: formData.goal
+        }
+      });
+
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Произошла ошибка. Попробуйте ещё раз.");

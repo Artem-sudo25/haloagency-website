@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useContactModal } from "@/context/contact-modal-context";
-import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 export function ContactModal() {
     const { isOpen, close, prefilledData } = useContactModal();
@@ -74,7 +74,6 @@ export function ContactModal() {
                     service: selectedService,
                     message,
                     session_id: haloSessionId,
-                    source: "popup_modal",
                     consent_given: true,
                     timestamp: new Date().toISOString(),
                 }),
@@ -90,11 +89,31 @@ export function ContactModal() {
             setIsLoading(false);
             setIsSuccess(true);
 
-            // Track conversion event
+            // Track conversion (Event)
             trackFormEvent("contact_form_submit", {
                 service: selectedService,
                 has_email: isEmail,
                 has_telegram: !isEmail
+            });
+
+            // Send Lead Direct (Client-Side)
+            sendLeadToHaloTrack({
+                lead_id: crypto.randomUUID(),
+                source: "popup_modal",
+                form_type: "contact",
+                email: isEmail ? contact : "",
+                name: name,
+                phone: !isEmail ? contact : "", // Telegram usually mapped here or as custom
+                message: message,
+                session_id: haloSessionId,
+                consent_given: true,
+                lead_value: 0,
+                currency: "CZK",
+                custom_fields: {
+                    service: selectedService,
+                    telegram: !isEmail ? contact : undefined,
+                    preferred_method: isEmail ? "email" : "telegram"
+                }
             });
 
             // Reset after showing success

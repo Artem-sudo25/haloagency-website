@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { growthPlanSchema, type GrowthPlanData } from "@/lib/validations";
-import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 const businessTypes = [
     { value: "service", label: "Сервис / услуги" },
@@ -103,10 +103,31 @@ export default function GrowthPlanMagnet() {
                 throw new Error("Failed to submit");
             }
 
-            // Track conversion
+            // Track conversion (Event)
             trackFormEvent("growth_plan_submit", {
                 business_type: data.businessType,
                 goal: data.mainGoal
+            });
+
+            // Send Lead Direct (Client-Side Attribution)
+            sendLeadToHaloTrack({
+                lead_id: crypto.randomUUID(),
+                source: "growth_plan_form",
+                form_type: "growth-plan",
+                email: data.contact, // Uses normalized contact (email/phone)
+                name: "",
+                phone: "",
+                message: data.mainProblem,
+                session_id: haloSessionId,
+                consent_given: true,
+                lead_value: 0,
+                currency: "CZK",
+                custom_fields: {
+                    business_type: data.businessType,
+                    goal: data.mainGoal,
+                    website: data.websiteOrProfile,
+                    tried: data.triedBefore
+                }
             });
 
             setShowSuccess(true);
