@@ -73,7 +73,8 @@ export default function AdsLeadMagnet() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Error ${response.status}`);
       }
 
       setIsSuccess(true);
@@ -84,8 +85,9 @@ export default function AdsLeadMagnet() {
         budget: formData.budget,
         has_website: formData.hasWebsite
       });
-    } catch {
-      setError("Произошла ошибка. Попробуйте ещё раз.");
+    } catch (err: any) {
+      console.error(err);
+      setError(err.message || "Произошла ошибка. Попробуйте ещё раз.");
     } finally {
       setIsSubmitting(false);
     }

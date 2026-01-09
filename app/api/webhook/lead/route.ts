@@ -50,13 +50,15 @@ export async function POST(req: NextRequest) {
         });
 
         if (!n8nResponse.ok) {
-            console.error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`);
-            // We might still want to return success to the client if we have a fallback
-            // or if we don't want to block the user.
-            // For now, let's treat it as an error to debug easier during dev.
+            const errorText = await n8nResponse.text().catch(() => "No error details");
+            console.error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`, errorText);
+
             return NextResponse.json(
-                { success: false, error: "Failed to process lead" },
-                { status: 502 }
+                {
+                    success: false,
+                    error: `Workflow Error (${n8nResponse.status}): ${errorText.substring(0, 100)}`
+                },
+                { status: n8nResponse.status }
             );
         }
 

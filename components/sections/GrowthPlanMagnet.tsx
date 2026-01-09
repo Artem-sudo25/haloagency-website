@@ -45,7 +45,6 @@ export default function GrowthPlanMagnet() {
         formState: { errors },
         reset,
     } = useForm<GrowthPlanData>({
-        resolver: zodResolver(growthPlanSchema),
         defaultValues: {
             triedBefore: [],
         },
@@ -68,6 +67,15 @@ export default function GrowthPlanMagnet() {
     };
 
     const onSubmit = async (data: GrowthPlanData) => {
+        // Manual Validation to debug "silent" failures
+        const result = growthPlanSchema.safeParse(data);
+        if (!result.success) {
+            console.error("Validation failed:", result.error);
+            const errorMessages = (result.error as any).errors.map((e: any) => `${e.path.join(".")}: ${e.message}`).join("\n");
+            alert("Пожалуйста, заполните все обязательные поля:\n" + errorMessages);
+            return;
+        }
+
         setIsSubmitting(true);
 
         // Add selected checkboxes to data
