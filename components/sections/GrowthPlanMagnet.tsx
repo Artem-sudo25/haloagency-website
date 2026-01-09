@@ -180,7 +180,7 @@ export default function GrowthPlanMagnet() {
                             </Button>
                         </motion.div>
                     ) : (
-                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        <form onSubmit={handleSubmit(onSubmit, (errors) => alert("Validation Error: " + JSON.stringify(errors)))} className="space-y-6">
                             {/* 1. Website or Profile */}
                             <div>
                                 <label className="block text-sm font-medium text-white mb-2">
