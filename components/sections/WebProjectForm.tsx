@@ -109,8 +109,16 @@ export default function WebProjectForm() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          type: "web-project",
+          // Mapped to Growth Plan Schema (for unified n8n flow)
+          businessType: finalAnswers.business_identity,
+          mainGoal: finalAnswers.hero_headline, // Best proxy
+          websiteOrProfile: "Not collected",
+          mainProblem: `Color: ${finalAnswers.color_preference}, Style: ${finalAnswers.visual_style}, Features: ${finalAnswers.key_features}`,
+          contact: finalAnswers.email,
+
+          // Original Data (kept for context)
           ...finalAnswers,
+
           session_id: haloSessionId,
           source: "web_project_form",
           consent_given: true,

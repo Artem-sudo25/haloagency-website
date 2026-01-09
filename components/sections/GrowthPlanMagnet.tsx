@@ -92,10 +92,18 @@ export default function GrowthPlanMagnet() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     type: "growth-plan",
-                    ...formData,
+                    session_id: haloSessionId,
+                    // Original Keys (Source of Truth for n8n)
+                    websiteOrProfile: formData.websiteOrProfile,
+                    businessType: formData.businessType,
+                    mainGoal: formData.mainGoal,
+                    mainProblem: formData.mainProblem,
+                    contact: formData.contact,
+                    triedBefore: selectedTried,
+                    // Metadata
                     source: "growth_plan_form",
                     consent_given: true,
-                    timestamp: new Date().toISOString(),
+                    timestamp: new Date().toISOString()
                 }),
             });
 

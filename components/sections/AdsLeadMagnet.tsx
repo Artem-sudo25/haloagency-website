@@ -65,7 +65,16 @@ export default function AdsLeadMagnet() {
         body: JSON.stringify({
           type: "ads-lead",
           session_id: haloSessionId,
-          ...formData,
+          // Mapped to Growth Plan Schema (for unified n8n flow)
+          websiteOrProfile: formData.businessLink || formData.hasWebsite,
+          businessType: formData.business,
+          mainGoal: formData.goal,
+          mainProblem: `Budget: ${formData.budget}, Had Ads: ${formData.hadAds}, Method: ${formData.contactMethod}`,
+          contact: formData.contact,
+          // Original Data (kept for context)
+          budget: formData.budget,
+          had_ads: formData.hadAds,
+
           source: "ads_lead_form",
           consent_given: true,
           timestamp: new Date().toISOString(),
