@@ -109,10 +109,12 @@ export default function AdsLeadMagnet() {
         lead_value: 0,
         currency: "CZK",
         custom_fields: {
-          business: formData.business,
+          business_type: formData.business,
           budget: formData.budget,
-          has_website: formData.hasWebsite,
-          goal: formData.goal
+          website: formData.businessLink || formData.hasWebsite,
+          goal: formData.goal,
+          had_ads: formData.hadAds,
+          contact_method: formData.contactMethod
         }
       });
 

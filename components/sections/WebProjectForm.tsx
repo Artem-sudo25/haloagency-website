@@ -149,7 +149,12 @@ export default function WebProjectForm() {
         consent_given: true,
         lead_value: 0,
         currency: "CZK",
-        custom_fields: finalAnswers // Submit all answers as custom fields
+        custom_fields: {
+          business_type: finalAnswers.business_identity,
+          goal: finalAnswers.hero_headline,
+          website: "Not collected",
+          ...finalAnswers
+        }
       });
 
     } catch (error) {
