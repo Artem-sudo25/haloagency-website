@@ -84,8 +84,6 @@ export function ContactModal() {
 
                     // Original context
                     name,
-                    email: contact,
-                    telegram: undefined,
                     contact_info: contact,
                     service: selectedService,
                     message,

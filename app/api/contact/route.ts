@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     // Validate with Zod
     const validatedData = contactFormSchema.parse(body);
 
-    const { name, email, telegram, message, service } = validatedData;
+    const { name, email, message, service } = validatedData;
 
     // Check if Resend is configured
     if (!resend) {
@@ -177,17 +177,6 @@ export async function POST(request: Request) {
               <div class="label">Email</div>
               <div class="value"><a href="mailto:${email}">${email}</a></div>
             </div>
-
-            ${
-              telegram
-                ? `
-            <div class="field">
-              <div class="label">Telegram</div>
-              <div class="value">${telegram}</div>
-            </div>
-            `
-                : ""
-            }
 
             ${
               service
