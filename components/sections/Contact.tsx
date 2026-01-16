@@ -225,18 +225,6 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="telegram" className="text-sm font-medium text-slate-300">
-                    Telegram или телефон
-                  </label>
-                  <Input
-                    id="telegram"
-                    {...register("telegram")}
-                    placeholder="@username или +420 123 456 789"
-                    className="bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors"
-                  />
-                </div>
-
                 {/* Service Selector - MOVED HERE */}
                 <div className="space-y-3">
                   <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>

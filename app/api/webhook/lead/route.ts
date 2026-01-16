@@ -14,19 +14,11 @@ export async function POST(req: NextRequest) {
         } = body;
 
         // Basic validation
-        // Basic validation (allow contact as fallback for email)
-        const contactInfo = email || body.contact;
-
-        if (!type || !contactInfo) {
+        if (!type || !email) {
             return NextResponse.json(
-                { success: false, error: "Missing required fields: type or email/contact" },
+                { success: false, error: "Missing required fields: type or email" },
                 { status: 400 }
             );
-        }
-
-        // Ensure email field exists for downstream consistency
-        if (!body.email && body.contact) {
-            body.email = body.contact;
         }
 
         const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;

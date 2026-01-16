@@ -60,7 +60,13 @@ export function ContactModal() {
         setError("");
 
         try {
-            const isEmail = contact.includes("@");
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+
+            if (!isEmail) {
+                setError("Введите корректный email");
+                setIsLoading(false);
+                return;
+            }
 
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
@@ -73,11 +79,13 @@ export function ContactModal() {
                     mainProblem: message,      // Use Message as Problem
                     websiteOrProfile: "Not specified",
                     contact: contact,
+                    email: contact,
+                    contact_method: "email",
 
                     // Original context
                     name,
-                    email: isEmail ? contact : undefined,
-                    telegram: !isEmail ? contact : undefined,
+                    email: contact,
+                    telegram: undefined,
                     contact_info: contact,
                     service: selectedService,
                     message,
@@ -203,12 +211,12 @@ export function ContactModal() {
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Email или Telegram</label>
+                                                <label className="text-sm font-medium text-slate-300">Email</label>
                                                 <Input
                                                     required
                                                     value={contact}
                                                     onChange={(e) => setContact(e.target.value)}
-                                                    placeholder="@username или email@example.com"
+                                                    placeholder="email@example.com"
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
                                                 />
                                             </div>

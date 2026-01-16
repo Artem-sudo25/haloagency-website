@@ -13,7 +13,6 @@ type FormData = {
   hadAds: string;
   budget: string;
   hasWebsite: string;
-  contactMethod: string;
   contact: string;
 };
 
@@ -24,7 +23,6 @@ const initialFormData: FormData = {
   hadAds: "",
   budget: "",
   hasWebsite: "",
-  contactMethod: "",
   contact: "",
 };
 
@@ -49,8 +47,15 @@ export default function AdsLeadMagnet() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
   const canProceedStep1 = formData.business && formData.goal && formData.hadAds;
-  const canSubmit = formData.budget && formData.hasWebsite && formData.contactMethod && formData.contact && consent;
+  const canSubmit =
+    formData.budget &&
+    formData.hasWebsite &&
+    formData.contact &&
+    isValidEmail(formData.contact) &&
+    consent;
 
   const handleSubmit = async () => {
     if (!canSubmit) return;
@@ -59,6 +64,10 @@ export default function AdsLeadMagnet() {
     setError(null);
 
     try {
+      if (!isValidEmail(formData.contact)) {
+        throw new Error("Введите корректный email");
+      }
+
       const response = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,8 +78,10 @@ export default function AdsLeadMagnet() {
           websiteOrProfile: formData.businessLink || formData.hasWebsite,
           businessType: formData.business,
           mainGoal: formData.goal,
-          mainProblem: `Budget: ${formData.budget}, Had Ads: ${formData.hadAds}, Method: ${formData.contactMethod}`,
+          mainProblem: `Budget: ${formData.budget}, Had Ads: ${formData.hadAds}`,
           contact: formData.contact,
+          email: formData.contact,
+          contact_method: "email",
 
           // Original Data (kept for context)
           budget: formData.budget,
@@ -115,7 +126,7 @@ export default function AdsLeadMagnet() {
           website: formData.businessLink || formData.hasWebsite,
           goal: formData.goal,
           had_ads: formData.hadAds,
-          contact_method: formData.contactMethod
+          contact_method: "email"
         }
       });
 
@@ -385,30 +396,13 @@ export default function AdsLeadMagnet() {
                 {/* Question 6 */}
                 <div>
                   <label className="block text-white font-medium mb-3">
-                    Как удобнее связаться?
+                    Email для связи
                   </label>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {["WhatsApp", "Telegram", "Email"].map((option) => (
-                      <RadioOption
-                        key={option}
-                        name={option}
-                        value={option}
-                        selected={formData.contactMethod === option}
-                        onChange={() => updateField("contactMethod", option)}
-                      />
-                    ))}
-                  </div>
                   <input
-                    type="text"
+                    type="email"
                     value={formData.contact}
                     onChange={(e) => updateField("contact", e.target.value)}
-                    placeholder={
-                      formData.contactMethod === "Email"
-                        ? "your@email.com"
-                        : formData.contactMethod === "WhatsApp"
-                          ? "+420..."
-                          : "@username или +420..."
-                    }
+                    placeholder="your@email.com"
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                   />
                 </div>

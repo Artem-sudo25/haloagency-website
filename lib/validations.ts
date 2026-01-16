@@ -10,7 +10,6 @@ export const contactFormSchema = z.object({
     .string()
     .min(1, "Email обязателен")
     .email("Неверный формат email"),
-  telegram: z.string().optional(),
   message: z
     .string()
     .min(10, "Сообщение должно содержать минимум 10 символов")
@@ -73,7 +72,8 @@ export const growthPlanSchema = z.object({
     .max(500, "Текст слишком длинный"),
   contact: z
     .string()
-    .min(1, "Укажите способ связи"),
+    .min(1, "Email обязателен")
+    .email("Неверный формат email"),
   consent: z
     .boolean()
     .refine((val) => val === true, {

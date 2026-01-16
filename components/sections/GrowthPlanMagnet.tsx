@@ -86,6 +86,8 @@ export default function GrowthPlanMagnet() {
         };
 
         try {
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact);
+
             // Send to unified webhook
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
@@ -99,6 +101,8 @@ export default function GrowthPlanMagnet() {
                     mainGoal: formData.mainGoal,
                     mainProblem: formData.mainProblem,
                     contact: formData.contact,
+                    email: isEmail ? formData.contact : undefined,
+                    contact_method: isEmail ? "email" : "other",
                     triedBefore: selectedTried,
                     // Metadata
                     source: "growth_plan_form",
@@ -348,11 +352,12 @@ export default function GrowthPlanMagnet() {
                             {/* 6. Contact */}
                             <div>
                                 <label className="block text-sm font-medium text-white mb-2">
-                                    Контакт для ответа
+                                    Email для ответа
                                 </label>
                                 <Input
+                                    type="email"
                                     {...register("contact")}
-                                    placeholder="Telegram / WhatsApp / Email"
+                                    placeholder="your@email.com"
                                     className="bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500/50 rounded-xl h-12"
                                 />
                                 <p className="text-xs text-slate-500 mt-1">
