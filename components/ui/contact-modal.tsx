@@ -67,6 +67,14 @@ export function ContactModal() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     type: "contact",
+                    // Unified Schema (Growth Plan compatible)
+                    businessType: "Not specified",
+                    mainGoal: selectedService, // Use Service as Goal
+                    mainProblem: message,      // Use Message as Problem
+                    websiteOrProfile: "Not specified",
+                    contact: contact,
+
+                    // Original context
                     name,
                     email: isEmail ? contact : undefined,
                     telegram: !isEmail ? contact : undefined,

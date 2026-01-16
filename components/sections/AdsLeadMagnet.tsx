@@ -71,6 +71,7 @@ export default function AdsLeadMagnet() {
           mainGoal: formData.goal,
           mainProblem: `Budget: ${formData.budget}, Had Ads: ${formData.hadAds}, Method: ${formData.contactMethod}`,
           contact: formData.contact,
+
           // Original Data (kept for context)
           budget: formData.budget,
           had_ads: formData.hadAds,
