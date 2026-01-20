@@ -71,38 +71,41 @@ export default function Hero() {
           </div>
 
           {/* Small Navigation Buttons */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
               asChild
             >
               <Link href="/#projects">Портфолио</Link>
             </Button>
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
               asChild
             >
               <Link href="/#process">Как мы работаем</Link>
             </Button>
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
               asChild
             >
               <Link href="/#faq">FAQ</Link>
             </Button>
             <Button
-              variant="outline"
+              variant="ghost"
               size="sm"
-              className="rounded-full border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition-colors"
+              className="text-purple-400 hover:text-purple-300 p-0 h-auto font-normal hover:bg-transparent"
               asChild
             >
-              <Link href="/#growth-plan">Бесплатный план роста</Link>
+              <Link href="/#growth-plan" className="flex items-center gap-2">
+                <Sparkles className="w-4 h-4" />
+                Бесплатный план роста
+              </Link>
             </Button>
           </div>
         </motion.div>
