@@ -19,8 +19,8 @@ const navLinks = [
         ],
     },
     { name: "Пакеты", href: "/packages" },
-    { name: "Кейсы", href: "/case-studies" },
-    { name: "О нас", href: "/about" },
+    { name: "Пакеты", href: "/packages" },
+    { name: "О нас", href: "/#about" },
 ];
 
 export default function Header() {

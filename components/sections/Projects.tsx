@@ -22,6 +22,7 @@ const projects = [
     tech: ["Next.js", "WooCommerce", "Server-side tracking"],
     gradient: "from-blue-950 to-indigo-950",
     span: "md:col-span-2 md:row-span-2",
+    href: "/case-studies/nejablonky",
   },
   {
     number: "02",
@@ -35,6 +36,7 @@ const projects = [
     statsColor: "bg-blue-500/20 text-blue-300 border-blue-500/20",
     gradient: "from-teal-950 to-cyan-950",
     span: "",
+    href: "/case-studies/propradlo",
   },
   {
     number: "03",
@@ -49,6 +51,7 @@ const projects = [
     statsColor: "bg-green-500/20 text-green-400 border-green-500/20",
     gradient: "from-amber-950 to-orange-950",
     span: "",
+    href: "/case-studies/segway-tours-budapest",
   },
 ];
 
@@ -227,11 +230,7 @@ export default function Projects() {
               <span className="text-white">мы гордимся</span>
             </h2>
           </div>
-          <Link href="/case-studies">
-            <Button variant="outline" className="hidden md:flex rounded-full border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 gap-2">
-              Все проекты <ArrowUpRight className="w-4 h-4" />
-            </Button>
-          </Link>
+          <div className="hidden md:block" /> {/* Spacer instead of button */}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 md:auto-rows-fr">
@@ -288,7 +287,7 @@ export default function Projects() {
                     {/* Tech stack or tags if needed */}
                   </div>
 
-                  <Link href="/case-studies" className="inline-flex items-center gap-1 text-sm text-white hover:text-blue-300 transition-colors">
+                  <Link href={project.href || "#"} className="inline-flex items-center gap-1 text-sm text-white hover:text-blue-300 transition-colors">
                     Смотреть кейс →
                   </Link>
                 </div>
@@ -297,13 +296,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="mt-12 md:hidden flex justify-center">
-          <Link href="/case-studies" className="w-full">
-            <Button variant="outline" className="rounded-full border-slate-700 text-slate-300 hover:text-white hover:bg-slate-800 w-full">
-              Все кейсы
-            </Button>
-          </Link>
-        </div>
+
       </div>
     </section>
   );

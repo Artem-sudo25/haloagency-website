@@ -77,11 +77,7 @@ export default function Footer() {
                                     • О нас
                                 </Link>
                             </li>
-                            <li>
-                                <Link href="/#projects" className="hover:text-blue-400 transition-colors block">
-                                    • Кейсы
-                                </Link>
-                            </li>
+
                             <li>
                                 <Link href="/#contact" className="hover:text-blue-400 transition-colors block">
                                     • Контакты
