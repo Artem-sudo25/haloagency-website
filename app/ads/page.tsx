@@ -615,7 +615,11 @@ export default function AdsPage() {
 
                   <CardFooter className="p-8 pt-0 mt-auto">
                     <Button
-                      onClick={() => open({ service: `ads-${pkg.id}` })}
+                      onClick={() => open({
+                        service: "package",
+                        package_name: `Реклама: ${pkg.title}`,
+                        message: `Интересует пакет рекламы "${pkg.title}"\nСтоимость: ${pkg.price}${pkg.period ? ` ${pkg.period}` : ''}\n\n`
+                      })}
                       className={`w-full font-medium transition-all ${
                         pkg.highlight
                           ? "bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/25"

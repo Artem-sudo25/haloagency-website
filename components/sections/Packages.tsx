@@ -5,6 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Check, Sparkles, Zap, Trophy, Rocket, Crown } from "lucide-react";
 import Link from "next/link";
 import { useContactModal } from "@/context/contact-modal-context";
+import { useState, useRef, useEffect } from "react";
 
 const packages = [
   {
@@ -79,11 +80,36 @@ const packages = [
 
 export default function Packages() {
   const { open: openContactModal } = useContactModal();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [showScrollHint, setShowScrollHint] = useState(true);
+
+  // Track scroll position to update dots and hide hint
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.scrollWidth / packages.length;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setActiveIndex(newIndex);
+
+      // Hide scroll hint after user scrolls
+      if (scrollLeft > 20) {
+        setShowScrollHint(false);
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handlePackageClick = (pkg: typeof packages[0]) => {
     const message = `Интересует пакет "${pkg.title}"\nНастройка: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
     openContactModal({
       service: "package",
+      package_name: pkg.title,
       message: message,
     });
   };
@@ -106,19 +132,48 @@ export default function Packages() {
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
-          {packages.map((pkg, index) => (
-            <div
-              key={index}
-              className={`relative h-full ${pkg.highlight ? 'lg:-mt-6 lg:mb-6 z-10' : ''}`}
-            >
-              <Card
-                className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
-                  ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20'
-                  : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
-                  } rounded-2xl overflow-hidden`}
-              >
+        {/* Mobile: Horizontal Scroll | Desktop: Grid */}
+        <div className="relative">
+          {/* Scroll Hint - Mobile Only */}
+          {showScrollHint && (
+            <div className="md:hidden absolute top-1/2 -translate-y-1/2 right-0 z-20 pointer-events-none transition-opacity duration-300">
+              <div className="bg-gradient-to-l from-[#0A1628] via-[#0A1628]/80 to-transparent w-24 h-full flex items-center justify-end pr-3">
+                <svg
+                  className="w-6 h-6 text-blue-400 animate-bounce-x"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+            </div>
+          )}
+
+          {/* Scrollable Container */}
+          <div
+            ref={scrollContainerRef}
+            className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 snap-x snap-mandatory"
+          >
+            <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
+              {packages.map((pkg, index) => (
+                <div
+                  key={index}
+                  className={`
+                    flex-shrink-0 w-[85vw] sm:w-[70vw] md:w-auto snap-center
+                    ${pkg.highlight ? 'lg:-mt-6 lg:mb-6 z-10' : ''}
+                    ${index === 0 ? 'ml-0' : ''}
+                    ${index === packages.length - 1 ? 'mr-4 md:mr-0' : ''}
+                  `}
+                >
+                  <Card
+                    className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
+                      ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20'
+                      : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
+                      } rounded-2xl overflow-hidden`}
+                  >
                 {/* Popular Badge */}
                 {pkg.highlight && (
                   <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
@@ -184,8 +239,23 @@ export default function Packages() {
                   </Button>
                 </CardFooter>
               </Card>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          {/* Scroll Indicators (Dots) - Mobile Only */}
+          <div className="md:hidden flex justify-center gap-2 mt-6">
+            {packages.map((_, index) => (
+              <div
+                key={index}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === activeIndex ? 'w-6 bg-blue-500' : 'w-1.5 bg-white/20'
+                }`}
+                aria-label={`Пакет ${index + 1}`}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Bottom Discount Banner */}

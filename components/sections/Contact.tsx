@@ -165,32 +165,37 @@ export default function Contact() {
             <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-50" />
 
             <div className="relative bg-ha-card-dark/80 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-              {/* Success Message */}
-              {submitSuccess && (
+              {/* Success Message - Full Card */}
+              {submitSuccess ? (
                 <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center gap-3"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
-                  <p className="text-green-400 text-sm">
-                    Спасибо! Мы свяжемся с вами в течение 2 часов.
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                    <CheckCircle2 className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-3">
+                    Заявка отправлена!
+                  </h3>
+                  <p className="text-slate-400">
+                    Мы свяжемся с вами в течение 2 рабочих часов.
                   </p>
                 </motion.div>
-              )}
+              ) : (
+                <>
+                  {/* Error Message */}
+                  {submitError && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
+                    >
+                      <p className="text-red-400 text-sm">{submitError}</p>
+                    </motion.div>
+                  )}
 
-              {/* Error Message */}
-              {submitError && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
-                >
-                  <p className="text-red-400 text-sm">{submitError}</p>
-                </motion.div>
-              )}
-
-              <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+                  <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-sm font-medium text-slate-300">
@@ -300,6 +305,8 @@ export default function Contact() {
                   Обычно отвечаем в течение 2 часов в рабочее время
                 </p>
               </form>
+                </>
+              )}
             </div>
           </motion.div>
         </div>

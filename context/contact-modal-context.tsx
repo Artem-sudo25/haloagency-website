@@ -4,6 +4,7 @@ import { createContext, useContext, useState, ReactNode } from "react";
 
 interface PrefilledData {
     service?: string;
+    package_name?: string;
     message?: string;
 }
 

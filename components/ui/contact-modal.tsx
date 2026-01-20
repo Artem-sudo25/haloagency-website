@@ -40,6 +40,9 @@ export function ContactModal() {
         }
     }, [isOpen, prefilledData]);
 
+    // Check if this is a package flow (hide service selector)
+    const isPackageFlow = prefilledData?.package_name;
+
     const services = [
         { value: "web", label: "Разработка сайтов", color: "from-blue-500 to-blue-600" },
         { value: "ads", label: "Реклама (Ads)", color: "from-orange-500 to-red-500" },
@@ -86,6 +89,7 @@ export function ContactModal() {
                     name,
                     contact_info: contact,
                     service: selectedService,
+                    package_name: prefilledData?.package_name, // NEW: Package name if selected
                     message,
                     session_id: haloSessionId,
                     consent_given: true,
@@ -190,9 +194,14 @@ export function ContactModal() {
                                 ) : (
                                     <>
                                         <div className="mb-8">
-                                            <h2 className="text-2xl font-bold text-white mb-2">Обсудить проект</h2>
+                                            <h2 className="text-2xl font-bold text-white mb-2">
+                                                {isPackageFlow ? `Пакет "${prefilledData.package_name}"` : "Обсудить проект"}
+                                            </h2>
                                             <p className="text-slate-400">
-                                                Оставьте заявку, и мы предложим лучшее решение для вашего бизнеса.
+                                                {isPackageFlow
+                                                    ? "Оставьте контакты, и мы свяжемся с вами для уточнения деталей."
+                                                    : "Оставьте заявку, и мы предложим лучшее решение для вашего бизнеса."
+                                                }
                                             </p>
                                         </div>
 
@@ -219,31 +228,33 @@ export function ContactModal() {
                                                 />
                                             </div>
 
-                                            {/* Service Selector */}
-                                            <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
-                                                <div className="grid grid-cols-2 gap-2">
-                                                    {services.map((service) => (
-                                                        <button
-                                                            key={service.value}
-                                                            type="button"
-                                                            onClick={() => setSelectedService(service.value)}
-                                                            className={`relative p-2.5 rounded-lg border transition-all duration-300 ${selectedService === service.value
-                                                                ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
-                                                                : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
-                                                                }`}
-                                                        >
-                                                            {selectedService === service.value && (
-                                                                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-lg`} />
-                                                            )}
-                                                            <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
-                                                                }`}>
-                                                                {service.label}
-                                                            </span>
-                                                        </button>
-                                                    ))}
+                                            {/* Service Selector - Hidden for package flow */}
+                                            {!isPackageFlow && (
+                                                <div className="space-y-2">
+                                                    <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
+                                                    <div className="grid grid-cols-2 gap-2">
+                                                        {services.map((service) => (
+                                                            <button
+                                                                key={service.value}
+                                                                type="button"
+                                                                onClick={() => setSelectedService(service.value)}
+                                                                className={`relative p-2.5 rounded-lg border transition-all duration-300 ${selectedService === service.value
+                                                                    ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
+                                                                    : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                                                                    }`}
+                                                            >
+                                                                {selectedService === service.value && (
+                                                                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-lg`} />
+                                                                )}
+                                                                <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
+                                                                    }`}>
+                                                                    {service.label}
+                                                                </span>
+                                                            </button>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            )}
 
                                             <div className="space-y-2">
                                                 <label className="text-sm font-medium text-slate-300">О проекте</label>

@@ -103,8 +103,12 @@ const SectionDivider = () => (
 export default function WebDevelopmentPage() {
   const { open } = useContactModal();
 
-  const openModal = (service: string) => {
-    open({ service });
+  const openModal = (packageName: string, price?: string, time?: string) => {
+    open({
+      service: "package",
+      package_name: `Сайты: ${packageName}`,
+      message: `Интересует пакет "${packageName}"${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`
+    });
   };
 
   // Prevent browser scroll restoration and ensure page starts at top
@@ -480,7 +484,7 @@ export default function WebDevelopmentPage() {
 
                   <CardFooter className="p-8 pt-0 mt-auto">
                     <Button
-                      onClick={() => openModal(pkg.title)}
+                      onClick={() => openModal(pkg.title, pkg.price, pkg.time)}
                       className={`w-full font-medium transition-all ${
                         pkg.highlight
                           ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25"
@@ -498,7 +502,7 @@ export default function WebDevelopmentPage() {
           <div className="text-center mt-12">
             <button
               type="button"
-              onClick={() => openModal("Индивидуальное решение")}
+              onClick={() => openModal("Индивидуальное решение", undefined, undefined)}
               className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
             >
               Нужен индивидуальный проект? Обсудим →
@@ -635,7 +639,7 @@ export default function WebDevelopmentPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              onClick={() => openModal("Обсудить проект")}
+              onClick={() => openModal("Обсудить проект", undefined, undefined)}
               className="rounded-full px-10 h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/20"
             >
               Обсудить проект

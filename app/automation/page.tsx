@@ -192,8 +192,12 @@ const automationFaqs = [
 export default function AutomationPage() {
     const { open } = useContactModal();
 
-    const openModal = (service: string) => {
-        open({ service: "automation", message: `Интересует услуга: ${service}` });
+    const openModal = (packageName: string, price?: string, time?: string) => {
+        open({
+            service: "package",
+            package_name: `Автоматизация: ${packageName}`,
+            message: `Интересует услуга: ${packageName}${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`
+        });
     };
 
     // Prevent browser scroll restoration and ensure page starts at top
@@ -258,7 +262,7 @@ export default function AutomationPage() {
                             >
                                 <Button
                                     size="lg"
-                                    onClick={() => openModal("Automation General")}
+                                    onClick={() => openModal("Automation General", undefined, undefined)}
                                     className="rounded-full px-8 bg-purple-600 hover:bg-purple-700 text-white shadow-lg shadow-purple-500/25 h-12"
                                 >
                                     Автоматизировать
@@ -637,7 +641,7 @@ export default function AutomationPage() {
                                         <Button
                                             variant="ghost"
                                             className={`w-full justify-between text-white hover:text-white ${service.bg} hover:opacity-90 group-hover:translate-x-1 transition-all p-0 px-4`}
-                                            onClick={() => openModal(service.title)}
+                                            onClick={() => openModal(service.title, service.price, service.time)}
                                         >
                                             Заказать <ArrowRight className="w-4 h-4" />
                                         </Button>
@@ -839,7 +843,7 @@ export default function AutomationPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             size="lg"
-                            onClick={() => openModal("Консультация по автоматизации")}
+                            onClick={() => openModal("Консультация по автоматизации", undefined, undefined)}
                             className="rounded-full px-10 h-14 text-lg bg-purple-600 hover:bg-purple-700 text-white shadow-xl shadow-purple-500/20"
                         >
                             Получить консультацию

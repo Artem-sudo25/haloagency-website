@@ -308,6 +308,43 @@
     animation-delay: calc(var(--stagger-index, 0) * 0.08s);
   }
 
+  /* Horizontal Scroll - Hide Scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  /* Snap Scrolling - Smooth snap behavior */
+  .snap-x {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+  }
+
+  .snap-center {
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+  }
+
+  /* Horizontal bounce animation for scroll hint */
+  @keyframes bounce-x {
+    0%, 100% {
+      transform: translateX(0);
+      opacity: 0.7;
+    }
+    50% {
+      transform: translateX(4px);
+      opacity: 1;
+    }
+  }
+
+  .animate-bounce-x {
+    animation: bounce-x 1.5s ease-in-out infinite;
+  }
+
   /* Safari-specific animation performance optimizations */
   @supports (-webkit-touch-callout: none) {
     /* Force GPU acceleration for animated elements */
