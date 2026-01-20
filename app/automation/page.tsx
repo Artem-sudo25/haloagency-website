@@ -273,7 +273,7 @@ export default function AutomationPage() {
                                     className="rounded-full px-8 border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm h-12"
                                     asChild
                                 >
-                                    <Link href="/#packages">Цены</Link>
+                                    <Link href="#services">Цены</Link>
                                 </Button>
                             </motion.div>
                         </div>
@@ -589,66 +589,68 @@ export default function AutomationPage() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                        {services.map((service) => (
-                            <div
-                                key={service.id}
-                                className={`group p-8 rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-sm transition-all duration-500 flex flex-col relative overflow-hidden ${service.border}`}
-                            >
+                    <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-6 mb-12 snap-x snap-mandatory scroll-pl-4">
+                        <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
+                            {services.map((service) => (
                                 <div
-                                    className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                                />
-
-                                <div className="relative z-10 h-full flex flex-col">
+                                    key={service.id}
+                                    className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start group p-8 rounded-3xl bg-slate-900/50 border border-white/10 backdrop-blur-sm transition-all duration-500 flex flex-col relative overflow-hidden ${service.border}`}
+                                >
                                     <div
-                                        className={`mb-6 inline-flex p-3 rounded-xl ${service.bg} text-white group-hover:scale-110 transition-transform duration-300 w-fit`}
-                                    >
-                                        {service.icon}
-                                    </div>
+                                        className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                                    />
 
-                                    <h3
-                                        className={`text-2xl font-bold text-white mb-3 ${service.text} transition-colors`}
-                                    >
-                                        {service.title}
-                                    </h3>
-                                    <p className="text-slate-400 mb-4 flex-grow">
-                                        {service.description}
-                                    </p>
-
-                                    <div className="mb-6">
-                                        <div className="text-sm font-semibold text-slate-200 mb-3">
-                                            Что входит:
-                                        </div>
-                                        <ul className="space-y-2 text-sm text-slate-400">
-                                            {service.included?.map((line) => (
-                                                <li key={line} className="flex gap-2">
-                                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/25 shrink-0" />
-                                                    <span className="leading-relaxed">{line}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="pt-6 border-t border-white/5 mt-auto">
-                                        <div className="flex items-center justify-between mb-4">
-                                            <span className="text-lg font-bold text-white">
-                                                {service.price}
-                                            </span>
-                                            <span className="text-sm text-slate-500">
-                                                {service.time}
-                                            </span>
-                                        </div>
-                                        <Button
-                                            variant="ghost"
-                                            className={`w-full justify-between text-white hover:text-white ${service.bg} hover:opacity-90 group-hover:translate-x-1 transition-all p-0 px-4`}
-                                            onClick={() => openModal(service.title, service.price, service.time)}
+                                    <div className="relative z-10 h-full flex flex-col">
+                                        <div
+                                            className={`mb-6 inline-flex p-3 rounded-xl ${service.bg} text-white group-hover:scale-110 transition-transform duration-300 w-fit`}
                                         >
-                                            Заказать <ArrowRight className="w-4 h-4" />
-                                        </Button>
+                                            {service.icon}
+                                        </div>
+
+                                        <h3
+                                            className={`text-2xl font-bold text-white mb-3 ${service.text} transition-colors`}
+                                        >
+                                            {service.title}
+                                        </h3>
+                                        <p className="text-slate-400 mb-4 flex-grow">
+                                            {service.description}
+                                        </p>
+
+                                        <div className="mb-6">
+                                            <div className="text-sm font-semibold text-slate-200 mb-3">
+                                                Что входит:
+                                            </div>
+                                            <ul className="space-y-2 text-sm text-slate-400">
+                                                {service.included?.map((line) => (
+                                                    <li key={line} className="flex gap-2">
+                                                        <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-white/25 shrink-0" />
+                                                        <span className="leading-relaxed">{line}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        <div className="pt-6 border-t border-white/5 mt-auto">
+                                            <div className="flex items-center justify-between mb-4">
+                                                <span className="text-lg font-bold text-white">
+                                                    {service.price}
+                                                </span>
+                                                <span className="text-sm text-slate-500">
+                                                    {service.time}
+                                                </span>
+                                            </div>
+                                            <Button
+                                                variant="ghost"
+                                                className={`w-full justify-between text-white hover:text-white ${service.bg} hover:opacity-90 group-hover:translate-x-1 transition-all p-0 px-4`}
+                                                onClick={() => openModal(service.title, service.price, service.time)}
+                                            >
+                                                Заказать <ArrowRight className="w-4 h-4" />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>

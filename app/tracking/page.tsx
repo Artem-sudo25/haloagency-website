@@ -92,6 +92,22 @@ export default function TrackingPage() {
                   <Link href="#problem">Как это работает</Link>
                 </Button>
               </div>
+
+              {/* Anchor Buttons */}
+              <div
+                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up"
+                style={{ animationDelay: "0.35s" }}
+              >
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#target-audience">Для кого</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#pricing">Стоимость</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#faq">FAQ</Link>
+                </Button>
+              </div>
             </div>
 
             {/* Hero Graphic: Data Stream Visualization */}
@@ -147,7 +163,7 @@ export default function TrackingPage() {
             <div className="relative p-8 md:p-10 rounded-2xl bg-gradient-to-br from-amber-500/10 via-orange-500/5 to-transparent border border-amber-500/20 overflow-hidden">
               {/* Background pattern */}
               <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-              
+
               <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center gap-6">
                 <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-amber-500/20 flex items-center justify-center">
                   <TrendingDown className="w-7 h-7 text-amber-400" />
@@ -382,7 +398,7 @@ export default function TrackingPage() {
       <SectionDivider />
 
       {/* Who needs this - NEW SECTION */}
-      <section className="py-20 px-4">
+      <section id="target-audience" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <CSSScrollAnimation className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 mb-6">
@@ -429,7 +445,7 @@ export default function TrackingPage() {
       <SectionDivider />
 
       {/* Pricing */}
-      <section className="py-24 px-4 bg-ha-bg-soft">
+      <section id="pricing" className="py-24 px-4 bg-ha-bg-soft">
         <div className="container mx-auto max-w-4xl">
           <CSSScrollAnimation>
             <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-white/10 rounded-3xl p-8 md:p-12 relative overflow-hidden">
@@ -448,7 +464,7 @@ export default function TrackingPage() {
                     от 8,000 CZK
                   </div>
                   <p className="text-sm text-slate-500 mb-6">Единоразовый платеж</p>
-                  
+
                   {/* Context text */}
                   <p className="text-sm text-slate-400 leading-relaxed">
                     Подходит, если у вас уже есть сайт и реклама,
@@ -470,7 +486,7 @@ export default function TrackingPage() {
                       <span>{feature}</span>
                     </div>
                   ))}
-                  
+
                   {/* Cross-sell note */}
                   <p className="text-xs text-slate-500 pt-4 border-t border-white/5">
                     Для клиентов на комплексных пакетах трекинг уже включён со скидкой.
@@ -485,7 +501,7 @@ export default function TrackingPage() {
       <SectionDivider />
 
       {/* FAQ Section */}
-      <section className="py-20 px-4">
+      <section id="faq" className="py-20 px-4">
         <div className="container mx-auto max-w-4xl">
           <CSSScrollAnimation className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">

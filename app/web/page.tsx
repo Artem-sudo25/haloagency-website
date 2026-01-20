@@ -186,6 +186,25 @@ export default function WebDevelopmentPage() {
                   <Link href="#packages">Цены и сроки</Link>
                 </Button>
               </div>
+
+              {/* Anchor Buttons */}
+              <div
+                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up"
+                style={{ animationDelay: "0.35s" }}
+              >
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#results">Результы</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#process">Процесс</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#faq">FAQ</Link>
+                </Button>
+                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#concept">Бесплатный концепт сайта</Link>
+                </Button>
+              </div>
             </div>
 
             {/* Hero Graphic: 3D Code Window */}
@@ -250,7 +269,7 @@ export default function WebDevelopmentPage() {
         {/* Premium background effects */}
         <div className="absolute top-0 left-1/4 w-[600px] h-[400px] bg-gradient-to-br from-blue-500/10 via-purple-500/5 to-transparent rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-gradient-to-tl from-indigo-500/8 to-transparent rounded-full blur-[100px] pointer-events-none" />
-        
+
 
         <div className="container mx-auto max-w-5xl px-4 relative z-10">
           <CSSScrollAnimation className="text-center mb-16">
@@ -270,7 +289,7 @@ export default function WebDevelopmentPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Animated border glow */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-                
+
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-indigo-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Rocket className="w-6 h-6 text-blue-400" />
@@ -287,7 +306,7 @@ export default function WebDevelopmentPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Animated border glow */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-                
+
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <ShoppingCart className="w-6 h-6 text-blue-400" />
@@ -304,7 +323,7 @@ export default function WebDevelopmentPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 {/* Animated border glow */}
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500/0 via-indigo-500/20 to-indigo-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-                
+
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500/30 to-cyan-500/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Globe className="w-6 h-6 text-indigo-400" />
@@ -321,7 +340,7 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 3. Results - What You Get */}
-      <section className="py-24 bg-ha-bg border-t border-ha-border-dark relative overflow-hidden">
+      <section id="results" className="py-24 bg-ha-bg border-t border-ha-border-dark relative overflow-hidden">
         {/* Premium background effects */}
         <div className="absolute top-1/2 left-0 w-[500px] h-[400px] bg-gradient-to-r from-blue-500/10 via-cyan-500/5 to-transparent rounded-full blur-[120px] pointer-events-none" />
         <div className="absolute bottom-0 right-0 w-[600px] h-[300px] bg-gradient-to-tl from-blue-500/8 via-cyan-500/5 to-transparent rounded-full blur-[100px] pointer-events-none" />
@@ -366,7 +385,7 @@ export default function WebDevelopmentPage() {
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   {/* Animated border glow */}
                   <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/0 via-blue-500/20 to-blue-500/0 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500 -z-10" />
-                  
+
                   <div className="relative z-10 flex gap-5">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/30 via-cyan-500/20 to-blue-500/10 flex items-center justify-center text-blue-300 font-bold text-lg flex-shrink-0 group-hover:scale-110 group-hover:from-blue-500/40 group-hover:via-cyan-500/30 transition-all duration-300 shadow-lg shadow-blue-500/20">
                       {i + 1}
@@ -390,7 +409,9 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 4. Process - Build Pipeline */}
-      <WebProcess />
+      <div id="process">
+        <WebProcess />
+      </div>
 
       <SectionDivider />
 
@@ -410,93 +431,91 @@ export default function WebDevelopmentPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-            {webPackages.map((pkg, index) => (
-              <div
-                key={index}
-                className={`relative h-full ${pkg.highlight ? "lg:-mt-6 lg:mb-6 z-10" : ""}`}
-              >
-                <Card
-                  className={`relative flex flex-col h-full transition-all duration-300 ${
-                    pkg.highlight
+          <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-8 items-start snap-x snap-mandatory scroll-pl-4">
+            <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
+              {webPackages.map((pkg, index) => (
+                <div
+                  key={index}
+                  className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start relative h-full ${pkg.highlight ? "lg:-mt-6 lg:mb-6 z-10" : ""}`}
+                >
+                  <Card
+                    className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
                       ? "bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20"
                       : "bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10"
-                  } rounded-2xl overflow-hidden`}
-                >
-                  {/* Popular Badge - gradient line */}
-                  {pkg.highlight && (
-                    <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                  )}
+                      } rounded-2xl overflow-hidden`}
+                  >
+                    {/* Popular Badge - gradient line */}
+                    {pkg.highlight && (
+                      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    )}
 
-                  {/* Popular Badge - text */}
-                  {pkg.badge && (
-                    <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
-                      {pkg.badge}
-                    </div>
-                  )}
-
-                  <CardHeader className="p-8 pb-3">
-                    <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${
-                        pkg.highlight ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-gray-400"
-                      }`}
-                    >
-                      <pkg.icon className="w-6 h-6" />
-                    </div>
-
-                    <CardTitle className="text-2xl font-bold text-white mb-1">
-                      {pkg.title}
-                    </CardTitle>
-
-                    <p className="text-sm text-gray-400 font-medium mb-4">
-                      {pkg.subtitle}
-                    </p>
-
-                    <div className="space-y-1 mb-2">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-2xl font-bold text-white">{pkg.price}</span>
+                    {/* Popular Badge - text */}
+                    {pkg.badge && (
+                      <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
+                        {pkg.badge}
                       </div>
-                      <div className="flex items-baseline gap-1">
-                        <span className="text-sm text-gray-400">Срок:</span>
-                        <span className={`text-base font-semibold ${pkg.highlight ? "text-blue-400" : "text-gray-300"}`}>
-                          {pkg.time}
-                        </span>
+                    )}
+
+                    <CardHeader className="p-8 pb-3">
+                      <div
+                        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pkg.highlight ? "bg-blue-500/20 text-blue-400" : "bg-white/5 text-gray-400"
+                          }`}
+                      >
+                        <pkg.icon className="w-6 h-6" />
                       </div>
-                    </div>
-                  </CardHeader>
 
-                  <CardContent className="p-8 pt-3 flex-grow">
-                    <div className="w-full h-px bg-white/10 mb-4" />
+                      <CardTitle className="text-2xl font-bold text-white mb-1">
+                        {pkg.title}
+                      </CardTitle>
 
-                    <ul className="space-y-4">
-                      {pkg.features.map((feature, i) => (
-                        <li key={i} className="flex items-start gap-2.5">
-                          <Check
-                            className={`w-4 h-4 mt-0.5 flex-shrink-0 ${
-                              pkg.highlight ? "text-blue-400" : "text-green-500"
-                            }`}
-                          />
-                          <span className="text-sm text-gray-300 leading-tight">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
+                      <p className="text-sm text-gray-400 font-medium mb-4">
+                        {pkg.subtitle}
+                      </p>
 
-                  <CardFooter className="p-8 pt-0 mt-auto">
-                    <Button
-                      onClick={() => openModal(pkg.title, pkg.price, pkg.time)}
-                      className={`w-full font-medium transition-all ${
-                        pkg.highlight
+                      <div className="space-y-1 mb-2">
+                        <div className="flex items-baseline gap-2">
+                          <span className="text-2xl font-bold text-white">{pkg.price}</span>
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-sm text-gray-400">Срок:</span>
+                          <span className={`text-base font-semibold ${pkg.highlight ? "text-blue-400" : "text-gray-300"}`}>
+                            {pkg.time}
+                          </span>
+                        </div>
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="p-8 pt-3 flex-grow">
+                      <div className="w-full h-px bg-white/10 mb-4" />
+
+                      <ul className="space-y-4">
+                        {pkg.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2.5">
+                            <Check
+                              className={`w-4 h-4 mt-0.5 flex-shrink-0 ${pkg.highlight ? "text-blue-400" : "text-green-500"
+                                }`}
+                            />
+                            <span className="text-sm text-gray-300 leading-tight">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+
+                    <CardFooter className="p-8 pt-0 mt-auto">
+                      <Button
+                        onClick={() => openModal(pkg.title, pkg.price, pkg.time)}
+                        className={`w-full font-medium transition-all ${pkg.highlight
                           ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25"
                           : "bg-white/10 hover:bg-white/20 text-white"
-                      }`}
-                    >
-                      Заказать
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
-            ))}
+                          }`}
+                      >
+                        Заказать
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-12">
@@ -514,7 +533,7 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 3. Lead Gen Form - Enhanced */}
-      <section className="py-24 px-4 relative overflow-hidden">
+      <section id="concept" className="py-24 px-4 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
@@ -549,7 +568,9 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 5. FAQ */}
-      <WebFAQ />
+      <div id="faq">
+        <WebFAQ />
+      </div>
 
       <SectionDivider />
 
