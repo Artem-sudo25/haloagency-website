@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
     } catch (error) {
         console.error("Error in lead webhook:", error);
         return NextResponse.json(
-            { success: false, error: "Internal server error" },
+            { success: false, error: error instanceof Error ? error.message : String(error) },
             { status: 500 }
         );
     }

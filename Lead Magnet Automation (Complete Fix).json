@@ -1,0 +1,1860 @@
+{
+  "name": "Lead Magnet Automation (Complete Fix)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-magnet",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        9968,
+        5616
+      ],
+      "id": "62daf744-ee08-4f77-8c14-9fd052a65b11",
+      "webhookId": "31003005-02db-40ba-a156-66ea28d0ab5e"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json.body.email || $json.body.contact}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Validate Data",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        10192,
+        5616
+      ],
+      "id": "57a7d02d-dd35-4e66-b196-e5354f53f056"
+    },
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "lead_type",
+              "value": "={{$json.body.type}}"
+            },
+            {
+              "name": "lead_to",
+              "value": "={{$json.body.email || $json.body.contact}}"
+            },
+            {
+              "name": "lead_site",
+              "value": "={{$json.body.websiteOrProfile || $json.body.website}}"
+            },
+            {
+              "name": "lead_business_type",
+              "value": "={{$json.body.businessType || $json.body.business_type}}"
+            },
+            {
+              "name": "lead_goal",
+              "value": "={{$json.body.mainGoal || $json.body.goal}}"
+            },
+            {
+              "name": "lead_problem",
+              "value": "={{$json.body.mainProblem || $json.body.message}}"
+            },
+            {
+              "name": "triedBeforeHuman",
+              "value": "={{ ($json.body.triedBefore || []).map(x => ({   \"google-ads\": \"Google Ads\",   \"meta-ads\": \"Facebook/Instagram Ads\",   \"seo\": \"SEO\",   \"social\": \"Соцсети\",   \"none\": \"Пока ничего\" }[x] || x)).join(\", \") }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Enrich Data",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        10416,
+        5616
+      ],
+      "id": "083773d1-803b-452f-ad4c-c8b55b43353a"
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{$json.lead_type}}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "web-project"
+            },
+            {
+              "value2": "ads-lead",
+              "output": 2
+            },
+            {
+              "value2": "growth-plan",
+              "output": 1
+            },
+            {
+              "value2": "contact",
+              "output": 3
+            }
+          ]
+        },
+        "fallbackOutput": 3
+      },
+      "name": "Route by Form Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        10640,
+        5584
+      ],
+      "id": "cabe4d29-01ac-43f5-ba5f-c115c46fa48d"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "991dcf99-b312-4109-8f43-adb9b75c8bb6",
+              "name": "ai_system_prompt",
+              "value": "=Ты — senior web-strategist и UX-консультант Halo Agency.\n\nТвоя задача — писать первые ответы клиентам, которые запросили бесплатный концепт сайта.\nЭто не продажа, а профессиональное подтверждение запроса и мягкий прогрев.\n\nПринципы:\n- Тон: тёплый, спокойный, уверенный, без давления\n- Язык: русский\n- География: все клиенты из Чехии (EU), не предлагай решения для РФ рынка (Яндекс, ВКонтакте и т.п.)\n- Фокус: клиент и его проект, а не агентство\n- Без маркетинговых клише и «продающих» фраз\n- Никаких цен, офферов или обязательств\n- Максимум 150 слов\n\nСтруктура письма:\n1. Благодарность за заявку\n2. Короткое отражение сути запроса клиента (чтобы было видно, что его прочитали)\n3. Подтверждение: демо-концепт сайта будет готов в течение 48 часов\n4. 2–3 уточняющих вопроса (только если они реально помогут сделать демо лучше)\n5. Дружелюбное завершение\n\nПодпись всегда:\nАртём К.  \nHalo Agency\n\n**ВАЖНО:** Верни результат СТРОГО в JSON формате (без markdown) в формате:\n{\n  \"subject\": \"Тема письма\",\n  \"body\": \"Текст письма с переносами строк\"\n}",
+              "type": "string"
+            },
+            {
+              "id": "e4bad512-7612-4050-90a6-719f7d5559b4",
+              "name": "ai_user_prompt",
+              "value": "=Данные заявки на бесплатный концепт сайта:\n\nБизнес: {{$json.body.business_identity || $json.body.businessType || 'не указано'}}\nЖелаемый заголовок сайта: {{$json.body.hero_headline || 'не указано'}}\nСтиль бренда: {{$json.body.visual_style || 'не указано'}}\nЦветовая палитра: {{$json.body.color_preference || 'не указано'}}\nКлючевые услуги/функции: {{$json.body.key_features || 'не указано'}}\nТекущий сайт/профиль: {{$json.body.websiteOrProfile || 'нет'}}\nEmail: {{$json.lead_to}}\n\nНапиши персональное письмо клиенту, который запросил бесплатный концепт сайта.\n\nОбязательно:\n- Пиши по-русски\n- Используй данные о желаемом заголовке, стиле и цветах чтобы показать, что ты понял видение клиента\n- Подтверди, что концепт будет готов в течение 48 часов\n- Задай 2–3 коротких уточняющих вопроса, которые помогут:\n  - лучше сформировать первый экран\n  - понять структуру сайта\n  - ускорить подготовку демо\n\nВопросы должны быть простыми и необязательными для ответа. Не используй списки длиннее 3 пунктов.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10864,
+        5328
+      ],
+      "id": "d2d26b57-0073-469d-a7a1-a934d181ed8e",
+      "name": "Web Config"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c90f9d1b-bfe4-45d8-9733-43690ec015a2",
+              "name": "ai_system_prompt",
+              "value": "=Ты — senior performance-маркетолог и стратег Halo Agency.\n\nТы отвечаешь на заявки из формы по рекламе (Ads).\nКлиент ожидает профессиональное, понятное и персональное видение,\nа не «продающий текст».\n\nТвоя задача:\n— проанализировать вводные данные о бизнесе\n— предложить реалистичную стратегию рекламы на первые 30 дней\n— показать экспертизу, но без перегруза\n— приблизить клиента к созвону или дальнейшему диалогу\n\nПравила:\n- Язык: русский\n- География: все клиенты из Чехии (EU), не предлагай решения для РФ рынка (Яндекс, ВКонтакте и т.п.)\n- Тон: уверенный, спокойный, экспертный\n- Без клише («увеличим продажи в 10 раз»)\n- Без абстрактных советов\n- Не выдумывай данные — используй только входные\n- Если данных не хватает — аккуратно укажи это и задай вопросы\n\nСтруктура ответа:\n1. Короткое резюме ситуации бизнеса\n2. Предложенная стратегия на 30 дней (логика, не детали)\n3. На что обратить внимание в первую очередь\n4. 2–3 уточняющих вопроса\n5. Следующий шаг\n\nНе упоминай AI.\nНе обещай результаты.\n\n**ВАЖНО:** Верни результат СТРОГО в JSON формате (без markdown) в формате:\n{\n  \"subject\": \"Тема письма\",\n  \"body\": \"Текст письма с переносами строк\"\n}",
+              "type": "string"
+            },
+            {
+              "id": "5845528a-57de-4074-99dd-641bb5282a43",
+              "name": "ai_user_prompt",
+              "value": "=Данные заявки по рекламе:\n\nТип бизнеса: {{$json.body.business || $json.lead_business_type || 'не указано'}}\nСайт/ссылка: {{$json.body.businessLink || $json.body.websiteOrProfile || $json.lead_site || 'нет'}}\nЦель: {{$json.body.goal || $json.lead_goal || 'не указано'}}\nЗапускали рекламу ранее: {{$json.body.had_ads || 'не указано'}}\nБюджет: {{$json.body.budget || 'не указано'}}\nГотовность сайта: {{$json.body.hasWebsite || 'не указано'}}\nОсновная проблема/ситуация: {{$json.body.mainProblem || $json.lead_problem || 'не указано'}}\nКонтакт: {{$json.body.contact || $json.lead_to}}\n\nНа основе этих данных:\n1. Опиши текущую ситуацию бизнеса простыми словами\n2. Предложи стратегию рекламы на первые 30 дней:\n   — какие каналы логично рассмотреть с учётом бюджета\n   — с чего начать и почему\n   — учти готовность сайта и опыт с рекламой\n3. Укажи ключевые риски или ограничения (если есть)\n4. Задай 2–3 уточняющих вопроса, которые помогут точнее спланировать рекламу\n\nПиши кратко, по делу, без воды.",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10864,
+        5712
+      ],
+      "id": "758a3646-2a0f-4987-ab94-624f36198ec4",
+      "name": "Ads Leads"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ee1903a8-985a-445c-85af-641a3d006b10",
+              "name": "ai_system_prompt",
+              "value": "=Ты — senior performance & growth консультант HaloAgency (реклама, сайты, трекинг, автоматизации).\nПиши по-русски, без воды и \"агентского\" пафоса.\n\nЦель: дать точный, полезный и персонализированный ответ + план на 30 дней.\nСтиль: уверенно, структурно, короткими блоками, максимально практично.\n\nПравила:\n- География: все клиенты из Чехии (EU), не предлагай решения для РФ рынка (Яндекс, ВКонтакте и т.п.)\n- Никаких обещаний результатов.\n- Никаких цен и продаж.\n- Не выдумывай факты про бизнес (если данных нет — явно отметь допущение).\n- Сначала диагностика (1–2 главных узких места), потом план на 30 дней.\n- В конце: 2 коротких уточняющих вопроса (самые важные).\n- Верни результат СТРОГО в JSON (без markdown и без текста вокруг) в формате:\n\n{\n  \"subject\": \"string\",\n  \"greeting\": \"string\",\n  \"diagnosis\": [\"string\",\"string\"],\n  \"plan\": [{\"title\":\"string\",\"items\":[\"string\",\"string\",\"string\"]}],\n  \"dont_do\": [\"string\",\"string\"],\n  \"questions\": [\"string\",\"string\"],\n  \"next_step\": \"string\"\n}\n- Строки в body без лишних переносов. Не используй \\\"Subject:\\\".",
+              "type": "string"
+            },
+            {
+              "id": "c0b54996-1f8c-454d-af3c-0d4c3c3d8385",
+              "name": "ai_user_prompt",
+              "value": "=Данные лида на план роста:\\n\\n- Сайт/профиль: {{$json.lead_site || 'не указано'}}\\n- Тип бизнеса: {{$json.lead_business_type || 'не указано'}}\\n- Главная цель: {{$json.lead_goal || 'не указано'}}\\n- Что уже пробовали: {{$json.triedBeforeHuman || 'ничего'}}\\n- Текущие проблемы: {{$json.lead_problem || 'не указано'}}\\n- Контакт: {{$json.lead_to}}\\n\\nСгенерируй письмо.\\nТребования:\\n1) Subject — коротко, по делу (без \\\"Re:\\\").\\n2) Тело письма 160–230 слов.\\n3) 1–2 вероятных \\\"ядра проблемы\\\" (простым языком). Учти что клиент уже пробовал: {{$json.triedBeforeHuman || 'ничего'}}.\\n4) План на 30 дней: 3 фазы (Дни 1–3, 4–14, 15–30), в каждой 2–4 конкретных шага. Избегай повторения того, что клиент уже пробовал без успеха.\\n5) Что НЕ делать сейчас (2–3 пункта).\\n6) 2 уточняющих вопроса.\\n7) Мягкий следующий шаг: предложи короткий созвон/чат без давления.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10864,
+        5520
+      ],
+      "id": "261e6a32-315b-480f-b27a-0b5fa5fd1ab5",
+      "name": "Growth Plan"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f02d570b-2a6f-48a6-900e-01a9500240a9",
+              "name": "ai_system_prompt",
+              "value": "=Ты — senior digital-консультант Halo Agency.\n\nТы отвечаешь на входящие заявки из формы «Обсудить проект».\nЭто первый контакт с потенциальным клиентом.\n\nТвоя задача:\n— подтвердить получение заявки\n— показать, что ты понял суть запроса\n— задать 1–2 уточняющих вопроса\n— создать ощущение спокойного профессионализма\n\nПравила:\n- Язык: русский\n- География: все клиенты из Чехии (EU), не предлагай решения для РФ рынка (Яндекс, ВКонтакте и т.п.)\n- Тон: вежливый, живой, уверенный, без давления\n- Без продаж, офферов, цен и обещаний\n- Без маркетинговых клише\n- До 130–150 слов\n- Никаких списков длиннее 2 пунктов\n\nСтруктура письма:\n1. Благодарность за обращение\n2. Короткое отражение запроса клиента\n3. Что будет дальше (уточнение / короткий созвон / ответ после уточнения)\n4. 1–2 вопроса по существу\n5. Спокойное завершение\n\nПодпись всегда:\nАртём К.  \nHalo Agency\n\n**ВАЖНО:** Верни результат СТРОГО в JSON формате (без markdown) в формате:\n{\n  \"subject\": \"Тема письма\",\n  \"body\": \"Текст письма с переносами строк\"\n}",
+              "type": "string"
+            },
+            {
+              "id": "3362a6e9-17b7-4841-946a-a48765f41486",
+              "name": "ai_user_prompt",
+              "value": "=Данные заявки из формы «Обсудить проект»:\n\nИмя: {{$json.body.name || 'не указано'}}\nКонтакт: {{$json.body.contact || $json.lead_to}}\nИнтересующая услуга: {{$json.body.service || 'не указано'}}\nСообщение клиента: {{$json.body.message || $json.lead_problem}}\nСайт/профиль (если есть): {{$json.body.websiteOrProfile || $json.lead_site || 'не указано'}}\n\nНапиши персональный ответ клиенту из формы «Обсудить проект».\n\nТребования:\n- Пиши по-русски\n- Обращайся к клиенту по имени (если указано)\n- Упомяни интересующую услугу в контексте\n- Используй спокойный, профессиональный тон\n- Покажи, что ты понял задачу клиента\n- Задай 1–2 уточняющих вопроса, которые помогут:\n  — точнее понять масштаб проекта\n  — определить следующий шаг (ответ или созвон)\n\nНе делай предположений о бюджете или сроках.",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        10864,
+        5904
+      ],
+      "id": "082765f5-706d-4686-a32e-3930b6df89a0",
+      "name": "Contact Form"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "GPT-4.1"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "={{$json.ai_system_prompt}}",
+              "role": "system"
+            },
+            {
+              "content": "={{$json.ai_user_prompt || \"Request: \" + $json.lead_problem}}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {
+          "maxTokens": 800,
+          "temperature": 0.4
+        }
+      },
+      "name": "Generate AI Response",
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1,
+      "position": [
+        11952,
+        5568
+      ],
+      "id": "80104dfd-5540-4882-a3ae-72ea0f250c40",
+      "credentials": {
+        "openAiApi": {
+          "id": "fQLL2rwJvw6tYJNz",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "8574337453",
+        "text": "={{$json.tg_preview}}",
+        "replyMarkup": "inlineKeyboard",
+        "inlineKeyboard": {
+          "rows": [
+            {
+              "row": {
+                "buttons": [
+                  {
+                    "text": "✅ Approve",
+                    "additionalFields": {
+                      "url": "={{$execution.resumeUrl.replace('n8n.nejbalonky.cz:5678', 'n8n.nejbalonky.cz')}}?action=approve"
+                    }
+                  },
+                  {
+                    "text": "✏️ Edit",
+                    "additionalFields": {
+                      "url": "={{$execution.resumeUrl.replace('n8n.nejbalonky.cz:5678', 'n8n.nejbalonky.cz')}}?action=edit"
+                    }
+                  },
+                  {
+                    "text": "🗑️ Reject",
+                    "additionalFields": {
+                      "url": "={{$execution.resumeUrl.replace('n8n.nejbalonky.cz:5678', 'n8n.nejbalonky.cz')}}?action=reject"
+                    }
+                  }
+                ]
+              }
+            },
+            {}
+          ]
+        },
+        "additionalFields": {}
+      },
+      "name": "Send to Telegram for Review",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        12736,
+        5568
+      ],
+      "id": "c5d8173e-3347-45cc-b440-8db6cc5d993c",
+      "webhookId": "537c3a6b-81e1-40df-9258-23ad2a72ebac",
+      "credentials": {
+        "telegramApi": {
+          "id": "UxzxoHxFuUqEdfQ1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      },
+      "name": "Wait for Approval",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        12960,
+        5568
+      ],
+      "id": "f593506b-78ee-462b-beb5-492ce3e96eca",
+      "webhookId": "ff13a48f-94bc-4e74-8624-8d54c5b7d80a"
+    },
+    {
+      "parameters": {
+        "fromEmail": "info@haloagency.cz",
+        "toEmail": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "={{ $('Code in JavaScript').item.json.email_subject }}",
+        "emailFormat": "html",
+        "html": "={{ $('Code in JavaScript').item.json.email_html }}",
+        "options": {
+          "bccEmail": ""
+        }
+      },
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        13552,
+        5568
+      ],
+      "id": "fe6add30-799b-4d11-bf46-061afba69705",
+      "webhookId": "eabcf8e6-ea72-44b7-8687-639c575ab6b7",
+      "credentials": {
+        "smtp": {
+          "id": "p6xaQZWR4RORAj9d",
+          "name": "SMTP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appbHhPCoAmhC0WwT",
+          "mode": "list",
+          "cachedResultName": "HaloAgency Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblturz1fK7iYfOGG",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Response Sent": false,
+            "Lead Value": 0,
+            "Email": "={{ $('Webhook').item.json.body.email }}",
+            "Name": "={{ $('Webhook').item.json.body.name }}",
+            "Form Type": "={{ $('Webhook').item.json.body.type }}",
+            "Status": "Auto-Responded",
+            "Lead ID": "={{ $('Create a record').item.json.fields['Lead ID'] }}",
+            "Response Text": "={{ $('Send to Telegram for Review').item.json.result.text }}"
+          },
+          "matchingColumns": [
+            "Lead ID"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Form Type",
+              "displayName": "Form Type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "web-project",
+                  "value": "web-project"
+                },
+                {
+                  "name": "tracking-audit",
+                  "value": "tracking-audit"
+                },
+                {
+                  "name": "ads-lead",
+                  "value": "ads-lead"
+                },
+                {
+                  "name": "growth-plan",
+                  "value": "growth-plan"
+                },
+                {
+                  "name": "contact",
+                  "value": "contact"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "New",
+                  "value": "New"
+                },
+                {
+                  "name": "Auto-Responded",
+                  "value": "Auto-Responded"
+                },
+                {
+                  "name": "Awaiting",
+                  "value": "Awaiting"
+                },
+                {
+                  "name": "Demo",
+                  "value": "Demo"
+                },
+                {
+                  "name": "Awaiting Review",
+                  "value": "Awaiting Review"
+                },
+                {
+                  "name": "Contacted",
+                  "value": "Contacted"
+                },
+                {
+                  "name": "In Progress",
+                  "value": "In Progress"
+                },
+                {
+                  "name": "Qualified",
+                  "value": "Qualified"
+                },
+                {
+                  "name": "Won",
+                  "value": "Won"
+                },
+                {
+                  "name": "Lost",
+                  "value": "Lost"
+                },
+                {
+                  "name": "Manually Rejected",
+                  "value": "Manually Rejected"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "",
+                  "value": ""
+                },
+                {
+                  "name": "High",
+                  "value": "High"
+                },
+                {
+                  "name": "Medium",
+                  "value": "Medium"
+                },
+                {
+                  "name": "Low",
+                  "value": "Low"
+                },
+                {
+                  "name": "",
+                  "value": ""
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Lead Value",
+              "displayName": "Lead Value",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Form Data",
+              "displayName": "Form Data",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Session ID",
+              "displayName": "Session ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Attribution\t",
+              "displayName": "Attribution\t",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Source",
+              "displayName": "UTM Source",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Campaign",
+              "displayName": "UTM Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Medium",
+              "displayName": "UTM Medium",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Device",
+              "displayName": "Device",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Response Sent",
+              "displayName": "Response Sent",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Response Text",
+              "displayName": "Response Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Demo Link",
+              "displayName": "Demo Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Assigned To",
+              "displayName": "Assigned To",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tags",
+              "displayName": "Tags",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "urgent",
+                  "value": "urgent"
+                },
+                {
+                  "name": "high-budget",
+                  "value": "high-budget"
+                },
+                {
+                  "name": "returning",
+                  "value": "returning"
+                },
+                {
+                  "name": "qualified",
+                  "value": "qualified"
+                },
+                {
+                  "name": "",
+                  "value": ""
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Next Follow-up",
+              "displayName": "Next Follow-up",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created At",
+              "displayName": "Created At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Modified",
+              "displayName": "Last Modified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        13824,
+        5568
+      ],
+      "id": "e0804bb4-3010-4041-b0f6-08b46557a586",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "0VK00IQzNuN6CAEO",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        11312,
+        5568
+      ],
+      "id": "3d97d936-5d32-4d97-9772-bdc3d821fe70",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const esc = (s='') => String(s)\n  .replace(/&/g,'&amp;')\n  .replace(/</g,'&lt;')\n  .replace(/>/g,'&gt;')\n  .replace(/\"/g,'&quot;')\n  .replace(/'/g,'&#039;');\n\nconst message = $input.item.json.message || {};\nlet content = message.content ?? \"\";\n\n// If OpenAI returned JSON string, parse it\nif (typeof content === \"string\") {\n  try { content = JSON.parse(content); } catch (e) {}\n}\n\n// Support both schemas:\n// A) {subject, body}\n// B) {subject, title, intro, sections...} -> convert to body text for now\nlet subject = \"Сообщение от HaloAgency\";\nlet body = \"\";\n\nif (content && typeof content === \"object\") {\n  subject = content.subject || subject;\n\n  if (content.body) {\n    body = content.body;\n  } else if (content.greeting || content.diagnosis || content.plan) {\n    // Growth Plan JSON format\n    const parts = [];\n    if (content.greeting) parts.push(String(content.greeting));\n\n    if (Array.isArray(content.diagnosis) && content.diagnosis.length) {\n      parts.push(`\\n📊 Диагностика:\\n` + content.diagnosis.map(d => `• ${d}`).join('\\n'));\n    }\n\n    if (Array.isArray(content.plan) && content.plan.length) {\n      parts.push(`\\n📅 План на 30 дней:\\n`);\n      for (const phase of content.plan) {\n        if (phase.title) parts.push(`\\n${phase.title}:`);\n        if (Array.isArray(phase.items)) {\n          parts.push(phase.items.map(item => `  • ${item}`).join('\\n'));\n        }\n      }\n    }\n\n    if (Array.isArray(content.dont_do) && content.dont_do.length) {\n      parts.push(`\\n⚠️ Что НЕ делать сейчас:\\n` + content.dont_do.map(d => `• ${d}`).join('\\n'));\n    }\n\n    if (Array.isArray(content.questions) && content.questions.length) {\n      parts.push(`\\n❓ Уточняющие вопросы:\\n` + content.questions.map(q => `• ${q}`).join('\\n'));\n    }\n\n    if (content.next_step) {\n      parts.push(`\\n👉 Следующий шаг:\\n${content.next_step}`);\n    }\n\n    parts.push(`\\nАртём К.\\nHalo Agency`);\n    body = parts.filter(Boolean).join('\\n');\n  } else {\n    // fallback compose from richer schema\n    const parts = [];\n    if (content.title) parts.push(String(content.title));\n    if (content.intro) parts.push(String(content.intro));\n    if (Array.isArray(content.sections)) {\n      for (const s of content.sections) {\n        if (s?.heading) parts.push(`\\n${s.heading}`);\n        if (s?.text) parts.push(String(s.text));\n        if (Array.isArray(s?.bullets) && s.bullets.length) {\n          parts.push(s.bullets.map(b => `• ${b}`).join('\\n'));\n        }\n      }\n    }\n    if (Array.isArray(content.questions) && content.questions.length) {\n      parts.push(`\\nУточняющие вопросы:\\n` + content.questions.map(q => `• ${q}`).join('\\n'));\n    }\n    if (content?.cta?.text) {\n      parts.push(`\\nСледующий шаг:\\n${content.cta.text}`);\n    }\n    if (content.signature) {\n      parts.push(`\\n${content.signature}`);\n    }\n    body = parts.filter(Boolean).join('\\n');\n  }\n} else if (typeof content === \"string\") {\n  body = content;\n}\n\nconst safeSubject = esc(subject);\nconst safeBodyText = String(body || \"\");\nconst bodyHtml = esc(safeBodyText).replace(/\\n/g, \"<br>\");\n\nconst buttonHtml = `\n<a href=\"https://t.me/+420705729502\"\n   style=\"\n     display:inline-block;\n     padding:14px 28px;\n     background:linear-gradient(135deg, #0088cc 0%, #006ba1 100%);\n     border:1px solid rgba(0,136,204,0.75);\n     color:#ffffff !important;\n     text-decoration:none;\n     border-radius:10px;\n     font-weight:700;\n     font-size:15px;\n     letter-spacing:0.2px;\n     text-align:center;\n   \">\n  📱 Связаться в Telegram\n</a>`;\n\nconst htmlOutput = `\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n</head>\n<body style=\"background-color:#050a1a;margin:0;padding:0;font-family:Helvetica,Arial,sans-serif;color:#ffffff;\">\n  <div style=\"max-width:600px;margin:20px auto;background:#0b1121;border:1px solid #1e293b;border-radius:12px;overflow:hidden;\">\n    <div style=\"padding:40px 20px;text-align:center;background:linear-gradient(135deg,#0b1121 0%,#050a1a 100%);\">\n      <div style=\"font-size:24px;font-weight:700;letter-spacing:-1px;\">\n        <span style=\"color:#e2e8f0;\">Halo</span><span style=\"color:#3b82f6;\">Agency</span>\n      </div>\n    </div>\n\n    <div style=\"padding:40px 30px;line-height:1.65;font-size:16px;color:#cbd5e1;\">\n      <h1 style=\"color:#ffffff;font-size:22px;margin:0 0 18px;\">${safeSubject}</h1>\n      <div>${bodyHtml}</div>\n\n      <div style=\"text-align:center;margin-top:22px;\">\n        ${buttonHtml}\n      </div>\n    </div>\n\n    <div style=\"padding:20px;text-align:center;font-size:12px;color:#64748b;background:#050a1a;\">\n      © 2026 HaloAgency. Весь маркетинг под одной крышей.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\n// Telegram preview (plain text)\nconst previewBody =\n  safeBodyText.length > 1200 ? safeBodyText.slice(0, 1200) + \"…\" : safeBodyText;\n\n// Lead meta - read from $input.item.json (merged data from previous nodes)\nconst inputData = $input.item.json || {};\nconst leadType = inputData.lead_type || inputData.body?.type || inputData.type || \"unknown\";\nconst leadTo = inputData.lead_to || inputData.body?.email || inputData.body?.contact || \"unknown\";\nconst site = inputData.lead_site || inputData.body?.websiteOrProfile || \"не указано\";\nconst goal = inputData.lead_goal || inputData.body?.mainGoal || inputData.body?.goal || \"не указано\";\nconst problem = inputData.lead_problem || inputData.body?.mainProblem || inputData.body?.message || \"не указано\";\n\n// Build form-specific context\nconst formContext = [];\nconst bodyData = inputData.body || {};\n\nif (leadType === 'web-project') {\n  if (bodyData.business_identity) formContext.push(`🏢 Бизнес: ${bodyData.business_identity}`);\n  if (bodyData.hero_headline) formContext.push(`📝 Заголовок: ${bodyData.hero_headline}`);\n  if (bodyData.visual_style) formContext.push(`🎨 Стиль: ${bodyData.visual_style}`);\n  if (bodyData.color_preference) formContext.push(`🎨 Цвет: ${bodyData.color_preference}`);\n  if (bodyData.key_features) formContext.push(`⚡ Функции: ${bodyData.key_features}`);\n}\n\nif (leadType === 'ads-lead') {\n  if (bodyData.business) formContext.push(`🏢 Бизнес: ${bodyData.business}`);\n  if (bodyData.budget) formContext.push(`💰 Бюджет: ${bodyData.budget}`);\n  if (bodyData.had_ads) formContext.push(`📢 Реклама ранее: ${bodyData.had_ads}`);\n  if (bodyData.hasWebsite) formContext.push(`🌐 Сайт готов: ${bodyData.hasWebsite}`);\n}\n\nif (leadType === 'growth-plan') {\n  if (bodyData.businessType) formContext.push(`🏢 Тип бизнеса: ${bodyData.businessType}`);\n  const triedBefore = inputData.triedBeforeHuman || (bodyData.triedBefore && bodyData.triedBefore.length > 0 ? bodyData.triedBefore.join(', ') : null);\n  if (triedBefore) formContext.push(`📊 Пробовали: ${triedBefore}`);\n}\n\nif (leadType === 'contact') {\n  if (bodyData.name) formContext.push(`👤 Имя: ${bodyData.name}`);\n  if (bodyData.service) formContext.push(`🎯 Услуга: ${bodyData.service}`);\n}\n\nconst contextStr = formContext.length > 0 ? '\\n' + formContext.join('\\n') : '';\n\nconst tgPreview = `🆕 New Lead: ${leadType}\n📩 To: ${leadTo}\n🔗 Site: ${site}\n🎯 Goal: ${goal}${contextStr}\n\n━━━━━━━━━━━━━━━━\n📧 EMAIL PREVIEW\n━━━━━━━━━━━━━━━━\n\n🧾 SUBJECT:\n${subject}\n\n✉️ BODY:\n${previewBody}\n\n━━━━━━━━━━━━━━━━\nApprove / Edit / Reject?`;\n\n// ✅ THIS IS THE IMPORTANT PART\nreturn [\n  {\n    json: {\n      email_subject: subject,\n      email_html: htmlOutput,\n      email_text: safeBodyText,\n      tg_preview: tgPreview,\n\n      lead_type: leadType,\n      lead_to: leadTo,\n      lead_site: site,\n      lead_goal: goal,\n      lead_problem: problem\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        12512,
+        5568
+      ],
+      "id": "162f6d44-162e-44a2-a8cb-7d3374df7987",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f6ba6107-18ea-4361-b61f-4e8feac4b7ab",
+              "name": "lead_type",
+              "value": "={{$json.lead_type || $json.body?.type || $json.type}}",
+              "type": "string"
+            },
+            {
+              "id": "8a09d1f7-53ee-4ca9-809e-ff94f0ff657f",
+              "name": "lead_to",
+              "value": "={{$json.lead_to || $json.body?.email || $json.body?.contact}}",
+              "type": "string"
+            },
+            {
+              "id": "682d7af7-a28b-43ea-8b7c-e7f3df75cd49",
+              "name": "lead_site",
+              "value": "={{$json.lead_site || $json.body?.websiteOrProfile || $json.websiteOrProfile}}",
+              "type": "string"
+            },
+            {
+              "id": "27a3a539-c506-4374-8c2d-1b5e82cc8966",
+              "name": "lead_goal",
+              "value": "={{$json.lead_goal || $json.body?.mainGoal || $json.mainGoal}}",
+              "type": "string"
+            },
+            {
+              "id": "f0857958-9648-4d37-b566-ddac2eca4f92",
+              "name": "lead_problem",
+              "value": "={{$json.lead_problem || $json.body?.mainProblem || $json.mainProblem}}",
+              "type": "string"
+            },
+            {
+              "id": "c0830ae3-76ea-4f44-851b-d8bb860fbe8e",
+              "name": "ai_system_prompt",
+              "value": "={{$json.ai_system_prompt}}",
+              "type": "string"
+            },
+            {
+              "id": "be99da03-4902-4d26-8e79-b1a4a4eed168",
+              "name": "ai_user_prompt",
+              "value": "={{$json.ai_user_prompt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        11520,
+        5568
+      ],
+      "id": "72c3cfb7-4290-410a-962a-2960969612f7",
+      "name": "Build Lead Context"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {
+          "includeUnpaired": true
+        }
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        12320,
+        5376
+      ],
+      "id": "5c036e10-8aaa-401b-8701-4e52707c9282",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "c71540d0-e9b0-4441-9472-fac04da6b0f8",
+                    "leftValue": "={{$json.query.action}}",
+                    "rightValue": "approve",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "83b5e69b-f909-48cb-86ed-ea5bcbe5c3ad",
+                    "leftValue": "={{$json.query.action}}",
+                    "rightValue": "edit",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "8d3acde1-166f-4630-9561-213f0a2d0782",
+                    "leftValue": "={{$json.query.action}}",
+                    "rightValue": "reject",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.3,
+      "position": [
+        13168,
+        5568
+      ],
+      "id": "50bde1b4-db9f-4dc9-b4f7-e8db955dd130",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "appbHhPCoAmhC0WwT",
+          "mode": "list",
+          "cachedResultName": "HaloAgency Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblturz1fK7iYfOGG",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Response Sent": false,
+            "Lead Value": 0,
+            "Status": "Lost",
+            "Lead ID": "={{ $('Create a record').item.json.fields['Lead ID'] }}"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        13344,
+        5968
+      ],
+      "id": "c54394f8-b76d-487c-9665-5c9ea7c3c4d3",
+      "name": "Update record1",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "0VK00IQzNuN6CAEO",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "8574337453",
+        "text": "=✏️ EDIT MODE (V1)  Lead: {{ $('Code in JavaScript').item.json.lead_type }} To: {{ $('Code in JavaScript').item.json.lead_to }} Site:  {{ $('Code in JavaScript').item.json.lead_site }} SUBJECT: {{ $('Code in JavaScript').item.json.email_subject }}  BODY: {{ $('Code in JavaScript').item.json.email_text }}  👉 Скопируй, отредактируй и отправь клиенту вручную.",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        13344,
+        6336
+      ],
+      "id": "bfb701ec-06d4-4327-b603-a4dbc583d1e7",
+      "name": "Send a text message",
+      "webhookId": "4b5a265f-0e5b-4b9b-91ae-426b10e57600",
+      "credentials": {
+        "telegramApi": {
+          "id": "UxzxoHxFuUqEdfQ1",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "value": "appbHhPCoAmhC0WwT",
+          "mode": "list",
+          "cachedResultName": "HaloAgency Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblturz1fK7iYfOGG",
+          "mode": "list",
+          "cachedResultName": "Leads",
+          "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Response Sent": false,
+            "Lead Value": 0,
+            "Email": "={{ $json.lead_to }}",
+            "Form Type": "={{ $json.lead_type }}",
+            "Status": "New",
+            "Form Data": "Site: {{ $json.lead_site }}, Biz: {{ $json.lead_business_type }}, Goal: {{ $json.lead_goal }}, Problem: {{ $json.lead_problem }}",
+            "Created At": "={{ $now }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Lead ID",
+              "displayName": "Lead ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Form Type",
+              "displayName": "Form Type",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "web-project",
+                  "value": "web-project"
+                },
+                {
+                  "name": "tracking-audit",
+                  "value": "tracking-audit"
+                },
+                {
+                  "name": "ads-lead",
+                  "value": "ads-lead"
+                },
+                {
+                  "name": "growth-plan",
+                  "value": "growth-plan"
+                },
+                {
+                  "name": "contact",
+                  "value": "contact"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "New",
+                  "value": "New"
+                },
+                {
+                  "name": "Auto-Responded",
+                  "value": "Auto-Responded"
+                },
+                {
+                  "name": "Awaiting",
+                  "value": "Awaiting"
+                },
+                {
+                  "name": "Demo",
+                  "value": "Demo"
+                },
+                {
+                  "name": "Awaiting Review",
+                  "value": "Awaiting Review"
+                },
+                {
+                  "name": "Contacted",
+                  "value": "Contacted"
+                },
+                {
+                  "name": "In Progress",
+                  "value": "In Progress"
+                },
+                {
+                  "name": "Qualified",
+                  "value": "Qualified"
+                },
+                {
+                  "name": "Won",
+                  "value": "Won"
+                },
+                {
+                  "name": "Lost",
+                  "value": "Lost"
+                },
+                {
+                  "name": "Manually Rejected",
+                  "value": "Manually Rejected"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Priority",
+              "displayName": "Priority",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "",
+                  "value": ""
+                },
+                {
+                  "name": "High",
+                  "value": "High"
+                },
+                {
+                  "name": "Medium",
+                  "value": "Medium"
+                },
+                {
+                  "name": "Low",
+                  "value": "Low"
+                },
+                {
+                  "name": "",
+                  "value": ""
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Lead Value",
+              "displayName": "Lead Value",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Form Data",
+              "displayName": "Form Data",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Session ID",
+              "displayName": "Session ID",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Attribution\t",
+              "displayName": "Attribution\t",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Source",
+              "displayName": "UTM Source",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Campaign",
+              "displayName": "UTM Campaign",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "UTM Medium",
+              "displayName": "UTM Medium",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Device",
+              "displayName": "Device",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Country",
+              "displayName": "Country",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Response Sent",
+              "displayName": "Response Sent",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "boolean",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Response Text",
+              "displayName": "Response Text",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Demo Link",
+              "displayName": "Demo Link",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Assigned To",
+              "displayName": "Assigned To",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Tags",
+              "displayName": "Tags",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "array",
+              "options": [
+                {
+                  "name": "urgent",
+                  "value": "urgent"
+                },
+                {
+                  "name": "high-budget",
+                  "value": "high-budget"
+                },
+                {
+                  "name": "returning",
+                  "value": "returning"
+                },
+                {
+                  "name": "qualified",
+                  "value": "qualified"
+                },
+                {
+                  "name": "",
+                  "value": ""
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Next Follow-up",
+              "displayName": "Next Follow-up",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Notes",
+              "displayName": "Notes",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Created At",
+              "displayName": "Created At",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Last Modified",
+              "displayName": "Last Modified",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "dateTime",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        11088,
+        5232
+      ],
+      "id": "f127630c-8354-42c0-a93f-ac038d3ad072",
+      "name": "Create a record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "0VK00IQzNuN6CAEO",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.nejbalonky.cz",
+            "user-agent": "Vercel Edge Functions",
+            "content-length": "621",
+            "content-type": "application/json",
+            "forwarded": "for=212.20.115.85;host=www.haloagency.cz;proto=https;sig=0QmVhcmVyIDM5NTYyYzliYjEwNWVjYjExYWRlZmY5YjE1NmVmYjExZDlhYWU5Y2IyMDNhYjdlNTU1NTA5MzU1N2I5ZDE3ZmU=;exp=1768588276",
+            "x-forwarded-for": "18.185.103.68",
+            "x-forwarded-host": "n8n.nejbalonky.cz",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "85e7a42e922a",
+            "x-middleware-subrequest": "321df883561ca7a4d477fc467cc540db7ffa3570",
+            "x-real-ip": "18.185.103.68",
+            "x-vercel-id": "fra1::969hf-1768587976778-463f1ce56710",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "type": "contact",
+            "businessType": "Not specified",
+            "mainGoal": "web",
+            "mainProblem": "нужен новый сайт для деревообрабатывающей компании",
+            "websiteOrProfile": "Not specified",
+            "contact": "penguin.rulez.tomorrow@gmail.com",
+            "email": "penguin.rulez.tomorrow@gmail.com",
+            "contact_method": "email",
+            "name": "artem",
+            "contact_info": "penguin.rulez.tomorrow@gmail.com",
+            "service": "web",
+            "message": "нужен новый сайт для деревообрабатывающей компании",
+            "session_id": "",
+            "consent_given": true,
+            "timestamp": "2026-01-16T18:26:16.930Z",
+            "source": "haloagency_website"
+          },
+          "webhookUrl": "https://n8n.nejbalonky.cz/webhook/lead-magnet",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Validate Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Data": {
+      "main": [
+        [
+          {
+            "node": "Enrich Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enrich Data": {
+      "main": [
+        [
+          {
+            "node": "Route by Form Type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Route by Form Type": {
+      "main": [
+        [
+          {
+            "node": "Web Config",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Growth Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Ads Leads",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Contact Form",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Web Config": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Ads Leads": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Growth Plan": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Contact Form": {
+      "main": [
+        [
+          {
+            "node": "Create a record",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generate AI Response": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send to Telegram for Review": {
+      "main": [
+        [
+          {
+            "node": "Wait for Approval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for Approval": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send Email": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a record": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Build Lead Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Send to Telegram for Review",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Lead Context": {
+      "main": [
+        [
+          {
+            "node": "Generate AI Response",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update record1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "040f32c7-3674-4646-ac22-9e79da652b38",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "85b6117c13f2f5fe1537ccda947b6e4c5f225c09022719b850808b79e8877164"
+  },
+  "id": "IAlhvGizY95uAS_OW0JQW",
+  "tags": []
+}

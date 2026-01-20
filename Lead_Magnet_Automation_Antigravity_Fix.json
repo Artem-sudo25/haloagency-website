@@ -1,0 +1,922 @@
+{
+    "name": "Lead Magnet Automation (Complete Fix)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "lead-magnet",
+                "responseMode": "onReceived",
+                "options": {}
+            },
+            "name": "Webhook",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                -1536,
+                -336
+            ],
+            "id": "2a18fa70-3352-4bc4-a8b0-6bc50509fddb"
+        },
+        {
+            "parameters": {
+                "conditions": {
+                    "string": [
+                        {
+                            "value1": "={{$json.body.email || $json.body.contact}}",
+                            "operation": "isNotEmpty"
+                        }
+                    ]
+                }
+            },
+            "name": "Validate Data",
+            "type": "n8n-nodes-base.if",
+            "typeVersion": 1,
+            "position": [
+                -1312,
+                -336
+            ],
+            "id": "d273be9f-69bb-49a2-a84c-9cbba364d164"
+        },
+        {
+            "parameters": {
+                "values": {
+                    "string": [
+                        {
+                            "name": "lead_type",
+                            "value": "={{$json.body.type}}"
+                        },
+                        {
+                            "name": "lead_to",
+                            "value": "={{$json.body.email || $json.body.contact}}"
+                        },
+                        {
+                            "name": "lead_site",
+                            "value": "={{$json.body.websiteOrProfile || $json.body.website}}"
+                        },
+                        {
+                            "name": "lead_business_type",
+                            "value": "={{$json.body.businessType || $json.body.business_type}}"
+                        },
+                        {
+                            "name": "lead_goal",
+                            "value": "={{$json.body.mainGoal || $json.body.goal}}"
+                        },
+                        {
+                            "name": "lead_problem",
+                            "value": "={{$json.body.mainProblem || $json.body.message}}"
+                        },
+                        {
+                            "name": "triedBeforeHuman",
+                            "value": "={{ ($json.body.triedBefore || []).map(x => ({   \"google-ads\": \"Google Ads\",   \"meta-ads\": \"Facebook/Instagram Ads\",   \"seo\": \"SEO\",   \"social\": \"Соцсети\",   \"none\": \"Пока ничего\" }[x] || x)).join(\", \") }}"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "name": "Enrich Data",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 1,
+            "position": [
+                -1088,
+                -336
+            ],
+            "id": "3c7b19bf-75a4-4e1c-8622-2e1e3598f7a4"
+        },
+        {
+            "parameters": {
+                "dataType": "string",
+                "value1": "={{$json.lead_type}}",
+                "rules": {
+                    "rules": [
+                        {
+                            "value2": "web-project"
+                        },
+                        {
+                            "value2": "ads-lead",
+                            "output": 2
+                        },
+                        {
+                            "value2": "growth-plan",
+                            "output": 1
+                        },
+                        {
+                            "value2": "contact",
+                            "output": 3
+                        }
+                    ]
+                },
+                "fallbackOutput": 3
+            },
+            "name": "Route by Form Type",
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 1,
+            "position": [
+                -864,
+                -368
+            ],
+            "id": "ac9d0dc0-d09a-4e81-abf3-154ea1531daa"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "991dcf99-b312-4109-8f43-adb9b75c8bb6",
+                            "name": "ai_system_prompt",
+                            "value": "=You are a friendly web development agency representative from HaloAgency. A potential client just submitted a request for a free design concept with these details:\n- Business: {{$json.lead_business_type}}\n- Hero Headline / Goal: {{$json.lead_goal}}\n- Design Prefs: {{$json.lead_problem}}\n\nWrite a warm, professional email response that:\n1. Thanks them for sharing their vision\n2. Confirms we'll deliver the design concept in 48 hours\n3. Shows genuine excitement about their project\n4. Asks 1 clarifying question if needed (optional)\n5. Keeps it under 150 words\nUse a conversational, friendly tone. Sign off with your name. For russian speaking clients.",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                -640,
+                -624
+            ],
+            "id": "b044736b-f7eb-4c56-806a-da047873869b",
+            "name": "Web Config"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "c90f9d1b-bfe4-45d8-9733-43690ec015a2",
+                            "name": "ai_system_prompt",
+                            "value": "=You are an advertising consultant from HaloAgency. A business owner is interested in advertising:\n- Business: {{$json.lead_business_type}}\n- Goal: {{$json.lead_goal}}\n- Situation: {{$json.lead_problem}}\n- Website: {{$json.lead_site}}\n\nWrite a consultative email that:\n1. Thanks them for their interest\n2. Acknowledges their goal and budget\n3. Provides 1-2 initial recommendations based on their situation\n4. Mentions you'll send a detailed plan within 2 hours\n5. Asks 1-2 clarifying questions\n6. Keeps it under 180 words\nBe strategic and helpful, showing expertise. For russian speaking clients.",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                -640,
+                -240
+            ],
+            "id": "0556e318-38ce-485b-a7d2-9a661e7c6d61",
+            "name": "Ads Leads"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "ee1903a8-985a-445c-85af-641a3d006b10",
+                            "name": "ai_system_prompt",
+                            "value": "=Ты — senior performance & growth консультант HaloAgency (реклама, сайты, трекинг, автоматизации).\nПиши по-русски, без воды и “агентского” пафоса.\n\nЦель: дать точный, полезный и персонализированный ответ + план на 30 дней.\nСтиль: уверенно, структурно, короткими блоками, максимально практично.\n\nПравила:\n- Никаких обещаний результатов.\n- Никаких цен и продаж.\n- Не выдумывай факты про бизнес (если данных нет — явно отметь допущение).\n- Сначала диагностика (1–2 главных узких места), потом план на 30 дней.\n- В конце: 2 коротких уточняющих вопроса (самые важные).\n- Верни результат СТРОГО в JSON (без markdown и без текста вокруг) в формате:\n\n{\n  \"subject\": \"string\",\n  \"greeting\": \"string\",\n  \"diagnosis\": [\"string\",\"string\"],\n  \"plan\": [{\"title\":\"string\",\"items\":[\"string\",\"string\",\"string\"]}],\n  \"dont_do\": [\"string\",\"string\"],\n  \"questions\": [\"string\",\"string\"],\n  \"next_step\": \"string\"\n}\n- Строки в body без лишних переносов. Не используй \"Subject:\".",
+                            "type": "string"
+                        },
+                        {
+                            "id": "c0b54996-1f8c-454d-af3c-0d4c3c3d8385",
+                            "name": "ai_user_prompt",
+                            "value": "=Данные лида:\n- Сайт/профиль: {{$json.lead_site}}\n- Тип бизнеса: {{$json.lead_business_type}}\n- Главная цель: {{$json.lead_goal}}\n- Что уже пробовали: {{$json.triedBeforeHuman}}\n- Проблемы: {{$json.lead_problem}}\n- Контакт: {{$json.lead_to}}\n\nСгенерируй письмо.\nТребования:\n1) Subject — коротко, по делу (без “Re:”).\n2) Тело письма 160–230 слов.\n3) 1–2 вероятных “ядра проблемы” (простым языком).\n4) План на 30 дней: 3 фазы (Дни 1–3, 4–14, 15–30), в каждой 2–4 конкретных шага.\n5) Что НЕ делать сейчас (2–3 пункта).\n6) 2 уточняющих вопроса.\n7) Мягкий следующий шаг: предложи короткий созвон/чат без давления.",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "includeOtherFields": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                -640,
+                -432
+            ],
+            "id": "c5d242d8-8b6b-418f-a266-05de243b3a7c",
+            "name": "Growth Plan"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "f02d570b-2a6f-48a6-900e-01a9500240a9",
+                            "name": "ai_system_prompt",
+                            "value": "=You are a helpful representative from HaloAgency. A user contacted us via the website form:\n- Name: {{$json.body.name}}\n- Contact: {{ $json.lead_to }}\n- Interest: {{$json.lead_goal}}\n- Message: {{$json.lead_problem}}\n\nWrite a friendly, professional response that:\n1. Acknowledges their specific inquiry\n2. Confirms we've received it and will respond in detail shortly\n3. Keeps it under 150 words\nTone: Warm, professional, helpful. For russian speaking clients.",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "includeOtherFields": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                -640,
+                -48
+            ],
+            "id": "43cf9dc3-27a5-48ea-97db-f08528d0560c",
+            "name": "Contact Form"
+        },
+        {
+            "parameters": {
+                "modelId": {
+                    "__rl": true,
+                    "value": "gpt-4.1",
+                    "mode": "list",
+                    "cachedResultName": "GPT-4.1"
+                },
+                "messages": {
+                    "values": [
+                        {
+                            "content": "={{$json.ai_system_prompt}}",
+                            "role": "system"
+                        },
+                        {
+                            "content": "={{$json.ai_user_prompt || \"Request: \" + $json.lead_problem}}"
+                        }
+                    ]
+                },
+                "jsonOutput": true,
+                "options": {
+                    "maxTokens": 800,
+                    "temperature": 0.4
+                }
+            },
+            "name": "Generate AI Response",
+            "type": "@n8n/n8n-nodes-langchain.openAi",
+            "typeVersion": 1,
+            "position": [
+                448,
+                -384
+            ],
+            "id": "e84f6854-4762-45fe-ae83-a80939bea514"
+        },
+        {
+            "parameters": {
+                "chatId": "8574337453",
+                "text": "={{$json.tg_preview}}",
+                "replyMarkup": "inlineKeyboard",
+                "inlineKeyboard": {
+                    "rows": [
+                        {
+                            "row": {
+                                "buttons": [
+                                    {
+                                        "text": "✅ Approve",
+                                        "additionalFields": {
+                                            "url": "={{$execution.resumeUrl.replace(':5678', '')}}?action=approve"
+                                        }
+                                    },
+                                    {
+                                        "text": "✏️ Edit",
+                                        "additionalFields": {
+                                            "url": "={{$execution.resumeUrl.replace(':5678', '')}}?action=edit"
+                                        }
+                                    },
+                                    {
+                                        "text": "🗑️ Reject",
+                                        "additionalFields": {
+                                            "url": "={{$execution.resumeUrl.replace(':5678', '')}}?action=reject"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {}
+                    ]
+                },
+                "additionalFields": {}
+            },
+            "name": "Send to Telegram for Review",
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1,
+            "position": [
+                1232,
+                -384
+            ],
+            "id": "2e553d46-344c-4b74-9ff0-0bc6c324a820"
+        },
+        {
+            "parameters": {
+                "resume": "webhook",
+                "options": {}
+            },
+            "name": "Wait for Approval",
+            "type": "n8n-nodes-base.wait",
+            "typeVersion": 1,
+            "position": [
+                1456,
+                -384
+            ],
+            "id": "f8dd6e91-d78f-4aec-8a35-d6b0a733ccc5"
+        },
+        {
+            "parameters": {
+                "fromEmail": "info@haloagency.cz",
+                "toEmail": "={{ $('Webhook').item.json.body.email }}",
+                "subject": "={{ $('Code in JavaScript').item.json.email_subject }}",
+                "emailFormat": "html",
+                "html": "={{ $('Code in JavaScript').item.json.email_html }}",
+                "options": {
+                    "bccEmail": ""
+                }
+            },
+            "name": "Send Email",
+            "type": "n8n-nodes-base.emailSend",
+            "typeVersion": 2,
+            "position": [
+                2048,
+                -384
+            ],
+            "id": "c6d8afaa-dc9d-4546-a113-ff814637310b"
+        },
+        {
+            "parameters": {
+                "operation": "update",
+                "base": {
+                    "__rl": true,
+                    "value": "appbHhPCoAmhC0WwT",
+                    "mode": "list",
+                    "cachedResultName": "HaloAgency Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+                },
+                "table": {
+                    "__rl": true,
+                    "value": "tblturz1fK7iYfOGG",
+                    "mode": "list",
+                    "cachedResultName": "Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Response Sent": false,
+                        "Lead Value": 0,
+                        "Email": "={{ $('Webhook').item.json.body.email }}",
+                        "Name": "={{ $('Webhook').item.json.body.name }}",
+                        "Form Type": "={{ $('Webhook').item.json.body.type }}",
+                        "Status": "Auto-Responded",
+                        "Lead ID": "={{ $('Create a record').item.json.fields['Lead ID'] }}",
+                        "Response Text": "={{ $('Send to Telegram for Review').item.json.result.text }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.airtable",
+            "typeVersion": 2.1,
+            "position": [
+                2320,
+                -384
+            ],
+            "id": "8a1090b9-fc0d-4d18-b5cf-9a302795ddc4",
+            "name": "Update record"
+        },
+        {
+            "parameters": {
+                "mode": "combine",
+                "combineBy": "combineByPosition",
+                "options": {}
+            },
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 3.2,
+            "position": [
+                -192,
+                -384
+            ],
+            "id": "91cfeb0c-2a6b-4116-b3a9-c22d95be38bb",
+            "name": "Merge"
+        },
+        {
+            "parameters": {
+                "jsCode": "const esc = (s='') => String(s)\n  .replace(/&/g,'&amp;')\n  .replace(/</g,'&lt;')\n  .replace(/>/g,'&gt;')\n  .replace(/\"/g,'&quot;')\n  .replace(/'/g,'&#039;');\n\nconst message = $input.item.json.message || {};\nlet content = message.content ?? \"\";\n\n// If OpenAI returned JSON string, parse it\nif (typeof content === \"string\") {\n  try { content = JSON.parse(content); } catch (e) {}\n}\n\n// Support both schemas:\n// A) {subject, body}\n// B) {subject, title, intro, sections...} -> convert to body text for now\nlet subject = \"Сообщение от HaloAgency\";\nlet body = \"\";\n\nif (content && typeof content === \"object\") {\n  subject = content.subject || subject;\n\n  if (content.body) {\n    body = content.body;\n  } else {\n    // fallback compose from richer schema\n    const parts = [];\n    if (content.title) parts.push(String(content.title));\n    if (content.intro) parts.push(String(content.intro));\n    if (Array.isArray(content.sections)) {\n      for (const s of content.sections) {\n        if (s?.heading) parts.push(`\\n${s.heading}`);\n        if (s?.text) parts.push(String(s.text));\n        if (Array.isArray(s?.bullets) && s.bullets.length) {\n          parts.push(s.bullets.map(b => `• ${b}`).join('\\n'));\n        }\n      }\n    }\n    if (Array.isArray(content.questions) && content.questions.length) {\n      parts.push(`\\nУточняющие вопросы:\\n` + content.questions.map(q => `• ${q}`).join('\\n'));\n    }\n    if (content?.cta?.text) {\n      parts.push(`\\nСледующий шаг:\\n${content.cta.text}`);\n    }\n    if (content.signature) {\n      parts.push(`\\n${content.signature}`);\n    }\n    body = parts.filter(Boolean).join('\\n');\n  }\n} else if (typeof content === \"string\") {\n  body = content;\n}\n\nconst safeSubject = esc(subject);\nconst safeBodyText = String(body || \"\");\nconst bodyHtml = esc(safeBodyText).replace(/\\n/g, \"<br>\");\n\nconst buttonHtml = `\n<a href=\"https://haloagency.cz\"\n   style=\"\n     display:inline-block;\n     padding:14px 28px;\n     background:linear-gradient(135deg, #2563eb 0%, #1e40af 100%);\n     border:1px solid rgba(59,130,246,0.75);\n     color:#ffffff !important;\n     text-decoration:none;\n     border-radius:10px;\n     font-weight:700;\n     font-size:15px;\n     letter-spacing:0.2px;\n     text-align:center;\n   \">\n  Узнать подробнее\n</a>`;\n\nconst htmlOutput = `\n<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"utf-8\" />\n  <meta name=\"viewport\" content=\"width=device-width,initial-scale=1\" />\n</head>\n<body style=\"background-color:#050a1a;margin:0;padding:0;font-family:Helvetica,Arial,sans-serif;color:#ffffff;\">\n  <div style=\"max-width:600px;margin:20px auto;background:#0b1121;border:1px solid #1e293b;border-radius:12px;overflow:hidden;\">\n    <div style=\"padding:40px 20px;text-align:center;background:linear-gradient(135deg,#0b1121 0%,#050a1a 100%);\">\n      <div style=\"color:#ffffff;font-size:24px;font-weight:700;letter-spacing:-1px;\">\n        Halo<span style=\"color:#3b82f6;\">Agency</span>\n      </div>\n    </div>\n\n    <div style=\"padding:40px 30px;line-height:1.65;font-size:16px;color:#cbd5e1;\">\n      <h1 style=\"color:#ffffff;font-size:22px;margin:0 0 18px;\">${safeSubject}</h1>\n      <div>${bodyHtml}</div>\n\n      <div style=\"text-align:center;margin-top:22px;\">\n        ${buttonHtml}\n      </div>\n    </div>\n\n    <div style=\"padding:20px;text-align:center;font-size:12px;color:#64748b;background:#050a1a;\">\n      © 2026 HaloAgency. Весь маркетинг под одной крышей.\n    </div>\n  </div>\n</body>\n</html>\n`;\n\n// Telegram preview (plain text)\nconst previewBody =\n  safeBodyText.length > 1200 ? safeBodyText.slice(0, 1200) + \"…\" : safeBodyText;\n\n// Lead meta (fields that actually exist in INPUT)\nconst leadType = $json.lead_type || $json.body?.type || $json.type || \"unknown\";\nconst leadTo =\n  $json.lead_to ||\n  $json.body?.email ||\n  $json.body?.contact ||\n  \"unknown\";\n\nconst site =\n  $json.lead_site ||\n  $json.body?.websiteOrProfile ||\n  \"\";\n\nconst goal =\n  $json.body?.mainGoal ||\n  $json.mainGoal ||\n  \"\";\n\nconst problem =\n  $json.body?.mainProblem ||\n  $json.mainProblem ||\n  \"\";\n\nconst tgPreview =\n`🆕 New lead: ${leadType}\n📩 To: ${leadTo}\n🔗 Site: ${site}\n🎯 Goal: ${goal}\n⚠️ Problem: ${problem}\n\n🧾 SUBJECT:\n${subject}\n\n✉️ BODY (preview):\n${previewBody}\n\nApprove / Edit / Reject?`;\n\n// ✅ THIS IS THE IMPORTANT PART\nreturn [\n  {\n    json: {\n      email_subject: subject,\n      email_html: htmlOutput,\n      email_text: safeBodyText,\n      tg_preview: tgPreview,\n\n      lead_type: leadType,\n      lead_to: leadTo,\n      lead_site: site,\n      lead_goal: goal,\n      lead_problem: problem\n    }\n  }\n];"
+            },
+            "type": "n8n-nodes-base.code",
+            "typeVersion": 2,
+            "position": [
+                1008,
+                -384
+            ],
+            "id": "230e9ecb-c77f-4f9a-8dd8-72d34a225cca",
+            "name": "Code in JavaScript"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "f6ba6107-18ea-4361-b61f-4e8feac4b7ab",
+                            "name": "lead_type",
+                            "value": "={{$json.lead_type || $json.body?.type || $json.type}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "8a09d1f7-53ee-4ca9-809e-ff94f0ff657f",
+                            "name": "lead_to",
+                            "value": "={{$json.lead_to || $json.body?.email || $json.body?.contact}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "682d7af7-a28b-43ea-8b7c-e7f3df75cd49",
+                            "name": "lead_site",
+                            "value": "={{$json.lead_site || $json.body?.websiteOrProfile || $json.websiteOrProfile}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "27a3a539-c506-4374-8c2d-1b5e82cc8966",
+                            "name": "lead_goal",
+                            "value": "={{$json.lead_goal || $json.body?.mainGoal || $json.mainGoal}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "f0857958-9648-4d37-b566-ddac2eca4f92",
+                            "name": "lead_problem",
+                            "value": "={{$json.lead_problem || $json.body?.mainProblem || $json.mainProblem}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "c0830ae3-76ea-4f44-851b-d8bb860fbe8e",
+                            "name": "ai_system_prompt",
+                            "value": "={{$json.ai_system_prompt}}",
+                            "type": "string"
+                        },
+                        {
+                            "id": "be99da03-4902-4d26-8e79-b1a4a4eed168",
+                            "name": "ai_user_prompt",
+                            "value": "={{$json.ai_user_prompt}}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "includeOtherFields": true,
+                "options": {}
+            },
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                16,
+                -384
+            ],
+            "id": "21d30c6e-8290-4bc8-84b6-f3309b7f0cbb",
+            "name": "Build Lead Context"
+        },
+        {
+            "parameters": {
+                "mode": "combine",
+                "combineBy": "combineByPosition",
+                "options": {
+                    "includeUnpaired": true
+                }
+            },
+            "type": "n8n-nodes-base.merge",
+            "typeVersion": 3.2,
+            "position": [
+                816,
+                -576
+            ],
+            "id": "6ab4dfc6-8705-444a-9130-a3b7269f8911",
+            "name": "Merge1"
+        },
+        {
+            "parameters": {
+                "rules": {
+                    "values": [
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "c71540d0-e9b0-4441-9472-fac04da6b0f8",
+                                        "leftValue": "={{$json.query.action}}",
+                                        "rightValue": "approve",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals",
+                                            "name": "filter.operator.equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            }
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "83b5e69b-f909-48cb-86ed-ea5bcbe5c3ad",
+                                        "leftValue": "={{$json.query.action}}",
+                                        "rightValue": "edit",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals",
+                                            "name": "filter.operator.equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            }
+                        },
+                        {
+                            "conditions": {
+                                "options": {
+                                    "caseSensitive": true,
+                                    "leftValue": "",
+                                    "typeValidation": "strict",
+                                    "version": 2
+                                },
+                                "conditions": [
+                                    {
+                                        "id": "8d3acde1-166f-4630-9561-213f0a2d0782",
+                                        "leftValue": "={{$json.query.action}}",
+                                        "rightValue": "reject",
+                                        "operator": {
+                                            "type": "string",
+                                            "operation": "equals",
+                                            "name": "filter.operator.equals"
+                                        }
+                                    }
+                                ],
+                                "combinator": "and"
+                            }
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.switch",
+            "typeVersion": 3.3,
+            "position": [
+                1664,
+                -384
+            ],
+            "id": "35c03262-4058-42df-ab3a-65183b8991bc",
+            "name": "Switch"
+        },
+        {
+            "parameters": {
+                "operation": "update",
+                "base": {
+                    "__rl": true,
+                    "value": "appbHhPCoAmhC0WwT",
+                    "mode": "list",
+                    "cachedResultName": "HaloAgency Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+                },
+                "table": {
+                    "__rl": true,
+                    "value": "tblturz1fK7iYfOGG",
+                    "mode": "list",
+                    "cachedResultName": "Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Response Sent": false,
+                        "Lead Value": 0,
+                        "Status": "Lost",
+                        "Lead ID": "={{ $('Create a record').item.json.fields['Lead ID'] }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.airtable",
+            "typeVersion": 2.1,
+            "position": [
+                1840,
+                16
+            ],
+            "id": "9800c6e2-23be-4458-8922-46b1c04b6e58",
+            "name": "Update record1"
+        },
+        {
+            "parameters": {
+                "chatId": "8574337453",
+                "text": "=✏️ EDIT MODE (V1)  Lead: {{ $('Code in JavaScript').item.json.lead_type }} To: {{ $('Code in JavaScript').item.json.lead_to }} Site:  {{ $('Code in JavaScript').item.json.lead_site }} SUBJECT: {{ $('Code in JavaScript').item.json.email_subject }}  BODY: {{ $('Code in JavaScript').item.json.email_text }}  👉 Скопируй, отредактируй и отправь клиенту вручную.",
+                "additionalFields": {}
+            },
+            "type": "n8n-nodes-base.telegram",
+            "typeVersion": 1.2,
+            "position": [
+                1840,
+                384
+            ],
+            "id": "2256f5cb-fc25-4ff1-86f3-04ae15fe3387",
+            "name": "Send a text message"
+        },
+        {
+            "parameters": {
+                "operation": "create",
+                "base": {
+                    "__rl": true,
+                    "value": "appbHhPCoAmhC0WwT",
+                    "mode": "list",
+                    "cachedResultName": "HaloAgency Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT"
+                },
+                "table": {
+                    "__rl": true,
+                    "value": "tblturz1fK7iYfOGG",
+                    "mode": "list",
+                    "cachedResultName": "Leads",
+                    "cachedResultUrl": "https://airtable.com/appbHhPCoAmhC0WwT/tblturz1fK7iYfOGG"
+                },
+                "columns": {
+                    "mappingMode": "defineBelow",
+                    "value": {
+                        "Response Sent": false,
+                        "Lead Value": 0,
+                        "Email": "={{ $json.lead_to }}",
+                        "Form Type": "={{ $json.lead_type }}",
+                        "Status": "New",
+                        "Form Data": "Site: {{ $json.lead_site }}, Biz: {{ $json.lead_business_type }}, Goal: {{ $json.lead_goal }}, Problem: {{ $json.lead_problem }}",
+                        "Created At": "={{ $now }}"
+                    }
+                },
+                "options": {}
+            },
+            "type": "n8n-nodes-base.airtable",
+            "typeVersion": 2.1,
+            "position": [
+                -416,
+                -720
+            ],
+            "id": "6dfd888a-60fd-4e2e-992e-7af35c4919de",
+            "name": "Create a record"
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Validate Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Validate Data": {
+            "main": [
+                [
+                    {
+                        "node": "Enrich Data",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Enrich Data": {
+            "main": [
+                [
+                    {
+                        "node": "Route by Form Type",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Route by Form Type": {
+            "main": [
+                [
+                    {
+                        "node": "Web Config",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Growth Plan",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Ads Leads",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Contact Form",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Web Config": {
+            "main": [
+                [
+                    {
+                        "node": "Create a record",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Merge",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Ads Leads": {
+            "main": [
+                [
+                    {
+                        "node": "Create a record",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Merge",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Growth Plan": {
+            "main": [
+                [
+                    {
+                        "node": "Create a record",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Merge",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Contact Form": {
+            "main": [
+                [
+                    {
+                        "node": "Create a record",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Merge",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Generate AI Response": {
+            "main": [
+                [
+                    {
+                        "node": "Merge1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send to Telegram for Review": {
+            "main": [
+                [
+                    {
+                        "node": "Wait for Approval",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Wait for Approval": {
+            "main": [
+                [
+                    {
+                        "node": "Switch",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Send Email": {
+            "main": [
+                [
+                    {
+                        "node": "Update record",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Create a record": {
+            "main": [
+                [
+                    {
+                        "node": "Merge",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Update record": {
+            "main": [
+                []
+            ]
+        },
+        "Merge": {
+            "main": [
+                [
+                    {
+                        "node": "Build Lead Context",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Code in JavaScript": {
+            "main": [
+                [
+                    {
+                        "node": "Send to Telegram for Review",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Build Lead Context": {
+            "main": [
+                [
+                    {
+                        "node": "Generate AI Response",
+                        "type": "main",
+                        "index": 0
+                    },
+                    {
+                        "node": "Merge1",
+                        "type": "main",
+                        "index": 1
+                    }
+                ]
+            ]
+        },
+        "Merge1": {
+            "main": [
+                [
+                    {
+                        "node": "Code in JavaScript",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Switch": {
+            "main": [
+                [
+                    {
+                        "node": "Send Email",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Send a text message",
+                        "type": "main",
+                        "index": 0
+                    }
+                ],
+                [
+                    {
+                        "node": "Update record1",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    }
+}

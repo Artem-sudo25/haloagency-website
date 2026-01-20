@@ -294,7 +294,7 @@ export default function AdsLeadMagnet() {
                     Что вы хотите получить от рекламы?
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {["Заявки", "Звонки", "Продажи", "Пока не уверен(а)"].map((option) => (
+                    {["Заявки", "Звонки", "Продажи", "Визиты в заведение", "Пока не уверен(а)"].map((option) => (
                       <RadioOption
                         key={option}
                         name={option}
