@@ -95,7 +95,7 @@ export default function TrackingPage() {
 
               {/* Anchor Buttons */}
               <div
-                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up"
+                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up justify-center md:justify-start"
                 style={{ animationDelay: "0.35s" }}
               >
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>

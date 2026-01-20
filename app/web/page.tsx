@@ -189,7 +189,7 @@ export default function WebDevelopmentPage() {
 
               {/* Anchor Buttons */}
               <div
-                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up"
+                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up justify-center md:justify-start"
                 style={{ animationDelay: "0.35s" }}
               >
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
@@ -201,8 +201,11 @@ export default function WebDevelopmentPage() {
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
                   <Link href="#faq">FAQ</Link>
                 </Button>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
-                  <Link href="#concept">Бесплатный концепт сайта</Link>
+                <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300 p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#concept" className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Бесплатный концепт сайта
+                  </Link>
                 </Button>
               </div>
             </div>

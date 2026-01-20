@@ -9,6 +9,7 @@ import {
   Megaphone,
   Search,
   Settings,
+  Sparkles,
   Target,
   TrendingUp,
   Users,
@@ -149,7 +150,7 @@ export default function AdsPage() {
 
               {/* Anchor Buttons */}
               <div
-                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up"
+                className="flex flex-wrap gap-4 mt-8 animate-fade-in-up justify-center md:justify-start"
                 style={{ animationDelay: "0.35s" }}
               >
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
@@ -161,8 +162,11 @@ export default function AdsPage() {
                 <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
                   <Link href="#faq">FAQ</Link>
                 </Button>
-                <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent" asChild>
-                  <Link href="#lead-magnet">Бесплатный план рекламы</Link>
+                <Button variant="ghost" size="sm" className="text-orange-400 hover:text-orange-300 p-0 h-auto font-normal hover:bg-transparent" asChild>
+                  <Link href="#lead-magnet" className="flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Бесплатный план рекламы
+                  </Link>
                 </Button>
               </div>
             </div>
