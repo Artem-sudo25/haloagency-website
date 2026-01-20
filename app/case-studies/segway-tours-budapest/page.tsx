@@ -9,6 +9,7 @@ export default function SegwayToursPage() {
             subtitle="Агрессивный SEO и PPC маркетинг для туристического оператора в одной из самых конкурентных столиц Европы."
             tags={["SEO", "Google Ads", "Meta Ads", "Tourism", "Analytics"]}
             visualColorClass="text-amber-500"
+            heroImage="/images/case-studies/segway.png"
             mainStats={[
                 { label: "Органический трафик", value: "+240%" },
                 { label: "Бронирования", value: "+180%" },

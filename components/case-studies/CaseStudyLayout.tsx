@@ -35,6 +35,7 @@ interface CaseStudyLayoutProps {
         stats: StatProps[];
     };
     visualColorClass: string; // e.g. "text-blue-500" or "bg-blue-500"
+    heroImage: string;
 }
 
 export default function CaseStudyLayout({
@@ -45,46 +46,72 @@ export default function CaseStudyLayout({
     challenge,
     solution,
     results,
+
     visualColorClass,
+    heroImage,
 }: CaseStudyLayoutProps) {
     const { open: openContactModal } = useContactModal();
 
     return (
         <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
             {/* 1. Hero Section */}
-            <section className="relative py-20 md:py-32 px-4 border-b border-white/5">
-                <div className="container mx-auto max-w-5xl">
+            <section className="relative py-20 md:py-32 px-4 border-b border-white/5 overflow-hidden">
+                {/* Background Glow */}
+                <div className={`absolute top-0 right-0 w-[500px] h-[500px] opacity-20 blur-[120px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+
+                <div className="container mx-auto max-w-6xl relative z-10">
                     <Link href="/#projects" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
                         <ArrowLeft className="w-4 h-4" />
                         Назад к проектам
                     </Link>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                        {tags.map((tag, i) => (
-                            <Badge key={i} variant="secondary" className="bg-white/5 hover:bg-white/10 text-slate-300 border-white/10">
-                                {tag}
-                            </Badge>
-                        ))}
-                    </div>
-
-                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-                        {title}
-                    </h1>
-                    <p className="text-xl md:text-2xl text-slate-400 max-w-3xl leading-relaxed mb-12">
-                        {subtitle}
-                    </p>
-
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 border-t border-white/10 pt-8">
-                        {mainStats.map((stat, i) => (
-                            <div key={i}>
-                                <div className={`text-3xl md:text-4xl font-bold mb-1 ${visualColorClass}`}>
-                                    {stat.value}
-                                </div>
-                                <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">
-                                    {stat.label}
-                                </div>
+                    <div className="grid lg:grid-cols-2 gap-12 items-center">
+                        {/* Text Column */}
+                        <div>
+                            <div className="flex flex-wrap gap-2 mb-6">
+                                {tags.map((tag, i) => (
+                                    <Badge key={i} variant="secondary" className="bg-white/5 hover:bg-white/10 text-slate-300 border-white/10">
+                                        {tag}
+                                    </Badge>
+                                ))}
                             </div>
-                        ))}
+
+                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                                {title}
+                            </h1>
+                            <p className="text-xl text-slate-400 max-w-xl leading-relaxed mb-8">
+                                {subtitle}
+                            </p>
+
+                            <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
+                                {mainStats.slice(0, 2).map((stat, i) => ( // Show top 2 stats in hero
+                                    <div key={i}>
+                                        <div className={`text-3xl font-bold mb-1 ${visualColorClass}`}>
+                                            {stat.value}
+                                        </div>
+                                        <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">
+                                            {stat.label}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Image Column */}
+                        <div className="relative">
+                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/3] group">
+                                <div className={`absolute inset-0 bg-gradient-to-tr ${visualColorClass.replace('text-', 'from-').replace('500', '500/10')} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src={heroImage}
+                                    alt={`${title} mockup`}
+                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                />
+                            </div>
+                            {/* Decorative Elements */}
+                            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 -z-10 animate-pulse" />
+                            <div className="absolute -top-6 -left-6 w-32 h-32 bg-white/5 backdrop-blur-md rounded-full border border-white/10 -z-10" />
+                        </div>
                     </div>
                 </div>
             </section>

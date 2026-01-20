@@ -9,6 +9,7 @@ export default function NejablonkyPage() {
             subtitle="Масштабирование E-commerce для товаров для праздника: от локального магазина до лидера ниши с интеграцией 1С и Server-Side Tracking."
             tags={["E-commerce", "WooCommerce", "Google Ads", "Meta Ads", "Server-Side Tracking"]}
             visualColorClass="text-blue-500"
+            heroImage="/images/case-studies/nejablonky.png"
             mainStats={[
                 { label: "Рост конверсий", value: "+148%" },
                 { label: "Восстановлено данных", value: "38%" },

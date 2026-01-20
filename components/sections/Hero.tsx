@@ -63,7 +63,7 @@ export default function Hero() {
 
           {/* Trust Badges */}
           {/* Tech Stack Row */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-gray-500 text-sm font-semibold uppercase tracking-wider mb-8">
+          <div className="hidden md:flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-gray-500 text-sm font-semibold uppercase tracking-wider mb-8">
             <div>GOOGLE</div>
             <div>META</div>
             <div>NEXT.JS</div>
