@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 
 const navLinks = [
     {
@@ -19,7 +19,7 @@ const navLinks = [
         ],
     },
     { name: "Пакеты", href: "/packages" },
-    { name: "Пакеты", href: "/packages" },
+
     { name: "О нас", href: "/#about" },
 ];
 
@@ -27,7 +27,7 @@ export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-    const { open: openContactModal } = useContactModal();
+    const { open: openContactModal } = useContactModalActions();
 
     useEffect(() => {
         const handleScroll = () => {

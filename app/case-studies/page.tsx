@@ -12,8 +12,8 @@ const projects = [
     id: 1,
     name: "Nejbalonky.cz",
     category: "E-commerce",
-    description: "Масштабирование интернет-магазина товаров для праздника.",
-    stats: { label: "Рост выручки", value: "+145%" },
+    description: "Full-stack запуск: разработка, интеграции (PPL, iDoklad) и реклама.",
+    stats: { label: "Средний ROAS", value: "5.6" },
     tags: ["Google Ads", "Meta Ads", "SEO"],
     color: "from-blue-500/20 to-blue-600/5",
     size: "large",
@@ -89,8 +89,8 @@ export default function CaseStudiesPage() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${activeCategory === cat
-                    ? "bg-white text-black shadow-lg shadow-white/10"
-                    : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
+                  ? "bg-white text-black shadow-lg shadow-white/10"
+                  : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white"
                   }`}
               >
                 {cat}

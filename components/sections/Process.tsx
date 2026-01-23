@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, LineChart, Rocket, Settings, Search } from "lucide-react";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 import { Button } from "@/components/ui/button";
 
 const steps = [
@@ -49,7 +49,7 @@ const steps = [
 ];
 
 export default function Process() {
-    const { open: openContactModal } = useContactModal();
+    const { open: openContactModal } = useContactModalActions();
     return (
         <section id="process" className="py-20 md:py-28 bg-[#0B1A30] relative overflow-hidden">
             {/* Background Gradients */}

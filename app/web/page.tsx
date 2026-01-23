@@ -27,7 +27,7 @@ import { Button } from "@/components/ui/button";
 import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 
 // Data Definitions
 const webPackages = [
@@ -101,7 +101,7 @@ const SectionDivider = () => (
 );
 
 export default function WebDevelopmentPage() {
-  const { open } = useContactModal();
+  const { open } = useContactModalActions();
 
   const openModal = (packageName: string, price?: string, time?: string) => {
     open({
@@ -439,11 +439,11 @@ export default function WebDevelopmentPage() {
               {webPackages.map((pkg, index) => (
                 <div
                   key={index}
-                  className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start relative h-full ${pkg.highlight ? "lg:-mt-6 lg:mb-6 z-10" : ""}`}
+                  className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start relative h-full ${pkg.highlight ? "z-10" : ""}`}
                 >
                   <Card
                     className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
-                      ? "bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20"
+                      ? "bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20 scale-100 lg:scale-105"
                       : "bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10"
                       } rounded-2xl overflow-hidden`}
                   >

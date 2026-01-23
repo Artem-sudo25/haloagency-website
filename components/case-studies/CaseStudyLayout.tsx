@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 import { Badge } from "@/components/ui/badge";
 
 interface StatProps {
@@ -36,6 +36,10 @@ interface CaseStudyLayoutProps {
     };
     visualColorClass: string; // e.g. "text-blue-500" or "bg-blue-500"
     heroImage: string;
+    cta?: {
+        title?: string;
+        text?: string;
+    }
 }
 
 export default function CaseStudyLayout({
@@ -49,8 +53,9 @@ export default function CaseStudyLayout({
 
     visualColorClass,
     heroImage,
+    cta,
 }: CaseStudyLayoutProps) {
-    const { open: openContactModal } = useContactModal();
+    const { open: openContactModal } = useContactModalActions();
 
     return (
         <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
@@ -223,9 +228,9 @@ export default function CaseStudyLayout({
                         {/* Result Cards */}
                         <div className="grid grid-cols-1 gap-4">
                             {results.stats.map((stat, i) => (
-                                <div key={i} className="bg-ha-card-dark border border-ha-border-dark p-6 rounded-xl flex items-center justify-between">
-                                    <span className="text-slate-400 font-medium">{stat.label}</span>
-                                    <span className={`text-2xl font-bold ${visualColorClass}`}>{stat.value}</span>
+                                <div key={i} className={`bg-ha-card-dark border border-ha-border-dark p-6 rounded-xl flex items-center ${stat.label ? 'justify-between' : 'justify-start'}`}>
+                                    {stat.label && <span className="text-slate-400 font-medium">{stat.label}</span>}
+                                    <span className={`${stat.label ? 'text-2xl text-right' : 'text-lg text-left'} font-bold ${visualColorClass}`}>{stat.value}</span>
                                 </div>
                             ))}
                         </div>
@@ -236,9 +241,9 @@ export default function CaseStudyLayout({
             {/* 5. CTA Section */}
             <section className="py-24 px-4 text-center">
                 <div className="container mx-auto max-w-3xl">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">Готовы повторить успех?</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{cta?.title || "Готовы повторить успех?"}</h2>
                     <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
-                        Давайте обсудим вашу задачу. Мы погрузимся в ваш бизнес так же глубоко, как в этом кейсе.
+                        {cta?.text || "Давайте обсудим вашу задачу. Мы погрузимся в ваш бизнес так же глубоко, как в этом кейсе."}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button

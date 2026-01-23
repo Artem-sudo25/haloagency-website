@@ -36,7 +36,16 @@ export default function Footer() {
                                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
                                     <Smartphone className="w-4 h-4 text-slate-400" />
                                 </div>
-                                <span>WhatsApp / Telegram</span>
+                                <div className="flex flex-col">
+                                    <div className="flex gap-2 text-slate-400">
+                                        <a href="https://wa.me/420705729502" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">WhatsApp</a>
+                                        <span>/</span>
+                                        <a href="https://t.me/+420705729502" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors">Telegram</a>
+                                    </div>
+                                    <a href="tel:+420705729502" className="hover:text-white transition-colors text-sm text-slate-500 hover:text-slate-300">
+                                        +420 705 729 502
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -91,10 +100,10 @@ export default function Footer() {
                 <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
                     <div>© 2024 HaloAgency.cz | Все права защищены</div>
                     <div className="flex gap-6">
-                        <Link href="#" className="hover:text-white transition-colors">
+                        <Link href="/privacy-policy" className="hover:text-white transition-colors">
                             Privacy Policy
                         </Link>
-                        <Link href="#" className="hover:text-white transition-colors">
+                        <Link href="/terms-of-service" className="hover:text-white transition-colors">
                             Terms of Service
                         </Link>
                     </div>

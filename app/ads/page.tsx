@@ -21,7 +21,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { SpotlightHero } from "@/components/ui/spotlight";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 import AdsProcess from "@/components/sections/AdsProcess";
 import AdsLeadMagnet from "@/components/sections/AdsLeadMagnet";
@@ -89,7 +89,7 @@ const SectionDivider = () => (
 );
 
 export default function AdsPage() {
-  const { open } = useContactModal();
+  const { open } = useContactModalActions();
 
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
@@ -565,11 +565,11 @@ export default function AdsPage() {
               {adsPackages.map((pkg, index) => (
                 <div
                   key={index}
-                  className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start relative h-full ${pkg.highlight ? "lg:-mt-6 lg:mb-6 z-10" : ""}`}
+                  className={`flex-shrink-0 w-[80vw] sm:w-[50vw] md:w-auto snap-start relative h-full ${pkg.highlight ? "z-10" : ""}`}
                 >
                   <Card
                     className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
-                      ? "bg-gradient-to-b from-[#2a1a0a] to-[#0A1628] border-2 border-orange-500 shadow-2xl shadow-orange-500/20"
+                      ? "bg-gradient-to-b from-[#2a1a0a] to-[#0A1628] border-2 border-orange-500 shadow-2xl shadow-orange-500/20 scale-100 lg:scale-105"
                       : "bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10"
                       } rounded-2xl overflow-hidden`}
                   >

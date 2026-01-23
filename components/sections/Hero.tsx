@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 import { CountUp } from "@/components/animated/CountUp";
 
 export default function Hero() {
-  const { open: openContactModal } = useContactModal();
+  const { open: openContactModal } = useContactModalActions();
 
   return (
     <section className="relative flex items-center justify-center overflow-hidden pt-12 md:pt-32 pb-8 md:pb-16">

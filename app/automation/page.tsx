@@ -18,7 +18,7 @@ import Link from "next/link";
 import FAQ from "@/components/sections/FAQ";
 import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 
 // Unified divider to separate sections consistently
 const SectionDivider = () => (
@@ -190,7 +190,7 @@ const automationFaqs = [
 ];
 
 export default function AutomationPage() {
-    const { open } = useContactModal();
+    const { open } = useContactModalActions();
 
     const openModal = (packageName: string, price?: string, time?: string) => {
         open({

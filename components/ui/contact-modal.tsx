@@ -6,11 +6,12 @@ import { X, CheckCircle2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalState, useContactModalActions } from "@/context/contact-modal-context";
 import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 export function ContactModal() {
-    const { isOpen, close, prefilledData } = useContactModal();
+    const { isOpen, prefilledData } = useContactModalState();
+    const { close } = useContactModalActions();
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [selectedService, setSelectedService] = useState("");

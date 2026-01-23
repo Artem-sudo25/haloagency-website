@@ -6,10 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { SpotlightHero } from "@/components/ui/spotlight";
-import { useContactModal } from "@/context/contact-modal-context";
+import { useContactModalActions } from "@/context/contact-modal-context";
 
 export default function AboutPage() {
-  const { open } = useContactModal();
+  const { open } = useContactModalActions();
 
   return (
     <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">

@@ -233,7 +233,7 @@ export default function Projects() {
           <div className="hidden md:block" /> {/* Spacer instead of button */}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-6 md:auto-rows-fr">
+        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6 md:auto-rows-fr md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -241,57 +241,59 @@ export default function Projects() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] ${project.span}`}
+              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] min-w-[85vw] md:min-w-0 snap-center ${project.span}`}
             >
-              {/* Abstract Visual Background */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-40 group-hover:opacity-60 transition-opacity duration-500`} />
+              <Link href={project.href || "#"} className="block w-full h-full">
+                {/* Abstract Visual Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-40 group-hover:opacity-60 transition-opacity duration-500`} />
 
-              <AbstractVisual type={project.visualType} colorClass={project.visualColor} />
+                <AbstractVisual type={project.visualType} colorClass={project.visualColor} />
 
-              {/* Noise Texture for Texture */}
-              <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+                {/* Noise Texture for Texture */}
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
 
-              {/* Number Watermark */}
-              <div className="text-6xl md:text-8xl font-bold text-white/5 absolute bottom-4 right-4 rotate-0 select-none pointer-events-none z-0">
-                {project.number}
-              </div>
-
-              {/* Content */}
-              <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-10 pointer-events-none">
-                <div className="flex justify-between items-start pointer-events-auto">
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium border ${project.categoryColor} backdrop-blur-md`}>
-                    {project.category}
-                  </span>
+                {/* Number Watermark */}
+                <div className="text-6xl md:text-8xl font-bold text-white/5 absolute bottom-4 right-4 rotate-0 select-none pointer-events-none z-0">
+                  {project.number}
                 </div>
 
-                <div className="pointer-events-auto">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
-                    {project.title}
-                  </h3>
-                  <p className="text-gray-300 text-sm mb-3 max-w-md">
-                    {project.subtitle}
-                  </p>
-
-                  <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border ${project.statsColor} backdrop-blur-md mb-3`}>
-                    {project.statsIcon === "trending" && <TrendingUp className="w-4 h-4" />}
-                    {project.stats}
+                {/* Content */}
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-10 pointer-events-none">
+                  <div className="flex justify-between items-start pointer-events-auto">
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${project.categoryColor} backdrop-blur-md`}>
+                      {project.category}
+                    </span>
                   </div>
 
-                  {project.description && (
-                    <p className="text-gray-400 text-sm mb-4 max-w-md group-hover:text-gray-300 transition-colors">
-                      {project.description}
+                  <div className="pointer-events-auto">
+                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
+                      {project.title}
+                    </h3>
+                    <p className="text-gray-300 text-sm mb-3 max-w-md">
+                      {project.subtitle}
                     </p>
-                  )}
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {/* Tech stack or tags if needed */}
+                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border ${project.statsColor} backdrop-blur-md mb-3`}>
+                      {project.statsIcon === "trending" && <TrendingUp className="w-4 h-4" />}
+                      {project.stats}
+                    </div>
+
+                    {project.description && (
+                      <p className="text-gray-400 text-sm mb-4 max-w-md group-hover:text-gray-300 transition-colors">
+                        {project.description}
+                      </p>
+                    )}
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {/* Tech stack or tags if needed */}
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 text-sm text-white hover:text-blue-300 transition-colors">
+                      Смотреть кейс →
+                    </span>
                   </div>
-
-                  <Link href={project.href || "#"} className="inline-flex items-center gap-1 text-sm text-white hover:text-blue-300 transition-colors">
-                    Смотреть кейс →
-                  </Link>
                 </div>
-              </div>
+              </Link>
             </motion.div>
           ))}
         </div>

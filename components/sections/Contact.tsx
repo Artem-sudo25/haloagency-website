@@ -134,8 +134,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <div className="text-sm text-slate-500 mb-1">Телефон</div>
-                  <a href="tel:+420123456789" className="text-white hover:text-green-400 transition-colors">
-                    +420 123 456 789
+                  <a href="tel:+420705729502" className="text-white hover:text-green-400 transition-colors">
+                    +420 705 729 502
                   </a>
                 </div>
               </div>
@@ -196,115 +196,115 @@ export default function Contact() {
                   )}
 
                   <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="text-sm font-medium text-slate-300">
-                      Имя <span className="text-red-500">*</span>
-                    </label>
-                    <Input
-                      id="name"
-                      {...register("name")}
-                      placeholder="Иван Иванов"
-                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.name ? "border-red-500" : ""
-                        }`}
-                    />
-                    {errors.name && (
-                      <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
-                    )}
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-slate-300">
-                      Email <span className="text-red-500">*</span>
-                    </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      {...register("email")}
-                      placeholder="ivan@company.com"
-                      className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.email ? "border-red-500" : ""
-                        }`}
-                    />
-                    {errors.email && (
-                      <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Service Selector - MOVED HERE */}
-                <div className="space-y-3">
-                  <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                    {services.map((service) => (
-                      <button
-                        key={service.value}
-                        type="button"
-                        onClick={() => setSelectedService(service.value)}
-                        className={`relative p-3 rounded-xl border transition-all duration-300 ${selectedService === service.value
-                          ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
-                          : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
-                          }`}
-                      >
-                        {selectedService === service.value && (
-                          <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-xl`} />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label htmlFor="name" className="text-sm font-medium text-slate-300">
+                          Имя <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          id="name"
+                          {...register("name")}
+                          placeholder="Иван Иванов"
+                          className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.name ? "border-red-500" : ""
+                            }`}
+                        />
+                        {errors.name && (
+                          <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
                         )}
-                        <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
-                          }`}>
-                          {service.label}
-                        </span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                      </div>
+                      <div className="space-y-2">
+                        <label htmlFor="email" className="text-sm font-medium text-slate-300">
+                          Email <span className="text-red-500">*</span>
+                        </label>
+                        <Input
+                          id="email"
+                          type="email"
+                          {...register("email")}
+                          placeholder="ivan@company.com"
+                          className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.email ? "border-red-500" : ""
+                            }`}
+                        />
+                        {errors.email && (
+                          <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
+                        )}
+                      </div>
+                    </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="text-sm font-medium text-slate-300">
-                    О проекте <span className="text-red-500">*</span>
-                  </label>
-                  <Textarea
-                    id="message"
-                    {...register("message")}
-                    placeholder="Расскажите немного о вашей задаче..."
-                    className={`min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors resize-none ${errors.message ? "border-red-500" : ""
-                      }`}
-                  />
-                  {errors.message && (
-                    <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
-                  )}
-                </div>
+                    {/* Service Selector - MOVED HERE */}
+                    <div className="space-y-3">
+                      <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {services.map((service) => (
+                          <button
+                            key={service.value}
+                            type="button"
+                            onClick={() => setSelectedService(service.value)}
+                            className={`relative p-3 rounded-xl border transition-all duration-300 ${selectedService === service.value
+                              ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
+                              : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                              }`}
+                          >
+                            {selectedService === service.value && (
+                              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-xl`} />
+                            )}
+                            <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
+                              }`}>
+                              {service.label}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-start gap-2">
-                    <input
-                      type="checkbox"
-                      id="consent-contact"
-                      {...register("consent")}
-                      className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
-                    />
-                    <label htmlFor="consent-contact" className="text-sm text-slate-400 cursor-pointer">
-                      Согласен с{" "}
-                      <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
-                        политикой конфиденциальности
-                      </a>
-                    </label>
-                  </div>
-                  {errors.consent && (
-                    <p className="text-red-400 text-xs mt-1">{errors.consent.message}</p>
-                  )}
-                </div>
+                    <div className="space-y-2">
+                      <label htmlFor="message" className="text-sm font-medium text-slate-300">
+                        О проекте <span className="text-red-500">*</span>
+                      </label>
+                      <Textarea
+                        id="message"
+                        {...register("message")}
+                        placeholder="Расскажите немного о вашей задаче..."
+                        className={`min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors resize-none ${errors.message ? "border-red-500" : ""
+                          }`}
+                      />
+                      {errors.message && (
+                        <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
+                      )}
+                    </div>
 
-                <Button
-                  type="submit"
-                  size="lg"
-                  disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Отправка..." : "Отправить заявку"}
-                </Button>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-start gap-2">
+                        <input
+                          type="checkbox"
+                          id="consent-contact"
+                          {...register("consent")}
+                          className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
+                        />
+                        <label htmlFor="consent-contact" className="text-sm text-slate-400 cursor-pointer">
+                          Согласен с{" "}
+                          <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
+                            политикой конфиденциальности
+                          </a>
+                        </label>
+                      </div>
+                      {errors.consent && (
+                        <p className="text-red-400 text-xs mt-1">{errors.consent.message}</p>
+                      )}
+                    </div>
 
-                <p className="text-xs text-slate-500 text-center">
-                  Обычно отвечаем в течение 2 часов в рабочее время
-                </p>
-              </form>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? "Отправка..." : "Отправить заявку"}
+                    </Button>
+
+                    <p className="text-xs text-slate-500 text-center">
+                      Обычно отвечаем в течение 2 часов в рабочее время
+                    </p>
+                  </form>
                 </>
               )}
             </div>
