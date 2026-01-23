@@ -1,5 +1,5 @@
-
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 export const runtime = "edge";
 
@@ -23,31 +23,28 @@ export async function POST(req: NextRequest) {
 
         const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 
-        if (!n8nWebhookUrl) {
+        // --- 1. Send to n8n (Primary Automation) ---
+        let n8nPromise = Promise.resolve(new Response(JSON.stringify({ skipped: true }), { status: 200 }));
+
+        if (n8nWebhookUrl) {
+            // Construct the payload
+            const timestamp = new Date().toISOString();
+            const payload = {
+                ...body,
+                timestamp,
+                source: "haloagency_website",
+            };
+
+            n8nPromise = fetch(n8nWebhookUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            });
+        } else {
             console.error("N8N_WEBHOOK_URL is not defined");
-            return NextResponse.json(
-                { success: false, error: "Configuration error" },
-                { status: 500 }
-            );
         }
 
-        // Construct the payload
-        const timestamp = new Date().toISOString();
-        const payload = {
-            ...body,
-            timestamp,
-            source: "haloagency_website",
-        };
-
-        // --- 1. Send to n8n (Primary Automation) ---
-        const n8nPromise = fetch(n8nWebhookUrl, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload),
-        });
-
         // --- 2. Send to HaloTrack (Attribution / Dashboard) ---
-        // We map "rich" fields into custom_fields for HaloTrack
         const halotrackDomain = process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN;
         let halotrackPromise = Promise.resolve();
 
@@ -78,18 +75,48 @@ export async function POST(req: NextRequest) {
                 return res;
             }).catch(err => {
                 console.error("HaloTrack push error:", err);
+                return null; // Don't fail the written response
+            }) as any;
+        }
+
+        // --- 3. Backup Email to Admin (Safety Net) ---
+        const resendApiKey = process.env.RESEND_API_KEY;
+        const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
+        let backupEmailPromise = Promise.resolve();
+
+        if (resendApiKey && adminEmail) {
+            const resend = new Resend(resendApiKey);
+
+            const emailContent = `
+                <h1>New Lead Received</h1>
+                <p><strong>Type:</strong> ${type}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Timestamp:</strong> ${new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' })}</p>
+                <h3>Details:</h3>
+                <pre>${JSON.stringify(formData, null, 2)}</pre>
+            `;
+
+            backupEmailPromise = resend.emails.send({
+                from: "HaloAgency System <system@resend.dev>", // Replace with your verified domain in prod
+                to: adminEmail,
+                subject: `🔔 New Lead: ${type} (${email})`,
+                html: emailContent
+            }).catch(err => {
+                console.error("Backup email failed:", err);
                 return null;
             }) as any;
         }
 
-        // Await primary n8n (critical) and secondary HaloTrack (non-critical)
-        // We prioritize n8n success for the user response.
-        const [n8nResponse] = await Promise.all([n8nPromise, halotrackPromise]);
+        // Await all services
+        // We prioritise n8n success for the response status, but we ensure backup email is attempted
+        const [n8nResponse] = await Promise.all([n8nPromise, halotrackPromise, backupEmailPromise]);
 
-        if (!n8nResponse.ok) {
+        if (n8nWebhookUrl && !n8nResponse.ok) {
             const errorText = await n8nResponse.text().catch(() => "No error details");
             console.error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`, errorText);
 
+            // Note: We return error even if backup email succeeded, because the primary automation failed.
+            // But at least you have the email!
             return NextResponse.json(
                 {
                     success: false,
@@ -99,7 +126,7 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        return NextResponse.json({ success: true, message: "Lead received" });
+        return NextResponse.json({ success: true, message: "Lead processed" });
 
     } catch (error) {
         console.error("Error in lead webhook:", error);

@@ -53,8 +53,9 @@ export default function CaseStudyLayout({
 
     visualColorClass,
     heroImage,
+    analyticsImage,
     cta,
-}: CaseStudyLayoutProps) {
+}: CaseStudyLayoutProps & { analyticsImage?: string }) { // Add analyticsImage to props type definition
     const { open: openContactModal } = useContactModalActions();
 
     return (
@@ -196,14 +197,45 @@ export default function CaseStudyLayout({
                         </div>
                     </div>
 
-                    {/* Placeholder for Analytics/Ads Images */}
-                    <div className="bg-slate-900/50 border border-white/10 rounded-3xl aspect-video md:aspect-[21/9] flex flex-col items-center justify-center p-8 text-center relative overflow-hidden group">
-                        <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
-                        <div className="relative z-10 p-6 bg-slate-950/80 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl">
-                            <TrendingUp className={`w-12 h-12 mb-4 mx-auto ${visualColorClass}`} />
-                            <p className="text-slate-400 mb-2">Место для скриншота аналитики или графика</p>
-                            <p className="text-xs text-slate-600 uppercase tracking-wider">Real Data Visualization</p>
-                        </div>
+                    {/* Analytics/Ads Images or Placeholder */}
+                    <div className="relative w-full rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 group">
+                        {analyticsImage ? (
+                            <div className="p-4 md:p-8 lg:p-12 relative">
+                                {/* Background Gradient Effect */}
+                                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 opacity-20 blur-[80px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+
+                                {/* Browser Window Container */}
+                                <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#1e293b]">
+                                    {/* Browser Header/Chrome */}
+                                    <div className="h-8 bg-slate-900/80 backdrop-blur-md border-b border-white/5 flex items-center px-4 gap-2">
+                                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                                    </div>
+
+                                    {/* Image */}
+                                    <div className="relative bg-white"> {/* Ensure white bg for screenshot if it has transparency */}
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src={analyticsImage}
+                                            alt="Analytics Dashboard"
+                                            className="w-full h-auto block"
+                                        />
+                                        {/* Subtle Shine/Glass Effect over image */}
+                                        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none mix-blend-overlay" />
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="aspect-video md:aspect-[21/9] flex flex-col items-center justify-center text-center p-8">
+                                <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
+                                <div className="relative z-10 p-6 bg-slate-950/80 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl">
+                                    <TrendingUp className={`w-12 h-12 mb-4 mx-auto ${visualColorClass}`} />
+                                    <p className="text-slate-400 mb-2">Место для скриншота аналитики или графика</p>
+                                    <p className="text-xs text-slate-600 uppercase tracking-wider">Real Data Visualization</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                 </div>

@@ -233,7 +233,7 @@ export default function Projects() {
           <div className="hidden md:block" /> {/* Spacer instead of button */}
         </div>
 
-        <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6 md:auto-rows-fr md:pb-0 md:mx-0 md:px-0 scrollbar-hide">
+        <div className="flex flex-col gap-6 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6 md:auto-rows-fr">
           {projects.map((project, index) => (
             <motion.div
               key={index}
@@ -241,7 +241,7 @@ export default function Projects() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] min-w-[85vw] md:min-w-0 snap-center ${project.span}`}
+              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] w-full ${project.span}`}
             >
               <Link href={project.href || "#"} className="block w-full h-full">
                 {/* Abstract Visual Background */}

@@ -10,8 +10,9 @@ export default function NejablonkyPage() {
             tags={["E-commerce", "WooCommerce", "Google Ads", "Meta Ads", "Server-Side Tracking", "AI Search Visibility"]}
             visualColorClass="text-blue-500"
             heroImage="/images/case-studies/nejablonky_updated.png"
+            analyticsImage="/images/case-studies/nejbalonky-analytics.png"
             mainStats={[
-                { label: "Средний ROAS ", value: "5-6" },
+                { label: "Возватность Google Ads ", value: "6+" },
                 { label: "Онлайн-заказов", value: "5000 +" },
                 { label: "AI Search", value: "Visible" },
             ]}
@@ -27,7 +28,7 @@ export default function NejablonkyPage() {
                 ]
             }}
             solution={{
-                title: "Решение: Performance-маркетинг и системная интеграция",
+                title: "Performance-маркетинг и системная интеграция",
                 description: "Проект выстраивался как e-commerce система, где реклама, аналитика, логистика, склад и оплата работают согласованно. Фокус — предсказуемая экономика заказов и масштабируемость с минимальным ручным управлением системными процессами.",
                 technologies: ["WooCommerce", "Google Ads", "Meta Ads", "GTM Server-Side", "Meta CAPI", "iDoklad API", "PPL Integration", "Google Maps API"],
                 features: [
@@ -40,8 +41,8 @@ export default function NejablonkyPage() {
                 ]
             }}
             results={{
-                title: "Результат: Лидер ниши с ROAS 5.6",
-                description: "Проект стабильно закрепился на чешском рынке товаров для праздника. Автоматизация ключевых процессов позволила масштабировать продажи без роста операционной нагрузки. За 12 месяцев рекламные кампании в Google Ads показали средний ROAS 5.6.",
+                title: "Лидер ниши с ROAS 6+",
+                description: "Проект стабильно закрепился на чешском рынке товаров для праздника. Автоматизация ключевых процессов позволила масштабировать продажи без роста операционной нагрузки. Рекламные кампании в Google Ads стабильно показывают средний ROAS 6+.",
                 stats: [
                     { label: "", value: "Устойчивый performance-результат с учётом сезонности" },
                     { label: "", value: "Автоматизация ключевых этапов обработки заказов" },

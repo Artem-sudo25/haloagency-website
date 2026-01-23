@@ -89,7 +89,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="bg-ha-bg py-16 md:py-20 pb-10 border-t border-ha-border-dark relative overflow-hidden" aria-labelledby="contact-heading">
+    <section id="contact" className="bg-ha-bg py-16 md:py-20 pb-10 border-t border-ha-border-dark relative overflow-hidden" aria-labelledby="contact-heading">
       {/* Background gradients */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
