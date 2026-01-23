@@ -124,7 +124,7 @@ export default function WebDevelopmentPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
+    <main className="min-h-screen bg-ha-bg pt-20">
       {/* 1. Hero Section */}
       <section className="relative py-6 md:py-32 px-4">
         <SpotlightHero />
@@ -419,7 +419,7 @@ export default function WebDevelopmentPage() {
       <SectionDivider />
 
       {/* 5. Services (What we develop) */}
-      <section id="packages" className="py-24 bg-[#0A1628] relative overflow-hidden">
+      <section id="packages" className="py-24 bg-[#0A1628] relative md:overflow-visible">
         <div className="container mx-auto max-w-6xl px-4">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
@@ -434,7 +434,7 @@ export default function WebDevelopmentPage() {
             </p>
           </div>
 
-          <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-8 items-start snap-x snap-mandatory scroll-pl-4">
+          <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-8 items-start snap-x snap-mandatory scroll-pl-4 md:overflow-visible pb-12 md:pb-0">
             <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
               {webPackages.map((pkg, index) => (
                 <div

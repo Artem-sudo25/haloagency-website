@@ -127,10 +127,10 @@ export default function Header() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "100vh" }}
-                        exit={{ opacity: 0, height: 0 }}
-                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto overflow-x-hidden"
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto"
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (

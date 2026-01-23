@@ -92,7 +92,7 @@ export default function AdsPage() {
   const { open } = useContactModalActions();
 
   return (
-    <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
+    <main className="min-h-screen bg-ha-bg pt-20">
       {/* 1. Hero Section */}
       <section className="relative py-6 md:py-32 px-4">
         <SpotlightHero />
@@ -560,7 +560,7 @@ export default function AdsPage() {
           </CSSScrollAnimation>
 
           {/* Pricing Cards */}
-          <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-8 items-start mb-12 snap-x snap-mandatory scroll-pl-4">
+          <div className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-3 gap-8 items-start mb-12 snap-x snap-mandatory scroll-pl-4 p-4 md:p-6">
             <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
               {adsPackages.map((pkg, index) => (
                 <div

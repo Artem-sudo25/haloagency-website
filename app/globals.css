@@ -140,13 +140,15 @@
 
   body {
     @apply overflow-x-hidden bg-ha-bg text-white antialiased;
-    min-height: 100vh;
-    min-height: 100dvh;
-    /* Use dynamic viewport height for mobile */
-    touch-action: pan-y;
     /* Safari performance fixes */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior-y: none;
   }
 
   /* Optimize initial render - prevent layout shift */

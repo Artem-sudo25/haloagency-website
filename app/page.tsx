@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
+    <main className="bg-ha-bg pt-20">
       <Hero />
       <SectionDivider />
       <Services />

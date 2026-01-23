@@ -11,9 +11,9 @@ export default function Hero() {
   const { open: openContactModal } = useContactModalActions();
 
   return (
-    <section className="relative flex items-center justify-center overflow-hidden pt-12 md:pt-32 pb-8 md:pb-16">
+    <section className="relative flex items-center justify-center pt-12 md:pt-32 pb-8 md:pb-16">
       {/* Background Elements */}
-      <div className="absolute inset-0 bg-ha-bg z-0 overflow-hidden">
+      <div className="absolute inset-0 bg-ha-bg z-0 pointer-events-none">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
         <div className="absolute bottom-0 right-0 w-full max-w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
       </div>
