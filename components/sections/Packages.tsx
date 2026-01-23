@@ -159,113 +159,115 @@ export default function Packages() {
           >
             <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
               {packages.map((pkg, index) => (
-                className = {`
+                <div
+                  key={index}
+                  className={`
                     flex-shrink-0 w-[80vw] sm:w-[70vw] md:w-auto snap-start
                     ${pkg.highlight ? 'z-10' : ''}
                   `}
                 >
-              <Card
-                className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
-                  ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20 scale-100 lg:scale-105'
-                  : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
-                  } rounded-2xl overflow-hidden`}
-              >
-                {/* Popular Badge */}
-                {pkg.highlight && (
-                  <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                )}
-
-                {pkg.badge && (
-                  <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
-                    {pkg.badge}
-                  </div>
-                )}
-
-                <CardHeader className="p-6 pb-2">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pkg.highlight ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-gray-400'
-                    }`}>
-                    <pkg.icon className="w-6 h-6" />
-                  </div>
-
-                  <CardTitle className="text-2xl font-bold text-white mb-1">
-                    {pkg.title}
-                  </CardTitle>
-
-                  <p className="text-sm text-gray-400 font-medium mb-4">
-                    {pkg.subtitle}
-                  </p>
-
-                  <div className="space-y-1 mb-2">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-sm text-gray-400">Настройка:</span>
-                      <span className="text-lg font-bold text-white">{pkg.priceSetup}</span>
-                    </div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-sm text-gray-400">В месяц:</span>
-                      <span className={`text-base font-semibold ${pkg.highlight ? 'text-blue-400' : 'text-gray-300'}`}>
-                        {pkg.priceMonthly}
-                      </span>
-                    </div>
-                  </div>
-                </CardHeader>
-
-                <CardContent className="p-6 pt-2 flex-grow">
-                  <div className="w-full h-px bg-white/10 mb-4" />
-
-                  <ul className="space-y-3">
-                    {pkg.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2.5">
-                        <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-green-500'
-                          }`} />
-                        <span className="text-sm text-gray-300 leading-tight">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-
-                <CardFooter className="p-6 pt-0 mt-auto">
-                  <Button
-                    onClick={() => handlePackageClick(pkg)}
-                    className={`w-full font-medium transition-all ${pkg.highlight
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25'
-                      : 'bg-white/10 hover:bg-white/20 text-white'
-                      }`}
+                  <Card
+                    className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
+                      ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20 scale-100 lg:scale-105'
+                      : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
+                      } rounded-2xl overflow-hidden`}
                   >
-                    {pkg.title === "VIP" ? "Связаться" : "Выбрать"}
-                  </Button>
-                </CardFooter>
-              </Card>
-            </div>
+                    {/* Popular Badge */}
+                    {pkg.highlight && (
+                      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    )}
+
+                    {pkg.badge && (
+                      <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
+                        {pkg.badge}
+                      </div>
+                    )}
+
+                    <CardHeader className="p-6 pb-2">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pkg.highlight ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-gray-400'
+                        }`}>
+                        <pkg.icon className="w-6 h-6" />
+                      </div>
+
+                      <CardTitle className="text-2xl font-bold text-white mb-1">
+                        {pkg.title}
+                      </CardTitle>
+
+                      <p className="text-sm text-gray-400 font-medium mb-4">
+                        {pkg.subtitle}
+                      </p>
+
+                      <div className="space-y-1 mb-2">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-sm text-gray-400">Настройка:</span>
+                          <span className="text-lg font-bold text-white">{pkg.priceSetup}</span>
+                        </div>
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-sm text-gray-400">В месяц:</span>
+                          <span className={`text-base font-semibold ${pkg.highlight ? 'text-blue-400' : 'text-gray-300'}`}>
+                            {pkg.priceMonthly}
+                          </span>
+                        </div>
+                      </div>
+                    </CardHeader>
+
+                    <CardContent className="p-6 pt-2 flex-grow">
+                      <div className="w-full h-px bg-white/10 mb-4" />
+
+                      <ul className="space-y-3">
+                        {pkg.features.map((feature, i) => (
+                          <li key={i} className="flex items-start gap-2.5">
+                            <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-green-500'
+                              }`} />
+                            <span className="text-sm text-gray-300 leading-tight">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+
+                    <CardFooter className="p-6 pt-0 mt-auto">
+                      <Button
+                        onClick={() => handlePackageClick(pkg)}
+                        className={`w-full font-medium transition-all ${pkg.highlight
+                          ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25'
+                          : 'bg-white/10 hover:bg-white/20 text-white'
+                          }`}
+                      >
+                        {pkg.title === "VIP" ? "Связаться" : "Выбрать"}
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </div>
               ))}
+            </div>
+          </div>
+
+          {/* Scroll Indicators (Dots) - Mobile Only */}
+          <div className="md:hidden flex justify-center gap-2 mt-6">
+            {packages.map((_, index) => (
+              <div
+                key={index}
+                className={`h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-blue-500' : 'w-1.5 bg-white/20'
+                  }`}
+                aria-label={`Пакет ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
 
-        {/* Scroll Indicators (Dots) - Mobile Only */}
-        <div className="md:hidden flex justify-center gap-2 mt-6">
-          {packages.map((_, index) => (
-            <div
-              key={index}
-              className={`h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-blue-500' : 'w-1.5 bg-white/20'
-                }`}
-              aria-label={`Пакет ${index + 1}`}
-            />
-          ))}
+        {/* Bottom Discount Banner */}
+
+
+        <div className="text-center mt-8">
+          <button
+            onClick={() => openContactModal({ service: "consultation", message: "Нужна помощь в выборе пакета" })}
+            className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
+          >
+            Нужна помощь в выборе?
+          </button>
         </div>
+
       </div>
-
-      {/* Bottom Discount Banner */}
-
-
-      <div className="text-center mt-8">
-        <button
-          onClick={() => openContactModal({ service: "consultation", message: "Нужна помощь в выборе пакета" })}
-          className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
-        >
-          Нужна помощь в выборе?
-        </button>
-      </div>
-
-    </div>
     </section >
   );
 }
