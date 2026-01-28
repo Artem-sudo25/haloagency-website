@@ -78,21 +78,21 @@ export default function Projects() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[400px] w-full isolate ${project.span}`}
+              className={`group relative overflow-hidden rounded-3xl bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[400px] w-full isolate ${project.span}`}
             >
-              <Link href={project.href || "#"} className="block w-full h-full relative h-[400px] md:h-full">
+              <Link href={project.href || "#"} className="block w-full h-[400px] md:h-full relative">
                 {/* Background Image with Zoom Effect */}
-                <div className="absolute inset-0 z-0">
+                <div className="absolute inset-0">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={index < 2}
                   />
-                  {/* Gradient Overlays for Readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-blue-950/20 mix-blend-overlay" />
+                  {/* Subtle Gradient for Text Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-80" />
                 </div>
 
                 {/* Number Watermark */}
@@ -101,14 +101,14 @@ export default function Projects() {
                 </div>
 
                 {/* Content */}
-                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
-                  <div className="flex justify-between items-start mb-auto">
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-20">
+                  <div className="flex justify-between items-start">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium border ${project.categoryColor} backdrop-blur-md`}>
                       {project.category}
                     </span>
                   </div>
 
-                  <div className="transform transition-transform duration-300 group-hover:-translate-y-1">
+                  <div className="transform transition-transform duration-300 md:group-hover:-translate-y-1">
                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
                       {project.title}
                     </h3>
@@ -122,7 +122,7 @@ export default function Projects() {
                     </div>
 
                     {project.description && (
-                      <p className="text-gray-400 text-sm mb-4 max-w-md group-hover:text-gray-200 transition-colors">
+                      <p className="text-gray-400 text-sm mb-4 max-w-md md:group-hover:text-gray-200 transition-colors hidden md:block">
                         {project.description}
                       </p>
                     )}
