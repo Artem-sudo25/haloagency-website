@@ -10,6 +10,16 @@ export default function PropradloPage() {
             tags={["Landing Page", "Local SEO", "Automation", "Lead Magnet", "PPC"]}
             visualColorClass="text-teal-500"
             heroImage="/images/case-studies/propradlo-mockup-v3.png"
+            mobileImage="/images/case-studies/propradlo-search-mobile.png"
+            imageContext={{
+                title: "Доминирование в AI и поиске",
+                description: "Благодаря оптимизации контента и структуры, компания ProPradlo не только заняла ТОП-3 в органической выдаче Google, но и стала основным рекомендательным ответом в AI Overview (Generative Search).",
+                items: [
+                    "Выделенное место в блоке AI Overview",
+                    "Визуальное присутствие в результатах поиска (картинки)",
+                    "Двойное упоминание на первой странице выдачи"
+                ]
+            }}
             mainStats={[
                 { label: "Рост заявок", value: "3.5x" },
                 { label: "Локальный поиск", value: "TOP 3" },

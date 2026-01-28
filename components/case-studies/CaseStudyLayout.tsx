@@ -1,9 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, TrendingUp, Maximize2, X } from "lucide-react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useContactModalActions } from "@/context/contact-modal-context";
 import { Badge } from "@/components/ui/badge";
 
@@ -40,6 +41,11 @@ interface CaseStudyLayoutProps {
         title?: string;
         text?: string;
     }
+    imageContext?: {
+        title: string;
+        description: string;
+        items?: string[];
+    };
 }
 
 export default function CaseStudyLayout({
@@ -54,9 +60,12 @@ export default function CaseStudyLayout({
     visualColorClass,
     heroImage,
     analyticsImage,
+    mobileImage,
+    imageContext,
     cta,
-}: CaseStudyLayoutProps & { analyticsImage?: string }) { // Add analyticsImage to props type definition
+}: CaseStudyLayoutProps & { analyticsImage?: string; mobileImage?: string }) {
     const { open: openContactModal } = useContactModalActions();
+    const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
     return (
         <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
@@ -198,46 +207,131 @@ export default function CaseStudyLayout({
                     </div>
 
                     {/* Analytics/Ads Images or Placeholder */}
-                    <div className="relative w-full rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 group">
-                        {analyticsImage ? (
-                            <div className="p-4 md:p-8 lg:p-12 relative">
-                                {/* Background Gradient Effect */}
-                                <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 opacity-20 blur-[80px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+                    {(mobileImage || analyticsImage) && (
+                        <div className="relative w-full rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 group">
+                            {mobileImage ? (
+                                <div className="p-8 md:p-12">
+                                    {/* Flex container for Desktop Layout */}
+                                    <div className={`flex flex-col lg:flex-row gap-12 items-center justify-center relative z-10 ${imageContext ? 'lg:justify-between' : ''}`}>
 
-                                {/* Browser Window Container */}
-                                <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#1e293b]">
-                                    {/* Browser Header/Chrome */}
-                                    <div className="h-8 bg-slate-900/80 backdrop-blur-md border-b border-white/5 flex items-center px-4 gap-2">
-                                        <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                                        <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                                        {/* Clean Vertical Card (Trigger) */}
+                                        <div
+                                            onClick={() => setIsLightboxOpen(true)}
+                                            className="relative flex-shrink-0 cursor-zoom-in group/image max-w-[280px] md:max-w-xs lg:max-w-md w-full"
+                                        >
+                                            {/* Background Glow */}
+                                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] opacity-20 blur-[100px] ${visualColorClass.replace('text-', 'bg-')}`} />
+
+                                            {/* Image Container */}
+                                            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-white transition-transform duration-500 group-hover/image:scale-[1.02]">
+                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                <img
+                                                    src={mobileImage}
+                                                    alt="Search Result"
+                                                    className="w-full h-auto block"
+                                                />
+
+                                                {/* Hover Overlay */}
+                                                <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
+                                                    <div className="bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-full text-white shadow-xl transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
+                                                        <Maximize2 className="w-6 h-6" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* Context Card (if provided) */}
+                                        {imageContext && (
+                                            <div className="bg-ha-card-dark/80 backdrop-blur-md border border-white/10 p-8 rounded-2xl max-w-lg relative overflow-hidden">
+                                                <div className={`absolute top-0 right-0 w-32 h-32 opacity-10 blur-[60px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+
+                                                <h3 className="text-xl font-bold text-white mb-4">{imageContext.title}</h3>
+                                                <p className="text-slate-300 leading-relaxed mb-6">
+                                                    {imageContext.description}
+                                                </p>
+
+                                                {imageContext.items && (
+                                                    <ul className="space-y-3">
+                                                        {imageContext.items.map((item, i) => (
+                                                            <li key={i} className="flex gap-3 items-start text-sm text-slate-400">
+                                                                <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${visualColorClass.replace('text-', 'bg-')}`} />
+                                                                {item}
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
 
-                                    {/* Image */}
-                                    <div className="relative bg-white"> {/* Ensure white bg for screenshot if it has transparency */}
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img
-                                            src={analyticsImage}
-                                            alt="Analytics Dashboard"
-                                            className="w-full h-auto block"
-                                        />
-                                        {/* Subtle Shine/Glass Effect over image */}
-                                        <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none mix-blend-overlay" />
+                                    {/* Lightbox Modal */}
+                                    <AnimatePresence>
+                                        {isLightboxOpen && (
+                                            <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                                                {/* Backdrop */}
+                                                <motion.div
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    onClick={() => setIsLightboxOpen(false)}
+                                                    className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+                                                />
+
+                                                {/* Modal Content */}
+                                                <motion.div
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg shadow-2xl"
+                                                >
+                                                    <button
+                                                        onClick={() => setIsLightboxOpen(false)}
+                                                        className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors backdrop-blur-md z-20"
+                                                    >
+                                                        <X className="w-5 h-5" />
+                                                    </button>
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img
+                                                        src={mobileImage}
+                                                        alt="Full view"
+                                                        className="max-h-[90vh] w-auto object-contain bg-white rounded-lg"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                    />
+                                                </motion.div>
+                                            </div>
+                                        )}
+                                    </AnimatePresence>
+                                </div>
+                            ) : (
+                                <div className="p-4 md:p-8 lg:p-12 relative">
+                                    {/* Background Gradient Effect */}
+                                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 opacity-20 blur-[80px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+
+                                    {/* Browser Window Container */}
+                                    <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#1e293b]">
+                                        {/* Browser Header/Chrome */}
+                                        <div className="h-8 bg-slate-900/80 backdrop-blur-md border-b border-white/5 flex items-center px-4 gap-2">
+                                            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                                            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                                            <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                                        </div>
+
+                                        {/* Image */}
+                                        <div className="relative bg-white"> {/* Ensure white bg for screenshot if it has transparency */}
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src={analyticsImage}
+                                                alt="Analytics Dashboard"
+                                                className="w-full h-auto block"
+                                            />
+                                            {/* Subtle Shine/Glass Effect over image */}
+                                            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none mix-blend-overlay" />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ) : (
-                            <div className="aspect-video md:aspect-[21/9] flex flex-col items-center justify-center text-center p-8">
-                                <div className="absolute inset-0 bg-grid-white/5 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))]" />
-                                <div className="relative z-10 p-6 bg-slate-950/80 backdrop-blur-sm rounded-xl border border-white/10 shadow-2xl">
-                                    <TrendingUp className={`w-12 h-12 mb-4 mx-auto ${visualColorClass}`} />
-                                    <p className="text-slate-400 mb-2">Место для скриншота аналитики или графика</p>
-                                    <p className="text-xs text-slate-600 uppercase tracking-wider">Real Data Visualization</p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-
+                            )}
+                        </div>
+                    )}
                 </div>
             </section>
 
