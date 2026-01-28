@@ -17,6 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "HaloAgency - Digital Agency",
   description: "Web Development, Ads & Tracking",
+  metadataBase: new URL("https://haloagency.cz"),
 };
 
 export const viewport = {

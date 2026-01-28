@@ -6,117 +6,124 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { useContactModalActions } from "@/context/contact-modal-context";
 import { CountUp } from "@/components/animated/CountUp";
+import { SpotlightHero } from "@/components/ui/spotlight";
 
 export default function Hero() {
   const { open: openContactModal } = useContactModalActions();
 
   return (
-    <section className="relative flex items-center justify-center pt-12 md:pt-32 pb-8 md:pb-16">
-      {/* Background Elements */}
-      <div className="absolute inset-0 bg-ha-bg z-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.15),transparent_50%)]" />
-        <div className="absolute bottom-0 right-0 w-full max-w-[800px] h-[800px] bg-purple-500/5 rounded-full blur-3xl" />
-      </div>
+    <section className="relative py-6 md:py-32 px-4">
+      <SpotlightHero />
 
-      <div className="container mx-auto px-4 sm:px-6 relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{ willChange: "opacity, transform" }}
-          className="text-center lg:text-left lg:col-span-3"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-5 md:mb-6 backdrop-blur-sm">
-            <span className="text-sm font-medium text-gray-300">
-              🚀 Ваш онлайн маркетинг в Чехии
-            </span>
+      <div className="container mx-auto max-w-7xl relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column: Text Content */}
+          <div className="text-left">
+            <div
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in-up backdrop-blur-sm"
+            >
+              <span className="text-sm font-medium text-gray-300">
+                🚀 Ваш онлайн маркетинг в Чехии
+              </span>
+            </div>
+
+            <h1
+              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
+              style={{ animationDelay: "0.1s" }}
+            >
+              Весь маркетинг <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+                под одной крышей
+              </span>
+            </h1>
+
+            <p
+              className="text-xl text-slate-400 mb-10 max-w-xl leading-relaxed animate-fade-in-up"
+              style={{ animationDelay: "0.2s" }}
+            >
+              От сайта и аналитики до онлайн рекламы и автоматизации процессов — один партнёр, одна ответственность.
+            </p>
+
+            <div
+              className="flex flex-col sm:flex-row gap-4 animate-fade-in-up"
+              style={{ animationDelay: "0.3s" }}
+            >
+              <Button
+                size="lg"
+                className="rounded-full px-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 h-12"
+                asChild
+              >
+                <Link href="/#projects">Посмотреть кейсы ↓</Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                asChild
+                className="rounded-full px-8 border-white/10 bg-white/5 text-white hover:bg-white/10 backdrop-blur-sm h-12"
+              >
+                <Link href="/#pricing">Узнать цены →</Link>
+              </Button>
+            </div>
+
+            {/* Trust Badges - Desktop only */}
+            <div
+              className="hidden md:flex flex-wrap items-center justify-start gap-x-8 gap-y-4 text-gray-500 text-sm font-semibold uppercase tracking-wider mt-12 mb-8 animate-fade-in-up"
+              style={{ animationDelay: "0.35s" }}
+            >
+              <div>GOOGLE</div>
+              <div>META</div>
+              <div>NEXT.JS</div>
+              <div>WOOCOMMERCE</div>
+            </div>
+
+            {/* Anchor Buttons */}
+            <div
+              className="flex flex-wrap gap-4 mt-8 animate-fade-in-up justify-center md:justify-start"
+              style={{ animationDelay: "0.4s" }}
+            >
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
+                asChild
+              >
+                <Link href="/#projects">Портфолио</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
+                asChild
+              >
+                <Link href="/#process">Как мы работаем</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
+                asChild
+              >
+                <Link href="/#faq">FAQ</Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-purple-400 hover:text-purple-300 p-0 h-auto font-normal hover:bg-transparent"
+                asChild
+              >
+                <Link href="/#growth-plan" className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  Бесплатный план роста
+                </Link>
+              </Button>
+            </div>
           </div>
 
-          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold mb-5 md:mb-6 leading-[1.1] tracking-tight">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 animate-gradient-x">
-              Весь маркетинг под одной крышей
-            </span>
-          </h1>
-
-          <p className="text-lg md:text-xl text-gray-300 mb-6 md:mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-            От сайта и аналитики до онлайн рекламы и автоматизации процессов — один партнёр, одна ответственность.
-            Фиксированная ежемесячная оплата, прозрачные цифры, без хаоса и скрытых комиссий.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 md:mb-12">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 text-lg rounded-full shadow-lg shadow-blue-500/25"
-              asChild
-            >
-              <Link href="/#projects">Посмотреть кейсы ↓</Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              asChild
-              className="border-white/20 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm"
-            >
-              <Link href="/#pricing">Узнать цены →</Link>
-            </Button>
-          </div>
-
-          {/* Trust Badges */}
-          {/* Tech Stack Row */}
-          <div className="hidden md:flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 text-gray-500 text-sm font-semibold uppercase tracking-wider mb-8">
-            <div>GOOGLE</div>
-            <div>META</div>
-            <div>NEXT.JS</div>
-            <div>WOOCOMMERCE</div>
-          </div>
-
-          {/* Small Navigation Buttons */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
-              asChild
-            >
-              <Link href="/#projects">Портфолио</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
-              asChild
-            >
-              <Link href="/#process">Как мы работаем</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-slate-400 hover:text-white p-0 h-auto font-normal hover:bg-transparent"
-              asChild
-            >
-              <Link href="/#faq">FAQ</Link>
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-purple-400 hover:text-purple-300 p-0 h-auto font-normal hover:bg-transparent"
-              asChild
-            >
-              <Link href="/#growth-plan" className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
-                Бесплатный план роста
-              </Link>
-            </Button>
-          </div>
-        </motion.div>
-
-        {/* Right Visual - Animated Metric Cards */}
-        <div className="relative h-[600px] w-full hidden lg:block lg:col-span-2">
-          {/* ... existing visual code ... */}
-          {/* I'm keeping the visual code as is, just updating the imports and button */}
+        {/* Right Column: Visual - Animated Metric Cards */}
+        <div className="relative h-[600px] w-full hidden lg:block animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="relative w-full h-full">
-              {/* Glowing Orbs */}
+              {/* Glowing Orbs - kept using framer-motion for complex continuous animation */}
               <motion.div
                 animate={{
                   scale: [1, 1.2, 1],
@@ -251,6 +258,7 @@ export default function Hero() {
                 <div className="text-xs text-slate-500">Окупаемость</div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
