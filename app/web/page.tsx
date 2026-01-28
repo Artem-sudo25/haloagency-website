@@ -68,7 +68,7 @@ const webPackages = [
     id: "ecommerce",
     title: "E-commerce",
     subtitle: "Полноценный интернет-магазин",
-    price: "от 50,000 CZK",
+    price: "от 35,000 CZK",
     time: "от 14 дней",
     features: [
       "Каталог + корзина",

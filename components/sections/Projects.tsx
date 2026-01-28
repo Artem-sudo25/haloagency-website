@@ -1,217 +1,54 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, TrendingUp, Layers, Globe } from "lucide-react";
+import { TrendingUp, Globe } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const projects = [
   {
     number: "01",
     title: "Nejbalonky.cz",
-    visualType: "growth", // Data / Growth / E-commerce
-    visualColor: "text-blue-500",
+    image: "/images/case-studies/nejablonky_updated.png",
     category: "E-commerce",
     categoryColor: "bg-blue-500/20 text-blue-300 border-blue-500/20",
-    subtitle: "E-commerce для party supplies с интеграцией 1C",
-    stats: "+140% конверсий",
+    subtitle: "E-commerce система с полной автоматизацией",
+    stats: "ROAS 6+",
     statsIcon: "trending",
     statsColor: "bg-green-500/20 text-green-400 border-green-500/20",
-    description: "Server-side tracking восстановил 38% потерянных конверсий",
-    tech: ["Next.js", "WooCommerce", "Server-side tracking"],
-    gradient: "from-blue-950 to-indigo-950",
+    description: "Интеграция логистики, склада и AI-поиска. Стабильный рост без увеличения штата.",
     span: "md:col-span-2 md:row-span-2",
     href: "/case-studies/nejablonky",
   },
   {
     number: "02",
     title: "ProPradlo.cz",
-    visualType: "system", // Product / System / Web App
-    visualColor: "text-teal-500",
-    category: "Web App",
+    image: "/images/case-studies/propradlo-mockup-v3.png",
+    category: "Automation",
     categoryColor: "bg-teal-500/20 text-teal-300 border-teal-500/20",
-    subtitle: "Landing + маркетинг для прачечной",
-    stats: "Real-time бронирование",
+    subtitle: "Цифровая трансформация локального бизнеса",
+    stats: "Заявки x3.5",
     statsColor: "bg-blue-500/20 text-blue-300 border-blue-500/20",
-    gradient: "from-teal-950 to-cyan-950",
+    description: "70% заказов переведены в онлайн. ТОП-3 в локальном поиске Google.",
     span: "",
     href: "/case-studies/propradlo",
   },
   {
     number: "03",
-    title: "Segway Tours Budapest",
-    visualType: "scale", // Marketing / SEO / Scale
-    visualColor: "text-amber-500",
+    title: "Segway Tours",
+    image: "/images/case-studies/segway.png",
     category: "SEO + Ads",
     categoryColor: "bg-amber-500/20 text-amber-300 border-amber-500/20",
-    subtitle: "SEO + реклама для туризма",
-    stats: "+240% органика",
+    subtitle: "Комплексный маркетинг в конкурентной нише",
+    stats: "+240% Трафик",
     statsIcon: "trending",
     statsColor: "bg-green-500/20 text-green-400 border-green-500/20",
-    gradient: "from-amber-950 to-orange-950",
+    description: "Рост прямых продаж на 60% и снижение зависимости от агрегаторов.",
     span: "",
     href: "/case-studies/segway-tours-budapest",
   },
 ];
-
-const AbstractVisual = ({ type, colorClass }: { type: string, colorClass: string }) => {
-  // Theme: Data / Growth (Nejbalonky)
-  if (type === "growth") {
-    return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Grid Background */}
-        <div className="absolute inset-0 opacity-20"
-          style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-        />
-
-        {/* Animated Graph Line */}
-        <svg className="absolute inset-0 w-full h-full opacity-60" preserveAspectRatio="none">
-          <defs>
-            <linearGradient id="growthGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="currentColor" className="text-blue-500" stopOpacity="0.2" />
-              <stop offset="50%" stopColor="currentColor" className="text-purple-500" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="currentColor" className="text-pink-500" stopOpacity="1" />
-            </linearGradient>
-            <linearGradient id="growthFill" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="currentColor" className="text-blue-500" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="currentColor" className="text-blue-500" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          <motion.path
-            d="M -10 250 C 100 250, 200 150, 400 120 S 600 50, 900 20"
-            fill="none"
-            stroke="url(#growthGradient)"
-            strokeWidth="3"
-            initial={{ pathLength: 0, opacity: 0 }}
-            whileInView={{ pathLength: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2, ease: "easeOut" }}
-          />
-          <motion.path
-            d="M -10 250 C 100 250, 200 150, 400 120 S 600 50, 900 20 L 900 400 L -10 400 Z"
-            fill="url(#growthFill)"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, delay: 0.5 }}
-          />
-        </svg>
-
-        {/* Floating Data Points */}
-        <div className="absolute inset-0">
-          {[...Array(3)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={cn("absolute w-2 h-2 rounded-full", colorClass)}
-              style={{
-                top: `${30 + i * 15}%`,
-                left: `${60 + i * 15}%`,
-                background: 'currentColor',
-                boxShadow: '0 0 10px currentColor'
-              }}
-              initial={{ scale: 0, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 0.8 }}
-              viewport={{ once: true }}
-              transition={{ delay: 1 + i * 0.2, duration: 0.5 }}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  // Theme: Product / System (ProPradlo)
-  if (type === "system") {
-    return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating Glass Planes */}
-        <div className="absolute inset-0 flex items-center justify-center perspective-1000">
-          <motion.div
-            className="w-48 h-32 rounded-xl bg-gradient-to-br from-white/10 to-transparent border border-white/10 backdrop-blur-sm transform rotate-6 skew-y-6 shadow-2xl"
-            style={{ position: 'absolute', top: '20%', right: '10%' }}
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          />
-          <motion.div
-            className="w-48 h-32 rounded-xl bg-gradient-to-tr from-white/10 to-transparent border border-white/10 backdrop-blur-sm transform -rotate-3 skew-y-3 z-10 shadow-2xl"
-            style={{ position: 'absolute', top: '40%', right: '25%' }}
-            initial={{ y: 30, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            {/* Mock UI lines */}
-            <div className="p-4 space-y-2">
-              <div className="w-1/3 h-2 rounded-full bg-white/20" />
-              <div className="w-2/3 h-2 rounded-full bg-white/10" />
-              <div className="w-1/2 h-2 rounded-full bg-white/10" />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* Connecting Lines */}
-        <svg className="absolute inset-0 w-full h-full opacity-30">
-          <motion.line
-            x1="30%" y1="70%" x2="70%" y2="40%"
-            stroke="currentColor"
-            className={colorClass}
-            strokeWidth="1"
-            strokeDasharray="4 4"
-            initial={{ pathLength: 0 }}
-            whileInView={{ pathLength: 1 }}
-            transition={{ duration: 1.5 }}
-          />
-        </svg>
-      </div>
-    );
-  }
-
-  // Theme: Marketing / Scale (Segway)
-  if (type === "scale") {
-    return (
-      <div className="absolute inset-0 overflow-hidden pointer-events-none flex items-center justify-center">
-        {/* Expanding Radar Rings */}
-        {[...Array(4)].map((_, i) => (
-          <motion.div
-            key={i}
-            className={cn("absolute rounded-full border opacity-20", colorClass)}
-            style={{ width: `${(i + 1) * 80}px`, height: `${(i + 1) * 80}px`, border: '1px solid currentColor' }}
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 0.2 - (i * 0.05) }}
-            viewport={{ once: true }}
-            transition={{ duration: 1.5, delay: i * 0.2 }}
-          />
-        ))}
-
-        {/* Central Glow/Globe */}
-        <div className={cn("relative z-10 p-4 rounded-full bg-gradient-to-br from-white/10 to-transparent border border-white/10 shadow-[0_0_30px_rgba(255,165,0,0.2)]", colorClass)}>
-          <Globe className="w-8 h-8 opacity-80 text-orange-200" />
-        </div>
-
-        {/* Particles representing reach */}
-        {[0, 60, 120, 180, 240, 300].map((angle, i) => (
-          <motion.div
-            key={i}
-            className={cn("absolute w-1 h-1 rounded-full", colorClass)}
-            style={{ background: 'currentColor' }}
-            initial={{ x: 0, y: 0, opacity: 0 }}
-            whileInView={{
-              x: Math.cos(angle * Math.PI / 180) * 80,
-              y: Math.sin(angle * Math.PI / 180) * 80,
-              opacity: 0.6
-            }}
-            transition={{ duration: 2, delay: 0.5 + i * 0.1 }}
-          />
-        ))}
-      </div>
-    );
-  }
-
-  return null;
-};
 
 export default function Projects() {
   return (
@@ -241,31 +78,37 @@ export default function Projects() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[300px] w-full ${project.span}`}
+              className={`group relative overflow-hidden rounded-3xl bg-slate-900 border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[400px] w-full isolate ${project.span}`}
             >
-              <Link href={project.href || "#"} className="block w-full h-full">
-                {/* Abstract Visual Background */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-40 group-hover:opacity-60 transition-opacity duration-500`} />
-
-                <AbstractVisual type={project.visualType} colorClass={project.visualColor} />
-
-                {/* Noise Texture for Texture */}
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
+              <Link href={project.href || "#"} className="block w-full h-full relative h-[400px] md:h-full">
+                {/* Background Image with Zoom Effect */}
+                <div className="absolute inset-0 z-0">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
+                  {/* Gradient Overlays for Readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="absolute inset-0 bg-blue-950/20 mix-blend-overlay" />
+                </div>
 
                 {/* Number Watermark */}
-                <div className="text-6xl md:text-8xl font-bold text-white/5 absolute bottom-4 right-4 rotate-0 select-none pointer-events-none z-0">
+                <div className="text-6xl md:text-8xl font-bold text-white/5 absolute top-6 right-6 select-none pointer-events-none z-10">
                   {project.number}
                 </div>
 
                 {/* Content */}
-                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-10 pointer-events-none">
-                  <div className="flex justify-between items-start pointer-events-auto">
+                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-20">
+                  <div className="flex justify-between items-start mb-auto">
                     <span className={`px-3 py-1 rounded-full text-xs font-medium border ${project.categoryColor} backdrop-blur-md`}>
                       {project.category}
                     </span>
                   </div>
 
-                  <div className="pointer-events-auto">
+                  <div className="transform transition-transform duration-300 group-hover:-translate-y-1">
                     <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
                       {project.title}
                     </h3>
@@ -279,16 +122,12 @@ export default function Projects() {
                     </div>
 
                     {project.description && (
-                      <p className="text-gray-400 text-sm mb-4 max-w-md group-hover:text-gray-300 transition-colors">
+                      <p className="text-gray-400 text-sm mb-4 max-w-md group-hover:text-gray-200 transition-colors">
                         {project.description}
                       </p>
                     )}
 
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {/* Tech stack or tags if needed */}
-                    </div>
-
-                    <span className="inline-flex items-center gap-1 text-sm text-white hover:text-blue-300 transition-colors">
+                    <span className="inline-flex items-center gap-1 text-sm text-white font-medium hover:text-blue-300 transition-colors">
                       Смотреть кейс →
                     </span>
                   </div>

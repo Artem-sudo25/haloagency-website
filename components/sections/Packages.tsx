@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Sparkles, Zap, Trophy, Rocket, Crown } from "lucide-react";
+import { Check, Sparkles, Zap, ShoppingCart, Rocket, Crown } from "lucide-react";
 import Link from "next/link";
 import { useContactModalActions } from "@/context/contact-modal-context";
 import { useState, useRef, useEffect } from "react";
@@ -11,15 +11,15 @@ const packages = [
   {
     title: "Фундамент",
     subtitle: "Основа для онлайн-присутствия",
-    priceSetup: "60,000 Kč",
-    priceMonthly: "15,000 Kč/мес",
+    priceSetup: "18,000 Kč",
+    priceMonthly: "от 8,000 Kč/мес",
     description: "Для быстрого старта",
     features: [
       "Landing page или простой сайт (до 5 страниц)",
       "Настройка Meta Ads или Google Ads (одна платформа)",
-      "Базовая аналитика (GA4 + GTM)",
-      "Email отчеты раз в месяц",
-      "Поддержка по email"
+      "Полная аналитика (Server-side tracking)",
+      "Базовое SEO и оптимизация под AI-выдачу",
+      "Email отчеты раз в месяц"
     ],
     highlight: false,
     icon: Rocket
@@ -27,14 +27,13 @@ const packages = [
   {
     title: "Трафик",
     subtitle: "Привлечение клиентов из рекламы",
-    priceSetup: "70,000 Kč",
-    priceMonthly: "18,000 Kč/мес",
+    priceSetup: "35,000 Kč",
+    priceMonthly: "от 16,000 Kč/мес",
     description: "Оптимально для роста",
     features: [
       "Все из пакета \"Фундамент\"",
       "E-commerce или многостраничный сайт (до 15 страниц)",
       "Meta + Google Ads (обе платформы)",
-      "Полная аналитика (Server-side tracking)",
       "Еженедельные отчеты",
       "Приоритетная поддержка (WhatsApp/Telegram)"
     ],
@@ -43,21 +42,21 @@ const packages = [
     icon: Zap
   },
   {
-    title: "Рост",
-    subtitle: "Полная система роста бизнеса",
-    priceSetup: "85,000 Kč",
-    priceMonthly: "20,000 Kč/мес",
-    description: "Максимальный охват",
+    title: "E-commerce",
+    subtitle: "Для интернет-магазинов",
+    priceSetup: "50,000 Kč",
+    priceMonthly: "от 25,000 Kč/мес",
+    description: "Для интернет-магазинов",
     features: [
-      "Все из пакета \"Трафик\"",
-      "Автоматизация обработки заявок",
-      "Связка сайта, рекламы и внутренних процессов",
-      "Advanced tracking (Meta CAPI, Enhanced)",
-      "AI для аналитики и оптимизации",
-      "Еженедельные video-call и менеджер"
+      "Всё из пакета \"Трафик\"",
+      "Интернет-магазин до 100 товаров",
+      "Google Shopping / Performance Max",
+      "Google Merchant / Meta Catalog",
+      "Meta Advantage+ Catalog Ads",
+      "Отчёты: топ товаров, категории, средний чек"
     ],
     highlight: false,
-    icon: Trophy
+    icon: ShoppingCart
   },
   {
     title: "Масштаб",

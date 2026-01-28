@@ -130,7 +130,7 @@ export default function Header() {
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-0 bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto"
+                        className="fixed inset-0 z-[105] bg-ha-bg pt-24 px-4 md:hidden overflow-y-auto"
                     >
                         <nav className="flex flex-col gap-6">
                             {navLinks.map((link) => (

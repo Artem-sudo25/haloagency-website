@@ -50,7 +50,7 @@ const adsPackages = [
     id: "two-channels",
     title: "2 канала",
     subtitle: "Стабильный поток заявок",
-    price: "от 12 000 Kč",
+    price: "от 15 000 Kč",
     period: "в месяц",
     features: [
       "Работа сразу с двумя каналами",

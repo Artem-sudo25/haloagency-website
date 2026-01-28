@@ -22,7 +22,7 @@ export default function About() {
                     >
                         <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl aspect-[4/5] max-w-md mx-auto md:max-w-none">
                             <Image
-                                src="/ceo_professional_portrait.webp"
+                                src="/artem_about_portrait_final.jpg"
                                 alt="Artem - Founder HaloAgency"
                                 fill
                                 className="object-cover"
@@ -70,8 +70,8 @@ export default function About() {
                                 Сегодня маркетинг невозможно эффективно развивать без автоматизации и AI. В 2026 году работать «по-старому» — значит терять время, данные и конкурентное преимущество. Поэтому в HaloAgency.cz мы используем AI не как модный инструмент, а как рабочую основу: для аналитики, оптимизации рекламы, автоматизации процессов и принятия решений.
                             </p>
                             <div className="pt-6">
-                                <p className="text-lg text-gray-400 italic">Артём Крицкий</p>
-                                <p className="text-sm text-gray-500">HaloAgency</p>
+                                <p className="text-lg text-gray-400 italic">Артём К.</p>
+                                <p className="text-sm text-gray-500">Основатель HaloAgency</p>
                             </div>
                         </div>
 
