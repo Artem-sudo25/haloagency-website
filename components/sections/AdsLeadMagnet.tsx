@@ -107,6 +107,17 @@ export default function AdsLeadMagnet() {
         has_website: formData.hasWebsite
       });
 
+      // Facebook Browser Pixel - Lead Event
+      // @ts-ignore
+      if (typeof window.fbq === 'function') {
+        // @ts-ignore
+        window.fbq('track', 'Lead', {
+          content_name: 'ads_magnet',
+          currency: 'CZK',
+          value: 0,
+        });
+      }
+
       // 2. Client-Side Send Lead (Attribution) - Matches Propradlo
       sendLeadToHaloTrack({
         lead_id: crypto.randomUUID(),

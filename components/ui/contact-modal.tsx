@@ -115,6 +115,17 @@ export function ContactModal() {
                 has_telegram: !isEmail
             });
 
+            // Facebook Browser Pixel - Lead Event
+            // @ts-ignore
+            if (typeof window.fbq === 'function') {
+                // @ts-ignore
+                window.fbq('track', 'Lead', {
+                    content_name: 'contact_modal',
+                    currency: 'CZK',
+                    value: 0,
+                });
+            }
+
             // Send Lead Direct (Client-Side)
             sendLeadToHaloTrack({
                 lead_id: crypto.randomUUID(),

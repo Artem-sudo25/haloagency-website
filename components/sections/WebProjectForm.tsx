@@ -139,6 +139,17 @@ export default function WebProjectForm() {
         business_identity: finalAnswers.business_identity
       });
 
+      // Facebook Browser Pixel - Lead Event
+      // @ts-ignore
+      if (typeof window.fbq === 'function') {
+        // @ts-ignore
+        window.fbq('track', 'Lead', {
+          content_name: 'web_project',
+          currency: 'CZK',
+          value: 0, // Or estimate value
+        });
+      }
+
       // Send Lead Direct (Client-Side)
       sendLeadToHaloTrack({
         lead_id: crypto.randomUUID(),
