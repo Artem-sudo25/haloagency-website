@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -49,8 +50,16 @@ export default function Header() {
             >
                 <div className="w-full px-4 md:px-8 flex items-center justify-between md:max-w-7xl md:mx-auto">
                     {/* Logo */}
-                    <Link href="/" className="text-xl sm:text-2xl font-bold text-white tracking-tighter flex-shrink-0">
-                        Halo<span className="text-blue-500">Agency</span>
+                    <Link href="/" className="flex-shrink-0">
+                        <Image
+                            src="/logo-v2.png"
+                            alt="HaloAgency"
+                            width={180}
+                            height={45}
+                            className="w-[140px] sm:w-[180px] h-auto object-contain"
+                            priority
+                            style={{ width: "auto", height: "auto" }}
+                        />
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -125,69 +134,71 @@ export default function Header() {
                         )}
                     </button>
                 </div>
-            </header>
+            </header >
 
             {/* Mobile Menu - Dropdown panel */}
             <AnimatePresence>
-                {mobileMenuOpen && (
-                    <>
-                        {/* Backdrop */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="fixed inset-0 top-[72px] z-[9997] bg-black/60 backdrop-blur-sm md:hidden"
-                            onClick={() => setMobileMenuOpen(false)}
-                        />
-                        {/* Menu Panel */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
-                            className="fixed left-4 right-4 top-[80px] z-[9998] bg-slate-900/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-6 md:hidden"
-                        >
-                            <nav className="flex flex-col gap-4">
-                                {navLinks.map((link) => (
-                                    <div key={link.name}>
-                                        <Link
-                                            href={link.href}
-                                            className="text-lg font-semibold text-white block py-2"
-                                            onClick={() => !link.dropdown && setMobileMenuOpen(false)}
-                                        >
-                                            {link.name}
-                                        </Link>
-                                        {link.dropdown && (
-                                            <div className="pl-4 flex flex-col gap-1 border-l border-white/10 ml-2">
-                                                {link.dropdown.map((item) => (
-                                                    <Link
-                                                        key={item.name}
-                                                        href={item.href}
-                                                        className="text-base text-slate-400 hover:text-white transition-colors block py-1.5"
-                                                        onClick={() => setMobileMenuOpen(false)}
-                                                    >
-                                                        {item.name}
-                                                    </Link>
-                                                ))}
-                                            </div>
-                                        )}
-                                    </div>
-                                ))}
-                                <Button
-                                    size="lg"
-                                    className="w-full mt-4 rounded-full bg-ha-primary text-white"
-                                    onClick={() => {
-                                        setMobileMenuOpen(false);
-                                        openContactModal();
-                                    }}
-                                >
-                                    Связаться с нами
-                                </Button>
-                            </nav>
-                        </motion.div>
-                    </>
-                )}
-            </AnimatePresence>
+                {
+                    mobileMenuOpen && (
+                        <>
+                            {/* Backdrop */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="fixed inset-0 top-[72px] z-[9997] bg-black/60 backdrop-blur-sm md:hidden"
+                                onClick={() => setMobileMenuOpen(false)}
+                            />
+                            {/* Menu Panel */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                                className="fixed left-4 right-4 top-[80px] z-[9998] bg-slate-900/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-6 md:hidden"
+                            >
+                                <nav className="flex flex-col gap-4">
+                                    {navLinks.map((link) => (
+                                        <div key={link.name}>
+                                            <Link
+                                                href={link.href}
+                                                className="text-lg font-semibold text-white block py-2"
+                                                onClick={() => !link.dropdown && setMobileMenuOpen(false)}
+                                            >
+                                                {link.name}
+                                            </Link>
+                                            {link.dropdown && (
+                                                <div className="pl-4 flex flex-col gap-1 border-l border-white/10 ml-2">
+                                                    {link.dropdown.map((item) => (
+                                                        <Link
+                                                            key={item.name}
+                                                            href={item.href}
+                                                            className="text-base text-slate-400 hover:text-white transition-colors block py-1.5"
+                                                            onClick={() => setMobileMenuOpen(false)}
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+                                    <Button
+                                        size="lg"
+                                        className="w-full mt-4 rounded-full bg-ha-primary text-white"
+                                        onClick={() => {
+                                            setMobileMenuOpen(false);
+                                            openContactModal();
+                                        }}
+                                    >
+                                        Связаться с нами
+                                    </Button>
+                                </nav>
+                            </motion.div>
+                        </>
+                    )
+                }
+            </AnimatePresence >
         </>
     );
 }
