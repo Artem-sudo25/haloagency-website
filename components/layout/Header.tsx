@@ -50,15 +50,13 @@ export default function Header() {
             >
                 <div className="w-full px-4 md:px-8 flex items-center justify-between md:max-w-7xl md:mx-auto">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0">
+                    <Link href="/" className="flex-shrink-0 relative h-10 w-[180px] sm:h-12 sm:w-[240px]">
                         <Image
-                            src="/logo-v2.png"
+                            src="/logo-v3.png"
                             alt="HaloAgency"
-                            width={180}
-                            height={45}
-                            className="w-[140px] sm:w-[180px] h-auto object-contain"
+                            fill
+                            className="object-contain object-left"
                             priority
-                            style={{ width: "auto", height: "auto" }}
                         />
                     </Link>
 
