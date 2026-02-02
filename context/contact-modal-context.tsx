@@ -6,6 +6,8 @@ interface PrefilledData {
     service?: string;
     package_name?: string;
     message?: string;
+    value?: number;
+    currency?: string;
 }
 
 interface ContactModalState {

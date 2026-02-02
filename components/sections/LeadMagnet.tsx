@@ -18,6 +18,7 @@ import {
   websiteAnalysisSchema,
   type WebsiteAnalysisData,
 } from "@/lib/validations";
+import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent, sendLeadToHaloTrack } from "@/lib/halotrack";
 
 export default function LeadMagnet() {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -55,14 +56,61 @@ export default function LeadMagnet() {
     reset();
 
     // Run audit in background (fire and forget from UI perspective)
+    // Run audit in background (fire and forget from UI perspective)
     try {
+      const sessionId = getHaloTrackSessionId();
+      const leadValue = 2000; // Value for automated audit
+
+      // 1. Send to audit API (which likely should forward to main lead webhook eventually, but existing is fine)
       fetch("/api/audit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...data,
+          session_id: sessionId,
+          value: leadValue,
+          currency: 'CZK'
+        }),
       }).catch((err) => console.error("Background audit error:", err));
+
+      // 2. Track Event
+      trackFormEvent("audit_submit", {
+        url: data.url,
+        value: leadValue,
+        currency: "CZK"
+      });
+
+      // 3. Facebook Pixel
+      // @ts-ignore
+      if (typeof window.fbq === 'function') {
+        // @ts-ignore
+        window.fbq('track', 'Lead', {
+          content_name: 'website_audit',
+          currency: 'CZK',
+          value: leadValue,
+        });
+      }
+
+      // 4. Send Lead to HaloTrack
+      sendLeadToHaloTrack({
+        lead_id: crypto.randomUUID(),
+        source: "audit_form",
+        form_type: "tracking-audit",
+        email: data.email,
+        name: "",
+        phone: "",
+        message: `Audit for ${data.url}`,
+        session_id: sessionId,
+        consent_given: true,
+        lead_value: leadValue,
+        currency: "CZK",
+        custom_fields: {
+          website: data.url
+        }
+      });
+
     } catch (error) {
       console.error("Failed to start audit:", error);
     } finally {
@@ -175,8 +223,8 @@ export default function LeadMagnet() {
                   transition={{ delay: 0.05, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.speedScore > 60
-                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
                     }`}
                 >
                   <div className="relative">
@@ -204,8 +252,8 @@ export default function LeadMagnet() {
                   transition={{ delay: 0.08, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.mobileScore > 0
-                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
                     }`}
                 >
                   <div className="relative">
@@ -235,8 +283,8 @@ export default function LeadMagnet() {
                   transition={{ delay: 0.11, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
-                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                      : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
+                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                    : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
                     }`}
                 >
                   <div className="relative">
@@ -266,10 +314,10 @@ export default function LeadMagnet() {
                   transition={{ delay: 0.14, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
                   className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.analytics.hasGA4 ||
-                      demoMetrics.analytics.hasGTM ||
-                      demoMetrics.analytics.hasPixel
-                      ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                      : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    demoMetrics.analytics.hasGTM ||
+                    demoMetrics.analytics.hasPixel
+                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
+                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
                     }`}
                 >
                   <div className="relative">

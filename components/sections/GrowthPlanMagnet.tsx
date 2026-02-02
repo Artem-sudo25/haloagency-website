@@ -66,8 +66,18 @@ export default function GrowthPlanMagnet() {
         );
     };
 
+    const getLeadValue = (businessType: string): number => {
+        switch (businessType) {
+            case "ecommerce": return 25000;
+            case "service": return 15000; // High LTV potential
+            case "local": return 8000;
+            case "other": return 8000;
+            default: return 8000;
+        }
+    };
+
     const onSubmit = async (data: GrowthPlanData) => {
-        // Manual Validation to debug "silent" failures
+        // ... (validation code same as before)
         const result = growthPlanSchema.safeParse(data);
         if (!result.success) {
             console.error("Validation failed:", result.error);
@@ -84,6 +94,8 @@ export default function GrowthPlanMagnet() {
             triedBefore: selectedTried,
             session_id: haloSessionId,
         };
+
+        const leadValue = getLeadValue(data.businessType);
 
         try {
             const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact);
@@ -105,6 +117,8 @@ export default function GrowthPlanMagnet() {
                     contact_method: isEmail ? "email" : "other",
                     triedBefore: selectedTried,
                     // Metadata
+                    value: leadValue,
+                    currency: "CZK",
                     source: "growth_plan_form",
                     consent_given: true,
                     timestamp: new Date().toISOString()
@@ -118,7 +132,9 @@ export default function GrowthPlanMagnet() {
             // Track conversion (Event)
             trackFormEvent("growth_plan_submit", {
                 business_type: data.businessType,
-                goal: data.mainGoal
+                goal: data.mainGoal,
+                value: leadValue,
+                currency: "CZK"
             });
 
             // Facebook Browser Pixel - Lead Event
@@ -128,7 +144,7 @@ export default function GrowthPlanMagnet() {
                 window.fbq('track', 'Lead', {
                     content_name: 'growth_plan',
                     currency: 'CZK',
-                    value: 0,
+                    value: leadValue,
                 });
             }
 
@@ -143,7 +159,7 @@ export default function GrowthPlanMagnet() {
                 message: data.mainProblem,
                 session_id: haloSessionId,
                 consent_given: true,
-                lead_value: 0,
+                lead_value: leadValue,
                 currency: "CZK",
                 custom_fields: {
                     business_type: data.businessType,

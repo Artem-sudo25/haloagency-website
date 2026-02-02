@@ -91,6 +91,20 @@ const SectionDivider = () => (
 export default function AdsPageClient() {
   const { open } = useContactModalActions();
 
+  const openPackageModal = (pkg: typeof adsPackages[0]) => {
+    // Extract numeric value from price string (e.g. "от 8 000 Kč" -> 8000)
+    const numericPrice = pkg.price ? parseInt(pkg.price.replace(/[^0-9]/g, "")) : 0;
+    const leadValue = numericPrice > 0 ? numericPrice : 8000;
+
+    open({
+      service: "package",
+      package_name: `Реклама: ${pkg.title}`,
+      message: `Интересует пакет рекламы "${pkg.title}"\nСтоимость: ${pkg.price}${pkg.period ? ` ${pkg.period}` : ''}\n\n`,
+      value: leadValue,
+      currency: "CZK"
+    });
+  };
+
   return (
     <main className="min-h-screen bg-ha-bg pt-20">
       {/* 1. Hero Section */}
@@ -638,11 +652,7 @@ export default function AdsPageClient() {
 
                     <CardFooter className="p-8 pt-0 mt-auto">
                       <Button
-                        onClick={() => open({
-                          service: "package",
-                          package_name: `Реклама: ${pkg.title}`,
-                          message: `Интересует пакет рекламы "${pkg.title}"\nСтоимость: ${pkg.price}${pkg.period ? ` ${pkg.period}` : ''}\n\n`
-                        })}
+                        onClick={() => openPackageModal(pkg)}
                         className={`w-full font-medium transition-all ${pkg.highlight
                           ? "bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/25"
                           : "bg-white/10 hover:bg-white/20 text-white"

@@ -57,11 +57,20 @@ export default function AdsLeadMagnet() {
     isValidEmail(formData.contact) &&
     consent;
 
+  const getLeadValue = (budget: string): number => {
+    if (budget.includes("30 000+")) return 30000;
+    if (budget.includes("10–30")) return 15000;
+    if (budget.includes("до 10")) return 8000;
+    return 8000; // "Пока не знаю" or default min
+  };
+
   const handleSubmit = async () => {
     if (!canSubmit) return;
 
     setIsSubmitting(true);
     setError(null);
+
+    const leadValue = getLeadValue(formData.budget);
 
     try {
       if (!isValidEmail(formData.contact)) {
@@ -87,6 +96,9 @@ export default function AdsLeadMagnet() {
           budget: formData.budget,
           had_ads: formData.hadAds,
 
+          // Tracking
+          value: leadValue,
+          currency: "CZK",
           source: "ads_lead_form",
           consent_given: true,
           timestamp: new Date().toISOString(),
@@ -104,7 +116,9 @@ export default function AdsLeadMagnet() {
       trackFormEvent("ads_lead_submit", {
         business: formData.business,
         budget: formData.budget,
-        has_website: formData.hasWebsite
+        has_website: formData.hasWebsite,
+        value: leadValue,
+        currency: "CZK"
       });
 
       // Facebook Browser Pixel - Lead Event
@@ -114,7 +128,7 @@ export default function AdsLeadMagnet() {
         window.fbq('track', 'Lead', {
           content_name: 'ads_magnet',
           currency: 'CZK',
-          value: 0,
+          value: leadValue,
         });
       }
 
@@ -129,7 +143,7 @@ export default function AdsLeadMagnet() {
         message: "",
         session_id: haloSessionId,
         consent_given: true,
-        lead_value: 0,
+        lead_value: leadValue,
         currency: "CZK",
         custom_fields: {
           business_type: formData.business,

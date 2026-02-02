@@ -104,10 +104,17 @@ export default function WebPageClient() {
   const { open } = useContactModalActions();
 
   const openModal = (packageName: string, price?: string, time?: string) => {
+    // Extract numeric value from price string (e.g. "от 8,000 CZK" -> 8000)
+    const numericPrice = price ? parseInt(price.replace(/[^0-9]/g, "")) : 0;
+    // Default to 8000 (min) if parsing fails or 0, unless it's "Individual"
+    const leadValue = numericPrice > 0 ? numericPrice : 8000;
+
     open({
       service: "package",
       package_name: `Сайты: ${packageName}`,
-      message: `Интересует пакет "${packageName}"${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`
+      message: `Интересует пакет "${packageName}"${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`,
+      value: leadValue,
+      currency: "CZK"
     });
   };
 

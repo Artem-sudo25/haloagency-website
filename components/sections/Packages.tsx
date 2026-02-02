@@ -106,10 +106,21 @@ export default function Packages() {
 
   const handlePackageClick = (pkg: typeof packages[0]) => {
     const message = `Интересует пакет "${pkg.title}"\nНастройка: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
+
+    // Extract numeric value from priceSetup (e.g. "18,000 Kč" -> 18000)
+    const numericPrice = parseInt(pkg.priceSetup.replace(/[^0-9]/g, "")) || 0;
+
+    // For "Individual" (no number), set a high default or 0? 
+    // User said "8000 minimum", so let's use 0 if NaN and handle defaults in modal, 
+    // OR if it's the custom package "По запросу", maybe assign a high representative value?
+    // Let's stick to parsing. If 0 (NaN), we can fallback later.
+
     openContactModal({
       service: "package",
       package_name: pkg.title,
       message: message,
+      value: numericPrice > 0 ? numericPrice : 8000, // Fallback to min 8000 if not parseable
+      currency: "CZK"
     });
   };
 

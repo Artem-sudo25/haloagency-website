@@ -72,6 +72,9 @@ export function ContactModal() {
                 return;
             }
 
+            const leadValue = prefilledData?.value || 8000; // Default min 8000 as requested
+            const leadCurrency = prefilledData?.currency || "CZK";
+
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -92,6 +95,10 @@ export function ContactModal() {
                     service: selectedService,
                     package_name: prefilledData?.package_name, // NEW: Package name if selected
                     message,
+
+                    // Tracking
+                    value: leadValue,
+                    currency: leadCurrency,
                     session_id: haloSessionId,
                     consent_given: true,
                     timestamp: new Date().toISOString(),
@@ -112,7 +119,9 @@ export function ContactModal() {
             trackFormEvent("contact_form_submit", {
                 service: selectedService,
                 has_email: isEmail,
-                has_telegram: !isEmail
+                has_telegram: !isEmail,
+                value: leadValue,
+                currency: leadCurrency
             });
 
             // Facebook Browser Pixel - Lead Event
@@ -121,8 +130,8 @@ export function ContactModal() {
                 // @ts-ignore
                 window.fbq('track', 'Lead', {
                     content_name: 'contact_modal',
-                    currency: 'CZK',
-                    value: 0,
+                    currency: leadCurrency,
+                    value: leadValue,
                 });
             }
 
@@ -137,8 +146,8 @@ export function ContactModal() {
                 message: message,
                 session_id: haloSessionId,
                 consent_given: true,
-                lead_value: 0,
-                currency: "CZK",
+                lead_value: leadValue,
+                currency: leadCurrency,
                 custom_fields: {
                     service: selectedService,
                     telegram: !isEmail ? contact : undefined,

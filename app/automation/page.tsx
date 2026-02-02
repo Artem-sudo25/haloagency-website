@@ -193,10 +193,16 @@ export default function AutomationPage() {
     const { open } = useContactModalActions();
 
     const openModal = (packageName: string, price?: string, time?: string) => {
+        // Extract numeric value from price string (e.g. "от 15,000 CZK" -> 15000)
+        const numericPrice = price ? parseInt(price.replace(/[^0-9]/g, "")) : 0;
+        const leadValue = numericPrice > 0 ? numericPrice : 8000;
+
         open({
             service: "package",
             package_name: `Автоматизация: ${packageName}`,
-            message: `Интересует услуга: ${packageName}${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`
+            message: `Интересует услуга: ${packageName}${price ? `\nСтоимость: ${price}` : ''}${time ? `\nСроки: ${time}` : ''}\n\n`,
+            value: leadValue,
+            currency: "CZK"
         });
     };
 

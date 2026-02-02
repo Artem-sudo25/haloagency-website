@@ -101,6 +101,8 @@ export default function WebProjectForm() {
 
   const submitToN8N = async (finalAnswers: Record<string, string>) => {
     setIsSubmitting(true);
+    const leadValue = 25000; // High intent form
+
     try {
       // Send to unified lead webhook
       const response = await fetch("/api/webhook/lead", {
@@ -122,6 +124,9 @@ export default function WebProjectForm() {
           // Original Data (kept for context)
           ...finalAnswers,
 
+          // Tracking
+          value: leadValue,
+          currency: "CZK",
           session_id: haloSessionId,
           source: "web_project_form",
           consent_given: true,
@@ -136,7 +141,9 @@ export default function WebProjectForm() {
       // Track conversion
       trackFormEvent("web_project_lead", {
         step_completed: 6,
-        business_identity: finalAnswers.business_identity
+        business_identity: finalAnswers.business_identity,
+        value: leadValue,
+        currency: "CZK"
       });
 
       // Facebook Browser Pixel - Lead Event
@@ -146,7 +153,7 @@ export default function WebProjectForm() {
         window.fbq('track', 'Lead', {
           content_name: 'web_project',
           currency: 'CZK',
-          value: 0, // Or estimate value
+          value: leadValue, // Or estimate value
         });
       }
 
@@ -161,7 +168,7 @@ export default function WebProjectForm() {
         message: finalAnswers.hero_headline, // Or summary of project
         session_id: haloSessionId,
         consent_given: true,
-        lead_value: 0,
+        lead_value: leadValue,
         currency: "CZK",
         custom_fields: {
           business_type: finalAnswers.business_identity,
