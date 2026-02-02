@@ -228,6 +228,18 @@ export default function Contact() {
                           <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
                         )}
                       </div>
+                      <div className="space-y-2 col-span-1 sm:col-span-2">
+                        <label htmlFor="phone" className="text-sm font-medium text-slate-300">
+                          Телефон <span className="text-slate-500 text-xs font-normal">(опционально)</span>
+                        </label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          {...register("phone")}
+                          placeholder="+420 123 456 789"
+                          className="bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors"
+                        />
+                      </div>
                     </div>
 
                     {/* Service Selector - MOVED HERE */}

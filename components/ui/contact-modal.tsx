@@ -77,6 +77,17 @@ export function ContactModal() {
             const leadCurrency = prefilledData?.currency || "CZK";
             const leadId = crypto.randomUUID(); // Generate ID upfront
 
+            // Facebook Browser Pixel - Lead Event
+            // @ts-ignore
+            if (typeof window.fbq === 'function') {
+                // @ts-ignore
+                window.fbq('track', 'Lead', {
+                    content_name: 'contact_modal',
+                    currency: leadCurrency,
+                    value: leadValue,
+                }, { eventID: leadId });
+            }
+
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -129,16 +140,7 @@ export function ContactModal() {
 
 
 
-            // Facebook Browser Pixel - Lead Event
-            // @ts-ignore
-            if (typeof window.fbq === 'function') {
-                // @ts-ignore
-                window.fbq('track', 'Lead', {
-                    content_name: 'contact_modal',
-                    currency: leadCurrency,
-                    value: leadValue,
-                }, { eventID: leadId });
-            }
+
 
             // Send Lead Direct (Client-Side) - REMOVED to avoid duplication
             // The server-side webhook now forwards the lead to HaloTrack with the SAME leadId

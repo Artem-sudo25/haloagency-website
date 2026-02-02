@@ -70,8 +70,8 @@ export const growthPlanSchema = z.object({
     .optional(),
   mainProblem: z
     .string()
-    .min(1, "Расскажите о главной проблеме")
-    .max(500, "Текст слишком длинный"),
+    .max(500, "Текст слишком длинный")
+    .optional(),
   contact: z
     .string()
     .min(1, "Email обязателен")
