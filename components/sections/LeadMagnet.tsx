@@ -103,7 +103,7 @@ export default function LeadMagnet() {
         form_type: "tracking-audit",
         email: data.email,
         name: "",
-        phone: "",
+        phone: data.phone, // Include phone
         message: `Audit for ${data.url}`,
         session_id: sessionId,
         consent_given: true,
@@ -430,6 +430,15 @@ export default function LeadMagnet() {
                       {errors.email.message}
                     </p>
                   )}
+                </div>
+
+                <div>
+                  <Input
+                    type="tel"
+                    {...register("phone")}
+                    placeholder="Телефон (необязательно)"
+                    className="h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500"
+                  />
                 </div>
 
                 <div>

@@ -18,6 +18,7 @@ export function ContactModal() {
     const [message, setMessage] = useState("");
     const [name, setName] = useState("");
     const [contact, setContact] = useState("");
+    const [phone, setPhone] = useState("");
     const [haloSessionId, setHaloSessionId] = useState<string>("");
     const [consent, setConsent] = useState(false);
     const [error, setError] = useState("");
@@ -88,6 +89,7 @@ export function ContactModal() {
                     websiteOrProfile: "Not specified",
                     contact: contact,
                     email: contact,
+                    phone: phone, // Optional phone
                     contact_method: "email",
 
                     // Original context
@@ -152,6 +154,7 @@ export function ContactModal() {
                     setMessage("");
                     setName("");
                     setContact("");
+                    setPhone("");
                     setConsent(false);
                 }, 300);
             }, 2000);
@@ -233,6 +236,17 @@ export function ContactModal() {
                                                     value={contact}
                                                     onChange={(e) => setContact(e.target.value)}
                                                     placeholder="email@example.com"
+                                                    className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
+                                                />
+                                            </div>
+
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-medium text-slate-300">Телефон (необязательно)</label>
+                                                <Input
+                                                    type="tel"
+                                                    value={phone}
+                                                    onChange={(e) => setPhone(e.target.value)}
+                                                    placeholder="+420 123 456 789"
                                                     className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
                                                 />
                                             </div>

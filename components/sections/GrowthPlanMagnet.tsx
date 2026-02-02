@@ -119,6 +119,7 @@ export default function GrowthPlanMagnet() {
                     mainProblem: formData.mainProblem,
                     contact: formData.contact,
                     email: isEmail ? formData.contact : undefined,
+                    phone: formData.phone, // Include phone
                     contact_method: isEmail ? "email" : "other",
                     triedBefore: selectedTried,
                     // Metadata
@@ -362,6 +363,19 @@ export default function GrowthPlanMagnet() {
                                         {errors.mainProblem.message}
                                     </p>
                                 )}
+                            </div>
+
+                            {/* Phone (Optional) */}
+                            <div>
+                                <label className="block text-sm font-medium text-white mb-2">
+                                    Телефон (необязательно)
+                                </label>
+                                <Input
+                                    type="tel"
+                                    {...register("phone")}
+                                    placeholder="+420 123 456 789"
+                                    className="bg-white/5 border-white/10 text-white placeholder:text-slate-500 focus:border-blue-500/50 rounded-xl h-12"
+                                />
                             </div>
 
                             {/* 6. Contact */}

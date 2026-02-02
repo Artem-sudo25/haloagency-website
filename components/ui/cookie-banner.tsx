@@ -58,7 +58,7 @@ export function CookieBanner() {
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 100, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="fixed bottom-0 left-0 right-0 z-50 p-3 sm:p-4 md:p-6 w-full overflow-hidden"
+        className="fixed bottom-0 left-0 right-0 z-[9000] p-3 sm:p-4 md:p-6 w-full overflow-hidden"
       >
         <div className="max-w-7xl mx-auto w-full">
           {/* Main Banner */}
@@ -180,14 +180,14 @@ export function CookieBanner() {
                     >
                       <div
                         className={`w-10 sm:w-12 h-5 sm:h-6 rounded-full flex items-center px-1 transition-colors ${preferences.analytics
-                            ? "bg-blue-500/20"
-                            : "bg-slate-700"
+                          ? "bg-blue-500/20"
+                          : "bg-slate-700"
                           }`}
                       >
                         <div
                           className={`w-3 sm:w-4 h-3 sm:h-4 rounded-full transition-all ${preferences.analytics
-                              ? "bg-blue-500 ml-auto"
-                              : "bg-slate-500"
+                            ? "bg-blue-500 ml-auto"
+                            : "bg-slate-500"
                             }`}
                         />
                       </div>
@@ -216,14 +216,14 @@ export function CookieBanner() {
                     >
                       <div
                         className={`w-10 sm:w-12 h-5 sm:h-6 rounded-full flex items-center px-1 transition-colors ${preferences.marketing
-                            ? "bg-blue-500/20"
-                            : "bg-slate-700"
+                          ? "bg-blue-500/20"
+                          : "bg-slate-700"
                           }`}
                       >
                         <div
                           className={`w-3 sm:w-4 h-3 sm:h-4 rounded-full transition-all ${preferences.marketing
-                              ? "bg-blue-500 ml-auto"
-                              : "bg-slate-500"
+                            ? "bg-blue-500 ml-auto"
+                            : "bg-slate-500"
                             }`}
                         />
                       </div>

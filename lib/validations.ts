@@ -15,6 +15,7 @@ export const contactFormSchema = z.object({
     .min(10, "Сообщение должно содержать минимум 10 символов")
     .max(1000, "Сообщение слишком длинное"),
   service: z.string().optional(),
+  phone: z.string().optional(),
   consent: z.boolean().refine((val) => val === true, {
     message: "Необходимо согласие с политикой конфиденциальности",
   }),
@@ -43,6 +44,7 @@ export const websiteAnalysisSchema = z.object({
     .string()
     .min(1, "Email обязателен")
     .email("Неверный формат email"),
+  phone: z.string().optional(),
   consent: z
     .boolean()
     .refine((val) => val === true, {
@@ -74,6 +76,7 @@ export const growthPlanSchema = z.object({
     .string()
     .min(1, "Email обязателен")
     .email("Неверный формат email"),
+  phone: z.string().optional(),
   consent: z
     .boolean()
     .refine((val) => val === true, {

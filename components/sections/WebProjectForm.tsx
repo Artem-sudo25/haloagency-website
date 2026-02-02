@@ -50,6 +50,13 @@ const formData = {
     },
     {
       step: 6,
+      variable_name: "phone",
+      question_text: "Телефон для связи? (Необязательно)",
+      placeholder_text: "+420 ...",
+      optional: true,
+    },
+    {
+      step: 7,
       variable_name: "email",
       question_text: "Куда отправить готовое демо?",
       placeholder_text: "Ваш email (мы не спамим, честно)",
@@ -120,6 +127,7 @@ export default function WebProjectForm() {
           websiteOrProfile: "Not collected",
           mainProblem: `Color: ${finalAnswers.color_preference}, Style: ${finalAnswers.visual_style}, Features: ${finalAnswers.key_features}`,
           contact: finalAnswers.email,
+          phone: finalAnswers.phone, // Optional phone
           email: finalAnswers.email,
           contact_method: "email",
 
@@ -179,7 +187,7 @@ export default function WebProjectForm() {
   };
 
   const handleNext = () => {
-    if (!inputValue.trim()) return;
+    if (!inputValue.trim() && !currentQuestion.optional) return;
 
     const updatedAnswers = {
       ...answers,
@@ -366,8 +374,8 @@ export default function WebProjectForm() {
                   <button
                     type="button"
                     onClick={handleNext}
-                    disabled={!inputValue.trim() || isSubmitting || (isLastStep && !consent)}
-                    className={`p-3 rounded-full transition-all duration-300 ${inputValue.trim() && !isSubmitting && (!isLastStep || consent)
+                    disabled={(!inputValue.trim() && !currentQuestion.optional) || isSubmitting || (isLastStep && !consent)}
+                    className={`p-3 rounded-full transition-all duration-300 ${(inputValue.trim() || currentQuestion.optional) && !isSubmitting && (!isLastStep || consent)
                       ? "bg-blue-600 text-white hover:bg-blue-700 shadow-lg hover:shadow-blue-500/25"
                       : "bg-slate-800 text-slate-600 cursor-not-allowed"
                       }`}

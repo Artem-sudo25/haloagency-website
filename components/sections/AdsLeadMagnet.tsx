@@ -14,6 +14,7 @@ type FormData = {
   budget: string;
   hasWebsite: string;
   contact: string;
+  phone: string;
 };
 
 const initialFormData: FormData = {
@@ -24,6 +25,7 @@ const initialFormData: FormData = {
   budget: "",
   hasWebsite: "",
   contact: "",
+  phone: "",
 };
 
 export default function AdsLeadMagnet() {
@@ -90,6 +92,7 @@ export default function AdsLeadMagnet() {
           mainGoal: formData.goal,
           mainProblem: `Budget: ${formData.budget}, Had Ads: ${formData.hadAds}`,
           contact: formData.contact,
+          phone: formData.phone, // Include phone
           email: formData.contact,
           contact_method: "email",
 
@@ -411,6 +414,20 @@ export default function AdsLeadMagnet() {
                     value={formData.contact}
                     onChange={(e) => updateField("contact", e.target.value)}
                     placeholder="your@email.com"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
+                  />
+                </div>
+
+                {/* Phone (Optional) */}
+                <div>
+                  <label className="block text-white font-medium mb-3">
+                    Телефон <span className="text-slate-500 font-normal ml-2 text-sm">(необязательно)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => updateField("phone", e.target.value)}
+                    placeholder="+420 123 456 789"
                     className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
                   />
                 </div>
