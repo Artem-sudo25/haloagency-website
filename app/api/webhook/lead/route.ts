@@ -66,7 +66,8 @@ export async function POST(req: NextRequest) {
                 custom_fields: extras // All rich data (goals, business type, etc.)
             };
 
-            halotrackPromise = fetch(`https://${halotrackDomain}/api/webhook/lead`, {
+            const protocol = halotrackDomain.startsWith('localhost') ? 'http' : 'https';
+            halotrackPromise = fetch(`${protocol}://${halotrackDomain}/api/webhook/lead`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(halotrackPayload),

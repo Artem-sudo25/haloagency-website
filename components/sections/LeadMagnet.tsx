@@ -82,7 +82,10 @@ export default function LeadMagnet() {
         currency: "CZK"
       });
 
-      // 3. Facebook Pixel
+      // Generate Synced ID for Hybrid Tracking (Pixel + CAPI)
+      const leadId = crypto.randomUUID();
+
+      // 3. Facebook Pixel (Browser Side)
       // @ts-ignore
       if (typeof window.fbq === 'function') {
         // @ts-ignore
@@ -90,12 +93,12 @@ export default function LeadMagnet() {
           content_name: 'website_audit',
           currency: 'CZK',
           value: leadValue,
-        });
+        }, { eventID: leadId }); // <--- Critical: Synced ID
       }
 
-      // 4. Send Lead to HaloTrack
+      // 4. Send Lead to HaloTrack (Server Side)
       sendLeadToHaloTrack({
-        lead_id: crypto.randomUUID(),
+        lead_id: leadId, // <--- Matching ID
         source: "audit_form",
         form_type: "tracking-audit",
         email: data.email,

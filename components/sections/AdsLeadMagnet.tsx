@@ -118,23 +118,22 @@ export default function AdsLeadMagnet() {
         budget: formData.budget,
         has_website: formData.hasWebsite,
         value: leadValue,
-        currency: "CZK"
-      });
+        const leadId = crypto.randomUUID();
 
-      // Facebook Browser Pixel - Lead Event
-      // @ts-ignore
-      if (typeof window.fbq === 'function') {
+        // Facebook Browser Pixel - Lead Event
+        // @ts-ignore
+        if(typeof window.fbq === 'function') {
         // @ts-ignore
         window.fbq('track', 'Lead', {
           content_name: 'ads_magnet',
           currency: 'CZK',
           value: leadValue,
-        });
+        }, { eventID: leadId });
       }
 
       // 2. Client-Side Send Lead (Attribution) - Matches Propradlo
       sendLeadToHaloTrack({
-        lead_id: crypto.randomUUID(),
+        lead_id: leadId,
         source: "ads_lead_form",
         form_type: "ads-lead",
         email: formData.contact, // Fallback if no specific email field

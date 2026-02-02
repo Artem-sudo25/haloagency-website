@@ -134,23 +134,22 @@ export default function GrowthPlanMagnet() {
                 business_type: data.businessType,
                 goal: data.mainGoal,
                 value: leadValue,
-                currency: "CZK"
-            });
+                const leadId = crypto.randomUUID();
 
-            // Facebook Browser Pixel - Lead Event
-            // @ts-ignore
-            if (typeof window.fbq === 'function') {
+                // Facebook Browser Pixel - Lead Event
+                // @ts-ignore
+                if(typeof window.fbq === 'function') {
                 // @ts-ignore
                 window.fbq('track', 'Lead', {
                     content_name: 'growth_plan',
                     currency: 'CZK',
                     value: leadValue,
-                });
+                }, { eventID: leadId });
             }
 
             // Send Lead Direct (Client-Side Attribution)
             sendLeadToHaloTrack({
-                lead_id: crypto.randomUUID(),
+                lead_id: leadId,
                 source: "growth_plan_form",
                 form_type: "growth-plan",
                 email: data.contact, // Uses normalized contact (email/phone)

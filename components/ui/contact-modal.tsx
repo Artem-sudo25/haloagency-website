@@ -121,23 +121,22 @@ export function ContactModal() {
                 has_email: isEmail,
                 has_telegram: !isEmail,
                 value: leadValue,
-                currency: leadCurrency
-            });
+                const leadId = crypto.randomUUID();
 
-            // Facebook Browser Pixel - Lead Event
-            // @ts-ignore
-            if (typeof window.fbq === 'function') {
+                // Facebook Browser Pixel - Lead Event
+                // @ts-ignore
+                if(typeof window.fbq === 'function') {
                 // @ts-ignore
                 window.fbq('track', 'Lead', {
                     content_name: 'contact_modal',
                     currency: leadCurrency,
                     value: leadValue,
-                });
+                }, { eventID: leadId });
             }
 
             // Send Lead Direct (Client-Side)
             sendLeadToHaloTrack({
-                lead_id: crypto.randomUUID(),
+                lead_id: leadId,
                 source: "popup_modal",
                 form_type: "contact",
                 email: isEmail ? contact : "",

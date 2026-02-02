@@ -143,23 +143,22 @@ export default function WebProjectForm() {
         step_completed: 6,
         business_identity: finalAnswers.business_identity,
         value: leadValue,
-        currency: "CZK"
-      });
+        const leadId = crypto.randomUUID();
 
-      // Facebook Browser Pixel - Lead Event
-      // @ts-ignore
-      if (typeof window.fbq === 'function') {
+        // Facebook Browser Pixel - Lead Event
+        // @ts-ignore
+        if(typeof window.fbq === 'function') {
         // @ts-ignore
         window.fbq('track', 'Lead', {
           content_name: 'web_project',
           currency: 'CZK',
           value: leadValue, // Or estimate value
-        });
+        }, { eventID: leadId });
       }
 
       // Send Lead Direct (Client-Side)
       sendLeadToHaloTrack({
-        lead_id: crypto.randomUUID(),
+        lead_id: leadId,
         source: "web_project_form",
         form_type: "web-project",
         email: finalAnswers.email, // WebProjectForm has explicit email field
