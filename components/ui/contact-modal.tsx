@@ -74,6 +74,7 @@ export function ContactModal() {
 
             const leadValue = prefilledData?.value || 8000; // Default min 8000 as requested
             const leadCurrency = prefilledData?.currency || "CZK";
+            const leadId = crypto.randomUUID(); // Generate ID upfront
 
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
@@ -100,6 +101,7 @@ export function ContactModal() {
                     value: leadValue,
                     currency: leadCurrency,
                     session_id: haloSessionId,
+                    lead_id: leadId, // <--- Pass generated ID for matching
                     consent_given: true,
                     timestamp: new Date().toISOString(),
                 }),
@@ -123,7 +125,7 @@ export function ContactModal() {
                 value: leadValue,
             });
 
-            const leadId = crypto.randomUUID();
+
 
             // Facebook Browser Pixel - Lead Event
             // @ts-ignore
@@ -136,25 +138,10 @@ export function ContactModal() {
                 }, { eventID: leadId });
             }
 
-            // Send Lead Direct (Client-Side)
-            sendLeadToHaloTrack({
-                lead_id: leadId,
-                source: "popup_modal",
-                form_type: "contact",
-                email: isEmail ? contact : "",
-                name: name,
-                phone: !isEmail ? contact : "", // Telegram usually mapped here or as custom
-                message: message,
-                session_id: haloSessionId,
-                consent_given: true,
-                lead_value: leadValue,
-                currency: leadCurrency,
-                custom_fields: {
-                    service: selectedService,
-                    telegram: !isEmail ? contact : undefined,
-                    preferred_method: isEmail ? "email" : "telegram"
-                }
-            });
+            // Send Lead Direct (Client-Side) - REMOVED to avoid duplication
+            // The server-side webhook now forwards the lead to HaloTrack with the SAME leadId
+            // which enables deduplication with the CAPI event forwarded by HaloTrack.
+
 
             // Reset after showing success
             setTimeout(() => {

@@ -71,6 +71,7 @@ export default function AdsLeadMagnet() {
     setError(null);
 
     const leadValue = getLeadValue(formData.budget);
+    const leadId = crypto.randomUUID();
 
     try {
       if (!isValidEmail(formData.contact)) {
@@ -99,6 +100,7 @@ export default function AdsLeadMagnet() {
           // Tracking
           value: leadValue,
           currency: "CZK",
+          lead_id: leadId,
           source: "ads_lead_form",
           consent_given: true,
           timestamp: new Date().toISOString(),
@@ -120,7 +122,6 @@ export default function AdsLeadMagnet() {
         value: leadValue,
       });
 
-      const leadId = crypto.randomUUID();
 
       // Facebook Browser Pixel - Lead Event
       // @ts-ignore
@@ -133,28 +134,9 @@ export default function AdsLeadMagnet() {
         }, { eventID: leadId });
       }
 
-      // 2. Client-Side Send Lead (Attribution) - Matches Propradlo
-      sendLeadToHaloTrack({
-        lead_id: leadId,
-        source: "ads_lead_form",
-        form_type: "ads-lead",
-        email: formData.contact, // Fallback if no specific email field
-        name: "", // Not collected
-        phone: "", // Not collected
-        message: "",
-        session_id: haloSessionId,
-        consent_given: true,
-        lead_value: leadValue,
-        currency: "CZK",
-        custom_fields: {
-          business_type: formData.business,
-          budget: formData.budget,
-          website: formData.businessLink || formData.hasWebsite,
-          goal: formData.goal,
-          had_ads: formData.hadAds,
-          contact_method: "email"
-        }
-      });
+      // 2. Client-Side Send Lead (Attribution) - REMOVED
+      // Server webhook handles it via lead_id
+
 
     } catch (err: any) {
       console.error(err);

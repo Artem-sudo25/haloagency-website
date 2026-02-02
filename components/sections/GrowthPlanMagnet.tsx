@@ -100,6 +100,11 @@ export default function GrowthPlanMagnet() {
         try {
             const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact);
 
+            const leadValue = getLeadValue(data.businessType);
+            const leadId = crypto.randomUUID(); // Generate ID upfront
+
+
+
             // Send to unified webhook
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
@@ -119,6 +124,7 @@ export default function GrowthPlanMagnet() {
                     // Metadata
                     value: leadValue,
                     currency: "CZK",
+                    lead_id: leadId, // <--- Matching ID
                     source: "growth_plan_form",
                     consent_given: true,
                     timestamp: new Date().toISOString()
@@ -136,8 +142,6 @@ export default function GrowthPlanMagnet() {
                 value: leadValue,
             });
 
-            const leadId = crypto.randomUUID();
-
             // Facebook Browser Pixel - Lead Event
             // @ts-ignore
             if (typeof window.fbq === 'function') {
@@ -149,26 +153,9 @@ export default function GrowthPlanMagnet() {
                 }, { eventID: leadId });
             }
 
-            // Send Lead Direct (Client-Side Attribution)
-            sendLeadToHaloTrack({
-                lead_id: leadId,
-                source: "growth_plan_form",
-                form_type: "growth-plan",
-                email: data.contact, // Uses normalized contact (email/phone)
-                name: "",
-                phone: "",
-                message: data.mainProblem,
-                session_id: haloSessionId,
-                consent_given: true,
-                lead_value: leadValue,
-                currency: "CZK",
-                custom_fields: {
-                    business_type: data.businessType,
-                    goal: data.mainGoal,
-                    website: data.websiteOrProfile,
-                    tried: data.triedBefore
-                }
-            });
+            // Send Lead Direct (Client-Side Attribution) - REMOVED
+            // Server webhook now handles duplication via lead_id
+
 
             setShowSuccess(true);
             reset();

@@ -101,7 +101,9 @@ export default function WebProjectForm() {
 
   const submitToN8N = async (finalAnswers: Record<string, string>) => {
     setIsSubmitting(true);
+
     const leadValue = 25000; // High intent form
+    const leadId = crypto.randomUUID();
 
     try {
       // Send to unified lead webhook
@@ -127,6 +129,7 @@ export default function WebProjectForm() {
           // Tracking
           value: leadValue,
           currency: "CZK",
+          lead_id: leadId,
           session_id: haloSessionId,
           source: "web_project_form",
           consent_given: true,
@@ -145,8 +148,6 @@ export default function WebProjectForm() {
         value: leadValue,
       });
 
-      const leadId = crypto.randomUUID();
-
       // Facebook Browser Pixel - Lead Event
       // @ts-ignore
       if (typeof window.fbq === 'function') {
@@ -158,26 +159,8 @@ export default function WebProjectForm() {
         }, { eventID: leadId });
       }
 
-      // Send Lead Direct (Client-Side)
-      sendLeadToHaloTrack({
-        lead_id: leadId,
-        source: "web_project_form",
-        form_type: "web-project",
-        email: finalAnswers.email, // WebProjectForm has explicit email field
-        name: "",
-        phone: "",
-        message: finalAnswers.hero_headline, // Or summary of project
-        session_id: haloSessionId,
-        consent_given: true,
-        lead_value: leadValue,
-        currency: "CZK",
-        custom_fields: {
-          business_type: finalAnswers.business_identity,
-          goal: finalAnswers.hero_headline,
-          website: "Not collected",
-          ...finalAnswers
-        }
-      });
+      // Send Lead Direct (Client-Side) - REMOVED for deduplication
+
 
     } catch (error) {
       console.error("Failed to submit form:", error);

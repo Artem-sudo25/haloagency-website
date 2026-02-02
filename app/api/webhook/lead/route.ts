@@ -49,10 +49,10 @@ export async function POST(req: NextRequest) {
         let halotrackPromise = Promise.resolve();
 
         if (halotrackDomain) {
-            const { type, email, contact, name, phone, message, session_id, consent_given, ...extras } = body;
+            const { type, email, contact, name, phone, message, session_id, consent_given, lead_id, ...extras } = body;
 
             const halotrackPayload = {
-                lead_id: crypto.randomUUID(), // Generate ID for tracking
+                lead_id: lead_id || crypto.randomUUID(), // Use provided ID or generate matched ID for tracking
                 source: "haloagency_website",
                 form_type: type, // e.g. 'growth-plan'
                 email: email || contact, // Normalized email
