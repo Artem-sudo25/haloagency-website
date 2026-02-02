@@ -98,12 +98,20 @@ export async function POST(req: NextRequest) {
             `;
 
             backupEmailPromise = resend.emails.send({
-                from: "HaloAgency System <system@resend.dev>", // Replace with your verified domain in prod
+                from: "HaloAgency Lead <onboarding@resend.dev>", // Correct default sender for unverified domains
                 to: adminEmail,
                 subject: `🔔 New Lead: ${type} (${email})`,
+                replyTo: email, // Allow reply directly to lead
                 html: emailContent
+            }).then(({ data, error }) => {
+                if (error) {
+                    console.error("Backup email failed (API Error):", error);
+                    return null;
+                }
+                console.log("Backup email sent:", data?.id);
+                return data;
             }).catch(err => {
-                console.error("Backup email failed:", err);
+                console.error("Backup email failed (Network Error):", err);
                 return null;
             }) as any;
         }
