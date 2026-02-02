@@ -436,7 +436,7 @@ export default function LeadMagnet() {
                   <Input
                     type="tel"
                     {...register("phone")}
-                    placeholder="Телефон (необязательно)"
+                    placeholder="Телефон"
                     className="h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500"
                   />
                 </div>

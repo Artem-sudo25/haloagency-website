@@ -421,7 +421,7 @@ export default function AdsLeadMagnet() {
                 {/* Phone (Optional) */}
                 <div>
                   <label className="block text-white font-medium mb-3">
-                    Телефон <span className="text-slate-500 font-normal ml-2 text-sm">(необязательно)</span>
+                    Телефон
                   </label>
                   <input
                     type="tel"

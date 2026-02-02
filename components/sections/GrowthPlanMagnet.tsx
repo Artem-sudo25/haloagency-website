@@ -368,7 +368,7 @@ export default function GrowthPlanMagnet() {
                             {/* Phone (Optional) */}
                             <div>
                                 <label className="block text-sm font-medium text-white mb-2">
-                                    Телефон (необязательно)
+                                    Телефон
                                 </label>
                                 <Input
                                     type="tel"

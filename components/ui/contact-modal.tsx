@@ -241,7 +241,7 @@ export function ContactModal() {
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Телефон (необязательно)</label>
+                                                <label className="text-sm font-medium text-slate-300">Телефон</label>
                                                 <Input
                                                     type="tel"
                                                     value={phone}

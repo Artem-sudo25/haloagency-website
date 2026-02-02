@@ -51,7 +51,7 @@ const formData = {
     {
       step: 6,
       variable_name: "phone",
-      question_text: "Телефон для связи? (Необязательно)",
+      question_text: "Телефон",
       placeholder_text: "+420 ...",
       optional: true,
     },
