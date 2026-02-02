@@ -143,11 +143,13 @@ export default function WebProjectForm() {
         step_completed: 6,
         business_identity: finalAnswers.business_identity,
         value: leadValue,
-        const leadId = crypto.randomUUID();
+      });
 
-        // Facebook Browser Pixel - Lead Event
-        // @ts-ignore
-        if(typeof window.fbq === 'function') {
+      const leadId = crypto.randomUUID();
+
+      // Facebook Browser Pixel - Lead Event
+      // @ts-ignore
+      if (typeof window.fbq === 'function') {
         // @ts-ignore
         window.fbq('track', 'Lead', {
           content_name: 'web_project',

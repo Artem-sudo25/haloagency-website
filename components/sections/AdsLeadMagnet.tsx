@@ -118,11 +118,13 @@ export default function AdsLeadMagnet() {
         budget: formData.budget,
         has_website: formData.hasWebsite,
         value: leadValue,
-        const leadId = crypto.randomUUID();
+      });
 
-        // Facebook Browser Pixel - Lead Event
-        // @ts-ignore
-        if(typeof window.fbq === 'function') {
+      const leadId = crypto.randomUUID();
+
+      // Facebook Browser Pixel - Lead Event
+      // @ts-ignore
+      if (typeof window.fbq === 'function') {
         // @ts-ignore
         window.fbq('track', 'Lead', {
           content_name: 'ads_magnet',

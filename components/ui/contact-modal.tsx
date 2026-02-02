@@ -121,11 +121,13 @@ export function ContactModal() {
                 has_email: isEmail,
                 has_telegram: !isEmail,
                 value: leadValue,
-                const leadId = crypto.randomUUID();
+            });
 
-                // Facebook Browser Pixel - Lead Event
-                // @ts-ignore
-                if(typeof window.fbq === 'function') {
+            const leadId = crypto.randomUUID();
+
+            // Facebook Browser Pixel - Lead Event
+            // @ts-ignore
+            if (typeof window.fbq === 'function') {
                 // @ts-ignore
                 window.fbq('track', 'Lead', {
                     content_name: 'contact_modal',
