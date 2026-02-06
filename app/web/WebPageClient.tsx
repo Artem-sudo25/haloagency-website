@@ -152,9 +152,9 @@ export default function WebPageClient() {
                 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
                 style={{ animationDelay: "0.1s" }}
               >
-                Сайты, которые продают <br />
+                Создание сайтов под ключ <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">
-                  за вас 24/7
+                для бизнеса в Чехии
                 </span>
               </h1>
 
