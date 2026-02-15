@@ -85,6 +85,12 @@ export default function RootLayout({
           />
         </noscript>
 
+        {/* Hotjar / Contentsquare */}
+        <Script
+          src="https://t.contentsquare.net/uxa/4e2ca2b8d17a0.js"
+          strategy="afterInteractive"
+        />
+
         {/* HaloTrack Attribution Tracking */}
         {process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN && (
           <Script

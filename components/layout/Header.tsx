@@ -44,8 +44,8 @@ export default function Header() {
         <>
             <header
                 className={`fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] transition-all duration-300 rounded-2xl border border-white/10 ${scrolled || mobileMenuOpen
-                    ? "top-3 bg-slate-900/70 backdrop-blur-xl shadow-lg shadow-black/20 py-3"
-                    : "top-4 bg-slate-900/50 backdrop-blur-lg py-4"
+                    ? "top-3 bg-slate-800/50 backdrop-blur-xl shadow-lg shadow-black/30 py-3"
+                    : "top-4 bg-slate-800/40 backdrop-blur-lg shadow-md shadow-black/20 py-4"
                     }`}
             >
                 <div className="w-full px-5 md:px-8 flex items-center justify-between">

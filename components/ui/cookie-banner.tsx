@@ -53,7 +53,7 @@ export function CookieBanner() {
         <div className="max-w-2xl mx-auto">
           {/* Main Banner */}
           {!showSettings ? (
-            <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
               <div className="p-5 sm:p-7">
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center">
                   {/* Icon */}
@@ -94,7 +94,7 @@ export function CookieBanner() {
             </div>
           ) : (
             /* Settings Panel */
-            <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
+            <div className="relative bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
               <div className="p-6 sm:p-8">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">
                   Настройки cookies
