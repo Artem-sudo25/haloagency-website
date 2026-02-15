@@ -12,7 +12,7 @@ export default function Hero() {
   const { open: openContactModal } = useContactModalActions();
 
   return (
-    <section className="relative pt-24 md:pt-36 pb-6 md:pb-32 px-4">
+    <section className="relative pt-36 pb-6 md:pb-32 px-4">
       <SpotlightHero />
 
       <div className="container mx-auto max-w-7xl relative z-10">
