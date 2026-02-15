@@ -74,9 +74,9 @@ export function initializeConsentMode() {
   }
   (window as any).gtag = gtag;
 
-  // Set default consent to denied
+  // Set default consent - analytics granted, ads denied
   gtag("consent", "default", {
-    analytics_storage: "denied",
+    analytics_storage: "granted",
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
@@ -101,16 +101,6 @@ export function acceptAllCookies() {
   });
 }
 
-/**
- * Reject all optional cookies (only necessary)
- */
-export function rejectAllCookies() {
-  saveConsentPreferences({
-    necessary: true,
-    analytics: false,
-    marketing: false,
-  });
-}
 
 /**
  * Check if user has made a consent choice

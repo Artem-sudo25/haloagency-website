@@ -43,12 +43,12 @@ export default function Header() {
     return (
         <>
             <header
-                className={`fixed top-0 left-0 right-0 z-[9999] transition-all duration-300 ${scrolled || mobileMenuOpen
-                    ? "bg-ha-bg/80 backdrop-blur-md border-b border-white/5 py-4"
-                    : "bg-ha-bg/40 backdrop-blur-sm py-6"
+                className={`fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] transition-all duration-300 rounded-2xl border border-white/10 ${scrolled || mobileMenuOpen
+                    ? "top-3 bg-slate-900/70 backdrop-blur-xl shadow-lg shadow-black/20 py-3"
+                    : "top-4 bg-slate-900/50 backdrop-blur-lg py-4"
                     }`}
             >
-                <div className="w-full px-4 md:px-8 flex items-center justify-between md:max-w-7xl md:mx-auto">
+                <div className="w-full px-5 md:px-8 flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex-shrink-0 relative h-10 w-[180px] sm:h-12 sm:w-[240px]">
                         <Image
@@ -144,7 +144,7 @@ export default function Header() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="fixed inset-0 top-[72px] z-[9997] bg-black/60 backdrop-blur-sm md:hidden"
+                                className="fixed inset-0 top-0 z-[9997] bg-black/60 backdrop-blur-sm md:hidden"
                                 onClick={() => setMobileMenuOpen(false)}
                             />
                             {/* Menu Panel */}
@@ -153,7 +153,7 @@ export default function Header() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.2 }}
-                                className="fixed left-4 right-4 top-[80px] z-[9998] bg-slate-900/95 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl p-6 md:hidden"
+                                className="fixed left-4 right-4 top-[76px] z-[9998] bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-6 md:hidden"
                             >
                                 <nav className="flex flex-col gap-4">
                                     {navLinks.map((link) => (

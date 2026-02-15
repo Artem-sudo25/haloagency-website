@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Cookie, X, Settings } from "lucide-react";
+import { Cookie, Settings } from "lucide-react";
 import { Button } from "./button";
 import {
   hasConsented,
   acceptAllCookies,
-  rejectAllCookies,
   saveConsentPreferences,
-  getConsentPreferences,
 } from "@/lib/consent";
 
 export function CookieBanner() {
@@ -35,17 +33,8 @@ export function CookieBanner() {
     setIsVisible(false);
   };
 
-  const handleRejectAll = () => {
-    rejectAllCookies();
-    setIsVisible(false);
-  };
-
   const handleSavePreferences = () => {
     saveConsentPreferences(preferences);
-    setIsVisible(false);
-  };
-
-  const handleClose = () => {
     setIsVisible(false);
   };
 
@@ -54,29 +43,21 @@ export function CookieBanner() {
   return (
     <AnimatePresence>
       <motion.div
+        key="cookie-banner"
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 100, opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="fixed bottom-0 left-0 right-0 z-[9000] p-3 sm:p-4 md:p-6 w-full overflow-hidden"
+        className="fixed bottom-8 sm:bottom-12 left-0 right-0 z-[9000] px-4 sm:px-6"
       >
-        <div className="max-w-7xl mx-auto w-full">
+        <div className="max-w-2xl mx-auto">
           {/* Main Banner */}
           {!showSettings ? (
-            <div className="relative bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
-              {/* Close button */}
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="p-4 sm:p-6 md:p-8">
-                <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center">
-                  {/* Icon - hidden on very small screens */}
-                  <div className="flex-shrink-0 hidden sm:block">
+            <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="p-5 sm:p-7">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-5 items-center">
+                  {/* Icon */}
+                  <div className="hidden sm:block flex-shrink-0">
                     <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-purple-500 p-[2px]">
                       <div className="w-full h-full rounded-xl bg-slate-900 flex items-center justify-center">
                         <Cookie className="w-6 h-6 text-blue-400" />
@@ -85,39 +66,27 @@ export function CookieBanner() {
                   </div>
 
                   {/* Content */}
-                  <div className="flex-grow min-w-0 pr-6">
-                    <h3 className="text-base sm:text-lg font-bold text-white mb-1 sm:mb-2">
-                      Мы используем cookies
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                      Мы используем необходимые cookies для работы сайта, а также
-                      аналитические и маркетинговые cookies для улучшения вашего опыта.
-                      Вы можете выбрать, какие cookies разрешить.
+                  <div className="flex-grow text-center sm:text-left">
+                    <p className="text-[15px] text-slate-300 leading-relaxed">
+                      Мы используем cookies для работы сайта и улучшения вашего опыта.
                     </p>
                   </div>
 
                   {/* Actions */}
-                  <div className="flex flex-wrap sm:flex-nowrap gap-2 sm:gap-3 w-full md:w-auto md:flex-shrink-0">
+                  <div className="flex gap-3 flex-shrink-0 w-full sm:w-auto">
                     <Button
                       onClick={handleAcceptAll}
-                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-medium rounded-lg shadow-lg shadow-blue-500/25"
+                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-6 py-2.5 text-sm font-medium rounded-lg shadow-lg shadow-blue-500/25 flex-1 sm:flex-none"
                     >
                       Принять все
                     </Button>
                     <Button
                       onClick={() => setShowSettings(true)}
                       variant="outline"
-                      className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-3 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-medium rounded-lg"
+                      className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white px-6 py-2.5 text-sm font-medium rounded-lg flex-1 sm:flex-none"
                     >
-                      <Settings className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                      <Settings className="w-4 h-4 mr-2" />
                       Настроить
-                    </Button>
-                    <Button
-                      onClick={handleRejectAll}
-                      variant="ghost"
-                      className="text-slate-400 hover:text-white hover:bg-slate-800 px-3 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-medium rounded-lg"
-                    >
-                      Отклонить
                     </Button>
                   </div>
                 </div>
@@ -125,17 +94,8 @@ export function CookieBanner() {
             </div>
           ) : (
             /* Settings Panel */
-            <div className="relative bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
-              {/* Close button */}
-              <button
-                onClick={handleClose}
-                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors z-10"
-                aria-label="Close"
-              >
-                <X className="w-5 h-5" />
-              </button>
-
-              <div className="p-4 sm:p-6 md:p-8">
+            <div className="relative bg-slate-900 border border-slate-700/50 rounded-2xl shadow-2xl overflow-hidden">
+              <div className="p-6 sm:p-8">
                 <h3 className="text-lg sm:text-xl font-bold text-white mb-4 sm:mb-6">
                   Настройки cookies
                 </h3>

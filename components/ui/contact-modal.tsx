@@ -88,6 +88,19 @@ export function ContactModal() {
                 }, { eventID: leadId });
             }
 
+            // Google Ads Enhanced Conversions - Data Layer Push
+            // @ts-ignore
+            window.dataLayer = window.dataLayer || [];
+            // @ts-ignore
+            window.dataLayer.push({
+                'event': 'generate_lead',
+                'eventID': leadId, // Deduplication ID
+                'user_data': {
+                    'email_address': contact,
+                    'phone_number': phone
+                }
+            });
+
             const response = await fetch("/api/webhook/lead", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
