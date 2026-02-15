@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="bg-ha-bg pt-20">
+    <main className="bg-ha-bg">
       <Hero />
       <SectionDivider />
       <Services />

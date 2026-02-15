@@ -12,27 +12,19 @@ export default function Hero() {
   const { open: openContactModal } = useContactModalActions();
 
   return (
-    <section className="relative py-6 md:py-32 px-4">
+    <section className="relative pt-24 md:pt-36 pb-6 md:pb-32 px-4">
       <SpotlightHero />
 
       <div className="container mx-auto max-w-7xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column: Text Content */}
           <div className="text-left">
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-8 animate-fade-in-up backdrop-blur-sm"
-            >
-              <span className="text-sm font-medium text-gray-300">
-                🚀 Ваш онлайн маркетинг в Чехии
-              </span>
-            </div>
-
             <h1
               className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight tracking-tight animate-fade-in-up"
               style={{ animationDelay: "0.1s" }}
             >
               Весь маркетинг <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-blue-300 to-cyan-400">
                 под одной крышей
               </span>
             </h1>
