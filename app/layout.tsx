@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { ContactModalProvider } from "@/context/contact-modal-context";
 import { ContactModal } from "@/components/ui/contact-modal";
 import { CookieBanner } from "@/components/ui/cookie-banner";
+import { ConsentScripts } from "@/components/analytics/ConsentScripts";
 import Script from "next/script";
 
 const inter = Inter({
@@ -56,41 +57,6 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* Meta Pixel Code */}
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '2213571369171089');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style={{ display: "none" }}
-            src="https://www.facebook.com/tr?id=2213571369171089&ev=PageView&noscript=1"
-            alt="Meta Pixel"
-          />
-        </noscript>
-
-        {/* Hotjar / Contentsquare */}
-        <Script
-          src="https://t.contentsquare.net/uxa/4e2ca2b8d17a0.js"
-          strategy="afterInteractive"
-        />
-
         {/* HaloTrack Attribution Tracking */}
         {process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN && (
           <Script
@@ -136,6 +102,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <Footer />
           <ContactModal />
           <CookieBanner />
+          <ConsentScripts />
         </ContactModalProvider>
       </body>
     </html>

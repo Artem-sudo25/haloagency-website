@@ -42,6 +42,9 @@ export function saveConsentPreferences(preferences: Omit<ConsentPreferences, "ti
 
   // Update GTM Consent Mode v2
   updateGTMConsent(preferences);
+
+  // Notify same-tab listeners (ConsentScripts component)
+  window.dispatchEvent(new Event("consent-updated"));
 }
 
 /**
