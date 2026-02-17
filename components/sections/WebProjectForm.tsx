@@ -118,6 +118,7 @@ export default function WebProjectForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "web-project",

@@ -78,7 +78,10 @@ export async function sendLeadToWebhook(
     try {
         const response = await fetch('/api/webhook/lead', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Webhook-Secret': process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || '',
+            },
             body: JSON.stringify(leadData),
         });
 
@@ -161,7 +164,10 @@ export async function sendLeadToHaloTrack(leadData: HaloTrackLead): Promise<void
 
         await fetch(`https://${process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN}/api/webhook/lead`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Webhook-Secret': process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || '',
+            },
             body: JSON.stringify(payload),
         });
     } catch (error) {

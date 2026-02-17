@@ -82,7 +82,10 @@ export default function AdsLeadMagnet() {
 
       const response = await fetch("/api/webhook/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+        },
         body: JSON.stringify({
           type: "ads-lead",
           session_id: haloSessionId,

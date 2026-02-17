@@ -5,6 +5,12 @@ export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
     try {
+        // Validate webhook secret
+        const incomingSecret = req.headers.get('x-webhook-secret');
+        if (process.env.WEBHOOK_SECRET && incomingSecret !== process.env.WEBHOOK_SECRET) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         const body = await req.json();
         const {
             type,
@@ -69,7 +75,10 @@ export async function POST(req: NextRequest) {
             const protocol = halotrackDomain.startsWith('localhost') ? 'http' : 'https';
             halotrackPromise = fetch(`${protocol}://${halotrackDomain}/api/webhook/lead`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-Webhook-Secret": process.env.HALOTRACK_WEBHOOK_SECRET || "",
+                },
                 body: JSON.stringify(halotrackPayload),
             }).then(res => {
                 if (!res.ok) console.error(`HaloTrack push failed: ${res.status}`);

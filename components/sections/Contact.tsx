@@ -51,6 +51,7 @@ export default function Contact() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "contact",
