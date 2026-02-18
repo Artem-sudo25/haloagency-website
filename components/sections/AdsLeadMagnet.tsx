@@ -148,7 +148,7 @@ export default function AdsLeadMagnet() {
         'event': 'generate_lead_v2',
         'eventID': leadId,
         'user_data': {
-          'email_address': contact,
+          'email_address': formData.contact,
         }
       });
 
