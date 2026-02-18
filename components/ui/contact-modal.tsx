@@ -93,7 +93,7 @@ export function ContactModal() {
             window.dataLayer = window.dataLayer || [];
             // @ts-ignore
             window.dataLayer.push({
-                'event': 'generate_lead',
+                'event': 'generate_lead_v2',
                 'eventID': leadId, // Deduplication ID
                 'user_data': {
                     'email_address': contact,

@@ -51,16 +51,15 @@ export function saveConsentPreferences(preferences: Omit<ConsentPreferences, "ti
  * Update GTM Consent Mode v2 signals
  */
 export function updateGTMConsent(preferences: Omit<ConsentPreferences, "timestamp">) {
-  if (typeof window === "undefined" || !(window as any).gtag) return;
+  if (typeof window === "undefined") return;
 
-  const gtag = (window as any).gtag;
-
-  gtag("consent", "update", {
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).dataLayer.push(['consent', 'update', {
     analytics_storage: preferences.analytics ? "granted" : "denied",
     ad_storage: preferences.marketing ? "granted" : "denied",
     ad_user_data: preferences.marketing ? "granted" : "denied",
     ad_personalization: preferences.marketing ? "granted" : "denied",
-  });
+  }]);
 }
 
 /**
