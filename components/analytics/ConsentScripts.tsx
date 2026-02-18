@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
-import { getConsentPreferences } from "@/lib/consent";
+import { getConsentPreferences, updateGTMConsent } from "@/lib/consent";
 
 export function ConsentScripts() {
   return (
@@ -30,6 +30,8 @@ function ConsentScriptsInner() {
       if (prefs) {
         setAnalyticsConsent(prefs.analytics);
         setMarketingConsent(prefs.marketing);
+        // Sync stored consent to GTM on every page load
+        updateGTMConsent(prefs);
       }
     }
 
