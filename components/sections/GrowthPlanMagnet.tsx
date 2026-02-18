@@ -37,6 +37,7 @@ export default function GrowthPlanMagnet() {
     const [showSuccess, setShowSuccess] = useState(false);
     const [selectedTried, setSelectedTried] = useState<string[]>([]);
     const [haloSessionId, setHaloSessionId] = useState<string>("");
+    const [submitError, setSubmitError] = useState("");
 
     const {
         register,
@@ -45,6 +46,7 @@ export default function GrowthPlanMagnet() {
         formState: { errors },
         reset,
     } = useForm<GrowthPlanData>({
+        resolver: zodResolver(growthPlanSchema),
         defaultValues: {
             triedBefore: [],
         },
@@ -77,15 +79,7 @@ export default function GrowthPlanMagnet() {
     };
 
     const onSubmit = async (data: GrowthPlanData) => {
-        // ... (validation code same as before)
-        const result = growthPlanSchema.safeParse(data);
-        if (!result.success) {
-            console.error("Validation failed:", result.error);
-            const errorMessages = (result.error as any).errors.map((e: any) => `${e.path.join(".")}: ${e.message}`).join("\n");
-            alert("Пожалуйста, заполните все обязательные поля:\n" + errorMessages);
-            return;
-        }
-
+        setSubmitError("");
         setIsSubmitting(true);
 
         // Add selected checkboxes to data
@@ -154,16 +148,24 @@ export default function GrowthPlanMagnet() {
                 }, { eventID: leadId });
             }
 
-            // Send Lead Direct (Client-Side Attribution) - REMOVED
-            // Server webhook now handles duplication via lead_id
-
+            // Google Ads Enhanced Conversions
+            // @ts-ignore
+            window.dataLayer = window.dataLayer || [];
+            // @ts-ignore
+            window.dataLayer.push({
+                'event': 'generate_lead_v2',
+                'eventID': leadId,
+                'user_data': {
+                    'email_address': formData.contact,
+                }
+            });
 
             setShowSuccess(true);
             reset();
             setSelectedTried([]);
         } catch (error) {
             console.error("Failed to submit:", error);
-            // Optionally set error state here if UI supports it
+            setSubmitError("Ошибка отправки. Попробуйте ещё раз.");
         } finally {
             setIsSubmitting(false);
         }
@@ -424,6 +426,9 @@ export default function GrowthPlanMagnet() {
 
                             {/* Submit Button */}
                             <div className="pt-2">
+                                {submitError && (
+                                    <p className="text-red-400 text-sm text-center mb-3">{submitError}</p>
+                                )}
                                 <Button
                                     type="submit"
                                     disabled={isSubmitting}

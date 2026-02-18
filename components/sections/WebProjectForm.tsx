@@ -168,8 +168,17 @@ export default function WebProjectForm() {
         }, { eventID: leadId });
       }
 
-      // Send Lead Direct (Client-Side) - REMOVED for deduplication
-
+      // Google Ads Enhanced Conversions
+      // @ts-ignore
+      window.dataLayer = window.dataLayer || [];
+      // @ts-ignore
+      window.dataLayer.push({
+        'event': 'generate_lead_v2',
+        'eventID': leadId,
+        'user_data': {
+          'email_address': answers.email,
+        }
+      });
 
     } catch (error) {
       console.error("Failed to submit form:", error);

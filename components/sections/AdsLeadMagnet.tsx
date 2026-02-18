@@ -140,9 +140,17 @@ export default function AdsLeadMagnet() {
         }, { eventID: leadId });
       }
 
-      // 2. Client-Side Send Lead (Attribution) - REMOVED
-      // Server webhook handles it via lead_id
-
+      // Google Ads Enhanced Conversions
+      // @ts-ignore
+      window.dataLayer = window.dataLayer || [];
+      // @ts-ignore
+      window.dataLayer.push({
+        'event': 'generate_lead_v2',
+        'eventID': leadId,
+        'user_data': {
+          'email_address': contact,
+        }
+      });
 
     } catch (err: any) {
       console.error(err);
