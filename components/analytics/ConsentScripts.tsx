@@ -17,10 +17,17 @@ export function ConsentScripts() {
  * Loads analytics/marketing scripts only after consent is granted.
  * Also handles SPA route change tracking for Hotjar and Meta Pixel.
  */
+function getInitialAnalyticsConsent(): boolean {
+  if (typeof window === "undefined") return false;
+  const prefs = getConsentPreferences();
+  // If no stored choice yet, match GTM default (analytics_storage: granted)
+  return prefs ? prefs.analytics : true;
+}
+
 function ConsentScriptsInner() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [analyticsConsent, setAnalyticsConsent] = useState(false);
+  const [analyticsConsent, setAnalyticsConsent] = useState(getInitialAnalyticsConsent);
   const [marketingConsent, setMarketingConsent] = useState(false);
 
   // Listen for consent changes (localStorage updates from cookie banner)
@@ -67,10 +74,10 @@ function ConsentScriptsInner() {
 
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
-    // Notify Contentsquare of SPA navigation via _uxa API
-    if (typeof window !== "undefined" && (window as any)._uxa) {
-      (window as any)._uxa.push(["trackPageview", url]);
-    }
+    // Pre-initialize _uxa so events are queued even before the CS script loads,
+    // then push the pageview. CS script drains the queue on init.
+    (window as any)._uxa = (window as any)._uxa || [];
+    (window as any)._uxa.push(["trackPageview", url]);
   }, [pathname, searchParams, analyticsConsent]);
 
   // SPA route change tracking for Meta Pixel
