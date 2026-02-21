@@ -39,7 +39,9 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
-        {/* GTM Consent Mode v2 - Initialize BEFORE GTM loads */}
+        {/* GTM Consent Mode v2 - Initialize BEFORE GTM loads.
+            Reads stored consent synchronously so GTM always starts with the
+            correct state — no wait_for_update race for returning visitors. */}
         <Script
           id="gtm-consent-init"
           strategy="beforeInteractive"
@@ -47,13 +49,18 @@ export default function RootLayout({
             __html: `
               window.dataLayer = window.dataLayer || [];
               window.gtag = function(){dataLayer.push(arguments);};
-              window.gtag('consent', 'default', {
-                'analytics_storage': 'granted',
-                'ad_storage': 'denied',
-                'ad_user_data': 'denied',
-                'ad_personalization': 'denied',
-                'wait_for_update': 500
-              });
+              (function() {
+                var stored = null;
+                try { stored = JSON.parse(localStorage.getItem('halo_cookie_consent')); } catch(e) {}
+                var analyticsGranted = stored ? (stored.analytics ? 'granted' : 'denied') : 'granted';
+                var marketingGranted = stored ? (stored.marketing ? 'granted' : 'denied') : 'denied';
+                window.gtag('consent', 'default', {
+                  'analytics_storage': analyticsGranted,
+                  'ad_storage': marketingGranted,
+                  'ad_user_data': marketingGranted,
+                  'ad_personalization': marketingGranted
+                });
+              })();
             `,
           }}
         />

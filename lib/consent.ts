@@ -64,35 +64,6 @@ export function updateGTMConsent(preferences: Omit<ConsentPreferences, "timestam
   }
 }
 
-/**
- * Initialize GTM Consent Mode v2 with default denied state
- * This must run BEFORE GTM loads
- */
-export function initializeConsentMode() {
-  if (typeof window === "undefined") return;
-
-  // Create gtag function if it doesn't exist
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  function gtag(...args: any[]) {
-    (window as any).dataLayer.push(args);
-  }
-  (window as any).gtag = gtag;
-
-  // Set default consent - analytics granted, ads denied
-  gtag("consent", "default", {
-    analytics_storage: "granted",
-    ad_storage: "denied",
-    ad_user_data: "denied",
-    ad_personalization: "denied",
-    wait_for_update: 500, // Wait 500ms for consent banner
-  });
-
-  // Check if user has already consented
-  const stored = getConsentPreferences();
-  if (stored) {
-    updateGTMConsent(stored);
-  }
-}
 
 /**
  * Accept all cookies
