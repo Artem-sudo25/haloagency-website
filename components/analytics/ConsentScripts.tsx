@@ -32,6 +32,9 @@ function ConsentScriptsInner() {
         setMarketingConsent(prefs.marketing);
         // Sync stored consent to GTM on every page load
         updateGTMConsent(prefs);
+      } else {
+        // No stored choice yet — match GTM default (analytics_storage: granted)
+        setAnalyticsConsent(true);
       }
     }
 
@@ -58,15 +61,15 @@ function ConsentScriptsInner() {
     };
   }, []);
 
-  // SPA route change tracking for Hotjar
+  // SPA route change tracking for Contentsquare
   useEffect(() => {
     if (!analyticsConsent) return;
 
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
-    // Notify Hotjar/Contentsquare of SPA navigation
-    if (typeof window !== "undefined" && (window as any).hj) {
-      (window as any).hj("stateChange", url);
+    // Notify Contentsquare of SPA navigation via _uxa API
+    if (typeof window !== "undefined" && (window as any)._uxa) {
+      (window as any)._uxa.push(["trackPageview", url]);
     }
   }, [pathname, searchParams, analyticsConsent]);
 
@@ -85,6 +88,7 @@ function ConsentScriptsInner() {
       {/* Hotjar / Contentsquare - only loads when analytics consent granted */}
       {analyticsConsent && (
         <Script
+          id="contentsquare"
           src="https://t.contentsquare.net/uxa/4e2ca2b8d17a0.js"
           strategy="afterInteractive"
         />

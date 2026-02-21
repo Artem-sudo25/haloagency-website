@@ -53,13 +53,15 @@ export function saveConsentPreferences(preferences: Omit<ConsentPreferences, "ti
 export function updateGTMConsent(preferences: Omit<ConsentPreferences, "timestamp">) {
   if (typeof window === "undefined") return;
 
-  (window as any).dataLayer = (window as any).dataLayer || [];
-  (window as any).dataLayer.push(['consent', 'update', {
-    analytics_storage: preferences.analytics ? "granted" : "denied",
-    ad_storage: preferences.marketing ? "granted" : "denied",
-    ad_user_data: preferences.marketing ? "granted" : "denied",
-    ad_personalization: preferences.marketing ? "granted" : "denied",
-  }]);
+  // Must use gtag() function — dataLayer.push([]) array format is not recognized by GTM Consent Mode v2
+  if (typeof (window as any).gtag === "function") {
+    (window as any).gtag("consent", "update", {
+      analytics_storage: preferences.analytics ? "granted" : "denied",
+      ad_storage: preferences.marketing ? "granted" : "denied",
+      ad_user_data: preferences.marketing ? "granted" : "denied",
+      ad_personalization: preferences.marketing ? "granted" : "denied",
+    });
+  }
 }
 
 /**

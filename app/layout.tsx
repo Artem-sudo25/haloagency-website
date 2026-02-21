@@ -46,8 +46,8 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('consent', 'default', {
+              window.gtag = function(){dataLayer.push(arguments);};
+              window.gtag('consent', 'default', {
                 'analytics_storage': 'granted',
                 'ad_storage': 'denied',
                 'ad_user_data': 'denied',
