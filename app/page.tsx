@@ -15,9 +15,9 @@ const SectionDivider = () => (
 );
 
 export const metadata: Metadata = {
-  title: "HaloAgency — маркетинговое агентство | сайты и реклама в Чехии",
+  title: "HaloAgency — маркетинговое агентство в Праге | Сайты и реклама",
   description:
-    "HaloAgency — маркетинговое агентство в Чехии. Создание сайтов, таргетированная реклама в Instagram и Facebook, реклама в Google. Настройка, ведение и рост продаж для бизнеса.",
+    "Создание сайтов, таргетированная реклама в Instagram и Facebook, контекстная реклама в Google. Помогаем бизнесу в Чехии привлекать клиентов и расти.",
 
   keywords: [
     "маркетинговое агентство",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "HaloAgency — сайты и реклама для бизнеса в Чехии",
     description:
-      "Создание сайтов и настройка рекламы: Instagram, Facebook и Google. Помогаем бизнесу в Чехии привлекать клиентов и увеличивать продажи.",
+      "Создание сайтов, таргетированная реклама в Instagram и Facebook, контекстная реклама в Google. Помогаем бизнесу в Чехии привлекать клиентов и расти.",
     url: "https://haloagency.cz",
     siteName: "HaloAgency",
     locale: "ru_RU",

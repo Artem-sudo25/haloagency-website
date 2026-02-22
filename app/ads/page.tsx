@@ -24,7 +24,7 @@ export const metadata: Metadata = {
         "настройка таргет",
     ],
     openGraph: {
-        title: "Реклама в Google и Facebook в Чехии | Таргетинг и контекст — HaloAgency",
+        title: "Реклама в Google и Facebook в Чехии — HaloAgency",
         description:
             "Настройка и ведение рекламы в Google Ads, Instagram и Facebook. Помогаем бизнесу в Чехии получать заявки и продажи — не просто клики.",
     },
