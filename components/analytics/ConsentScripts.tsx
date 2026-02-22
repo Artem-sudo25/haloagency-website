@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
 import { getConsentPreferences, updateGTMConsent } from "@/lib/consent";
@@ -29,6 +29,7 @@ function ConsentScriptsInner() {
   const searchParams = useSearchParams();
   const [analyticsConsent, setAnalyticsConsent] = useState(getInitialAnalyticsConsent);
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const isMounted = useRef(false);
 
   // Listen for consent changes (localStorage updates from cookie banner)
   useEffect(() => {
@@ -68,14 +69,28 @@ function ConsentScriptsInner() {
     };
   }, []);
 
-  // SPA route change tracking for Contentsquare
+  // Tell ContentSquare whether recording is allowed whenever consent changes.
+  // CS "Privacy Mode" / "Consent Mode" (when enabled in the CS dashboard) requires
+  // an explicit _uxa setPrivacyMode signal — it does NOT read GTM consent signals
+  // when the script is loaded directly (outside GTM).
+  // setPrivacyMode(false) = recording allowed; setPrivacyMode(true) = no recording.
+  useEffect(() => {
+    (window as any)._uxa = (window as any)._uxa || [];
+    (window as any)._uxa.push(["setPrivacyMode", !analyticsConsent]);
+  }, [analyticsConsent]);
+
+  // SPA route change tracking for ContentSquare.
+  // Skip the initial mount — CS auto-tracks the first pageview on script init.
+  // Only push trackPageview for subsequent client-side navigations.
   useEffect(() => {
     if (!analyticsConsent) return;
 
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
 
-    // Pre-initialize _uxa so events are queued even before the CS script loads,
-    // then push the pageview. CS script drains the queue on init.
+    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
     (window as any)._uxa = (window as any)._uxa || [];
     (window as any)._uxa.push(["trackPageview", url]);
   }, [pathname, searchParams, analyticsConsent]);
