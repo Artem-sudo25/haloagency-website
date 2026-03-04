@@ -8,6 +8,14 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContactModalActions } from "@/context/contact-modal-context";
 
+type HeaderMode = "default" | "lp";
+type TrafficSource = "meta" | "google" | "other";
+
+interface HeaderProps {
+    mode?: HeaderMode;
+    trafficSource?: TrafficSource;
+}
+
 const navLinks = [
     {
         name: "Услуги",
@@ -24,7 +32,7 @@ const navLinks = [
     { name: "О нас", href: "/#about" },
 ];
 
-export default function Header() {
+export default function Header({ mode = "default", trafficSource = "other" }: HeaderProps) {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -39,6 +47,47 @@ export default function Header() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    if (mode === "lp") {
+        const sourceLabel =
+            trafficSource === "meta"
+                ? "Meta Ads"
+                : trafficSource === "google"
+                    ? "Google Ads"
+                    : null;
+
+        const ctaLabel =
+            trafficSource === "google"
+                ? "Получить план запуска"
+                : "Записаться бесплатно";
+
+        return (
+            <header className="fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] top-3 bg-slate-900/75 backdrop-blur-xl shadow-lg shadow-black/30 py-3 rounded-2xl border border-white/10">
+                <div className="w-full px-5 md:px-8 flex items-center justify-between gap-3">
+                    <Link href="/" className="flex-shrink-0 relative h-10 w-[180px] sm:h-11 sm:w-[220px]">
+                        <Image
+                            src="/logo-v3.png"
+                            alt="HaloAgency"
+                            fill
+                            className="object-contain object-left"
+                            priority
+                        />
+                    </Link>
+
+                    <div className="flex items-center gap-2">
+                        {sourceLabel && (
+                            <span className="hidden md:inline-flex text-xs font-medium text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
+                                {sourceLabel}
+                            </span>
+                        )}
+                        <Button asChild className="rounded-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white px-4 md:px-6 h-10 text-sm">
+                            <Link href="#audit-form">{ctaLabel}</Link>
+                        </Button>
+                    </div>
+                </div>
+            </header>
+        );
+    }
 
     return (
         <>

@@ -20,7 +20,7 @@ declare global {
 export interface HaloTrackLead {
     lead_id: string;
     source: string;
-    form_type: 'web-project' | 'tracking-audit' | 'ads-lead' | 'growth-plan' | 'contact';
+    form_type: 'web-project' | 'tracking-audit' | 'ads-lead' | 'growth-plan' | 'contact' | 'audit-consultation';
     email: string;
     name?: string;
     phone?: string;

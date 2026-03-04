@@ -18,6 +18,10 @@ export async function POST(req: NextRequest) {
             email,
             ...formData
         } = body;
+        const normalizedSource =
+            typeof body.source === "string" && body.source.trim().length > 0
+                ? body.source
+                : "haloagency_website";
 
         // Basic validation
         if (!type || !email) {
@@ -38,7 +42,7 @@ export async function POST(req: NextRequest) {
             const payload = {
                 ...body,
                 timestamp,
-                source: "haloagency_website",
+                source: normalizedSource,
             };
 
             n8nPromise = fetch(n8nWebhookUrl, {
@@ -55,11 +59,25 @@ export async function POST(req: NextRequest) {
         let halotrackPromise = Promise.resolve();
 
         if (halotrackDomain) {
-            const { type, email, contact, name, phone, message, session_id, consent_given, lead_id, ...extras } = body;
+            const {
+                type,
+                email,
+                contact,
+                name,
+                phone,
+                message,
+                session_id,
+                consent_given,
+                lead_id,
+                source,
+                value,
+                currency,
+                ...extras
+            } = body;
 
             const halotrackPayload = {
                 lead_id: lead_id || crypto.randomUUID(), // Use provided ID or generate matched ID for tracking
-                source: "haloagency_website",
+                source: source || normalizedSource,
                 form_type: type, // e.g. 'growth-plan'
                 email: email || contact, // Normalized email
                 name: name || "",
@@ -67,8 +85,8 @@ export async function POST(req: NextRequest) {
                 message: message || JSON.stringify(extras), // Use message or stringified extras
                 session_id: session_id,
                 consent_given: consent_given ?? true,
-                lead_value: 0, // Default
-                currency: "CZK",
+                lead_value: Number.isFinite(Number(value)) ? Number(value) : 0,
+                currency: typeof currency === "string" && currency ? currency : "CZK",
                 custom_fields: extras // All rich data (goals, business type, etc.)
             };
 

@@ -85,3 +85,34 @@ export const growthPlanSchema = z.object({
 });
 
 export type GrowthPlanData = z.infer<typeof growthPlanSchema>;
+
+// Audit Consultation LP Schema (minimal form — max CVR)
+export const auditConsultationSchema = z.object({
+  businessType: z
+    .string()
+    .min(2, "Укажите тип бизнеса"),
+  websiteOrProfile: z
+    .string()
+    .optional(),
+  email: z
+    .string()
+    .min(1, "Email обязателен")
+    .email("Неверный формат email"),
+  phone: z
+    .string()
+    .optional(),
+  consent: z
+    .boolean()
+    .refine((val) => val === true, {
+      message: "Необходимо согласие с политикой конфиденциальности",
+    }),
+});
+
+export type AuditConsultationData = z.infer<typeof auditConsultationSchema>;
+
+// Post-submit micro-survey (optional, for lead scoring)
+export const auditPostSubmitSchema = z.object({
+  decisionTimeline: z.string().optional(),
+});
+
+export type AuditPostSubmitData = z.infer<typeof auditPostSubmitSchema>;

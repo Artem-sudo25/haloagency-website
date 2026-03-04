@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import { ContactModalProvider } from "@/context/contact-modal-context";
-import { ContactModal } from "@/components/ui/contact-modal";
+import { LayoutShell } from "@/components/layout/LayoutShell";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { ConsentScripts } from "@/components/analytics/ConsentScripts";
 import Script from "next/script";
@@ -97,10 +95,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         )}
 
         <ContactModalProvider>
-          <Header />
-          {children}
-          <Footer />
-          <ContactModal />
+          <LayoutShell>
+            {children}
+          </LayoutShell>
           <CookieBanner />
           <ConsentScripts />
         </ContactModalProvider>
