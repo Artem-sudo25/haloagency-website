@@ -231,11 +231,11 @@ const faqItems = [
 
 const sectionShell = "mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8";
 const primaryButtonClass =
-  "inline-flex items-center justify-center rounded-full bg-[#C56A3A] px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[#B65D2F]";
+  "inline-flex items-center justify-center rounded-full bg-exp-emerald px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-exp-emerald-hover shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]";
 const secondaryButtonClass =
-  "inline-flex items-center justify-center rounded-full border border-[#D9CFC2] bg-white px-6 py-3 text-sm font-semibold text-[#3D4852] transition hover:-translate-y-0.5 hover:border-[#C56A3A] hover:text-[#9C4C22]";
+  "inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-exp-emerald hover:text-exp-emerald";
 const cardClass =
-  "rounded-3xl border border-[#E8E1D8] bg-white shadow-[0_10px_30px_rgba(31,41,51,0.08)]";
+  "rounded-3xl border border-white/10 bg-exp-bg-soft shadow-[0_10px_40px_rgba(0,0,0,0.4)] backdrop-blur-sm";
 
 export default function ExperimentalLPClient() {
   const [values, setValues] = useState<FormValues>({
@@ -353,29 +353,29 @@ export default function ExperimentalLPClient() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FCFAF7] text-[#1F2933]">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[360px] bg-[radial-gradient(circle_at_top_right,rgba(197,106,58,0.18),transparent_54%)]" />
+    <main className="min-h-screen bg-exp-bg text-exp-stark-white selection:bg-exp-emerald selection:text-white font-sans">
+      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-      <header className="sticky top-0 z-40 border-b border-[#EEE6DB] bg-[#FCFAF7]/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-exp-bg/80 backdrop-blur-md">
         <div
           className={`${sectionShell} flex h-16 items-center justify-between gap-3`}
         >
           <Link href="/" className="text-lg font-semibold tracking-tight">
-            Halo<span className="text-[#C56A3A]">Agency</span>
+            Halo<span className="text-exp-emerald">Agency</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="https://wa.me/420705729502"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 rounded-full border border-[#E6DBCC] bg-white px-3 py-1.5 text-xs font-medium text-[#3D4852] transition hover:border-[#C56A3A] hover:text-[#9C4C22] sm:text-sm"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-gray-300 transition hover:border-exp-emerald hover:text-exp-emerald sm:text-sm"
             >
               <MessageCircle className="h-4 w-4" />
               WhatsApp
             </a>
             <a
               href="tel:+420705729502"
-              className="hidden items-center gap-1 rounded-full border border-[#E6DBCC] bg-white px-3 py-1.5 text-sm font-medium text-[#3D4852] transition hover:border-[#C56A3A] hover:text-[#9C4C22] sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-gray-300 transition hover:border-exp-emerald hover:text-exp-emerald sm:inline-flex"
             >
               <PhoneCall className="h-4 w-4" />
               +420 705 729 502
@@ -384,21 +384,21 @@ export default function ExperimentalLPClient() {
         </div>
       </header>
 
-      <section className="relative py-14 sm:py-20">
+      <section className="relative py-14 sm:py-20 z-10">
         <div
           className={`${sectionShell} grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start`}
         >
           <div className="space-y-6">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-medium text-[#5E6A76] shadow-[0_6px_18px_rgba(31,41,51,0.08)]">
-              <MapPin className="h-4 w-4 text-[#C56A3A]" />
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur px-4 py-2 text-sm font-medium text-gray-300">
+              <MapPin className="h-4 w-4 text-exp-emerald" />
               Performance marketing + tracking для SMB в Праге и по Чехии
             </p>
             <div className="space-y-4">
-              <h1 className="max-w-xl text-4xl font-semibold tracking-tight text-[#1C252E] sm:text-5xl">
-                Реклама должна давать стабильные заявки, а не хаос в цифрах.
+              <h1 className="max-w-xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:leading-[1.1]">
+                Реклама должна давать стабильные заявки, а не <span className="opacity-40 italic">хаос в цифрах.</span>
               </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-[#4C5A67]">
-                На 20-мин Growth Audit Call покажем, где вы теряете деньги: в
+              <p className="max-w-xl text-lg leading-relaxed text-gray-400">
+                На 20-мин <span className="text-white font-medium">Growth Audit Call</span> покажем, где вы теряете деньги: в
                 рекламе, лендинге или трекинге. После звонка получите внедряемый
                 план на 30 дней.
               </p>
@@ -406,20 +406,21 @@ export default function ExperimentalLPClient() {
 
             <div className="grid gap-3 sm:grid-cols-3">
               {[
-                "90+ аудитов по CZ",
-                "Среднее снижение CPA: -28% за 60 дней",
-                "Ответ в WhatsApp до 2 часов",
+                { value: "90+", label: "аудитов по CZ" },
+                { value: "-28%", label: "среднее снижение CPA за 60 дней" },
+                { value: "< 2 ч", label: "ответ в WhatsApp" },
               ].map((stat) => (
                 <div
-                  key={stat}
-                  className={`${cardClass} px-4 py-3 text-sm font-medium text-[#3F4A55]`}
+                  key={stat.label}
+                  className={`${cardClass} px-4 py-3 flex flex-col justify-center`}
                 >
-                  {stat}
+                  <span className="font-mono text-lg font-bold text-exp-emerald">{stat.value}</span>
+                  <span className="text-xs font-medium text-gray-400 mt-0.5">{stat.label}</span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 pt-2">
               <button
                 type="button"
                 onClick={() => scrollToForm(false)}
@@ -436,36 +437,45 @@ export default function ExperimentalLPClient() {
                 Получить пример аудита PDF
               </button>
             </div>
-            <p className="text-sm text-[#607080]">
-              На этой неделе открыто {slotsLeft} слотов на аудит.
-            </p>
+            <div className="flex items-center gap-2 text-sm font-mono text-gray-400">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-exp-emerald opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-exp-emerald"></span>
+              </span>
+              На этой неделе открыто <span className="text-white font-semibold">{slotsLeft} слотов</span> на аудит.
+            </div>
           </div>
 
-          <div id="audit-form" className={`${cardClass} p-6 sm:p-8`}>
-            <h2 className="text-2xl font-semibold text-[#1C252E]">
-              Запись на Growth Audit Call
+          <div id="audit-form" className={`${cardClass} relative overflow-hidden p-6 sm:p-8 border-t-2 border-t-exp-emerald/50`}>
+            {/* Command center decorative elements */}
+            <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
+              <div className="w-16 h-16 border-r-2 border-t-2 border-exp-emerald rounded-tr-xl"></div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+              <span className="w-2 h-6 bg-exp-emerald block rounded-sm"></span>
+              INITIATE_AUDIT
             </h2>
-            <p className="mt-2 text-sm text-[#65717D]">
-              4 поля, 20 минут созвона и план на 30 дней. Без лишних шагов.
+            <p className="mt-2 text-sm font-mono text-gray-400">
+              {">"} 4 поля. 20 минут созвона. План на 30 дней.
             </p>
 
             {submitSuccess && (
-              <div className="mt-5 rounded-2xl border border-[#DDEAD8] bg-[#F4FAF2] p-4 text-sm text-[#2E5A3A]">
-                Заявка отправлена. Мы напишем на указанный email в рабочее время
-                (обычно до 2 часов) и предложим время для звонка.
+              <div className="mt-5 rounded-xl border border-exp-emerald/30 bg-exp-emerald/10 p-4 text-sm font-mono text-exp-emerald">
+                {">"} SUCCESS: Заявка получена. Ожидайте email с вариантами времени (до 2 часов).
               </div>
             )}
 
             {submitError && (
-              <div className="mt-5 rounded-2xl border border-[#F2D2CC] bg-[#FFF5F2] p-4 text-sm text-[#9C3C2E]">
-                {submitError}
+              <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm font-mono text-red-400">
+                {">"} ERROR: {submitError}
               </div>
             )}
 
-            <form onSubmit={submitLead} className="mt-5 space-y-4">
-              <div className="space-y-1.5">
+            <form onSubmit={submitLead} className="mt-6 space-y-4">
+              <div className="space-y-1.5 flex flex-col">
                 <label
-                  className="text-sm font-medium text-[#364350]"
+                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
                   htmlFor="name"
                 >
                   Имя
@@ -476,17 +486,17 @@ export default function ExperimentalLPClient() {
                   onChange={(event) =>
                     setValues((prev) => ({ ...prev, name: event.target.value }))
                   }
-                  className="h-11 w-full rounded-xl border border-[#DED4C8] bg-[#FFFEFC] px-3 text-sm text-[#23303C] outline-none transition placeholder:text-[#94A0AB] focus:border-[#C56A3A]"
-                  placeholder="Например, Ирина"
+                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
+                  placeholder="name"
                 />
                 {errors.name && (
-                  <p className="text-xs text-[#A84E2D]">{errors.name}</p>
+                  <p className="text-xs font-mono text-red-400">{errors.name}</p>
                 )}
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 flex flex-col">
                 <label
-                  className="text-sm font-medium text-[#364350]"
+                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
                   htmlFor="website"
                 >
                   Сайт или Instagram
@@ -500,22 +510,22 @@ export default function ExperimentalLPClient() {
                       websiteOrProfile: event.target.value,
                     }))
                   }
-                  className="h-11 w-full rounded-xl border border-[#DED4C8] bg-[#FFFEFC] px-3 text-sm text-[#23303C] outline-none transition placeholder:text-[#94A0AB] focus:border-[#C56A3A]"
-                  placeholder="https://... или @..."
+                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
+                  placeholder="https://... | @..."
                 />
                 {errors.websiteOrProfile && (
-                  <p className="text-xs text-[#A84E2D]">
+                  <p className="text-xs font-mono text-red-400">
                     {errors.websiteOrProfile}
                   </p>
                 )}
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 flex flex-col">
                 <label
-                  className="text-sm font-medium text-[#364350]"
+                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
                   htmlFor="budget"
                 >
-                  Рекламный бюджет в месяц (CZK)
+                  Рекламный бюджет (CZK/мес)
                 </label>
                 <input
                   id="budget"
@@ -526,22 +536,22 @@ export default function ExperimentalLPClient() {
                       monthlyBudget: event.target.value,
                     }))
                   }
-                  className="h-11 w-full rounded-xl border border-[#DED4C8] bg-[#FFFEFC] px-3 text-sm text-[#23303C] outline-none transition placeholder:text-[#94A0AB] focus:border-[#C56A3A]"
-                  placeholder="Например, 60 000"
+                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
+                  placeholder="60 000"
                 />
                 {errors.monthlyBudget && (
-                  <p className="text-xs text-[#A84E2D]">
+                  <p className="text-xs font-mono text-red-400">
                     {errors.monthlyBudget}
                   </p>
                 )}
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1.5 flex flex-col">
                 <label
-                  className="text-sm font-medium text-[#364350]"
+                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
                   htmlFor="email"
                 >
-                  Email для связи
+                  Email
                 </label>
                 <input
                   id="email"
@@ -553,15 +563,15 @@ export default function ExperimentalLPClient() {
                       email: event.target.value,
                     }))
                   }
-                  className="h-11 w-full rounded-xl border border-[#DED4C8] bg-[#FFFEFC] px-3 text-sm text-[#23303C] outline-none transition placeholder:text-[#94A0AB] focus:border-[#C56A3A]"
+                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
                   placeholder="you@company.com"
                 />
                 {errors.email && (
-                  <p className="text-xs text-[#A84E2D]">{errors.email}</p>
+                  <p className="text-xs font-mono text-red-400">{errors.email}</p>
                 )}
               </div>
 
-              <label className="flex items-start gap-2 pt-1 text-sm text-[#566473]">
+              <label className="flex items-start gap-3 pt-2 text-xs text-gray-400 font-mono">
                 <input
                   type="checkbox"
                   checked={values.consent}
@@ -571,49 +581,50 @@ export default function ExperimentalLPClient() {
                       consent: event.target.checked,
                     }))
                   }
-                  className="mt-1 h-4 w-4 rounded border-[#D8CCC0] accent-[#C56A3A]"
+                  className="mt-0.5 h-4 w-4 rounded border-white/20 bg-exp-bg accent-exp-emerald focus:ring-exp-emerald focus:ring-offset-exp-bg"
                 />
                 <span>
-                  Согласен(а) на обработку данных. Без спама и рассылок, только
-                  контакт по вашему аудиту.
+                  [x] Согласие на обработку данных (только контакт по аудиту)
                 </span>
               </label>
               {errors.consent && (
-                <p className="text-xs text-[#A84E2D]">{errors.consent}</p>
+                <p className="text-xs font-mono text-red-400">{errors.consent}</p>
               )}
 
-              <label className="flex items-start gap-2 text-sm text-[#566473]">
+              <label className="flex items-start gap-3 text-xs text-gray-400 font-mono">
                 <input
                   type="checkbox"
                   checked={wantsSamplePdf}
                   onChange={(event) => setWantsSamplePdf(event.target.checked)}
-                  className="mt-1 h-4 w-4 rounded border-[#D8CCC0] accent-[#C56A3A]"
+                  className="mt-0.5 h-4 w-4 rounded border-white/20 bg-exp-bg accent-exp-emerald focus:ring-exp-emerald focus:ring-offset-exp-bg"
                 />
-                <span>Хочу получить пример аудита PDF на email</span>
+                <span className="text-white">
+                  [?] Прислать пример аудита PDF на email
+                </span>
               </label>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex h-12 w-full items-center justify-center rounded-full bg-[#C56A3A] px-6 text-sm font-semibold text-white transition hover:bg-[#B65D2F] disabled:cursor-not-allowed disabled:opacity-60"
+                className="inline-flex h-12 w-full mt-2 items-center justify-center rounded-lg bg-exp-emerald font-mono tracking-wide text-sm font-bold text-exp-bg transition hover:bg-exp-emerald-hover disabled:cursor-not-allowed disabled:opacity-60 uppercase shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
               >
                 {isSubmitting
-                  ? "Отправляем..."
-                  : "Забронировать 20-мин Growth Audit Call"}
+                  ? "PROCESSING..."
+                  : "EXECUTE_BOOKING"}
               </button>
             </form>
 
-            <div className="mt-4 rounded-2xl border border-[#EAE0D2] bg-[#FFFDF9] p-3 text-sm text-[#5B6874]">
-              Нужен быстрый ответ?{" "}
+            <div className="mt-5 rounded-lg border border-white/5 bg-white/5 p-3 text-xs font-mono text-gray-400 flex items-center gap-2">
+              <span className="block w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              FAST_TRACK:{" "}
               <a
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-[#9C4C22] underline decoration-[#D8AF95] underline-offset-4"
+                className="text-white underline decoration-blue-400/50 underline-offset-4 hover:text-blue-400"
               >
-                Напишите в WhatsApp
+                WhatsApp Ping
               </a>
-              .
             </div>
           </div>
         </div>
@@ -621,11 +632,11 @@ export default function ExperimentalLPClient() {
 
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8`}>
-            <h2 className="text-3xl font-semibold text-[#1C252E]">
-              Если это звучит знакомо, аудит нужен сейчас
+          <div className={`${cardClass} p-6 sm:p-8 border-t-2 border-exp-blue/30`}>
+            <h2 className="text-3xl font-bold text-white">
+              Если это звучит знакомо, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-exp-emerald">аудит нужен сейчас</span>
             </h2>
-            <p className="mt-3 max-w-3xl text-[#5A6874]">
+            <p className="mt-3 max-w-3xl text-gray-400">
               Типичный кейс для бизнеса в Праге и по Чехии: реклама уже идет, но
               результат нестабилен и трудно масштабируется.
             </p>
@@ -633,9 +644,9 @@ export default function ExperimentalLPClient() {
               {painPoints.map((item) => (
                 <li
                   key={item}
-                  className="flex gap-3 rounded-2xl border border-[#EFE5D8] bg-[#FFFEFC] p-4 text-sm leading-relaxed text-[#465461]"
+                  className="flex gap-3 rounded-xl border border-white/5 bg-white/5 p-4 text-sm leading-relaxed text-gray-300 transition-colors hover:bg-white/10 hover:border-white/10"
                 >
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
                   {item}
                 </li>
               ))}
@@ -657,10 +668,11 @@ export default function ExperimentalLPClient() {
         <div className={sectionShell}>
           <div className="space-y-6">
             <div className="space-y-3">
-              <h2 className="text-3xl font-semibold text-[#1C252E]">
+              <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+                <span className="w-2 h-6 bg-exp-blue block rounded-sm"></span>
                 Что вы получаете в Growth Audit
               </h2>
-              <p className="max-w-3xl text-[#5A6874]">
+              <p className="max-w-3xl text-gray-400">
                 Это не «диагностический созвон», а рабочий пакет с приоритетами
                 и действиями, которые можно запускать сразу.
               </p>
@@ -668,13 +680,15 @@ export default function ExperimentalLPClient() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {auditDeliverables.map((item) => (
-                <article key={item.title} className={`${cardClass} p-5`}>
-                  <p className="text-base font-semibold text-[#1E2A35]">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-relaxed text-[#5A6874]">
-                    {item.description}
-                  </p>
+                <article key={item.title} className={`${cardClass} p-5 group flex flex-col justify-between hover:border-exp-blue/30 transition-colors`}>
+                  <div>
+                    <h3 className="text-base font-bold text-white mb-2 flex items-center gap-2">
+                      <span className="text-exp-blue font-mono font-normal">{"//"}</span> {item.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-gray-400">
+                      {item.description}
+                    </p>
+                  </div>
                 </article>
               ))}
             </div>
@@ -701,34 +715,38 @@ export default function ExperimentalLPClient() {
 
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8`}>
-            <h2 className="text-3xl font-semibold text-[#1C252E]">
-              Как это работает: 3 шага
+          <div className={`${cardClass} p-6 sm:p-8 border-t-2 border-white/10`}>
+            <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">
+              Execution_Process
             </h2>
-            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+            <div className="mt-6 grid gap-4 lg:grid-cols-3 relative">
+              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent hidden lg:block -z-10"></div>
               {processSteps.map((step) => (
                 <article
                   key={step.number}
-                  className="rounded-2xl border border-[#EFE5D8] bg-[#FFFEFC] p-5"
+                  className="rounded-xl border border-white/10 bg-exp-bg p-5 relative overflow-hidden"
                 >
-                  <p className="text-sm font-semibold text-[#A2572F]">
+                  <div className="absolute -right-4 -top-6 text-6xl font-bold font-mono text-white/5 select-none pointer-events-none">
                     {step.number}
+                  </div>
+                  <p className="text-xs font-mono font-bold text-exp-emerald tracking-widest">
+                    STEP / {step.number}
                   </p>
-                  <h3 className="mt-2 text-lg font-semibold text-[#23303C]">
+                  <h3 className="mt-2 text-lg font-bold text-white">
                     {step.title}
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-[#5A6874]">
+                  <p className="mt-2 text-sm leading-relaxed text-gray-400">
                     {step.description}
                   </p>
-                  <p className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#3F4A55]">
-                    <Clock3 className="h-4 w-4 text-[#C56A3A]" />
-                    {step.timing}
-                  </p>
+                  <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-1.5 text-xs font-mono text-gray-500">
+                    <Clock3 className="h-3.5 w-3.5 text-exp-blue" />
+                    TIME: {step.timing}
+                  </div>
                 </article>
               ))}
             </div>
-            <p className="mt-6 text-sm text-[#66737F]">
-              После аудита вы можете внедрять с нами или со своей командой. Без
+            <p className="mt-6 text-sm text-gray-500 font-mono">
+              {">"} После аудита вы можете внедрять с нами или со своей командой. Без
               обязательного долгого контракта.
             </p>
             <div className="mt-6">
@@ -746,44 +764,45 @@ export default function ExperimentalLPClient() {
 
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
-          <h2 className="text-3xl font-semibold text-[#1C252E]">
-            Доказательства: кейсы и отзывы
+          <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+            <span className="w-2 h-6 bg-exp-blue block rounded-sm"></span>
+            PROVEN_RESULTS
           </h2>
-          <p className="mt-3 max-w-3xl text-[#5A6874]">
+          <p className="mt-3 max-w-3xl text-gray-400">
             Примеры из ниш, где важны контролируемый CPL/CPA и прозрачный
             трекинг, а не «просто больше трафика».
           </p>
 
           <div className="mt-6 grid gap-4 lg:grid-cols-3">
             {caseStudies.map((study) => (
-              <article key={study.niche} className={`${cardClass} p-5`}>
-                <p className="text-lg font-semibold text-[#1E2A35]">
+              <article key={study.niche} className={`${cardClass} p-5 border-t-2 border-transparent hover:border-exp-emerald/30 transition-all`}>
+                <p className="text-lg font-bold text-white">
                   {study.niche}
                 </p>
-                <p className="mt-1 text-sm text-[#6A7783]">
-                  {study.budget} • {study.timeframe}
+                <p className="mt-1 text-xs font-mono text-gray-400">
+                  {study.budget} <span className="text-exp-emerald">|</span> {study.timeframe}
                 </p>
-                <p className="mt-4 text-sm leading-relaxed text-[#4B5A66]">
-                  <span className="font-semibold text-[#2A3743]">
-                    Проблема:
-                  </span>{" "}
+                <div className="mt-4 p-3 bg-red-500/5 border border-red-500/10 rounded-lg text-sm leading-relaxed text-gray-300">
+                  <span className="font-mono text-red-400 font-bold block mb-1">
+                    [!] Проблема:
+                  </span>
                   {study.problem}
-                </p>
-                <div className="mt-4 space-y-1.5 text-sm text-[#4B5A66]">
-                  <p className="font-semibold text-[#2A3743]">Что поменяли:</p>
+                </div>
+                <div className="mt-4 space-y-2 text-sm text-gray-400">
+                  <p className="font-mono text-exp-blue font-bold">{"//"} Что поменяли:</p>
                   {study.changes.map((change) => (
                     <p key={change} className="flex gap-2">
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+                      <span className="mt-0.5 text-exp-blue">{">"}</span>
                       <span>{change}</span>
                     </p>
                   ))}
                 </div>
-                <div className="mt-4 space-y-1.5 text-sm text-[#2D4E38]">
-                  <p className="font-semibold text-[#2D4E38]">Результат:</p>
+                <div className="mt-4 p-3 bg-exp-emerald/5 border border-exp-emerald/20 rounded-lg space-y-2 text-sm text-gray-300">
+                  <p className="font-mono text-exp-emerald font-bold">{"=>"} Результат:</p>
                   {study.result.map((result) => (
-                    <p key={result} className="flex gap-2">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#2E7D4B]" />
-                      <span>{result}</span>
+                    <p key={result} className="flex gap-2 items-start">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
+                      <span className="font-medium text-white">{result}</span>
                     </p>
                   ))}
                 </div>
@@ -791,21 +810,29 @@ export default function ExperimentalLPClient() {
             ))}
           </div>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2">
+          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((testimonial) => (
-              <article key={testimonial.name} className={`${cardClass} p-5`}>
-                <p className="text-sm leading-relaxed text-[#43515D]">
-                  “{testimonial.quote}”
+              <article key={testimonial.name} className="rounded-xl border border-white/5 bg-white/5 p-5 relative">
+                <div className="absolute top-4 right-4 text-4xl text-exp-blue/20 rotate-180 font-serif">"</div>
+                <p className="text-sm leading-relaxed text-gray-300 relative z-10 italic">
+                  "{testimonial.quote}"
                 </p>
-                <p className="mt-4 text-sm font-semibold text-[#1E2A35]">
-                  {testimonial.name}
-                </p>
-                <p className="text-xs text-[#6D7A86]">{testimonial.role}</p>
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-exp-bg-soft border border-white/10 flex items-center justify-center font-mono font-bold text-exp-blue">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-white">
+                      {testimonial.name}
+                    </p>
+                    <p className="text-xs text-gray-500 font-mono tracking-wide uppercase">{testimonial.role}</p>
+                  </div>
+                </div>
               </article>
             ))}
           </div>
 
-          <div className="mt-7">
+          <div className="mt-7 flex justify-center items-center">
             <button
               type="button"
               onClick={() => scrollToForm(false)}
@@ -820,52 +847,50 @@ export default function ExperimentalLPClient() {
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
           <div
-            className={`${cardClass} grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr]`}
+            className={`${cardClass} grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] border-t-2 border-white/10`}
           >
             <div>
-              <h2 className="text-3xl font-semibold text-[#1C252E]">
-                Почему HaloAgency
+              <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">
+                Why_HaloAgency
               </h2>
-              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-[#4C5A67]">
-                <li className="flex gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-gray-300">
+                <li className="flex gap-3">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
                   <span>
-                    Tracking-first: сначала чиним данные, затем масштабируем
-                    бюджет.
+                    <strong className="text-white">Tracking-first:</strong> сначала чиним данные, затем масштабируем бюджет.
                   </span>
                 </li>
-                <li className="flex gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+                <li className="flex gap-3">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
                   <span>
-                    Фокус на бизнес-метриках: CPL/CPA/ROAS и качество лида.
+                    <strong className="text-white">Фокус на бизнес-метриках:</strong> CPL/CPA/ROAS и качество лида.
                   </span>
                 </li>
-                <li className="flex gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+                <li className="flex gap-3">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
                   <span>
-                    Скорость: первые внедрения запускаются в течение 72 часов
-                    после аудита.
+                    <strong className="text-white">Скорость:</strong> первые внедрения запускаются в течение 72 часов после аудита.
                   </span>
                 </li>
-                <li className="flex gap-2">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#C56A3A]" />
+                <li className="flex gap-3">
+                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
                   <span>
-                    Локальная экспертиза Чехии: сезонность, гео и креативы под
-                    CZ-аудиторию.
+                    <strong className="text-white">Локальная экспертиза:</strong> сезонность, гео и креативы под CZ-аудиторию.
                   </span>
                 </li>
               </ul>
             </div>
-            <div className="rounded-2xl border border-[#EFE5D8] bg-[#FFFEFC] p-5">
-              <p className="text-sm font-semibold uppercase tracking-wide text-[#8A562C]">
-                Trust Signals
+            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
+              <p className="text-xs font-mono font-bold text-exp-blue tracking-widest uppercase">
+                Trust_Signals
               </p>
               <div className="mt-4 grid gap-2">
                 {trustSignals.map((signal) => (
                   <div
                     key={signal}
-                    className="rounded-xl border border-[#E8DDCF] bg-white px-3 py-2 text-sm text-[#42505D]"
+                    className="flex items-center gap-2 rounded-lg border border-white/10 bg-exp-bg px-3 py-2 text-sm text-gray-300"
                   >
+                    <CheckCircle2 className="h-3 w-3 text-exp-blue flex-shrink-0" />
                     {signal}
                   </div>
                 ))}
@@ -884,27 +909,34 @@ export default function ExperimentalLPClient() {
 
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8`}>
-            <h2 className="text-3xl font-semibold text-[#1C252E]">
-              Оффер и ценовой ориентир
-            </h2>
-            <div className="mt-6 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
-              <div className="rounded-2xl border border-[#E7DCCF] bg-[#FFFCF7] p-5">
-                <p className="text-sm uppercase tracking-wide text-[#865232]">
+          <div className={`${cardClass} p-6 sm:p-8 border-2 border-exp-emerald/20`}>
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+              <h2 className="text-3xl font-bold text-white flex items-center gap-2">
+                <span className="w-2 h-6 bg-exp-emerald block rounded-sm"></span>
+                Оффер и Гарантия
+              </h2>
+              <div className="inline-flex items-center gap-2 rounded-full border border-exp-emerald/30 bg-exp-emerald/10 px-4 py-1.5 text-sm font-medium text-exp-emerald shadow-[0_0_15px_rgba(16,185,129,0.15)]">
+                <ShieldCheck className="h-4 w-4" />
+                100% Refund Guarantee
+              </div>
+            </div>
+            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+              <div className="rounded-xl border border-white/10 bg-exp-bg p-6 flex flex-col justify-center">
+                <p className="text-xs font-mono tracking-widest text-gray-400 uppercase">
                   Growth Audit
                 </p>
-                <p className="mt-2 text-4xl font-semibold text-[#1E2A35]">
+                <p className="mt-2 text-4xl font-bold text-white font-mono drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
                   4 900 CZK
                 </p>
-                <p className="mt-2 text-sm text-[#5C6975]">
+                <p className="mt-3 text-sm text-gray-400 leading-relaxed border-t border-white/10 pt-3">
                   Полный аудит рекламы + лендинга + трекинга, 20-мин разбор и
                   PDF-план на 30 дней.
                 </p>
               </div>
-              <div className="space-y-3 text-sm leading-relaxed text-[#4C5A67]">
+              <div className="space-y-4 text-sm leading-relaxed text-gray-300 flex flex-col justify-center">
                 <p>
-                  <span className="font-semibold text-[#26333E]">
-                    Типовое ежемесячное ведение:
+                  <span className="font-mono text-exp-blue font-bold tracking-wide">
+                    {">"} ЕЖЕМЕСЯЧНОЕ ВЕДЕНИЕ:
                   </span>{" "}
                   от 35 000 CZK + рекламный бюджет.
                 </p>
@@ -912,15 +944,15 @@ export default function ExperimentalLPClient() {
                   Аудит платный, потому что это 4–5 часов senior-анализа, а не
                   «продающий звонок».
                 </p>
-                <p>
-                  <span className="font-semibold text-[#2D4E38]">
-                    Гарантия:
-                  </span>{" "}
-                  если на звонке вы не получаете минимум 3 конкретные точки
-                  роста с цифрами, возвращаем 100% стоимости аудита.
+                <p className="text-white p-3 rounded-lg border border-exp-emerald/30 bg-exp-emerald/5">
+                  <span className="font-mono text-exp-emerald font-bold tracking-wide block mb-1">
+                    {">"} ГАРАНТИЯ:
+                  </span>
+                  Если на звонке вы не получаете минимум 3 конкретные точки
+                  роста с цифрами, возвращаем 100% стоимости аудита прямо на звонке.
                 </p>
-                <p>
-                  Если стартуем ведение в течение 14 дней после аудита, 4 900
+                <p className="text-gray-400 italic">
+                  * Если стартуем ведение в течение 14 дней после аудита, 4 900
                   CZK засчитываются в первый счет.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-2">
@@ -929,14 +961,14 @@ export default function ExperimentalLPClient() {
                     onClick={() => scrollToForm(false)}
                     className={primaryButtonClass}
                   >
-                    Забронировать аудит за 4 900 CZK
+                    Забронировать аудит
                   </button>
                   <button
                     type="button"
                     onClick={() => scrollToForm(true)}
                     className={secondaryButtonClass}
                   >
-                    Сначала посмотреть пример PDF
+                    Пример PDF
                   </button>
                 </div>
               </div>
@@ -947,21 +979,21 @@ export default function ExperimentalLPClient() {
 
       <section className="py-10 sm:py-14">
         <div className={sectionShell}>
-          <h2 className="text-3xl font-semibold text-[#1C252E]">FAQ</h2>
+          <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">System_FAQ</h2>
           <div className="mt-6 space-y-3">
             {faqItems.map((item, index) => (
               <details
                 key={item.q}
                 open={index === 0}
-                className={`${cardClass} group overflow-hidden`}
+                className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
               >
-                <summary className="cursor-pointer list-none px-5 py-4 text-sm font-semibold text-[#26333E] marker:content-none">
+                <summary className="cursor-pointer list-none px-5 py-4 text-sm font-semibold text-white marker:content-none transition-colors group-hover:bg-white/5">
                   <span className="flex items-center justify-between gap-3">
                     {item.q}
-                    <ArrowRight className="h-4 w-4 shrink-0 text-[#A35A31] transition group-open:rotate-90" />
+                    <ArrowRight className="h-4 w-4 shrink-0 text-exp-emerald transition group-open:rotate-90" />
                   </span>
                 </summary>
-                <div className="border-t border-[#EFE5D8] px-5 py-4 text-sm leading-relaxed text-[#566472]">
+                <div className="border-t border-white/10 px-5 py-4 text-sm leading-relaxed text-gray-400 bg-exp-bg">
                   {item.a}
                 </div>
               </details>
@@ -970,36 +1002,41 @@ export default function ExperimentalLPClient() {
         </div>
       </section>
 
-      <section className="pb-20 pt-10 sm:pb-24 sm:pt-14">
+      <section className="pb-20 pt-10 sm:pb-24 sm:pt-14 relative overflow-hidden">
+        <div className="absolute inset-0 bg-exp-emerald/5 [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)] pointer-events-none"></div>
         <div className={sectionShell}>
-          <div className="rounded-3xl border border-[#E4D8C9] bg-[#F7EFE6] p-6 shadow-[0_12px_34px_rgba(31,41,51,0.1)] sm:p-9">
-            <h2 className="text-3xl font-semibold text-[#1F2A34]">
-              20 минут, чтобы найти точки утечки бюджета
+          <div className="rounded-3xl border border-exp-emerald/30 bg-exp-bg-soft/80 backdrop-blur-md p-6 shadow-[0_0_40px_rgba(16,185,129,0.1)] sm:p-9 text-center relative z-10">
+            <h2 className="text-3xl font-bold text-white mb-2">
+              <span className="text-exp-emerald">20 минут</span>, чтобы найти точки утечки бюджета
             </h2>
-            <p className="mt-3 max-w-3xl text-[#4F5D69]">
+            <p className="mt-3 max-w-2xl mx-auto text-gray-400">
               Запишитесь на Growth Audit Call и получите внедряемый 30-дневный
               план уже на этой неделе. WhatsApp-ответ в рабочее время до 2
               часов.
             </p>
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
                 type="button"
                 onClick={() => scrollToForm(false)}
-                className={primaryButtonClass}
+                className={`${primaryButtonClass} w-full sm:w-auto text-base py-4 px-8`}
               >
-                Забронировать 20-мин Growth Audit Call
+                Забронировать Growth Audit Call
               </button>
               <button
                 type="button"
                 onClick={() => scrollToForm(true)}
-                className={secondaryButtonClass}
+                className={`${secondaryButtonClass} w-full sm:w-auto text-base py-4 px-8`}
               >
-                Получить пример аудита PDF
+                Получить пример PDF
               </button>
             </div>
-            <p className="mt-4 text-sm text-[#61707C]">
-              На этой неделе: {slotsLeft} слотов.
-            </p>
+            <div className="mt-6 flex justify-center items-center gap-2 text-sm font-mono text-gray-400">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-exp-emerald opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-exp-emerald"></span>
+              </span>
+              На этой неделе: <span className="text-white font-bold">{slotsLeft} слотов</span>.
+            </div>
           </div>
         </div>
       </section>

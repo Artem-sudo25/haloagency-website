@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ContactModalProvider } from "@/context/contact-modal-context";
 import { LayoutShell } from "@/components/layout/LayoutShell";
@@ -11,6 +11,14 @@ const inter = Inter({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   preload: true,
+  variable: "--font-inter",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  preload: true,
+  variable: "--font-mono",
 });
 
 export const metadata: Metadata = {
@@ -64,7 +72,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${inter.className} bg-ha-bg text-white antialiased`}
+        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-ha-bg text-white antialiased`}
         suppressHydrationWarning
       >
         {/* Google Tag Manager - Must be in body, immediately after opening tag */}

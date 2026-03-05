@@ -53,9 +53,23 @@
   --color-ha-primary: #2563EB;
   --color-ha-primary-soft: rgba(37, 99, 235, 0.08);
   --color-ha-accent-orange: #F97316;
-  --color-ha-accent-green: #22C55E;
+  --color-ha-accent-green: #10B981;
+  /* Emerald Green */
   --color-ha-text-main: #0F172A;
   --color-ha-text-muted: #6B7280;
+
+  /* Data-Industrial / Experimental LP Tokens */
+  --color-exp-bg: #1A1A1A;
+  /* Deep Navy / Charcoal */
+  --color-exp-bg-soft: #242424;
+  --color-exp-stark-white: #FFFFFF;
+  --color-exp-emerald: #10B981;
+  /* Electric Emerald Green */
+  --color-exp-emerald-hover: #059669;
+  --color-exp-blue: #3B82F6;
+  /* Electric Blue Accent */
+
+  --font-mono: var(--font-mono);
 
   --shadow-ha-card: 0 18px 45px rgba(15, 23, 42, 0.7);
 }
