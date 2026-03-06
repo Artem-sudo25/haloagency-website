@@ -48,20 +48,20 @@ export default function Hero() {
 
         {/* Stats Strip */}
         <div className="w-full border-2 border-[#1A1A1A] rounded-xl bg-white shadow-[6px_6px_0px_0px_#1A1A1A] overflow-hidden">
-          <div className="grid grid-cols-3 divide-x-2 divide-[#1A1A1A]">
-            <div className="p-8 md:p-10 flex flex-col gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-2 divide-[#1A1A1A]">
+            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
               <p className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
                 <CountUp end={250} duration={2000} />+
               </p>
               <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/50">Проектов</p>
             </div>
-            <div className="p-8 md:p-10 flex flex-col gap-2">
+            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
               <p className="text-4xl md:text-5xl font-extrabold text-[#FF3366]" style={{ fontFamily: 'var(--font-display)' }}>
                 <CountUp end={400} duration={2000} />%
               </p>
               <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/50">Средний рост</p>
             </div>
-            <div className="p-8 md:p-10 flex flex-col gap-2">
+            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
               <p className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
                 <CountUp end={5} duration={1500} />+
               </p>
