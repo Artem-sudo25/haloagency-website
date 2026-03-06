@@ -1,7 +1,7 @@
 "use client";
 
-import { 
-  BadgeCheck, 
+import {
+  BadgeCheck,
   Calendar,
   FileCheck,
   HeartHandshake,
@@ -55,29 +55,29 @@ const trustBadges = [
 function GuaranteeCard({ guarantee, index }: { guarantee: typeof guarantees[0]; index: number }) {
   return (
     <CSSStaggerItem index={index}>
-      <div className="group relative p-6 rounded-2xl bg-gradient-to-br from-blue-500/5 via-slate-900/50 to-slate-900/50 border border-blue-500/10 hover:border-blue-500/30 transition-all duration-300 h-full">
+      <div className="group relative p-8 rounded-3xl bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] transition-all duration-300 h-full">
         {/* Clause Number - Document Style */}
-        <div className="absolute top-4 right-4 text-xl font-serif font-bold text-blue-400/30">
+        <div className="absolute top-6 right-6 text-3xl font-extrabold text-[#1A1A1A]/20" style={{ fontFamily: 'var(--font-display)' }}>
           {guarantee.clause}
         </div>
 
         {/* Icon */}
-        <div className="w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-400 flex items-center justify-center mb-5 group-hover:bg-blue-500/15 group-hover:border-blue-500/30 transition-all duration-300">
-          <guarantee.icon className="w-6 h-6" />
+        <div className="w-16 h-16 rounded-2xl bg-[#06D6A0] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] flex items-center justify-center mb-6 z-10 relative">
+          <guarantee.icon className="w-8 h-8 text-[#1A1A1A]" />
         </div>
 
         {/* Content */}
-        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
+        <h3 className="text-2xl font-extrabold text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
           {guarantee.title}
         </h3>
-        
-        <p className="text-slate-400 text-sm leading-relaxed mb-5">
+
+        <p className="text-[#1A1A1A]/80 font-medium text-lg leading-relaxed mb-6">
           {guarantee.description}
         </p>
 
         {/* Seal Badge */}
-        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-xs font-bold tracking-wider text-blue-300">
-          <BadgeCheck className="w-3.5 h-3.5" />
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FFD166] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] text-sm font-bold tracking-wider text-[#1A1A1A]">
+          <BadgeCheck className="w-5 h-5" />
           {guarantee.seal}
         </div>
       </div>
@@ -87,36 +87,36 @@ function GuaranteeCard({ guarantee, index }: { guarantee: typeof guarantees[0]; 
 
 export default function WebGuarantees() {
   return (
-    <section className="py-24 bg-ha-bg relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-[#F5F5F7] border-y-2 border-[#1A1A1A] relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/5 rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#06D6A0]/10 rounded-full blur-[150px]" />
       </div>
 
       <div className="container mx-auto max-w-6xl px-4 relative z-10">
         {/* Header */}
         <CSSScrollAnimation className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <Shield className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">Гарантии</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#06D6A0] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
+            <Shield className="w-5 h-5 text-[#1A1A1A]" />
+            <span className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Гарантии</span>
           </div>
-          
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             Гарантии в договоре
           </h2>
-          
-          <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto">
+
+          <p className="text-[#1A1A1A]/80 font-medium text-xl md:text-2xl max-w-2xl mx-auto">
             Не просто обещания — юридически закреплённые обязательства
           </p>
         </CSSScrollAnimation>
 
         {/* Trust Badges Row */}
-        <CSSStagger className="flex flex-wrap justify-center gap-4 mb-12">
+        <CSSStagger className="flex flex-wrap justify-center gap-4 mb-16">
           {trustBadges.map((badge, index) => (
             <CSSStaggerItem key={badge.label} index={index}>
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/5 border border-blue-500/10">
-                <badge.icon className="w-4 h-4 text-blue-400/60" />
-                <span className="text-sm text-slate-400">{badge.label}</span>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]">
+                <badge.icon className="w-5 h-5 text-[#FF3366]" />
+                <span className="text-base font-bold text-[#1A1A1A]">{badge.label}</span>
               </div>
             </CSSStaggerItem>
           ))}
@@ -130,7 +130,7 @@ export default function WebGuarantees() {
         </CSSStagger>
 
         {/* Bottom Note - Plain text */}
-        <CSSScrollAnimation delay={0.3} className="mt-12 text-center text-sm text-slate-500">
+        <CSSScrollAnimation delay={0.3} className="mt-16 text-center text-lg font-bold text-[#1A1A1A]/80 bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] p-4 rounded-2xl mx-auto max-w-2xl">
           Все условия обсуждаются индивидуально и фиксируются до начала работ
         </CSSScrollAnimation>
       </div>

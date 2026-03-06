@@ -9,11 +9,6 @@ import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
 import type { Metadata } from "next";
 
-// Unified divider for consistent separation between sections
-const SectionDivider = () => (
-  <div className="h-px w-full bg-gradient-to-r from-transparent via-blue-500/15 to-transparent border-t border-white/5" />
-);
-
 export const metadata: Metadata = {
   title: "HaloAgency — маркетинговое агентство в Праге | Сайты и реклама",
   description:
@@ -53,24 +48,20 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <main className="bg-ha-bg">
-      <Hero />
-      <SectionDivider />
-      <Services />
-      <SectionDivider />
-      <About />
-      <SectionDivider />
-      <Projects />
-      <SectionDivider />
-      <Packages />
-      <SectionDivider />
-      <FAQ />
-      <SectionDivider />
-      <GrowthPlanMagnet />
-      <SectionDivider />
-      <Process />
-      <SectionDivider />
-      <Contact />
+    <main className="relative bg-[#F5F5F7] min-h-screen">
+      {/* Subtle dot grid texture */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#d1d5db 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+      <div className="relative z-10">
+        <Hero />
+        <Services />
+        <Projects />
+        <About />
+        <Process />
+        <Packages />
+        <FAQ />
+        <GrowthPlanMagnet />
+        <Contact />
+      </div>
     </main>
   );
 }

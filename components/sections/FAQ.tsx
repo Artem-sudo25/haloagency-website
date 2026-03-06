@@ -1,8 +1,8 @@
 "use client";
 
-import { Minus, Plus, ShieldCheck } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { CSSScrollAnimation, CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
+import { CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 type FAQItem = {
   question: string;
@@ -25,27 +25,27 @@ const defaultFaqs = [
   {
     question: "Можно ли начать с одного направления и расширяться позже?",
     answer:
-      "Да. Многие клиенты начинают с базового решения и переходят к более комплексному формату по мере роста бизнеса и задач",
+      "Да. Многие клиенты начинают с базового решения и переходят к более комплексному формату по мере роста бизнеса и задач.",
   },
   {
     question: "Подойдёт ли ваш подход малому бизнесу?",
-    answer: 
-    "Да. Мы работаем с малым и средним бизнесом и выстраиваем решения, которые масштабируются — от простого старта до систем с автоматизацией и AI.",
+    answer:
+      "Да. Мы работаем с малым и средним бизнесом и выстраиваем решения, которые масштабируются — от простого старта до систем с автоматизацией и AI.",
   },
   {
     question: "Сколько участия требуется от меня как от владельца бизнеса?",
     answer:
-    "Минимум. Мы берём на себя координацию и операционную часть, чтобы вы могли сосредоточиться на развитии бизнеса, а не на управлении подрядчиками.",
+      "Минимум. Мы берём на себя координацию и операционную часть, чтобы вы могли сосредоточиться на развитии бизнеса, а не на управлении подрядчиками.",
   },
   {
     question: "Как вы принимаете решения и понимаете, что делать дальше?",
-    answer: 
-    "Решения принимаются на основе данных, текущих целей бизнеса и результатов предыдущих шагов. Мы регулярно анализируем ситуацию и предлагаем следующий логичный шаг.",
+    answer:
+      "Решения принимаются на основе данных, текущих целей бизнеса и результатов предыдущих шагов. Мы регулярно анализируем ситуацию и предлагаем следующий логичный шаг.",
   },
   {
     question: "Можно ли работать с вами, если у меня уже есть сайт или реклама?",
     answer:
-      "Да. Мы часто подключаемся к существующим проектам, улучшаем текущие решения и выстраиваем систему вокруг того, что уже работае",
+      "Да. Мы часто подключаемся к существующим проектам, улучшаем текущие решения и выстраиваем систему вокруг того, что уже работает.",
   },
   {
     question: "Работаете ли вы с бизнесом в Чехии и ориентируетесь на местный рынок?",
@@ -54,8 +54,8 @@ const defaultFaqs = [
   },
   {
     question: "Как понять, какой пакет мне подойдёт?",
-    answer: 
-    "На старте мы смотрим на цели бизнеса, текущую ситуацию и ресурсы, после чего рекомендуем оптимальный формат работы без переплаты за лишнее.",
+    answer:
+      "На старте мы смотрим на цели бизнеса, текущую ситуацию и ресурсы, после чего рекомендуем оптимальный формат работы без переплаты за лишнее.",
   },
   {
     question: "Что если результат не оправдает ожиданий?",
@@ -69,86 +69,65 @@ const defaultFaqs = [
   },
 ];
 
-const defaultTitle = (
-  <>
-    Частые вопросы о<br className="hidden md:block" /> работе с нами
-  </>
-);
+const defaultTitle = <>Частые вопросы</>;
 
 export default function FAQ({
   items = defaultFaqs,
   title = defaultTitle,
-  eyebrow = "Как мы работаем",
+  eyebrow = "FAQ",
   footer,
 }: FAQProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 px-4 relative overflow-hidden bg-[#0A1628]">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]" />
-
-      <div className="container mx-auto max-w-4xl relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <ShieldCheck className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">{eyebrow}</span>
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+    <section id="faq" className="py-16 md:py-24 px-6 bg-white">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-12">
+        {/* Section Header */}
+        <div className="text-center flex flex-col items-center gap-4 mb-8">
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
             {title}
           </h2>
         </div>
 
-        <CSSStagger className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
-          <div className="space-y-4">
-            {items.map((faq, index) => (
-              <CSSStaggerItem key={index} index={index} className="group">
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className={`w-full text-left p-4 md:p-5 rounded-xl transition-all duration-300 border ${openIndex === index
-                    ? "bg-white/10 border-blue-500/50"
-                    : "bg-transparent border-white/5 hover:bg-white/5 hover:border-white/20"
+        {/* FAQ Items */}
+        <CSSStagger className="w-full max-w-3xl mx-auto flex flex-col gap-4">
+          {items.map((faq, index) => (
+            <CSSStaggerItem key={index} index={index}>
+              <button
+                type="button"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                className="w-full text-left bg-white p-6 rounded-2xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="text-lg md:text-xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                    {faq.question}
+                  </h3>
+                  <div className={`flex-shrink-0 w-8 h-8 rounded-full border-2 border-[#1A1A1A] flex items-center justify-center transition-all duration-300 mt-0.5 ${openIndex === index
+                    ? "bg-[#FFD166] text-[#1A1A1A] rotate-180 shadow-[2px_2px_0px_0px_#1A1A1A]"
+                    : "bg-[#F5F5F7] text-[#1A1A1A]"
+                    }`}>
+                    {openIndex === index ? (
+                      <Minus className="w-4 h-4" />
+                    ) : (
+                      <Plus className="w-4 h-4" />
+                    )}
+                  </div>
+                </div>
+                <div
+                  className={`grid transition-all duration-300 ease-out ${openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                     }`}
                 >
-                  <div className="flex items-start justify-between gap-3 md:gap-4">
-                    <span
-                      className={`text-base md:text-lg font-medium transition-colors ${openIndex === index ? "text-blue-400" : "text-white group-hover:text-blue-200"
-                        }`}
-                    >
-                      {faq.question}
-                    </span>
-                    <div
-                      className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 mt-1 ${openIndex === index
-                        ? "bg-blue-500 border-blue-500 rotate-180"
-                        : "bg-white/5 border-white/10 group-hover:border-white/30"
-                        }`}
-                    >
-                      {openIndex === index ? (
-                        <Minus className="w-3 h-3 text-white" />
-                      ) : (
-                        <Plus className="w-3 h-3 text-slate-400 group-hover:text-white" />
-                      )}
+                  <div className="overflow-hidden">
+                    <div className="pt-4 text-[#1A1A1A] font-medium leading-relaxed text-base">
+                      {faq.answer}
                     </div>
                   </div>
-                  {/* CSS-based accordion */}
-                  <div
-                    className={`grid transition-all duration-300 ease-out ${
-                      openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <div className="pt-4 text-slate-300 leading-relaxed text-base border-t border-white/5 mt-4">
-                        {faq.answer}
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </CSSStaggerItem>
-            ))}
-          </div>
+                </div>
+              </button>
+            </CSSStaggerItem>
+          ))}
         </CSSStagger>
+
         {footer ? <div className="mt-6 text-center">{footer}</div> : null}
       </div>
     </section>

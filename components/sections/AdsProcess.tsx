@@ -33,24 +33,24 @@ const processSteps = [
 
 export default function AdsProcess() {
   return (
-    <section className="py-24 bg-ha-bg relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-white border-y-2 border-[#1A1A1A] relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[500px] h-[400px] bg-gradient-to-r from-orange-500/5 to-transparent rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-0 w-[400px] h-[300px] bg-gradient-to-l from-orange-500/5 to-transparent rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-0 w-[500px] h-[400px] bg-[#FFD166]/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-0 w-[400px] h-[300px] bg-[#FF3366]/10 rounded-full blur-[100px]" />
       </div>
 
       <div className="container mx-auto max-w-3xl px-4 relative z-10">
         {/* Header */}
         <CSSScrollAnimation className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6">
-            <Zap className="w-4 h-4 text-orange-400" />
-            <span className="text-sm font-medium text-orange-400">Процесс</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FFD166] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
+            <Zap className="w-5 h-5 text-[#1A1A1A]" />
+            <span className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Процесс</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
             Процесс работы
           </h2>
-          <p className="text-gray-400 text-lg md:text-xl max-w-xl mx-auto">
+          <p className="text-[#1A1A1A]/80 font-medium text-lg md:text-xl max-w-xl mx-auto">
             От первого разговора до результата — понятные этапы
           </p>
         </CSSScrollAnimation>
@@ -58,32 +58,29 @@ export default function AdsProcess() {
         {/* Process Steps */}
         <div className="relative">
           {/* Connecting Line */}
-          <div className="absolute left-6 top-8 bottom-8 w-px bg-gradient-to-b from-orange-500/50 via-orange-500/20 to-transparent hidden md:block" />
-          
+          <div className="absolute left-6 top-8 bottom-8 w-1 bg-[#1A1A1A] hidden md:block" />
+
           <CSSStagger className="space-y-4">
             {processSteps.map((step, index) => (
               <CSSStaggerItem key={step.id} index={index} className="group relative">
-                <div className="relative flex gap-5 p-5 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-orange-500/30 transition-all duration-300">
-                  {/* Hover glow */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-orange-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                  
+                <div className="relative flex gap-5 p-5 md:p-6 rounded-3xl bg-white border-2 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] transition-all duration-300">
                   {/* Number Badge */}
                   <div className="relative flex-shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-orange-500/30 group-hover:shadow-orange-500/50 group-hover:scale-105 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-[#06D6A0] border-2 border-[#1A1A1A] flex items-center justify-center text-[#1A1A1A] font-extrabold text-xl shadow-[4px_4px_0px_0px_#1A1A1A] group-hover:scale-110 transition-transform duration-300 z-10 relative" style={{ fontFamily: 'var(--font-display)' }}>
                       {step.id}
                     </div>
                     {/* Dot on the line */}
                     {index < processSteps.length - 1 && (
-                      <div className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-2 h-2 rounded-full bg-orange-500/50 hidden md:block" />
+                      <div className="absolute left-1/2 -translate-x-1/2 top-full mt-4 w-4 h-4 rounded-full bg-white border-2 border-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hidden md:block z-20" />
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1 min-w-0 relative z-10">
-                    <h3 className="text-lg md:text-xl font-semibold text-white mb-2 group-hover:text-orange-200 transition-colors">
+                    <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
                       {step.title}
                     </h3>
-                    <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                    <p className="text-[#1A1A1A]/80 font-medium text-base md:text-lg leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -94,7 +91,7 @@ export default function AdsProcess() {
         </div>
 
         {/* Trust Line */}
-        <CSSScrollAnimation delay={0.3} className="text-center text-slate-500 text-sm mt-12">
+        <CSSScrollAnimation delay={0.3} className="text-center font-bold text-lg text-[#1A1A1A]/80 mt-12 bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] p-4 rounded-2xl mx-auto max-w-2xl">
           Мы объясняем, что происходит с рекламой, простым языком — без лишних терминов.
         </CSSScrollAnimation>
       </div>

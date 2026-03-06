@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Halo Agency - Interactive Storyteller</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Caveat:wght@700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#FF3366","bg-light": "#F5F5F7","text-dark": "#1A1A1A",
+          },
+          fontFamily: {
+            "display": ["Syne", "sans-serif"],
+            "body": ["Inter", "sans-serif"],
+            "hand": ["Caveat", "cursive"],
+          },
+          borderRadius: {
+            'blob': '40% 60% 70% 30% / 40% 50% 60% 50%',
+            'blob-2': '60% 40% 30% 70% / 50% 60% 40% 50%',
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .dot-grid {
+      background-image: radial-gradient(#d1d5db 1px, transparent 1px);background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="bg-bg-light font-body text-text-dark min-h-screen relative overflow-x-hidden selection:bg-primary selection:text-white">
+<div class="fixed inset-0 z-0 pointer-events-none dot-grid"></div>
+<div class="fixed inset-0 z-0 pointer-events-none overflow-hidden opacity-30">
+<div class="absolute -top-[10%] -left-[10%] w-[600px] h-[600px] bg-primary/20 rounded-blob blur-[80px]"></div>
+<div class="absolute top-[30%] -right-[10%] w-[500px] h-[500px] bg-pink-500/10 rounded-blob-2 blur-[80px]"></div>
+</div>
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-text-dark/5 shadow-sm">
+<div class="max-w-[1200px] mx-auto px-6 h-20 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center bg-text-dark text-bg-light rounded-blob shadow-md">
+<span class="material-symbols-outlined text-xl">gesture</span>
+</div>
+<h2 class="text-xl font-display font-bold tracking-tight">Halo Agency</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8 font-medium text-text-dark/80">
+<a class="hover:text-primary transition-colors" href="#services">Услуги</a>
+<a class="hover:text-primary transition-colors" href="#cases">Кейсы</a>
+<a class="hover:text-primary transition-colors" href="#pricing">Цены</a>
+<a class="hover:text-primary transition-colors" href="#process">Процесс</a>
+</nav>
+<button class="bg-primary hover:bg-text-dark text-white px-6 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-colors shadow-md">
+          Growth Audit
+        </button>
+</div>
+</header>
+<div class="relative z-10 flex flex-col items-center pb-32 pt-28">
+<div class="w-full max-w-[1200px] px-6 py-8 flex flex-col gap-16 md:gap-24">
+<section class="flex flex-col items-center justify-center text-center py-10 gap-10">
+<div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-text-dark/10 text-sm font-semibold text-text-dark/70 mb-2 bg-white/80 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary text-base">draw</span>
+<span>The Interactive Storyteller</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-display font-extrabold leading-[1.1] tracking-tight max-w-5xl text-text-dark relative">
+          Весь <span class="relative inline-block z-10">маркетинг
+            <svg class="absolute -bottom-2 left-0 w-full h-4 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span><br/>под одной крышей.
+        </h1>
+<p class="text-lg md:text-2xl font-medium text-text-dark/70 max-w-2xl leading-relaxed">
+          От сайта и аналитики до онлайн-рекламы и автоматизации процессов — один партнёр, одна ответственность.
+        </p>
+<div class="flex items-center gap-6 mt-4">
+<button class="bg-primary text-white px-10 py-5 rounded-full text-lg font-bold shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)] transition-all">
+            Посмотреть кейсы
+          </button>
+<button class="bg-white/80 backdrop-blur-sm text-text-dark border-2 border-text-dark px-10 py-5 rounded-full text-lg font-bold hover:bg-text-dark hover:text-white transition-all">
+            Узнать цены
+          </button>
+</div>
+</section>
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+<div class="flex flex-col gap-3 p-10 rounded-[2rem] bg-white border border-text-dark/5 shadow-sm relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>
+<p class="text-text-dark/60 text-sm font-bold uppercase tracking-widest relative z-10">Проектов</p>
+<p class="text-5xl font-display font-extrabold text-text-dark relative z-10">250+</p>
+</div>
+<div class="flex flex-col gap-3 p-10 rounded-[2rem] bg-text-dark text-white shadow-sm relative overflow-hidden group">
+<div class="absolute -left-4 -bottom-4 w-32 h-32 bg-primary rounded-blob group-hover:rotate-45 transition-transform duration-500"></div>
+<p class="text-white/60 text-sm font-bold uppercase tracking-widest relative z-10">Рост</p>
+<p class="text-5xl font-display font-extrabold relative z-10">400%</p>
+</div>
+<div class="flex flex-col gap-3 p-10 rounded-[2rem] bg-primary text-white shadow-sm relative overflow-hidden group">
+<p class="text-white/80 text-sm font-bold uppercase tracking-widest relative z-10">Наград</p>
+<p class="text-5xl font-display font-extrabold relative z-10">85+</p>
+</div>
+</section>
+<section class="flex flex-col gap-12 pt-16" id="services">
+<div class="text-center flex flex-col items-center gap-4">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/10 shadow-sm text-sm font-bold text-text-dark/60">
+<span class="material-symbols-outlined text-sm">construction</span>
+<span>Наши услуги</span>
+</div>
+<h2 class="text-5xl font-display font-extrabold tracking-tight relative">
+          Что мы <span class="relative inline-block z-10">делаем
+            <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+<p class="text-lg text-text-dark/70 max-w-xl mt-4">Полный цикл digital-маркетинга: от разработки до автоматизации</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100%] -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 rounded-blob bg-blue-100 flex items-center justify-center text-blue-600">
+<span class="material-symbols-outlined text-2xl">code</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Разработка сайтов</h3>
+<p class="text-text-dark/70 text-sm leading-relaxed flex-grow">Современные сайты за 3-7 дней. От лендинга до интернет-магазина — адаптированы для мобильных устройств и поисковых систем.</p>
+<div class="mt-4 pt-4 border-t border-text-dark/10 flex justify-between items-center text-sm font-bold">
+<span class="text-primary group-hover:underline">Подробнее</span>
+<span class="material-symbols-outlined text-primary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 relative overflow-hidden group hover:shadow-md transition-shadow mt-0 lg:mt-8">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100%] -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 rounded-blob-2 bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined text-2xl">campaign</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Онлайн Реклама</h3>
+<p class="text-text-dark/70 text-sm leading-relaxed flex-grow">Google и Meta Ads для стабильного потока заявок и продаж. Запуск, ведение и оптимизация с фокусом на рост бизнеса.</p>
+<div class="mt-4 pt-4 border-t border-text-dark/10 flex justify-between items-center text-sm font-bold">
+<span class="text-primary group-hover:underline">Подробнее</span>
+<span class="material-symbols-outlined text-primary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100%] -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 rounded-blob bg-teal-100 flex items-center justify-center text-teal-600">
+<span class="material-symbols-outlined text-2xl">monitoring</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Аналитика и трекинг</h3>
+<p class="text-text-dark/70 text-sm leading-relaxed flex-grow">Точный учёт заявок и продаж даже при блокировке cookie. Вы видите на 30-40% больше реальных данных.</p>
+<div class="mt-4 pt-4 border-t border-text-dark/10 flex justify-between items-center text-sm font-bold">
+<span class="text-primary group-hover:underline">Подробнее</span>
+<span class="material-symbols-outlined text-primary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 relative overflow-hidden group hover:shadow-md transition-shadow mt-0 lg:mt-8">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-[100%] -z-10 group-hover:scale-110 transition-transform"></div>
+<div class="w-14 h-14 rounded-blob-2 bg-purple-100 flex items-center justify-center text-purple-600">
+<span class="material-symbols-outlined text-2xl">smart_toy</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Автоматизация процессов</h3>
+<p class="text-text-dark/70 text-sm leading-relaxed flex-grow">Автоматизация вместо часов нудных ручных процессов, меньше ошибок, ниже операционные затраты.</p>
+<div class="mt-4 pt-4 border-t border-text-dark/10 flex justify-between items-center text-sm font-bold">
+<span class="text-primary group-hover:underline">Подробнее</span>
+<span class="material-symbols-outlined text-primary text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col md:flex-row gap-12 pt-20 items-center bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-[3rem] border border-text-dark/5 mt-16">
+<div class="w-full md:w-1/2 relative">
+<div class="absolute inset-0 bg-primary/20 rounded-blob blur-[60px] -z-10"></div>
+<img alt="Founder of Halo Agency" class="w-full rounded-[2rem] object-cover shadow-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmp7amHA4OBnm3GBNTSOJt247I0razXDqiek5h-lzseuNwwqYYTSwK3J0Wo00PX2m_9E1n3DJudlW-xq0d-LPzC3jfKD99_48YbEni6i6BVcdGAEQeYFF7bntA7vaKQI_wp3sY3v0iiS4-3K9aZeFLO0XVJvL3eJfqhhb8-UfXLcAsaBoOjQeC_3d_SFzYjyu6E_kvzpjrM7qbk3KPanCovcS-rQec_JnN614mWqxJZYy_9My-qWnUJ1REP-LIs6L8sIyxaWdbeP1i"/>
+</div>
+<div class="w-full md:w-1/2 flex flex-col gap-6">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/5 shadow-sm text-sm font-bold text-text-dark/60 w-max">
+<span class="material-symbols-outlined text-sm">psychology</span>
+<span>Практический опыт</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-display font-extrabold leading-tight">Маркетинг как система, а не набор услуг</h2>
+<div class="space-y-4 text-text-dark/70 leading-relaxed">
+<p>В основе HaloAgency.cz — практический опыт работы с реальным бизнесом. Мы выстраиваем единую систему, где сайт, реклама и внутренние процессы связаны между собой и не требуют постоянного ручного управления.</p>
+<p>Этот подход появился не из теории. Я прошёл весь путь онлайн-маркетинга на практике — от создания сайтов и запуска рекламы до аналитики и автоматизации. Работая с сервисными бизнесами и e-commerce, я хорошо понимаю реальные задачи и ограничения малого и среднего бизнеса.</p>
+<p>Сегодня маркетинг невозможно эффективно развивать без автоматизации и AI. В 2024 году работать «по-старому» — значит терять время, данные и конкурентное преимущество. Поэтому в HaloAgency.cz мы используем AI не как модный инструмент, а как рабочую основу: для аналитики, оптимизации рекламы, автоматизации процессов и принятия решений.</p>
+</div>
+<div class="mt-4 flex flex-col">
+<span class="font-display font-bold text-xl text-text-dark">Artem K.</span>
+<span class="text-sm text-text-dark/60 uppercase tracking-wider font-bold">Основатель HaloAgency</span>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-16 pt-24" id="cases">
+<div class="flex flex-col md:flex-row justify-between items-end gap-6 border-b-2 border-text-dark/10 pb-6">
+<div class="flex flex-col gap-4 max-w-2xl">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/10 shadow-sm text-sm font-bold text-text-dark/60 w-max mb-2">
+<span class="material-symbols-outlined text-sm">star</span>
+<span>Избранные кейсы</span>
+</div>
+<h2 class="text-5xl font-display font-extrabold tracking-tight relative">
+            Результаты, которыми мы <span class="relative inline-block z-10">гордимся
+              <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+</div>
+<button class="flex items-center gap-2 text-text-dark font-bold hover:text-primary transition-colors text-lg bg-white/80 px-6 py-3 rounded-full backdrop-blur-sm border border-text-dark/10">
+            Смотреть все <span class="material-symbols-outlined">east</span>
+</button>
+</div>
+<div class="flex flex-col gap-24">
+<div class="group flex flex-col md:flex-row gap-12 items-center cursor-pointer bg-white p-6 md:p-8 rounded-[3rem] border border-text-dark/5 shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full md:w-3/5 aspect-[16/10] rounded-[2rem] bg-gray-200 overflow-hidden relative shadow-lg">
+<img alt="Nejbalonky.cz project showcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhZE9AzbdoAtEtFM2EXiMntDivtt2DRWxRfFu9QpedvF72H0XeVW3soM5r7Qhefb08FsoCMfCAqJcj-y_yK6p0U22Lu36zaLlNmqfsxQmh9Hj5EZdZz0UJCbcIM_SLhajtHYdt8dmtfiSVGt_HE4uXnRK4AQKVCoDKWugugYlX4p0rWQ2EpavRPTzXfmuEvdQWS1sHaFIoCyFKCMZb0kgrVkFYkVmjPDaEUO7db7F1lTdYdIz2sFT-9HeBL74GLEW_ZqPukFtrveTr"/>
+<div class="absolute top-6 left-6 px-4 py-2 bg-text-dark text-white rounded-full text-xs font-bold uppercase tracking-wider">E-commerce</div>
+</div>
+<div class="w-full md:w-2/5 flex flex-col gap-6">
+<div class="flex items-center gap-4 text-primary font-hand text-4xl">
+<span>01</span>
+<div class="w-12 h-1 bg-primary rounded-full"></div>
+</div>
+<h3 class="text-4xl font-display font-bold leading-tight group-hover:text-primary transition-colors">Nejbalonky.cz</h3>
+<p class="text-lg text-text-dark/70 leading-relaxed">E-commerce магазин с полной автоматизацией. Интеграция логистики, складов и 1С-онлайн. Стабильный рост без увеличения штата.</p>
+<div class="inline-flex items-center px-4 py-2 bg-green-100 text-green-700 rounded-lg font-bold text-sm w-max mt-2">
+<span class="material-symbols-outlined mr-2 text-lg">trending_up</span>
+                +45% ROAS
+              </div>
+</div>
+</div>
+<div class="group flex flex-col md:flex-row-reverse gap-12 items-center cursor-pointer bg-white p-6 md:p-8 rounded-[3rem] border border-text-dark/5 shadow-sm hover:shadow-md transition-shadow">
+<div class="w-full md:w-3/5 aspect-[16/10] rounded-[2rem] bg-gray-200 overflow-hidden relative shadow-lg">
+<img alt="ProPradlo.cz project showcase" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIMk1Qx9zHmjZAuVYT7HiFHS2SOobGgbNX6AuUlfP4xUUJr54ZPqZyMnpL63ZWOOZriz3dEEexLzj8xnQzQSSBefi6YxZgyjo74cZZZnBalf5BpqOsdEu_v9RWaEa3SJ2T8vUXxeqxb3LDYnaztQneN5s7C9DBO4mPnc2Uap0ImS6eme12bQO3I2aXXtA0odKlkRBpu7p7QffYn_Cn-RLmbSkZAhGzjCV9pLo2ZP-BFL5T_cohqIliDnPdnib0tyHRcdfGh7awTQEC"/>
+<div class="absolute top-6 right-6 px-4 py-2 bg-text-dark text-white rounded-full text-xs font-bold uppercase tracking-wider">Automation</div>
+</div>
+<div class="w-full md:w-2/5 flex flex-col gap-6">
+<div class="flex items-center gap-4 text-primary font-hand text-4xl">
+<div class="w-12 h-1 bg-primary rounded-full"></div>
+<span>02</span>
+</div>
+<h3 class="text-4xl font-display font-bold leading-tight group-hover:text-primary transition-colors">ProPradlo.cz</h3>
+<p class="text-lg text-text-dark/70 leading-relaxed">Цифровая трансформация оптового бизнеса. Внедрение CRM, B2B-портала, ERP-системы и комплексная автоматизация продаж.</p>
+<div class="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-bold text-sm w-max mt-2">
+<span class="material-symbols-outlined mr-2 text-lg">schedule</span>
+                -30% Time
+              </div>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-12 pt-24" id="pricing">
+<div class="text-center flex flex-col items-center gap-4">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/10 shadow-sm text-sm font-bold text-text-dark/60">
+<span class="material-symbols-outlined text-sm">sell</span>
+<span>Тарифы</span>
+</div>
+<h2 class="text-5xl font-display font-extrabold tracking-tight relative">
+          Выберите подходящий <span class="relative inline-block z-10">пакет
+            <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+<p class="text-lg text-text-dark/70 max-w-xl mt-4">Прозрачное ценообразование. Без скрытых платежей.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 mb-2">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Фундамент</h3>
+<p class="text-text-dark/60 text-sm">Основа для онлайн-присутствия</p>
+<div class="my-4 border-b border-text-dark/10 pb-6">
+<p class="text-sm text-text-dark/60">Настройка: <span class="font-bold text-text-dark">18,000 Kč</span></p>
+<p class="text-sm text-text-dark/60 mt-1">В месяц: <span class="font-bold text-text-dark">8,000 Kč/мес</span></p>
+</div>
+<ul class="flex flex-col gap-3 text-sm flex-grow">
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Landing page или простой сайт (до 5 страниц)</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Настройка Meta Ads или Google Ads (одна платформа)</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Базовая аналитика (Server-side tracking)</span></li>
+</ul>
+<button class="w-full py-3 mt-6 border-2 border-text-dark rounded-full font-bold hover:bg-text-dark hover:text-white transition-colors">Выбрать</button>
+</div>
+<div class="bg-text-dark text-white p-8 rounded-[2rem] shadow-[0_0_40px_rgba(255,51,102,0.3)] border border-primary relative flex flex-col gap-6 transform lg:-translate-y-4">
+<div class="absolute -top-3 right-6 bg-primary text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">Популярный</div>
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary mb-2">
+<span class="material-symbols-outlined">trending_up</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Трафик</h3>
+<p class="text-white/60 text-sm">Привлечение клиентов из рекламы</p>
+<div class="my-4 border-b border-white/10 pb-6">
+<p class="text-sm text-white/60">Настройка: <span class="font-bold text-white">35,000 Kč</span></p>
+<p class="text-sm text-white/60 mt-1">В месяц: <span class="font-bold text-white">от 16,000 Kč/мес</span></p>
+</div>
+<ul class="flex flex-col gap-3 text-sm flex-grow">
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Всё из пакета "Фундамент"</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Многостраничный сайт (до 15 страниц)</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Meta + Google Ads (обе платформы)</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Ежемесячные отчеты</span></li>
+</ul>
+<button class="w-full py-3 mt-6 bg-primary text-white rounded-full font-bold shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:translate-y-1 hover:shadow-none transition-all">Выбрать</button>
+</div>
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 mb-2">
+<span class="material-symbols-outlined">shopping_cart</span>
+</div>
+<h3 class="text-2xl font-display font-bold">E-commerce</h3>
+<p class="text-text-dark/60 text-sm">Для интернет-магазинов</p>
+<div class="my-4 border-b border-text-dark/10 pb-6">
+<p class="text-sm text-text-dark/60">Настройка: <span class="font-bold text-text-dark">50,000 Kč</span></p>
+<p class="text-sm text-text-dark/60 mt-1">В месяц: <span class="font-bold text-text-dark">от 25,000 Kč/мес</span></p>
+</div>
+<ul class="flex flex-col gap-3 text-sm flex-grow">
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Всё из пакета "Трафик"</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Интернет-магазин до 100 товаров</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Google Shopping / Performance Max</span></li>
+</ul>
+<button class="w-full py-3 mt-6 border-2 border-text-dark rounded-full font-bold hover:bg-text-dark hover:text-white transition-colors">Выбрать</button>
+</div>
+<div class="bg-white p-8 rounded-[2rem] shadow-sm border border-text-dark/5 flex flex-col gap-6 hover:shadow-md transition-shadow">
+<div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 mb-2">
+<span class="material-symbols-outlined">stars</span>
+</div>
+<h3 class="text-2xl font-display font-bold">Масштаб</h3>
+<p class="text-text-dark/60 text-sm">Индивидуальное решение под ваш бизнес</p>
+<div class="my-4 border-b border-text-dark/10 pb-6">
+<p class="text-sm text-text-dark/60">Настройка: <span class="font-bold text-text-dark">По запросу</span></p>
+<p class="text-sm text-text-dark/60 mt-1">В месяц: <span class="font-bold text-text-dark">Индивидуально</span></p>
+</div>
+<ul class="flex flex-col gap-3 text-sm flex-grow">
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Полностью кастомное решение</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>Любые интеграции и автоматизации</span></li>
+<li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-lg shrink-0">check</span> <span>AI-ассистенты для бизнеса</span></li>
+</ul>
+<button class="w-full py-3 mt-6 border-2 border-text-dark rounded-full font-bold hover:bg-text-dark hover:text-white transition-colors">Выбрать</button>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-12 pt-24 pb-12" id="process">
+<div class="text-center flex flex-col items-center gap-4 mb-8">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/10 shadow-sm text-sm font-bold text-text-dark/60">
+<span class="material-symbols-outlined text-sm">route</span>
+<span>Процесс</span>
+</div>
+<h2 class="text-5xl font-display font-extrabold tracking-tight relative">
+          Как мы <span class="relative inline-block z-10">работаем
+            <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+<p class="text-lg text-text-dark/70 max-w-xl mt-4">Простой, прозрачный процесс от старта до роста</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm relative overflow-hidden hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-8 text-8xl font-hand text-text-dark/5 font-bold z-0 pointer-events-none">1</div>
+<div class="relative z-10">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">Неделя 1</span>
+<h3 class="text-xl font-display font-bold mt-2 mb-3">Диагностика и аудит</h3>
+<p class="text-sm text-text-dark/70">Короткая консультация, аудит сайта и рекламы, анализ конкурентов. Фиксируем цели и ключевые показатели.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm relative overflow-hidden mt-0 lg:mt-8 hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-8 text-8xl font-hand text-text-dark/5 font-bold z-0 pointer-events-none">2</div>
+<div class="relative z-10">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">Недели 2-3</span>
+<h3 class="text-xl font-display font-bold mt-2 mb-3">Настройка и запуск</h3>
+<p class="text-sm text-text-dark/70">Подготовка сайта к продажам, настройка аналитики и запуск рекламных кампаний с первыми креативами.</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm relative overflow-hidden hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-8 text-8xl font-hand text-text-dark/5 font-bold z-0 pointer-events-none">3</div>
+<div class="relative z-10">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">Недели 4-6</span>
+<h3 class="text-xl font-display font-bold mt-2 mb-3">Тестирование и оптимизация</h3>
+<p class="text-sm text-text-dark/70">Тестируем гипотезы, анализируем первые результаты и корректируем стратегию на основе данных (включая AI-инструменты).</p>
+</div>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm relative overflow-hidden mt-0 lg:mt-8 hover:shadow-md transition-shadow">
+<div class="absolute -right-4 -top-8 text-8xl font-hand text-text-dark/5 font-bold z-0 pointer-events-none">4</div>
+<div class="relative z-10">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">Месяц 2-3</span>
+<h3 class="text-xl font-display font-bold mt-2 mb-3">Масштабирование</h3>
+<p class="text-sm text-text-dark/70">Увеличение бюджета на эффективные каналы, расширение аудиторий и добавление новых креативов.</p>
+</div>
+</div>
+<div class="bg-primary text-white p-6 rounded-3xl shadow-md relative overflow-hidden">
+<div class="absolute -right-4 -top-8 text-8xl font-hand text-white/10 font-bold z-0 pointer-events-none">5</div>
+<div class="relative z-10 h-full flex flex-col justify-between">
+<div>
+<span class="text-white/80 text-xs font-bold uppercase tracking-wider">Постоянно</span>
+<h3 class="text-xl font-display font-bold mt-2 mb-3">Постоянная поддержка</h3>
+<p class="text-sm text-white/80">Регулярные отчеты, мониторинг метрик и быстрая корректировка на основе данных и AI.</p>
+</div>
+<button class="mt-6 w-full py-2 bg-white text-primary rounded-full font-bold text-sm hover:shadow-lg transition-shadow">Начать проект</button>
+</div>
+</div>
+</div>
+</section>
+<section class="flex flex-col gap-12 pt-24 pb-12">
+<div class="text-center flex flex-col items-center gap-4 mb-8">
+<div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-text-dark/10 shadow-sm text-sm font-bold text-text-dark/60">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+<span>FAQ</span>
+</div>
+<h2 class="text-5xl font-display font-extrabold tracking-tight relative">
+          Частые <span class="relative inline-block z-10">вопросы
+            <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+</div>
+<div class="w-full max-w-3xl mx-auto flex flex-col gap-4">
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm">
+<h3 class="text-xl font-display font-bold mb-2">Чем вы отличаетесь от других агентств?</h3>
+<p class="text-text-dark/70">Мы не просто настраиваем рекламу. Мы строим системный маркетинг: от сайта и аналитики до автоматизации продаж. Один партнер для всех digital-задач.</p>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm">
+<h3 class="text-xl font-display font-bold mb-2">С какими бюджетами вы работаете?</h3>
+<p class="text-text-dark/70">Мы рекомендуем начинать с рекламного бюджета от 20 000 Kč в месяц для получения статистически значимых результатов.</p>
+</div>
+<div class="bg-white p-6 rounded-3xl border border-text-dark/5 shadow-sm">
+<h3 class="text-xl font-display font-bold mb-2">Как быстро будут первые результаты?</h3>
+<p class="text-text-dark/70">Первые лиды и продажи обычно появляются в первую неделю после запуска кампаний. Оптимизация и стабильный рост начинаются со 2-3 месяца работы.</p>
+</div>
+</div>
+</section>
+<section class="w-full max-w-4xl mx-auto mt-16 p-8 md:p-12 rounded-[2.5rem] bg-white/80 backdrop-blur-xl border border-white shadow-xl relative overflow-hidden">
+<div class="absolute -left-20 -top-20 w-64 h-64 bg-primary/10 rounded-blob blur-[40px] -z-10"></div>
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-pink-500/10 rounded-blob-2 blur-[40px] -z-10"></div>
+<div class="text-center mb-10">
+<h2 class="text-4xl font-display font-bold mb-4 relative inline-block">
+          Бесплатный план <span class="relative z-10">роста
+            <svg class="absolute -bottom-2 left-0 w-full h-3 text-primary -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 10 Q 50 20 100 10" stroke="currentColor" stroke-linecap="round" stroke-width="4"></path>
+</svg>
+</span>
+</h2>
+<p class="text-text-dark/70 mt-4">Ответьте на несколько коротких вопросов — мы посмотрим вашу ситуацию и предложим конкретные шаги для роста бизнеса.</p>
+</div>
+<form class="flex flex-col gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-text-dark/80 ml-4">Сайт или профиль бизнеса</label>
+<input class="px-6 py-4 rounded-full bg-white border border-text-dark/10 shadow-sm focus:ring-2 focus:ring-primary w-full outline-none transition-shadow" placeholder="https://..." type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-text-dark/80 ml-4">Email для ответа</label>
+<input class="px-6 py-4 rounded-full bg-white border border-text-dark/10 shadow-sm focus:ring-2 focus:ring-primary w-full outline-none transition-shadow" placeholder="your@email.com" type="email"/>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<label class="text-sm font-bold text-text-dark/80 ml-4">Что вас больше всего мешает расти?</label>
+<textarea class="px-6 py-4 rounded-3xl bg-white border border-text-dark/10 shadow-sm focus:ring-2 focus:ring-primary w-full outline-none transition-shadow min-h-[120px] resize-none" placeholder="Мало заявок / реклама не окупается..."></textarea>
+</div>
+<button class="bg-text-dark text-white px-10 py-5 rounded-full text-lg font-bold shadow-[4px_4px_0px_0px_rgba(255,51,102,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(255,51,102,1)] transition-all mt-4" type="submit">
+          Получить план на 30 дней
+        </button>
+</form>
+</section>
+</div>
+</div>
+<footer class="w-full bg-transparent border-t border-text-dark/10 pt-16 pb-8 relative z-10">
+<div class="max-w-[1200px] mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+<div class="col-span-1 md:col-span-1 flex flex-col gap-6">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 flex items-center justify-center bg-text-dark text-bg-light rounded-blob shadow-md">
+<span class="material-symbols-outlined text-xl">gesture</span>
+</div>
+<h2 class="text-xl font-display font-bold tracking-tight">Halo Agency</h2>
+</div>
+<p class="text-text-dark/70 text-sm leading-relaxed">
+            Мы выстраиваем единую систему, где сайт, реклама и внутренние процессы связаны между собой.
+          </p>
+</div>
+<div class="col-span-1 flex flex-col gap-4">
+<h4 class="font-display font-bold text-lg">Услуги</h4>
+<ul class="flex flex-col gap-3 text-sm text-text-dark/70">
+<li><a class="hover:text-primary transition-colors" href="#">Разработка сайтов</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Онлайн Реклама</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Аналитика и трекинг</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Автоматизация</a></li>
+</ul>
+</div>
+<div class="col-span-1 flex flex-col gap-4">
+<h4 class="font-display font-bold text-lg">Компания</h4>
+<ul class="flex flex-col gap-3 text-sm text-text-dark/70">
+<li><a class="hover:text-primary transition-colors" href="#cases">Кейсы</a></li>
+<li><a class="hover:text-primary transition-colors" href="#pricing">Цены</a></li>
+<li><a class="hover:text-primary transition-colors" href="#process">Как мы работаем</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Контакты</a></li>
+</ul>
+</div>
+<div class="col-span-1 flex flex-col gap-4">
+<h4 class="font-display font-bold text-lg">Контакты</h4>
+<ul class="flex flex-col gap-3 text-sm text-text-dark/70">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-lg text-primary">mail</span> hello@haloagency.cz</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-lg text-primary">call</span> +420 123 456 789</li>
+</ul>
+<div class="flex gap-4 mt-2">
+<a class="w-10 h-10 rounded-full bg-white border border-text-dark/10 flex items-center justify-center text-text-dark hover:text-primary hover:border-primary transition-all shadow-sm" href="#">
+<span class="material-symbols-outlined">share</span>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-text-dark/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-dark/50">
+<p>© 2024 Halo Agency. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-text-dark transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-text-dark transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

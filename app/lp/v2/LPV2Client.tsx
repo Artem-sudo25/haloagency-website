@@ -1,20 +1,20 @@
 "use client";
 
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { ArrowRight, PhoneCall } from "lucide-react";
+import { ArrowRight, Phone, Star } from "lucide-react";
 
-const jakarta = Plus_Jakarta_Sans({
+const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
   display: "swap",
-  variable: "--font-jakarta",
+  variable: "--font-inter",
 });
 
 /* ─── Shared styles ─── */
-const shell = "mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8";
+const shell = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8";
 const primaryBtn =
-  "inline-flex items-center justify-center rounded-lg bg-[#F43F5E] px-6 py-3.5 text-sm font-bold text-white transition-all shadow-[4px_4px_0px_0px_rgba(26,31,40,0.1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F43F5E] focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center rounded-xl bg-[#f43f5e] px-8 py-4 text-sm font-semibold text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 hover:bg-[#e11d48] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f43f5e] focus-visible:ring-offset-2";
 
 /* ─── Data ─── */
 const caseStudies = [
@@ -194,65 +194,59 @@ export default function LPV2Client() {
   };
 
   const fieldClass =
-    "h-11 w-full rounded-lg border border-[#DDD4C8] bg-white px-3.5 text-sm text-[#1A1F28] outline-none placeholder:text-[#A0AAB4] transition-colors focus:border-[#F43F5E] focus:ring-1 focus:ring-[#F43F5E]/30";
-  const labelClass = "block text-sm font-medium text-[#3D4852] mb-1.5";
-  const errorClass = "mt-1 text-xs text-[#B94A2C]";
+    "w-full rounded-lg border border-gray-200 bg-[#fafafa] px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 transition-shadow focus:ring-2 focus:ring-[#f43f5e] focus:border-[#f43f5e]";
+  const labelClass = "block text-sm font-medium text-gray-900 mb-1.5";
+  const errorClass = "mt-1 text-xs text-red-600";
 
   return (
     <main
-      className={`${jakarta.variable} font-[family-name:var(--font-jakarta)] min-h-screen bg-[#F8F4EF] text-[#1A1F28]`}
+      className={`${inter.variable} font-[family-name:var(--font-inter)] min-h-screen bg-[#fafafa] text-gray-900`}
+      style={{
+        backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
+        backgroundSize: "32px 32px",
+      }}
     >
       {/* ── Nav ── */}
-      <header className="sticky top-0 z-40 border-b border-[#E8DDD2] bg-[#F8F4EF]/95 backdrop-blur-sm">
-        <div className={`${shell} flex h-16 items-center justify-between`}>
-          <Link href="/" className="text-lg font-bold tracking-tight text-[#1A1F28]">
-            Halo<span className="text-[#F43F5E]">Agency</span>
+      <header className="fixed top-0 w-full z-50 shadow-sm" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", borderBottom: "1px solid rgba(255,255,255,0.3)" }}>
+        <div className={`${shell} flex h-20 items-center justify-between`}>
+          <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">
+            Halo<span className="text-[#f43f5e]">Agency</span>
           </Link>
           <a
             href="tel:+420705729502"
-            className="flex items-center gap-1.5 text-sm font-medium text-[#64707C] transition-colors hover:text-[#1A1F28]"
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium"
           >
-            <PhoneCall className="h-4 w-4" />
+            <Phone className="h-4 w-4" />
             +420 705 729 502
           </a>
         </div>
       </header>
 
       {/* ── Hero ── */}
-      <section className="relative py-16 sm:py-24 overflow-hidden">
-        {/* Abstract Background Element */}
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 h-96 w-96 rounded-full bg-[#F43F5E]/5 blur-3xl"></div>
-        <div className="absolute bottom-0 left-10 h-64 w-64 rounded-full bg-[#3B82F6]/5 blur-3xl"></div>
-
-        <div className={`${shell} relative grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-start`}>
-          {/* Left copy - More editorial typography */}
-          <div className="space-y-8 pt-4">
-            <h1 className="text-4xl font-extrabold leading-[1.1] tracking-tight text-[#1A1F28] sm:text-[3.5rem]">
-              Реклама уходит,{" "}
+      <section className="pt-32 pb-20 relative">
+        <div className={`${shell} relative grid gap-16 lg:grid-cols-12 items-start`}>
+          {/* Left copy */}
+          <div className="lg:col-span-7 flex flex-col justify-center pt-8">
+            <h1 className="text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 tracking-tight text-gray-900">
+              Реклама уходит,<br />
+              а заявок не<br />
+              прибавляется.<br />
               <span className="relative inline-block">
-                <span className="relative z-10 text-[#1B3A5C]">а заявок не прибавляется.</span>
-                <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#F43F5E]/20 -rotate-1"></span>
+                <span className="relative z-10">Разберём почему<br />— бесплатно.</span>
+                <span className="absolute bottom-1 left-0 w-full h-3 bg-[#f43f5e]/20 -z-0 -skew-x-[15deg]"></span>
               </span>
-              <br />
-              Разберём почему — бесплатно.
             </h1>
-            <p className="max-w-xl text-xl leading-relaxed text-[#4C5A67] border-l-4 border-[#3B82F6] pl-6">
-              За 20 минут смотрим на вашу рекламу, лендинг и трекинг — и
-              называем конкретные причины. После звонка присылаем PDF с
-              приоритетами под ваш проект. Без обязательств работать с нами.
-            </p>
 
-            <div className="flex items-center gap-4 text-sm font-medium text-[#1A1F28]">
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="h-8 w-8 rounded-full border-2 border-[#F8F4EF] bg-[#E8DDD2]"></div>
-                ))}
-              </div>
-              <p>90+ разборов для SMB в Чехии</p>
+            <div className="border-l-4 border-[#f43f5e] pl-6 py-2 mb-10">
+              <p className="text-lg text-gray-500 leading-relaxed">
+                За 20 минут смотрим на вашу рекламу, лендинг и трекинг — и
+                называем конкретные причины. После звонка присылаем PDF с
+                приоритетами под ваш проект. Без обязательств работать с нами.
+              </p>
             </div>
 
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center pt-2">
-              <button type="button" onClick={scrollToForm} className={`${primaryBtn} shadow-[4px_4px_0px_0px_rgba(26,31,40,0.1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1 hover:bg-[#F43F5E] transition-all`}>
+            <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
+              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn}`}>
                 Записаться на бесплатный разбор
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
@@ -260,46 +254,53 @@ export default function LPV2Client() {
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-bold text-[#1A1F28] underline decoration-2 underline-offset-4 decoration-[#3B82F6]/30 transition-colors hover:decoration-[#3B82F6]"
+                className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-2 decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
               >
                 Написать в WhatsApp
               </a>
             </div>
+
+            <div className="flex items-center gap-4">
+              <div className="flex -space-x-3">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className={`w-10 h-10 rounded-full bg-gray-200 border-2 border-[#fafafa] ${i > 1 ? `opacity-${i === 2 ? 80 : 60}` : ''}`}></div>
+                ))}
+              </div>
+              <p className="text-sm text-gray-500 font-medium">
+                <span className="font-bold text-gray-900">90+</span> разборов для SMB в Чехии
+              </p>
+            </div>
           </div>
 
-          {/* Right — Form card (Asymmetric / Brutalist touch) */}
-          <div className="relative mt-8 lg:mt-0 lg:ml-8" id="v2-form">
-            {/* Solid offset shadow */}
-            <div className="absolute top-4 left-4 h-full w-full bg-[#F43F5E] rounded-xl -z-10"></div>
+          {/* Right — Form card */}
+          <div className="lg:col-span-5 relative" id="v2-form">
+            {/* Primary color offset shadow */}
+            <div className="absolute inset-0 bg-[#f43f5e] translate-x-4 translate-y-4 rounded-2xl -z-10 opacity-90"></div>
 
-            <div className="rounded-xl border-2 border-[#1A1F28] bg-white p-6 sm:p-8 relative z-10">
+            <div className="bg-white rounded-2xl p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-200 relative">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h2 className="text-2xl font-black text-[#1A1F28] tracking-tight">
-                    Growth Audit
-                  </h2>
-                  <p className="mt-1 text-sm text-[#64707C]">
-                    20 минут. Без воды и продаж.
-                  </p>
+                  <h3 className="text-2xl font-bold mb-1">Growth Audit</h3>
+                  <p className="text-sm text-gray-500">20 минут. Без воды и продаж.</p>
                 </div>
-                <div className="inline-flex items-center rounded bg-[#EFF6FF] px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#3B82F6] border border-[#BFDBFE]">
+                <span className="px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold rounded-md tracking-wider uppercase">
                   Free
-                </div>
+                </span>
               </div>
 
               {submitSuccess && (
-                <div className="mt-5 rounded-lg border-2 border-[#22C55E] bg-[#F0FDF4] p-4 text-sm font-medium text-[#166534]">
+                <div className="mt-5 rounded-lg border border-green-300 bg-green-50 p-4 text-sm font-medium text-green-800">
                   Заявка отправлена. Напишем на email в течение 2 рабочих часов.
                 </div>
               )}
               {submitError && (
-                <div className="mt-5 rounded-lg border-2 border-[#EF4444] bg-[#FEF2F2] p-4 text-sm font-medium text-[#991B1B]">
+                <div className="mt-5 rounded-lg border border-red-300 bg-red-50 p-4 text-sm font-medium text-red-800">
                   {submitError}
                 </div>
               )}
 
               {!submitSuccess && (
-                <form onSubmit={handleSubmit} className="mt-5 space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className={labelClass} htmlFor="v2-name">
                       Имя
@@ -361,33 +362,35 @@ export default function LPV2Client() {
                     />
                     {errors.email && <p className={errorClass}>{errors.email}</p>}
                   </div>
-                  <label className="flex items-start gap-2.5 pt-1 text-sm text-[#566473]">
-                    <input
-                      type="checkbox"
-                      checked={values.consent}
-                      onChange={(e) =>
-                        setValues((p) => ({ ...p, consent: e.target.checked }))
-                      }
-                      className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border-[#D8CCC0] accent-[#F43F5E]"
-                    />
-                    <span>
+                  <div className="flex items-start gap-3 pt-2">
+                    <div className="flex items-center h-5">
+                      <input
+                        type="checkbox"
+                        checked={values.consent}
+                        onChange={(e) =>
+                          setValues((p) => ({ ...p, consent: e.target.checked }))
+                        }
+                        className="w-4 h-4 rounded border-gray-300 text-[#f43f5e] focus:ring-[#f43f5e] bg-[#fafafa]"
+                      />
+                    </div>
+                    <label className="text-xs text-gray-500 leading-snug">
                       Согласен(а) на обработку данных. Только контакт по вашему
                       разбору, без рассылок.
-                    </span>
-                  </label>
+                    </label>
+                  </div>
                   {errors.consent && <p className={errorClass}>{errors.consent}</p>}
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group relative h-14 w-full overflow-hidden rounded-lg bg-[#1A1F28] text-sm font-bold text-white transition-all hover:bg-[#2D3748] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="group w-full py-4 bg-gray-900 text-white font-bold rounded-xl transition-all hover:opacity-90 flex items-center justify-center gap-2 mt-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <span className="relative z-10 flex items-center justify-center gap-2">
+                    <span className="flex items-center justify-center gap-2">
                       {isSubmitting ? "Отправляем..." : "Получить разбор"}
                       {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
                     </span>
                   </button>
-                  <p className="text-center text-xs text-[#8A9BAA]">
+                  <p className="text-center text-xs text-gray-400 mt-4">
                     Ответим за 2 часа в рабочее время
                   </p>
                 </form>
@@ -398,47 +401,41 @@ export default function LPV2Client() {
       </section>
 
       {/* ── Social Proof Strip ── */}
-      <section className="py-12 sm:py-16">
+      <section className="mb-32">
         <div className={shell}>
-          <div className="flex items-center gap-4 mb-10">
-            <h2 className="text-2xl font-extrabold tracking-tight text-[#1A1F28] whitespace-nowrap">
-              Что <span className="text-[#F43F5E]">говорят</span> клиенты
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <h2 className="text-3xl font-bold">
+              Что <span className="text-[#f43f5e]">говорят</span> клиенты
             </h2>
-            <div className="h-px flex-1 bg-[#E8DDD2]"></div>
-            <div className="inline-flex items-center gap-1 px-3 py-1 rounded bg-[#F8F4EF] border border-[#E8DDD2] whitespace-nowrap">
-              <span className="text-sm font-bold text-[#1A1F28]">5.0</span>
-              <svg className="w-4 h-4 text-[#F59E0B]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
+              <span className="font-bold">5.0</span>
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
             </div>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            {testimonials.map((t, idx) => (
-              <div key={t.author} className="relative group">
-                {/* Small offset shadow */}
-                <div className="absolute top-2 left-2 w-full h-full bg-[#E8DDD2] rounded-xl -z-10 transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"></div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div key={t.author} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] flex flex-col h-full">
+                {/* Stars */}
+                <div className="flex gap-1 text-yellow-400 mb-4">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className="w-3.5 h-3.5 fill-yellow-400" />
+                  ))}
+                </div>
 
-                <div className="rounded-xl border border-[#1A1F28] bg-white p-5 sm:p-6 relative z-10 flex flex-col h-full">
-                  {/* Stars */}
-                  <div className="flex gap-0.5 mb-3">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <svg key={s} className="w-3.5 h-3.5 text-[#F59E0B]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                    ))}
+                {/* Quote */}
+                <p className="text-gray-900 mb-8 flex-grow">
+                  &laquo;{t.quote}&raquo;
+                </p>
+
+                {/* Author */}
+                <div className="flex items-center gap-4 mt-auto pt-6 border-t border-gray-200">
+                  <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
+                    {t.initial}
                   </div>
-
-                  {/* Quote */}
-                  <p className="text-sm leading-relaxed text-[#4C5A67] flex-1">
-                    &laquo;{t.quote}&raquo;
-                  </p>
-
-                  {/* Author */}
-                  <div className="mt-5 pt-4 border-t border-[#E8DDD2] flex items-center gap-3">
-                    <div className="flex items-center justify-center w-9 h-9 rounded-full bg-[#1A1F28] text-white text-xs font-bold shrink-0">
-                      {t.initial}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-[#1A1F28]">{t.author}</p>
-                      <p className="text-xs text-[#64707C]">{t.business}</p>
-                    </div>
+                  <div>
+                    <p className="font-bold text-sm">{t.author}</p>
+                    <p className="text-xs text-gray-500">{t.business}</p>
                   </div>
                 </div>
               </div>
@@ -446,52 +443,53 @@ export default function LPV2Client() {
           </div>
         </div>
       </section>
-      <section className="py-16 sm:py-24 relative overflow-hidden">
-        {/* Background Accent */}
-        <div className="absolute top-40 right-10 w-72 h-72 bg-[#3B82F6]/5 rounded-full blur-3xl -z-10"></div>
 
-        <div className={shell}>
-          <div className="max-w-2xl">
-            <h2 className="text-3xl font-extrabold tracking-tight text-[#1A1F28] sm:text-[2.5rem] leading-[1.1]">
-              Что меняется после <span className="text-[#3B82F6]">разбора</span>
+      {/* ── Case Studies ── */}
+      <section className="mb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+              Что меняется после <span className="text-blue-500">разбора</span>
             </h2>
-            <p className="mt-4 text-lg text-[#4C5A67] border-l-2 border-[#F43F5E] pl-4">
-              Примеры из ниш, где важен стабильный CPL/CPA, а не просто пустой трафик.
-            </p>
+            <div className="border-l-2 border-[#f43f5e] pl-4">
+              <p className="text-gray-500">
+                Примеры из ниш, где важен стабильный CPL/CPA, а не просто пустой трафик.
+              </p>
+            </div>
           </div>
 
-          <div className="mt-12 space-y-8">
+          <div className="space-y-8">
             {caseStudies.map((cs, idx) => (
               <article
                 key={cs.business}
-                className="relative group"
+                className={`bg-white rounded-2xl ${idx === 0 ? 'border-2' : 'border'} border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden`}
               >
-                {/* Offset shadow that shifts on hover */}
-                <div className="absolute top-3 left-3 w-full h-full bg-[#E8DDD2] rounded-xl -z-10 transition-transform group-hover:translate-x-1 group-hover:translate-y-1"></div>
-
-                <div className="rounded-xl border-2 border-[#1A1F28] bg-white p-6 sm:p-8 flex flex-col md:flex-row gap-8 items-start relative z-10">
-                  <div className="flex-1 space-y-5">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#1A1F28] text-white font-bold text-sm">
+                <div className="flex flex-col md:flex-row">
+                  {/* Left: Content */}
+                  <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-200">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
                         0{idx + 1}
-                      </div>
-                      <h3 className="text-xl font-bold text-[#1A1F28]">{cs.business}</h3>
-                      <span className="text-xs font-semibold px-2.5 py-1 bg-[#F8F4EF] text-[#3B82F6] rounded border border-[#EFF6FF]">
-                        {cs.meta}
                       </span>
+                      <h3 className="text-xl font-bold">{cs.business}</h3>
+                    </div>
+                    <div className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-semibold rounded mb-6">
+                      {cs.meta}
                     </div>
 
-                    <p className="text-sm leading-relaxed text-[#4C5A67]">
-                      <span className="font-bold text-[#1A1F28] uppercase text-xs tracking-wider mr-2">Ситуация:</span>
-                      {cs.situation}
-                    </p>
+                    <div className="mb-6">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Ситуация:</h4>
+                      <p className="text-sm text-gray-900 leading-relaxed">
+                        {cs.situation}
+                      </p>
+                    </div>
 
-                    <div className="space-y-2">
-                      <p className="font-bold text-[#1A1F28] uppercase text-xs tracking-wider">Что изменили:</p>
-                      <ul className="space-y-2">
+                    <div>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Что изменили:</h4>
+                      <ul className="space-y-2 text-sm text-gray-900">
                         {cs.changes.map((c) => (
-                          <li key={c} className="flex items-start gap-3 text-sm text-[#4C5A67]">
-                            <ArrowRight className="h-4 w-4 text-[#F43F5E] shrink-0 mt-0.5" />
+                          <li key={c} className="flex items-start gap-2">
+                            <ArrowRight className="h-4 w-4 text-[#f43f5e] shrink-0 mt-0.5" />
                             <span>{c}</span>
                           </li>
                         ))}
@@ -499,21 +497,24 @@ export default function LPV2Client() {
                     </div>
                   </div>
 
-                  {/* Results Box */}
-                  <div className="w-full md:w-72 shrink-0 bg-[#F8F4EF] border border-[#E8DDD2] rounded-lg p-5 space-y-4">
-                    {cs.results.map((r) => (
-                      <div key={r.label} className="flex flex-col border-b border-[#E8DDD2] pb-3 last:pb-0 last:border-0 hover:bg-white/50 transition-colors rounded px-2 -mx-2">
-                        <div className="flex justify-between items-baseline mb-1">
-                          <p className="text-xs font-medium text-[#64707C]">{r.label}</p>
-                          <p className="text-xs font-semibold text-[#1B5E38] bg-[#C8E6C9]/40 px-1.5 py-0.5 rounded">
+                  {/* Right: Results */}
+                  <div className="p-8 md:w-1/3 bg-[#fafafa] flex flex-col justify-center space-y-6">
+                    {cs.results.map((r, rIdx) => (
+                      <div key={r.label}>
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-xs text-gray-500">{r.label}</span>
+                          <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded">
                             {r.delta}
-                          </p>
+                          </span>
                         </div>
                         <div className="flex items-baseline gap-2">
-                          <p className="text-sm text-[#9AA5B0] line-through">{r.before}</p>
-                          <ArrowRight className="h-3 w-3 text-[#B0BCC7]" />
-                          <p className="text-xl font-bold text-[#1A1F28]">{r.after}</p>
+                          <span className="text-sm text-gray-400 line-through">{r.before}</span>
+                          <ArrowRight className="h-3 w-3 text-gray-400" />
+                          <span className="text-xl font-bold">{r.after}</span>
                         </div>
+                        {rIdx < cs.results.length - 1 && (
+                          <div className="h-px bg-gray-200 w-full mt-6"></div>
+                        )}
                       </div>
                     ))}
                   </div>
@@ -525,69 +526,60 @@ export default function LPV2Client() {
       </section>
 
       {/* ── Trust Block ── */}
-      <section className="py-16 sm:py-20 relative">
-        <div className={shell}>
-          <div className="relative">
-            {/* Offset shadow border */}
-            <div className="absolute top-3 left-3 w-full h-full border-2 border-[#1A1F28] rounded-xl -z-10"></div>
+      <section className="mb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative bg-white rounded-3xl p-10 md:p-14 border border-gray-200 shadow-xl overflow-hidden">
+            <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold tracking-wider uppercase rounded mb-6">
+              Гарантия прозрачности
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Это не продажа.</h2>
+            <div className="border-l-2 border-gray-200 pl-6 space-y-4 mb-10">
+              <p className="text-lg text-gray-900 leading-relaxed">
+                На звонке разбираем вашу ситуацию честно: где теряются деньги, что
+                мешает расти конверсии, что в трекинге даёт неправильную картину.
+                После — присылаем <strong>документ с приоритетами</strong>.
+              </p>
+              <p className="text-lg text-gray-900 leading-relaxed">
+                Хотите работать с нами дальше — хорошо. Не хотите — этот план остаётся
+                у вас и подходит для внедрения с любой командой или подрядчиком.
+              </p>
+            </div>
 
-            <div className="rounded-xl border-2 border-[#1A1F28] bg-white p-8 sm:p-12 relative z-10 overflow-hidden">
-              {/* Decorative corner element */}
-              <div className="absolute -top-12 -right-12 w-32 h-32 bg-[#F43F5E]/10 rounded-full blur-2xl"></div>
-
-              <div className="max-w-2xl relative z-10">
-                <div className="inline-flex items-center rounded-sm bg-[#EFF6FF] px-2 py-1 text-xs font-bold uppercase tracking-wider text-[#3B82F6] mb-4">
-                  Гарантия прозрачности
-                </div>
-                <h2 className="text-3xl font-extrabold text-[#1A1F28] sm:text-4xl tracking-tight">Это не продажа.</h2>
-                <div className="mt-6 space-y-4 text-lg leading-relaxed text-[#4C5A67] border-l-2 border-[#E8DDD2] pl-5">
-                  <p>
-                    На звонке разбираем вашу ситуацию честно: где теряются деньги, что
-                    мешает расти конверсии, что в трекинге даёт неправильную картину.
-                    После — присылаем <span className="font-semibold text-[#1A1F28]">документ с приоритетами</span>.
-                  </p>
-                  <p>
-                    Хотите работать с нами дальше — хорошо. Не хотите — этот план остаётся
-                    у вас и подходит для внедрения с любой командой или подрядчиком.
-                  </p>
-                </div>
-
-                <div className="mt-10 flex flex-col sm:flex-row gap-4 sm:items-center">
-                  <button type="button" onClick={scrollToForm} className={primaryBtn}>
-                    Записаться бесплатно
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </button>
-                  <a
-                    href="https://wa.me/420705729502"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-bold text-[#1A1F28] underline decoration-2 underline-offset-4 decoration-[#C8BDB4] transition-colors hover:decoration-[#1A1F28]"
-                  >
-                    Написать в WhatsApp
-                  </a>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row items-center gap-6">
+              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn} shadow-md`}>
+                Записаться бесплатно
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
+              <a
+                href="https://wa.me/420705729502"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
+              >
+                Написать в WhatsApp
+              </a>
             </div>
           </div>
         </div>
       </section>
+
       {/* ── FAQ ── */}
-      <section className="py-12 sm:py-16">
-        <div className={shell}>
-          <h2 className="text-2xl font-bold tracking-tight text-[#1A1F28]">
+      <section className="mb-32">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold mb-8">
             Частые вопросы
           </h2>
-          <div className="mt-6 space-y-2">
+          <div className="space-y-4">
             {faqItems.map((item) => (
               <details
                 key={item.q}
-                className="group overflow-hidden rounded-xl border border-[#E8DDD2] bg-white"
+                className="group bg-white rounded-xl border border-gray-200 hover:border-[#f43f5e]/30 transition-colors overflow-hidden"
               >
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm font-semibold text-[#1A1F28] marker:content-none">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-medium text-gray-900 marker:content-none">
                   {item.q}
-                  <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#F43F5E] transition-transform group-open:rotate-90" />
+                  <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#f43f5e] opacity-70 group-hover:opacity-100 transition-all group-open:rotate-90" />
                 </summary>
-                <div className="border-t border-[#E8DDD2] px-5 py-4 text-sm leading-relaxed text-[#566473]">
+                <div className="border-t border-gray-200 px-5 py-4 text-sm leading-relaxed text-gray-500">
                   {item.a}
                 </div>
               </details>
@@ -597,46 +589,38 @@ export default function LPV2Client() {
       </section>
 
       {/* ── Final CTA ── */}
-      <section className="py-16 pb-24 sm:py-24 sm:pb-32 overflow-hidden">
-        <div className={shell}>
-          {/* Group wrapper for hover interaction */}
-          <div className="relative max-w-4xl mx-auto group">
-            {/* Hot Pink offset shadow — makes the CTA pop */}
-            <div className="absolute top-5 left-5 w-full h-full bg-[#F43F5E] rounded-2xl -z-10 transition-all duration-300 group-hover:top-6 group-hover:left-6"></div>
+      <section className="pb-20 relative">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Primary offset behind */}
+          <div className="absolute inset-0 bg-[#f43f5e] translate-y-4 rounded-[2rem] -z-10 mx-4 sm:mx-6 lg:mx-8"></div>
 
-            <div className="rounded-2xl border-2 border-[#1A1F28] bg-white p-10 text-center sm:p-16 relative z-10 overflow-hidden transition-all duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5">
-              {/* Decorative radial gradients */}
-              <div className="absolute top-0 right-0 -mr-20 -mt-20 h-64 w-64 rounded-full bg-[#F43F5E]/10 blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-64 w-64 rounded-full bg-[#3B82F6]/5 blur-3xl"></div>
+          <div className="bg-white rounded-[2rem] p-12 md:p-16 text-center border border-gray-200 shadow-2xl relative overflow-hidden">
+            <span className="inline-block px-4 py-1.5 bg-blue-50 text-blue-800 text-xs font-bold tracking-wider uppercase rounded-full mb-8">
+              Финальный шаг
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+              20 минут, чтобы понять,<br />
+              <span className="text-[#f43f5e]">где теряются заявки</span>
+            </h2>
+            <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10">
+              Бесплатный разбор рекламы, лендинга и трекинга. <br className="hidden sm:block" />
+              PDF с приоритетами после звонка. Без обязательств.
+            </p>
 
-              <div className="relative z-10">
-                <div className="inline-flex items-center rounded bg-[#EFF6FF] px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-[#3B82F6] border border-[#BFDBFE] mb-6">
-                  Финальный шаг
-                </div>
-                <h2 className="text-3xl font-extrabold tracking-tight text-[#1A1F28] sm:text-[2.5rem] leading-tight">
-                  20 минут, чтобы понять,<br />
-                  <span className="text-[#F43F5E]">где теряются заявки</span>
-                </h2>
-                <p className="mx-auto mt-6 max-w-xl text-lg text-[#4C5A67]">
-                  Бесплатный разбор рекламы, лендинга и трекинга. <br className="hidden sm:block" />
-                  PDF с приоритетами после звонка. Без обязательств.
-                </p>
-
-                <div className="mt-10 flex flex-col items-center gap-5 sm:flex-row sm:justify-center">
-                  <button type="button" onClick={scrollToForm} className={primaryBtn}>
-                    Записаться бесплатно
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </button>
-                  <a
-                    href="https://wa.me/420705729502"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm font-bold text-[#1A1F28] underline decoration-2 underline-offset-4 decoration-[#C8BDB4] transition-colors hover:decoration-[#F43F5E]"
-                  >
-                    или напишите в WhatsApp
-                  </a>
-                </div>
-              </div>
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn} text-lg px-10`}>
+                Записаться бесплатно
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </button>
+              <span className="text-gray-400 hidden sm:inline">или</span>
+              <a
+                href="https://wa.me/420705729502"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
+              >
+                напишите в WhatsApp
+              </a>
             </div>
           </div>
         </div>

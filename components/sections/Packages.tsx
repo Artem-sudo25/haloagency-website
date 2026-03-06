@@ -1,9 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, Sparkles, Zap, ShoppingCart, Rocket, Crown } from "lucide-react";
-import Link from "next/link";
+import { Check, Rocket, Zap, ShoppingCart, Crown } from "lucide-react";
 import { useContactModalActions } from "@/context/contact-modal-context";
 import { useState, useRef, useEffect } from "react";
 
@@ -22,7 +19,8 @@ const packages = [
       "Email отчеты раз в месяц"
     ],
     highlight: false,
-    icon: Rocket
+    icon: Rocket,
+    iconBg: "bg-[#06D6A0]"
   },
   {
     title: "Трафик",
@@ -38,8 +36,9 @@ const packages = [
       "Приоритетная поддержка (WhatsApp/Telegram)"
     ],
     highlight: true,
-    badge: "⭐ POPULAR",
-    icon: Zap
+    badge: "Популярный",
+    icon: Zap,
+    iconBg: "bg-[#FF3366]"
   },
   {
     title: "E-commerce",
@@ -56,7 +55,8 @@ const packages = [
       "Отчёты: топ товаров, категории, средний чек"
     ],
     highlight: false,
-    icon: ShoppingCart
+    icon: ShoppingCart,
+    iconBg: "bg-[#FFD166]"
   },
   {
     title: "Масштаб",
@@ -73,7 +73,8 @@ const packages = [
       "24/7 приоритетная поддержка"
     ],
     highlight: false,
-    icon: Crown
+    icon: Crown,
+    iconBg: "bg-[#B19CD9]"
   }
 ];
 
@@ -90,11 +91,10 @@ export default function Packages() {
 
     const handleScroll = () => {
       const scrollLeft = container.scrollLeft;
-      const cardWidth = container.offsetWidth * 0.8; // Approximate card width (80vw)
+      const cardWidth = container.offsetWidth * 0.8;
       const newIndex = Math.round(scrollLeft / cardWidth);
       setActiveIndex(newIndex);
 
-      // Hide scroll hint after user scrolls
       if (scrollLeft > 20) {
         setShowScrollHint(false);
       }
@@ -106,147 +106,114 @@ export default function Packages() {
 
   const handlePackageClick = (pkg: typeof packages[0]) => {
     const message = `Интересует пакет "${pkg.title}"\nНастройка: ${pkg.priceSetup}\nMonthly: ${pkg.priceMonthly}\n\n`;
-
-    // Extract numeric value from priceSetup (e.g. "18,000 Kč" -> 18000)
     const numericPrice = parseInt(pkg.priceSetup.replace(/[^0-9]/g, "")) || 0;
-
-    // For "Individual" (no number), set a high default or 0? 
-    // User said "8000 minimum", so let's use 0 if NaN and handle defaults in modal, 
-    // OR if it's the custom package "По запросу", maybe assign a high representative value?
-    // Let's stick to parsing. If 0 (NaN), we can fallback later.
 
     openContactModal({
       service: "package",
       package_name: pkg.title,
       message: message,
-      value: numericPrice > 0 ? numericPrice : 8000, // Fallback to min 8000 if not parseable
+      value: numericPrice > 0 ? numericPrice : 8000,
       currency: "CZK"
     });
   };
 
   return (
-    <section id="pricing" className="py-16 md:py-24 bg-[#0A1628] overflow-hidden" aria-labelledby="pricing-heading">
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="pricing" className="py-16 md:py-24 px-6" aria-labelledby="pricing-heading">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-12">
 
         {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
-            <Sparkles className="w-4 h-4 text-purple-400" />
-            <span className="text-sm font-medium text-gray-300">💎 Тарифы</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-white">
-            Выберите подходящий пакет
+        <div className="text-center flex flex-col items-center gap-4">
+          <h2 id="pricing-heading" className="text-4xl md:text-5xl font-extrabold tracking-tight relative" style={{ fontFamily: 'var(--font-display)' }}>
+            Выберите подходящий{" "}
+            <span className="relative inline-block z-10">
+              пакет
+              <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FF3366] -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeLinecap="round" strokeWidth="4" />
+              </svg>
+            </span>
           </h2>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-[#1A1A1A]/70 max-w-xl mt-4">
             Прозрачное ценообразование. Без скрытых платежей.
           </p>
         </div>
 
-        {/* Mobile: Horizontal Scroll | Desktop: Grid */}
+        {/* Pricing Cards */}
         <div className="relative">
           {/* Scroll Hint - Mobile Only */}
           {showScrollHint && (
             <div className="md:hidden absolute top-1/2 -translate-y-1/2 right-0 z-20 pointer-events-none transition-opacity duration-300">
-              <div className="bg-gradient-to-l from-[#0A1628] via-[#0A1628]/80 to-transparent w-24 h-full flex items-center justify-end pr-3">
-                <svg
-                  className="w-6 h-6 text-blue-400 animate-bounce-x"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
+              <div className="bg-gradient-to-l from-[#F5F5F7] via-[#F5F5F7]/80 to-transparent w-24 h-full flex items-center justify-end pr-3">
+                <svg className="w-6 h-6 text-[#FF3366] animate-bounce-x" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </div>
             </div>
           )}
 
-          {/* Scrollable Container */}
           <div
             ref={scrollContainerRef}
-            className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 snap-x snap-mandatory scroll-pl-4 p-4 md:p-6"
+            className="overflow-x-auto scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 snap-x snap-mandatory scroll-pl-4 p-4 pt-10 pb-6 md:p-6 md:pt-14 -mx-4 md:mx-0"
           >
             <div className="flex md:contents gap-4 px-4 md:px-0 pb-2">
               {packages.map((pkg, index) => (
                 <div
                   key={index}
-                  className={`
-                    flex-shrink-0 w-[80vw] sm:w-[70vw] md:w-auto snap-start
-                    ${pkg.highlight ? 'z-10' : ''}
-                  `}
+                  className={`flex-shrink-0 w-[80vw] sm:w-[70vw] md:w-auto snap-start ${pkg.highlight ? 'z-10' : ''}`}
                 >
-                  <Card
-                    className={`relative flex flex-col h-full transition-all duration-300 ${pkg.highlight
-                      ? 'bg-gradient-to-b from-[#1a2c4e] to-[#0A1628] border-2 border-blue-500 shadow-2xl shadow-blue-500/20 scale-100 lg:scale-105'
-                      : 'bg-white/5 border border-white/10 hover:border-white/20 hover:bg-white/10'
-                      } rounded-2xl overflow-hidden`}
+                  <div
+                    className={`relative flex flex-col h-full transition-all duration-300 rounded-2xl border-2 border-[#1A1A1A] ${pkg.highlight
+                      ? 'bg-[#1A1A1A] text-white transform lg:-translate-y-4 shadow-[8px_8px_0px_0px_#FF3366]'
+                      : 'bg-white shadow-[6px_6px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[10px_10px_0px_0px_#1A1A1A]'
+                      }`}
                   >
                     {/* Popular Badge */}
-                    {pkg.highlight && (
-                      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                    )}
-
                     {pkg.badge && (
-                      <div className="absolute top-4 right-4 bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-lg">
+                      <div className="absolute -top-4 right-4 bg-[#FF3366] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-none border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] rotate-3 z-20 hover:rotate-6 transition-transform">
                         {pkg.badge}
                       </div>
                     )}
 
-                    <CardHeader className="p-6 pb-2">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 ${pkg.highlight ? 'bg-blue-500/20 text-blue-400' : 'bg-white/5 text-gray-400'
-                        }`}>
-                        <pkg.icon className="w-6 h-6" />
+                    <div className="p-8 flex flex-col h-full pt-10">
+                      {/* Icon */}
+                      <div className={`w-14 h-14 rounded-xl border-2 border-[#1A1A1A] flex items-center justify-center mb-6 shadow-[4px_4px_0px_0px_#1A1A1A] ${pkg.iconBg || 'bg-white'} text-[#1A1A1A]`}>
+                        <pkg.icon className="w-6 h-6 " />
                       </div>
 
-                      <CardTitle className="text-2xl font-bold text-white mb-1">
-                        {pkg.title}
-                      </CardTitle>
+                      <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: 'var(--font-display)' }}>{pkg.title}</h3>
+                      <p className={`text-sm mb-4 ${pkg.highlight ? 'text-white/60' : 'text-[#1A1A1A]/60'}`}>{pkg.subtitle}</p>
 
-                      <p className="text-sm text-gray-400 font-medium mb-4">
-                        {pkg.subtitle}
-                      </p>
-
-                      <div className="space-y-1 mb-2">
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-sm text-gray-400">Настройка:</span>
-                          <span className="text-lg font-bold text-white">{pkg.priceSetup}</span>
-                        </div>
-                        <div className="flex items-baseline gap-1">
-                          <span className="text-sm text-gray-400">В месяц:</span>
-                          <span className={`text-base font-semibold ${pkg.highlight ? 'text-blue-400' : 'text-gray-300'}`}>
-                            {pkg.priceMonthly}
-                          </span>
-                        </div>
+                      {/* Pricing */}
+                      <div className={`my-4 border-b pb-6 ${pkg.highlight ? 'border-white/10' : 'border-[#1A1A1A]/10'}`}>
+                        <p className={`text-sm ${pkg.highlight ? 'text-white/60' : 'text-[#1A1A1A]/60'}`}>
+                          Настройка: <span className={`font-bold ${pkg.highlight ? 'text-white' : 'text-[#1A1A1A]'}`}>{pkg.priceSetup}</span>
+                        </p>
+                        <p className={`text-sm mt-1 ${pkg.highlight ? 'text-white/60' : 'text-[#1A1A1A]/60'}`}>
+                          В месяц: <span className={`font-bold ${pkg.highlight ? 'text-white' : 'text-[#1A1A1A]'}`}>{pkg.priceMonthly}</span>
+                        </p>
                       </div>
-                    </CardHeader>
 
-                    <CardContent className="p-6 pt-2 flex-grow">
-                      <div className="w-full h-px bg-white/10 mb-4" />
-
-                      <ul className="space-y-3">
+                      {/* Features */}
+                      <ul className="flex flex-col gap-3 text-sm flex-grow">
                         {pkg.features.map((feature, i) => (
-                          <li key={i} className="flex items-start gap-2.5">
-                            <Check className={`w-4 h-4 mt-0.5 flex-shrink-0 ${pkg.highlight ? 'text-blue-400' : 'text-green-500'
-                              }`} />
-                            <span className="text-sm text-gray-300 leading-tight">{feature}</span>
+                          <li key={i} className="flex items-start gap-2">
+                            <Check className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#FF3366]" />
+                            <span>{feature}</span>
                           </li>
                         ))}
                       </ul>
-                    </CardContent>
 
-                    <CardFooter className="p-6 pt-0 mt-auto">
-                      <Button
+                      {/* CTA Button */}
+                      <button
                         onClick={() => handlePackageClick(pkg)}
-                        className={`w-full font-medium transition-all ${pkg.highlight
-                          ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/25'
-                          : 'bg-white/10 hover:bg-white/20 text-white'
+                        className={`w-full py-3 mt-6 rounded-xl font-bold transition-all border-2 border-[#1A1A1A] ${pkg.highlight
+                          ? 'bg-[#FF3366] text-white shadow-[4px_4px_0px_0px_#ffffff] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#ffffff] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#ffffff]'
+                          : 'bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#1A1A1A]'
                           }`}
                       >
-                        {pkg.title === "VIP" ? "Связаться" : "Выбрать"}
-                      </Button>
-                    </CardFooter>
-                  </Card>
+                        {pkg.title === "Масштаб" ? "Связаться" : "Выбрать"}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -257,7 +224,7 @@ export default function Packages() {
             {packages.map((_, index) => (
               <div
                 key={index}
-                className={`h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-blue-500' : 'w-1.5 bg-white/20'
+                className={`h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? 'w-6 bg-[#FF3366]' : 'w-1.5 bg-[#1A1A1A]/20'
                   }`}
                 aria-label={`Пакет ${index + 1}`}
               />
@@ -265,19 +232,15 @@ export default function Packages() {
           </div>
         </div>
 
-        {/* Bottom Discount Banner */}
-
-
-        <div className="text-center mt-8">
+        <div className="text-center">
           <button
             onClick={() => openContactModal({ service: "consultation", message: "Нужна помощь в выборе пакета" })}
-            className="text-sm text-gray-400 hover:text-gray-200 underline underline-offset-4 transition-colors"
+            className="text-sm text-[#1A1A1A]/60 hover:text-[#1A1A1A] underline underline-offset-4 transition-colors"
           >
             Нужна помощь в выборе?
           </button>
         </div>
-
       </div>
-    </section >
+    </section>
   );
 }

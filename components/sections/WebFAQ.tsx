@@ -13,7 +13,7 @@ const faqs = [
           Мы создаём современные лендинги и многостраничные сайты, ориентированные на привлечение клиентов и рост бизнеса.
         </p>
         <p className="mb-2">Чаще всего с нами работают:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>сервисные компании,</li>
           <li>локальный бизнес в Чехии,</li>
           <li>проекты, которым важны скорость, SEO и готовность к рекламе.</li>
@@ -27,7 +27,7 @@ const faqs = [
     answer: (
       <>
         <p className="mb-2">Мы используем современные web-технологии, включая Next.js, которые позволяют:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>добиться высокой скорости загрузки,</li>
           <li>улучшить видимость в Google,</li>
           <li>обеспечить стабильную работу под рекламным трафиком.</li>
@@ -42,7 +42,7 @@ const faqs = [
       <>
         <p className="mb-2">Варианты управления сайтом подбираются индивидуально.</p>
         <p className="mb-2">В зависимости от задачи:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>можно реализовать удобную админку для самостоятельного редактирования,</li>
           <li>либо взять обновления и доработки на себя.</li>
         </ul>
@@ -56,7 +56,7 @@ const faqs = [
       <>
         <p className="mb-2">Это нормально — бизнес развивается.</p>
         <p className="mb-2">Вы можете:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>вносить изменения самостоятельно (если выбран соответствующий формат),</li>
           <li>или заказывать доработки у нас по мере необходимости.</li>
         </ul>
@@ -70,7 +70,7 @@ const faqs = [
       <>
         <p className="mb-2">Большинство клиентов приходят без готового ТЗ — и это абсолютно нормально.</p>
         <p className="mb-2">Мы помогаем:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>определить цель сайта,</li>
           <li>предложить структуру,</li>
           <li>выбрать формат, который лучше всего подойдёт бизнесу.</li>
@@ -84,7 +84,7 @@ const faqs = [
     answer: (
       <>
         <p className="mb-2">Да. Все сайты проектируются с учётом:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>рекламного трафика,</li>
           <li>структуры посадочных страниц,</li>
           <li>скорости и удобства для пользователей.</li>
@@ -99,7 +99,7 @@ const faqs = [
       <>
         <p className="mb-2">Сроки зависят от формата и сложности проекта.</p>
         <p className="mb-2">В среднем:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>лендинг — от 1 до 2 недель,</li>
           <li>многостраничный сайт — до 3 недель.</li>
         </ul>
@@ -113,7 +113,7 @@ const faqs = [
       <>
         <p className="mb-2">Работа строится поэтапно и прозрачно.</p>
         <p className="mb-2">Вы:</p>
-        <ul className="list-disc list-inside mb-3 space-y-1 text-slate-400">
+        <ul className="list-disc list-inside mb-3 space-y-1 text-[#1A1A1A]/80">
           <li>видите структуру и ключевые решения заранее,</li>
           <li>участвуете в согласовании,</li>
           <li>понимаете, как сайт будет работать на бизнес.</li>
@@ -137,62 +137,60 @@ export default function WebFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section id="faq" className="py-24 px-4 relative overflow-hidden bg-[#0A1628]">
+    <section id="faq" className="py-16 md:py-24 px-4 relative overflow-hidden bg-[#F5F5F7] border-y-2 border-[#1A1A1A]">
       {/* Background Elements */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px]" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#118AB2]/10 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#06D6A0]/10 rounded-full blur-[100px]" />
 
       <div className="container mx-auto max-w-4xl relative z-10">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6">
-            <ShieldCheck className="w-4 h-4 text-blue-400" />
-            <span className="text-sm font-medium text-blue-400">Частые вопросы</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-xl bg-[#06D6A0] border-2 border-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] mb-6">
+            <ShieldCheck className="w-5 h-5 text-[#1A1A1A]" />
+            <span className="text-sm font-bold text-[#1A1A1A]">Частые вопросы</span>
           </div>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight text-transparent bg-clip-text bg-gradient-to-r from-white via-blue-400 to-purple-400">
+          <h2 className="text-4xl md:text-5xl font-extrabold mb-4 text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
             Вопросы о<br className="hidden md:block" /> веб-разработке
           </h2>
         </div>
 
-        <CSSStagger className="bg-white/5 border border-white/10 rounded-3xl p-6 md:p-8 backdrop-blur-sm">
+        <CSSStagger className="bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] rounded-3xl p-6 md:p-8">
           <div className="space-y-4">
             {faqs.map((faq, index) => (
               <CSSStaggerItem key={index} index={index} className="group">
                 <button
                   type="button"
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className={`w-full text-left p-4 md:p-5 rounded-xl transition-all duration-300 border ${openIndex === index
-                    ? "bg-white/10 border-blue-500/50"
-                    : "bg-transparent border-white/5 hover:bg-white/5 hover:border-white/20"
+                  className={`w-full text-left p-4 md:p-5 rounded-xl transition-all duration-300 border-2 border-[#1A1A1A] ${openIndex === index
+                    ? "bg-[#06D6A0] shadow-[0px_0px_0px_0px_#1A1A1A] translate-y-[2px] translate-x-[2px]"
+                    : "bg-white hover:bg-white shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A]"
                     }`}
                 >
                   <div className="flex items-start justify-between gap-3 md:gap-4">
                     <span
-                      className={`text-base md:text-lg font-medium transition-colors ${openIndex === index ? "text-blue-400" : "text-white group-hover:text-blue-200"
-                        }`}
+                      className={`text-base md:text-lg font-bold transition-colors ${openIndex === index ? "text-[#1A1A1A]" : "text-[#1A1A1A]"}`}
                     >
                       {faq.question}
                     </span>
                     <div
-                      className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center border transition-all duration-300 mt-1 ${openIndex === index
-                        ? "bg-blue-500 border-blue-500 rotate-180"
-                        : "bg-white/5 border-white/10 group-hover:border-white/30"
+                      className={`flex-shrink-0 w-8 h-8 rounded-xl border-2 border-[#1A1A1A] flex items-center justify-center transition-all duration-300 mt-1 shadow-[2px_2px_0px_0px_#1A1A1A] ${openIndex === index
+                        ? "bg-[#FF3366] text-white rotate-180"
+                        : "bg-white group-hover:bg-[#FFD166] text-[#1A1A1A]"
                         }`}
                     >
                       {openIndex === index ? (
-                        <Minus className="w-3 h-3 text-white" />
+                        <Minus className="w-5 h-5" />
                       ) : (
-                        <Plus className="w-3 h-3 text-slate-400 group-hover:text-white" />
+                        <Plus className="w-5 h-5" />
                       )}
                     </div>
                   </div>
                   {/* CSS-based accordion */}
                   <div
-                    className={`grid transition-all duration-300 ease-out ${
-                      openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                    }`}
+                    className={`grid transition-all duration-300 ease-out ${openIndex === index ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                      }`}
                   >
                     <div className="overflow-hidden">
-                      <div className="pt-4 text-slate-300 leading-relaxed text-base border-t border-white/5 mt-4">
+                      <div className="pt-4 text-[#1A1A1A]/80 font-medium leading-relaxed text-base border-t-2 border-[#1A1A1A]/10 mt-4">
                         {faq.answer}
                       </div>
                     </div>

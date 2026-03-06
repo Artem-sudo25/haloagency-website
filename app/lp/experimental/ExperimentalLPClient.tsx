@@ -41,146 +41,47 @@ const painPoints = [
 ];
 
 const auditDeliverables = [
-  {
-    title: "PDF-аудит 12–18 страниц",
-    description:
-      "Приоритеты P1/P2/P3, ожидаемый эффект и конкретные действия на 30 дней.",
-  },
-  {
-    title: "Tracking map",
-    description:
-      "Карта событий для GA4 + GTM + Meta CAPI с точками потерь воронки.",
-  },
-  {
-    title: "Разбор воронки",
-    description:
-      "Источник → клик → лид → квалификация → продажа с узкими местами по шагам.",
-  },
-  {
-    title: "Фиксы лендинга",
-    description:
-      "5–10 быстрых правок и 2 A/B-гипотезы для роста конверсии без редизайна.",
-  },
-  {
-    title: "План структуры рекламы",
-    description:
-      "Кампании, бюджеты, аудитории, минус-слова и креативные углы под CZ рынок.",
-  },
-  {
-    title: "Backlog экспериментов",
-    description: "Очередь тестов по неделям с KPI-контролем на 2/4/8 неделе.",
-  },
+  { title: "PDF-аудит 12–18 страниц", description: "Приоритеты P1/P2/P3, ожидаемый эффект и конкретные действия на 30 дней." },
+  { title: "Tracking map", description: "Карта событий для GA4 + GTM + Meta CAPI с точками потерь воронки." },
+  { title: "Разбор воронки", description: "Источник → клик → лид → квалификация → продажа с узкими местами по шагам." },
+  { title: "Фиксы лендинга", description: "5–10 быстрых правок и 2 A/B-гипотезы для роста конверсии без редизайна." },
+  { title: "План структуры рекламы", description: "Кампании, бюджеты, аудитории, минус-слова и креативные углы под CZ рынок." },
+  { title: "Backlog экспериментов", description: "Очередь тестов по неделям с KPI-контролем на 2/4/8 неделе." },
 ];
 
 const processSteps = [
-  {
-    number: "01",
-    title: "Заявка и мини-бриф",
-    description:
-      "Оставляете 4 поля формы. Мы фиксируем нишу, бюджет и текущую ситуацию.",
-    timing: "5 минут",
-  },
-  {
-    number: "02",
-    title: "Аудит за 48 часов",
-    description:
-      "Проверяем рекламу, посадочную, аналитику и логику распределения бюджета.",
-    timing: "до 48 часов",
-  },
-  {
-    number: "03",
-    title: "20-мин разбор + план",
-    description:
-      "На звонке показываем точки роста и отправляем PDF с планом в течение 24 часов.",
-    timing: "20 минут + 24 часа",
-  },
+  { number: "01", title: "Заявка и мини-бриф", description: "Оставляете 4 поля формы. Мы фиксируем нишу, бюджет и текущую ситуацию.", timing: "5 минут" },
+  { number: "02", title: "Аудит за 48 часов", description: "Проверяем рекламу, посадочную, аналитику и логику распределения бюджета.", timing: "до 48 часов" },
+  { number: "03", title: "20-мин разбор + план", description: "На звонке показываем точки роста и отправляем PDF с планом в течение 24 часов.", timing: "20 минут + 24 часа" },
 ];
 
 const caseStudies: CaseStudy[] = [
   {
-    niche: "Салон лазерной эпиляции, Прага 3",
-    timeframe: "45 дней",
-    budget: "55 000 CZK/мес (Meta Ads)",
-    problem:
-      "CPA лида 1 420 CZK, 38 лидов/мес, часть событий терялась после ограничений iOS.",
-    changes: [
-      "Настроили Meta CAPI и дедупликацию событий.",
-      "Пересобрали структуру lead-кампаний.",
-      "Обновили оффер и блоки доверия на лендинге.",
-    ],
-    result: [
-      "CPA: 1 420 → 820 CZK (-42%)",
-      "Лиды: 38 → 71 в месяц (+87%)",
-      "Стоимость записи: 2 630 → 1 540 CZK",
-    ],
+    niche: "Салон лазерной эпиляции, Прага 3", timeframe: "45 дней", budget: "55 000 CZK/мес (Meta Ads)",
+    problem: "CPA лида 1 420 CZK, 38 лидов/мес, часть событий терялась после ограничений iOS.",
+    changes: ["Настроили Meta CAPI и дедупликацию событий.", "Пересобрали структуру lead-кампаний.", "Обновили оффер и блоки доверия на лендинге."],
+    result: ["CPA: 1 420 → 820 CZK (-42%)", "Лиды: 38 → 71 в месяц (+87%)", "Стоимость записи: 2 630 → 1 540 CZK"],
   },
   {
-    niche: "Клининг-сервис, Прага",
-    timeframe: "60 дней",
-    budget: "80 000 CZK/мес (Google Ads)",
-    problem:
-      "Дорогие и нерелевантные звонки, отсутствовал нормальный call-tracking, CPL 1 950 CZK.",
-    changes: [
-      "Поставили call-tracking через GA4/GTM.",
-      "Разделили Search по услугам и районам.",
-      "Добавили минус-слова и улучшили посадочные.",
-    ],
-    result: [
-      "Квалифицированные лиды: 29 → 54/мес (+86%)",
-      "CPL: 1 950 → 1 130 CZK (-42%)",
-      "Нерелевантные звонки: 34% → 12%",
-    ],
+    niche: "Клининг-сервис, Прага", timeframe: "60 дней", budget: "80 000 CZK/мес (Google Ads)",
+    problem: "Дорогие и нерелевантные звонки, отсутствовал нормальный call-tracking, CPL 1 950 CZK.",
+    changes: ["Поставили call-tracking через GA4/GTM.", "Разделили Search по услугам и районам.", "Добавили минус-слова и улучшили посадочные."],
+    result: ["Квалифицированные лиды: 29 → 54/мес (+86%)", "CPL: 1 950 → 1 130 CZK (-42%)", "Нерелевантные звонки: 34% → 12%"],
   },
   {
-    niche: "E-commerce косметики, Чехия",
-    timeframe: "30 дней",
-    budget: "120 000 CZK/мес (Meta + Shopping)",
-    problem:
-      "ROAS 1.8, дубли Purchase-событий, решения принимались по искаженной аналитике.",
-    changes: [
-      "Перешли на server-side tracking.",
-      "Починили value/currency и дедупликацию Purchase.",
-      "Сегментировали фид по марже и оптимизировали PDP/checkout.",
-    ],
-    result: [
-      "ROAS: 1.8 → 3.1",
-      "CPA заказа: 520 → 360 CZK (-31%)",
-      "Выручка: +72% при росте расхода только на +18%",
-    ],
+    niche: "E-commerce косметики, Чехия", timeframe: "30 дней", budget: "120 000 CZK/мес (Meta + Shopping)",
+    problem: "ROAS 1.8, дубли Purchase-событий, решения принимались по искаженной аналитике.",
+    changes: ["Перешли на server-side tracking.", "Починили value/currency и дедупликацию Purchase.", "Сегментировали фид по марже и оптимизировали PDP/checkout."],
+    result: ["ROAS: 1.8 → 3.1", "CPA заказа: 520 → 360 CZK (-31%)", "Выручка: +72% при росте расхода только на +18%"],
   },
 ];
 
 const testimonials = [
-  {
-    name: "Марина К.",
-    role: "Владелица студии эстетики",
-    quote:
-      "Впервые увидела нормальную картину по цифрам. После правок из аудита CPA начал снижаться уже в первый месяц.",
-  },
-  {
-    name: "Олег П.",
-    role: "Сооснователь клининг-сервиса",
-    quote:
-      "Раньше спорили с подрядчиком, потому что цифры везде разные. Теперь есть единый дашборд и четкий контроль по неделям.",
-  },
-  {
-    name: "Ірина Ш.",
-    role: "Owner e-commerce бренда",
-    quote:
-      "Главная ценность — навели порядок в трекинге. До этого ROAS был «на глаз», сейчас принимаем решения по фактам.",
-  },
-  {
-    name: "Дмитрий Л.",
-    role: "Управляющий стоматологией",
-    quote:
-      "Понравилось, что без воды: список конкретных действий, сроки и понятный приоритет.",
-  },
-  {
-    name: "Анна Б.",
-    role: "Владелица языковой школы",
-    quote:
-      "После изменения структуры кампаний и посадочной лиды стали стабильнее и качественнее.",
-  },
+  { name: "Марина К.", role: "Владелица студии эстетики", quote: "Впервые увидела нормальную картину по цифрам. После правок из аудита CPA начал снижаться уже в первый месяц." },
+  { name: "Олег П.", role: "Сооснователь клининг-сервиса", quote: "Раньше спорили с подрядчиком, потому что цифры везде разные. Теперь есть единый дашборд и четкий контроль по неделям." },
+  { name: "Ірина Ш.", role: "Owner e-commerce бренда", quote: "Главная ценность — навели порядок в трекинге. До этого ROAS был «на глаз», сейчас принимаем решения по фактам." },
+  { name: "Дмитрий Л.", role: "Управляющий стоматологией", quote: "Понравилось, что без воды: список конкретных действий, сроки и понятный приоритет." },
+  { name: "Анна Б.", role: "Владелица языковой школы", quote: "После изменения структуры кампаний и посадочной лиды стали стабильнее и качественнее." },
 ];
 
 const trustSignals = [
@@ -191,51 +92,18 @@ const trustSignals = [
 ];
 
 const faqItems = [
-  {
-    q: "Подойдет ли аудит, если бюджет меньше 30 000 CZK/мес?",
-    a: "Подойдет, если нужен порядок в воронке и аналитике. Но для устойчивого тестирования гипотез комфортный уровень обычно от 40 000 CZK/мес.",
-  },
-  {
-    q: "Вы работаете только с Прагой?",
-    a: "Основной фокус — Прага, но ведем проекты по всей Чехии. Созвоны, аудит и внедрение проходят полностью онлайн.",
-  },
-  {
-    q: "Нужны ли доступы к кабинетам?",
-    a: "Для точного аудита желательно read-only доступ к Google Ads, Meta Ads, GA4, GTM и CRM. Если доступов нет, начинаем с внешнего аудита посадочной и структуры.",
-  },
-  {
-    q: "Можно взять аудит без дальнейшего ведения?",
-    a: "Да. Аудит — самостоятельная услуга. Вы получаете план и можете внедрять его своей командой или текущим подрядчиком.",
-  },
-  {
-    q: "Когда виден первый результат после внедрения?",
-    a: "Обычно первые изменения по CPL/CPA видны на 2–4 неделе. Стабильный тренд формируется в диапазоне 4–8 недель.",
-  },
-  {
-    q: "Что, если трекинг не настроен вообще?",
-    a: "Это частая ситуация. В Growth Audit вы получите карту событий, приоритеты и порядок внедрения, чтобы данные стали пригодны для решений.",
-  },
-  {
-    q: "Вы работаете на русском/украинском и чешском?",
-    a: "Да. Мы адаптируем креативы и офферы под язык аудитории и конкретный регион в Чехии.",
-  },
-  {
-    q: "Есть ли договор и фактура для s.r.o./OSVČ?",
-    a: "Да, работаем официально: договор, счет, отчетность по KPI и прозрачная логика изменений.",
-  },
-  {
-    q: "Если у меня уже есть агентство, вы все равно можете сделать аудит?",
-    a: "Да. Это формат second opinion без конфликта: независимая диагностика, зоны риска и точки роста.",
-  },
+  { q: "Подойдет ли аудит, если бюджет меньше 30 000 CZK/мес?", a: "Подойдет, если нужен порядок в воронке и аналитике. Но для устойчивого тестирования гипотез комфортный уровень обычно от 40 000 CZK/мес." },
+  { q: "Вы работаете только с Прагой?", a: "Основной фокус — Прага, но ведем проекты по всей Чехии. Созвоны, аудит и внедрение проходят полностью онлайн." },
+  { q: "Нужны ли доступы к кабинетам?", a: "Для точного аудита желательно read-only доступ к Google Ads, Meta Ads, GA4, GTM и CRM. Если доступов нет, начинаем с внешнего аудита посадочной и структуры." },
+  { q: "Можно взять аудит без дальнейшего ведения?", a: "Да. Аудит — самостоятельная услуга. Вы получаете план и можете внедрять его своей командой или текущим подрядчиком." },
+  { q: "Когда виден первый результат после внедрения?", a: "Обычно первые изменения по CPL/CPA видны на 2–4 неделе. Стабильный тренд формируется в диапазоне 4–8 недель." },
+  { q: "Что, если трекинг не настроен вообще?", a: "Это частая ситуация. В Growth Audit вы получите карту событий, приоритеты и порядок внедрения, чтобы данные стали пригодны для решений." },
+  { q: "Вы работаете на русском/украинском и чешском?", a: "Да. Мы адаптируем креативы и офферы под язык аудитории и конкретный регион в Чехии." },
+  { q: "Есть ли договор и фактура для s.r.o./OSVČ?", a: "Да, работаем официально: договор, счет, отчетность по KPI и прозрачная логика изменений." },
+  { q: "Если у меня уже есть агентство, вы все равно можете сделать аудит?", a: "Да. Это формат second opinion без конфликта: независимая диагностика, зоны риска и точки роста." },
 ];
 
-const sectionShell = "mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8";
-const primaryButtonClass =
-  "inline-flex items-center justify-center rounded-full bg-exp-emerald px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-exp-emerald-hover shadow-[0_0_20px_rgba(16,185,129,0.3)] hover:shadow-[0_0_30px_rgba(16,185,129,0.5)]";
-const secondaryButtonClass =
-  "inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-exp-emerald hover:text-exp-emerald";
-const cardClass =
-  "rounded-3xl border border-white/10 bg-exp-bg-soft shadow-[0_10px_40px_rgba(0,0,0,0.4)] backdrop-blur-sm";
+const slotsLeft = 6;
 
 export default function ExperimentalLPClient() {
   const [values, setValues] = useState<FormValues>({
@@ -251,38 +119,20 @@ export default function ExperimentalLPClient() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [wantsSamplePdf, setWantsSamplePdf] = useState(false);
 
-  const slotsLeft = 6;
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
   const scrollToForm = (prefillSamplePdf = false) => {
-    if (prefillSamplePdf) {
-      setWantsSamplePdf(true);
-    }
-    document.getElementById("audit-form")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    if (prefillSamplePdf) setWantsSamplePdf(true);
+    document.getElementById("audit-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const validateForm = () => {
     const nextErrors: FormErrors = {};
-
-    if (!values.name.trim()) {
-      nextErrors.name = "Укажите ваше имя";
-    }
-    if (!values.websiteOrProfile.trim()) {
-      nextErrors.websiteOrProfile = "Укажите сайт или Instagram";
-    }
-    if (!values.monthlyBudget.trim()) {
-      nextErrors.monthlyBudget = "Укажите рекламный бюджет";
-    }
-    if (!values.email.trim() || !emailRegex.test(values.email.trim())) {
-      nextErrors.email = "Укажите корректный email";
-    }
-    if (!values.consent) {
-      nextErrors.consent = "Нужно согласие на обработку данных";
-    }
-
+    if (!values.name.trim()) nextErrors.name = "Укажите ваше имя";
+    if (!values.websiteOrProfile.trim()) nextErrors.websiteOrProfile = "Укажите сайт или Instagram";
+    if (!values.monthlyBudget.trim()) nextErrors.monthlyBudget = "Укажите рекламный бюджет";
+    if (!values.email.trim() || !emailRegex.test(values.email.trim())) nextErrors.email = "Укажите корректный email";
+    if (!values.consent) nextErrors.consent = "Нужно согласие на обработку данных";
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -290,11 +140,7 @@ export default function ExperimentalLPClient() {
   const submitLead = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitError("");
-
-    if (!validateForm()) {
-      return;
-    }
-
+    if (!validateForm()) return;
     setIsSubmitting(true);
 
     try {
@@ -303,8 +149,7 @@ export default function ExperimentalLPClient() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "growth-audit-experimental",
@@ -325,721 +170,485 @@ export default function ExperimentalLPClient() {
       });
 
       if (!response.ok) {
-        const details = await response
-          .json()
-          .catch(() => ({ error: "Ошибка отправки формы" }));
+        const details = await response.json().catch(() => ({ error: "Ошибка отправки формы" }));
         throw new Error(details.error || "Ошибка отправки формы");
       }
 
       setSubmitSuccess(true);
-      setValues({
-        name: "",
-        websiteOrProfile: "",
-        monthlyBudget: "",
-        email: "",
-        consent: false,
-      });
+      setValues({ name: "", websiteOrProfile: "", monthlyBudget: "", email: "", consent: false });
       setWantsSamplePdf(false);
       setErrors({});
     } catch (error) {
-      setSubmitError(
-        error instanceof Error
-          ? error.message
-          : "Не удалось отправить заявку. Попробуйте снова.",
-      );
+      setSubmitError(error instanceof Error ? error.message : "Не удалось отправить заявку. Попробуйте снова.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-exp-bg text-exp-stark-white selection:bg-exp-emerald selection:text-white font-sans">
-      <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+    <main className="min-h-screen bg-[#F5F5F7] text-[#1A1A1A]">
+      {/* Dot grid background */}
+      <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#d1d5db 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
 
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-exp-bg/80 backdrop-blur-md">
-        <div
-          className={`${sectionShell} flex h-16 items-center justify-between gap-3`}
-        >
-          <Link href="/" className="text-lg font-semibold tracking-tight">
-            Halo<span className="text-exp-emerald">Agency</span>
-          </Link>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <a
-              href="https://wa.me/420705729502"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-gray-300 transition hover:border-exp-emerald hover:text-exp-emerald sm:text-sm"
-            >
-              <MessageCircle className="h-4 w-4" />
-              WhatsApp
-            </a>
-            <a
-              href="tel:+420705729502"
-              className="hidden items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm font-medium text-gray-300 transition hover:border-exp-emerald hover:text-exp-emerald sm:inline-flex"
-            >
-              <PhoneCall className="h-4 w-4" />
-              +420 705 729 502
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <section className="relative py-14 sm:py-20 z-10">
-        <div
-          className={`${sectionShell} grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start`}
-        >
-          <div className="space-y-6">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur px-4 py-2 text-sm font-medium text-gray-300">
-              <MapPin className="h-4 w-4 text-exp-emerald" />
-              Performance marketing + tracking для SMB в Праге и по Чехии
-            </p>
-            <div className="space-y-4">
-              <h1 className="max-w-xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:leading-[1.1]">
-                Реклама должна давать стабильные заявки, а не <span className="opacity-40 italic">хаос в цифрах.</span>
-              </h1>
-              <p className="max-w-xl text-lg leading-relaxed text-gray-400">
-                На 20-мин <span className="text-white font-medium">Growth Audit Call</span> покажем, где вы теряете деньги: в
-                рекламе, лендинге или трекинге. После звонка получите внедряемый
-                план на 30 дней.
-              </p>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-3">
-              {[
-                { value: "90+", label: "аудитов по CZ" },
-                { value: "-28%", label: "среднее снижение CPA за 60 дней" },
-                { value: "< 2 ч", label: "ответ в WhatsApp" },
-              ].map((stat) => (
-                <div
-                  key={stat.label}
-                  className={`${cardClass} px-4 py-3 flex flex-col justify-center`}
-                >
-                  <span className="font-mono text-lg font-bold text-exp-emerald">{stat.value}</span>
-                  <span className="text-xs font-medium text-gray-400 mt-0.5">{stat.label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-3 pt-2">
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={primaryButtonClass}
-              >
-                Забронировать 20-мин Growth Audit Call
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToForm(true)}
-                className={secondaryButtonClass}
-              >
-                Получить пример аудита PDF
-              </button>
-            </div>
-            <div className="flex items-center gap-2 text-sm font-mono text-gray-400">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-exp-emerald opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-exp-emerald"></span>
-              </span>
-              На этой неделе открыто <span className="text-white font-semibold">{slotsLeft} слотов</span> на аудит.
-            </div>
-          </div>
-
-          <div id="audit-form" className={`${cardClass} relative overflow-hidden p-6 sm:p-8 border-t-2 border-t-exp-emerald/50`}>
-            {/* Command center decorative elements */}
-            <div className="absolute top-0 right-0 p-4 opacity-20 pointer-events-none">
-              <div className="w-16 h-16 border-r-2 border-t-2 border-exp-emerald rounded-tr-xl"></div>
-            </div>
-
-            <h2 className="text-2xl font-bold text-white flex items-center gap-2">
-              <span className="w-2 h-6 bg-exp-emerald block rounded-sm"></span>
-              INITIATE_AUDIT
-            </h2>
-            <p className="mt-2 text-sm font-mono text-gray-400">
-              {">"} 4 поля. 20 минут созвона. План на 30 дней.
-            </p>
-
-            {submitSuccess && (
-              <div className="mt-5 rounded-xl border border-exp-emerald/30 bg-exp-emerald/10 p-4 text-sm font-mono text-exp-emerald">
-                {">"} SUCCESS: Заявка получена. Ожидайте email с вариантами времени (до 2 часов).
-              </div>
-            )}
-
-            {submitError && (
-              <div className="mt-5 rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm font-mono text-red-400">
-                {">"} ERROR: {submitError}
-              </div>
-            )}
-
-            <form onSubmit={submitLead} className="mt-6 space-y-4">
-              <div className="space-y-1.5 flex flex-col">
-                <label
-                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
-                  htmlFor="name"
-                >
-                  Имя
-                </label>
-                <input
-                  id="name"
-                  value={values.name}
-                  onChange={(event) =>
-                    setValues((prev) => ({ ...prev, name: event.target.value }))
-                  }
-                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
-                  placeholder="name"
-                />
-                {errors.name && (
-                  <p className="text-xs font-mono text-red-400">{errors.name}</p>
-                )}
-              </div>
-
-              <div className="space-y-1.5 flex flex-col">
-                <label
-                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
-                  htmlFor="website"
-                >
-                  Сайт или Instagram
-                </label>
-                <input
-                  id="website"
-                  value={values.websiteOrProfile}
-                  onChange={(event) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      websiteOrProfile: event.target.value,
-                    }))
-                  }
-                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
-                  placeholder="https://... | @..."
-                />
-                {errors.websiteOrProfile && (
-                  <p className="text-xs font-mono text-red-400">
-                    {errors.websiteOrProfile}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-1.5 flex flex-col">
-                <label
-                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
-                  htmlFor="budget"
-                >
-                  Рекламный бюджет (CZK/мес)
-                </label>
-                <input
-                  id="budget"
-                  value={values.monthlyBudget}
-                  onChange={(event) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      monthlyBudget: event.target.value,
-                    }))
-                  }
-                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
-                  placeholder="60 000"
-                />
-                {errors.monthlyBudget && (
-                  <p className="text-xs font-mono text-red-400">
-                    {errors.monthlyBudget}
-                  </p>
-                )}
-              </div>
-
-              <div className="space-y-1.5 flex flex-col">
-                <label
-                  className="text-xs font-mono tracking-wider text-gray-400 uppercase"
-                  htmlFor="email"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={values.email}
-                  onChange={(event) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      email: event.target.value,
-                    }))
-                  }
-                  className="h-11 w-full rounded-lg border border-white/10 bg-exp-bg px-3 text-sm text-white font-mono outline-none transition placeholder:text-gray-600 focus:border-exp-emerald focus:bg-white/5"
-                  placeholder="you@company.com"
-                />
-                {errors.email && (
-                  <p className="text-xs font-mono text-red-400">{errors.email}</p>
-                )}
-              </div>
-
-              <label className="flex items-start gap-3 pt-2 text-xs text-gray-400 font-mono">
-                <input
-                  type="checkbox"
-                  checked={values.consent}
-                  onChange={(event) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      consent: event.target.checked,
-                    }))
-                  }
-                  className="mt-0.5 h-4 w-4 rounded border-white/20 bg-exp-bg accent-exp-emerald focus:ring-exp-emerald focus:ring-offset-exp-bg"
-                />
-                <span>
-                  [x] Согласие на обработку данных (только контакт по аудиту)
-                </span>
-              </label>
-              {errors.consent && (
-                <p className="text-xs font-mono text-red-400">{errors.consent}</p>
-              )}
-
-              <label className="flex items-start gap-3 text-xs text-gray-400 font-mono">
-                <input
-                  type="checkbox"
-                  checked={wantsSamplePdf}
-                  onChange={(event) => setWantsSamplePdf(event.target.checked)}
-                  className="mt-0.5 h-4 w-4 rounded border-white/20 bg-exp-bg accent-exp-emerald focus:ring-exp-emerald focus:ring-offset-exp-bg"
-                />
-                <span className="text-white">
-                  [?] Прислать пример аудита PDF на email
-                </span>
-              </label>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="inline-flex h-12 w-full mt-2 items-center justify-center rounded-lg bg-exp-emerald font-mono tracking-wide text-sm font-bold text-exp-bg transition hover:bg-exp-emerald-hover disabled:cursor-not-allowed disabled:opacity-60 uppercase shadow-[0_0_15px_rgba(16,185,129,0.3)] hover:shadow-[0_0_25px_rgba(16,185,129,0.5)]"
-              >
-                {isSubmitting
-                  ? "PROCESSING..."
-                  : "EXECUTE_BOOKING"}
-              </button>
-            </form>
-
-            <div className="mt-5 rounded-lg border border-white/5 bg-white/5 p-3 text-xs font-mono text-gray-400 flex items-center gap-2">
-              <span className="block w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-              FAST_TRACK:{" "}
+      <div className="relative z-10">
+        {/* Header */}
+        <header className="sticky top-0 z-40 border-b border-[#1A1A1A]/5 bg-white/80 backdrop-blur-md">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between gap-3">
+            <Link href="/" className="text-lg font-bold tracking-tight text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+              Halo<span className="text-[#FF3366]">Agency</span>
+            </Link>
+            <div className="flex items-center gap-2 sm:gap-3">
               <a
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white underline decoration-blue-400/50 underline-offset-4 hover:text-blue-400"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#1A1A1A]/10 bg-white px-3 py-1.5 text-xs font-medium text-[#1A1A1A]/60 transition hover:border-[#FF3366] hover:text-[#FF3366] sm:text-sm"
               >
-                WhatsApp Ping
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp
+              </a>
+              <a
+                href="tel:+420705729502"
+                className="hidden items-center gap-1.5 rounded-full border border-[#1A1A1A]/10 bg-white px-3 py-1.5 text-sm font-medium text-[#1A1A1A]/60 transition hover:border-[#FF3366] hover:text-[#FF3366] sm:inline-flex"
+              >
+                <PhoneCall className="h-4 w-4" />
+                +420 705 729 502
               </a>
             </div>
           </div>
-        </div>
-      </section>
+        </header>
 
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8 border-t-2 border-exp-blue/30`}>
-            <h2 className="text-3xl font-bold text-white">
-              Если это звучит знакомо, <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-exp-emerald">аудит нужен сейчас</span>
-            </h2>
-            <p className="mt-3 max-w-3xl text-gray-400">
-              Типичный кейс для бизнеса в Праге и по Чехии: реклама уже идет, но
-              результат нестабилен и трудно масштабируется.
-            </p>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-              {painPoints.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 rounded-xl border border-white/5 bg-white/5 p-4 text-sm leading-relaxed text-gray-300 transition-colors hover:bg-white/10 hover:border-white/10"
+        {/* Hero */}
+        <section className="relative py-14 sm:py-16 md:py-20 z-10">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start relative z-10">
+            <div className="space-y-6">
+              <p className="inline-flex items-center gap-2 rounded-full border border-[#1A1A1A]/10 bg-white px-4 py-2 text-sm font-medium text-[#1A1A1A]/60 shadow-sm">
+                <MapPin className="h-4 w-4 text-[#FF3366]" />
+                Performance marketing + tracking для SMB в Праге и по Чехии
+              </p>
+              <div className="space-y-4">
+                <h1 className="max-w-xl text-4xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-5xl lg:leading-[1.1]" style={{ fontFamily: 'var(--font-display)' }}>
+                  Реклама должна давать стабильные заявки, а не <span className="text-[#1A1A1A]/30 italic">хаос в цифрах.</span>
+                </h1>
+                <p className="max-w-xl text-lg leading-relaxed text-[#1A1A1A]/60">
+                  На 20-мин <span className="text-[#1A1A1A] font-medium">Growth Audit Call</span> покажем, где вы теряете деньги: в рекламе, лендинге или трекинге. После звонка получите внедряемый план на 30 дней.
+                </p>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-3">
+                {[
+                  { value: "90+", label: "аудитов по CZ" },
+                  { value: "-28%", label: "среднее снижение CPA за 60 дней" },
+                  { value: "< 2 ч", label: "ответ в WhatsApp" },
+                ].map((stat) => (
+                  <div key={stat.label} className="bg-white border border-[#1A1A1A]/5 rounded-2xl px-4 py-3 flex flex-col justify-center shadow-sm">
+                    <span className="text-lg font-extrabold text-[#FF3366]">{stat.value}</span>
+                    <span className="text-xs font-medium text-[#1A1A1A]/40 mt-0.5">{stat.label}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3 pt-2">
+                <button type="button" onClick={() => scrollToForm(false)}
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]"
                 >
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-7">
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={primaryButtonClass}
-              >
-                Показать, где теряются заявки
-              </button>
+                  Забронировать 20-мин Growth Audit Call
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </button>
+                <button type="button" onClick={() => scrollToForm(true)}
+                  className="inline-flex items-center justify-center rounded-full border border-[#1A1A1A]/10 bg-white px-6 py-3 text-sm font-bold text-[#1A1A1A] transition hover:-translate-y-0.5 hover:border-[#FF3366] hover:text-[#FF3366]"
+                >
+                  Получить пример аудита PDF
+                </button>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-[#1A1A1A]/40">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF3366] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF3366]"></span>
+                </span>
+                На этой неделе открыто <span className="text-[#1A1A1A] font-bold">{slotsLeft} слотов</span> на аудит.
+              </div>
+            </div>
+
+            {/* Form Card */}
+            <div id="audit-form" className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] p-6 sm:p-8 shadow-sm relative overflow-hidden">
+              <h2 className="text-2xl font-bold text-[#1A1A1A] flex items-center gap-2" style={{ fontFamily: 'var(--font-display)' }}>
+                <span className="w-2 h-6 bg-[#FF3366] block rounded-sm"></span>
+                Заявка на аудит
+              </h2>
+              <p className="mt-2 text-sm text-[#1A1A1A]/40">4 поля. 20 минут созвона. План на 30 дней.</p>
+
+              {submitSuccess && (
+                <div className="mt-5 rounded-xl border border-green-200 bg-green-50 p-4 text-sm text-green-700">
+                  ✓ Заявка получена. Ожидайте email с вариантами времени (до 2 часов).
+                </div>
+              )}
+
+              {submitError && (
+                <div className="mt-5 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-600">
+                  {submitError}
+                </div>
+              )}
+
+              <form onSubmit={submitLead} className="mt-6 space-y-4">
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-bold tracking-wider text-[#1A1A1A]/40 uppercase" htmlFor="name">Имя</label>
+                  <input id="name" value={values.name} onChange={(e) => setValues((p) => ({ ...p, name: e.target.value }))}
+                    className="h-11 w-full rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] px-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:bg-white"
+                    placeholder="Ваше имя" />
+                  {errors.name && <p className="text-xs text-red-500">{errors.name}</p>}
+                </div>
+
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-bold tracking-wider text-[#1A1A1A]/40 uppercase" htmlFor="website">Сайт или Instagram</label>
+                  <input id="website" value={values.websiteOrProfile} onChange={(e) => setValues((p) => ({ ...p, websiteOrProfile: e.target.value }))}
+                    className="h-11 w-full rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] px-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:bg-white"
+                    placeholder="https://... | @..." />
+                  {errors.websiteOrProfile && <p className="text-xs text-red-500">{errors.websiteOrProfile}</p>}
+                </div>
+
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-bold tracking-wider text-[#1A1A1A]/40 uppercase" htmlFor="budget">Рекламный бюджет (CZK/мес)</label>
+                  <input id="budget" value={values.monthlyBudget} onChange={(e) => setValues((p) => ({ ...p, monthlyBudget: e.target.value }))}
+                    className="h-11 w-full rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] px-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:bg-white"
+                    placeholder="60 000" />
+                  {errors.monthlyBudget && <p className="text-xs text-red-500">{errors.monthlyBudget}</p>}
+                </div>
+
+                <div className="space-y-1.5 flex flex-col">
+                  <label className="text-xs font-bold tracking-wider text-[#1A1A1A]/40 uppercase" htmlFor="email">Email</label>
+                  <input id="email" type="email" value={values.email} onChange={(e) => setValues((p) => ({ ...p, email: e.target.value }))}
+                    className="h-11 w-full rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] px-3 text-sm text-[#1A1A1A] outline-none transition placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:bg-white"
+                    placeholder="you@company.com" />
+                  {errors.email && <p className="text-xs text-red-500">{errors.email}</p>}
+                </div>
+
+                <label className="flex items-start gap-3 pt-2 text-xs text-[#1A1A1A]/40">
+                  <input type="checkbox" checked={values.consent} onChange={(e) => setValues((p) => ({ ...p, consent: e.target.checked }))}
+                    className="mt-0.5 h-4 w-4 rounded border-[#1A1A1A]/10 bg-[#F5F5F7] accent-[#FF3366]" />
+                  <span>Согласие на обработку данных (только контакт по аудиту)</span>
+                </label>
+                {errors.consent && <p className="text-xs text-red-500">{errors.consent}</p>}
+
+                <label className="flex items-start gap-3 text-xs text-[#1A1A1A]/60">
+                  <input type="checkbox" checked={wantsSamplePdf} onChange={(e) => setWantsSamplePdf(e.target.checked)}
+                    className="mt-0.5 h-4 w-4 rounded border-[#1A1A1A]/10 bg-[#F5F5F7] accent-[#FF3366]" />
+                  <span className="text-[#1A1A1A] font-medium">Прислать пример аудита PDF на email</span>
+                </label>
+
+                <button type="submit" disabled={isSubmitting}
+                  className="inline-flex h-12 w-full mt-2 items-center justify-center rounded-xl bg-[#FF3366] font-bold text-sm text-white transition hover:bg-[#FF3366]/90 disabled:cursor-not-allowed disabled:opacity-60 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]"
+                >
+                  {isSubmitting ? "Отправляем..." : "Забронировать аудит →"}
+                </button>
+              </form>
+
+              <div className="mt-5 rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] p-3 text-xs text-[#1A1A1A]/40 flex items-center gap-2">
+                <span className="block w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                Быстрая связь:{" "}
+                <a href="https://wa.me/420705729502" target="_blank" rel="noopener noreferrer"
+                  className="text-[#FF3366] underline underline-offset-4 hover:text-[#FF3366]/80">
+                  WhatsApp
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <div className="space-y-6">
+        {/* Pain Points */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] p-6 sm:p-8 shadow-sm">
+              <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                Если это звучит знакомо, <span className="text-[#FF3366]">аудит нужен сейчас</span>
+              </h2>
+              <p className="mt-3 max-w-3xl text-[#1A1A1A]/60">
+                Типичный кейс для бизнеса в Праге и по Чехии: реклама уже идет, но результат нестабилен и трудно масштабируется.
+              </p>
+              <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                {painPoints.map((item) => (
+                  <li key={item} className="flex gap-3 rounded-xl border border-[#1A1A1A]/5 bg-[#F5F5F7] p-4 text-sm leading-relaxed text-[#1A1A1A]/70 transition-colors hover:bg-white hover:border-[#FF3366]/30">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-7">
+                <button type="button" onClick={() => scrollToForm(false)}
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                  Показать, где теряются заявки
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Deliverables */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 space-y-6">
             <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-white flex items-center gap-2">
-                <span className="w-2 h-6 bg-exp-blue block rounded-sm"></span>
+              <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
                 Что вы получаете в Growth Audit
               </h2>
-              <p className="max-w-3xl text-gray-400">
-                Это не «диагностический созвон», а рабочий пакет с приоритетами
-                и действиями, которые можно запускать сразу.
+              <p className="max-w-3xl text-[#1A1A1A]/60">
+                Это не «диагностический созвон», а рабочий пакет с приоритетами и действиями, которые можно запускать сразу.
               </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {auditDeliverables.map((item) => (
-                <article key={item.title} className={`${cardClass} p-5 group flex flex-col justify-between hover:border-exp-blue/30 transition-colors`}>
-                  <div>
-                    <h3 className="text-base font-bold text-white mb-2 flex items-center gap-2">
-                      <span className="text-exp-blue font-mono font-normal">{"//"}</span> {item.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-gray-400">
-                      {item.description}
-                    </p>
-                  </div>
+                <article key={item.title} className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] p-5 shadow-sm hover:border-[#FF3366]/30 transition-colors">
+                  <h3 className="text-base font-bold text-[#1A1A1A] mb-2">{item.title}</h3>
+                  <p className="text-sm leading-relaxed text-[#1A1A1A]/60">{item.description}</p>
                 </article>
               ))}
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={primaryButtonClass}
-              >
+              <button type="button" onClick={() => scrollToForm(false)}
+                className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
                 Хочу такой аудит
               </button>
-              <button
-                type="button"
-                onClick={() => scrollToForm(true)}
-                className={secondaryButtonClass}
-              >
+              <button type="button" onClick={() => scrollToForm(true)}
+                className="inline-flex items-center justify-center rounded-full border border-[#1A1A1A]/10 bg-white px-6 py-3 text-sm font-bold text-[#1A1A1A] transition hover:-translate-y-0.5 hover:border-[#FF3366] hover:text-[#FF3366]">
                 Прислать пример PDF
               </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8 border-t-2 border-white/10`}>
-            <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">
-              Execution_Process
+        {/* Process */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] p-6 sm:p-8 shadow-sm">
+              <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                Как это работает
+              </h2>
+              <div className="mt-6 grid gap-4 lg:grid-cols-3">
+                {processSteps.map((step) => (
+                  <article key={step.number} className="rounded-2xl border border-[#1A1A1A]/5 bg-[#F5F5F7] p-5 relative overflow-hidden">
+                    <div className="absolute -right-4 -top-6 text-6xl font-extrabold text-[#1A1A1A]/5 select-none pointer-events-none">{step.number}</div>
+                    <p className="text-xs font-bold text-[#FF3366] tracking-widest uppercase">Шаг {step.number}</p>
+                    <h3 className="mt-2 text-lg font-bold text-[#1A1A1A]">{step.title}</h3>
+                    <p className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/60">{step.description}</p>
+                    <div className="mt-4 pt-4 border-t border-[#1A1A1A]/5 flex items-center gap-1.5 text-xs text-[#1A1A1A]/40">
+                      <Clock3 className="h-3.5 w-3.5 text-[#FF3366]" />
+                      {step.timing}
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <p className="mt-6 text-sm text-[#1A1A1A]/40">
+                После аудита вы можете внедрять с нами или со своей командой. Без обязательного долгого контракта.
+              </p>
+              <div className="mt-6">
+                <button type="button" onClick={() => scrollToForm(false)}
+                  className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                  Выбрать время для аудита
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Case Studies + Testimonials */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+              Результаты клиентов
             </h2>
-            <div className="mt-6 grid gap-4 lg:grid-cols-3 relative">
-              <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent hidden lg:block -z-10"></div>
-              {processSteps.map((step) => (
-                <article
-                  key={step.number}
-                  className="rounded-xl border border-white/10 bg-exp-bg p-5 relative overflow-hidden"
-                >
-                  <div className="absolute -right-4 -top-6 text-6xl font-bold font-mono text-white/5 select-none pointer-events-none">
-                    {step.number}
+            <p className="mt-3 max-w-3xl text-[#1A1A1A]/60">
+              Примеры из ниш, где важны контролируемый CPL/CPA и прозрачный трекинг, а не «просто больше трафика».
+            </p>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+              {caseStudies.map((study) => (
+                <article key={study.niche} className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] p-5 shadow-sm hover:border-[#FF3366]/30 transition-all">
+                  <p className="text-lg font-bold text-[#1A1A1A]">{study.niche}</p>
+                  <p className="mt-1 text-xs text-[#1A1A1A]/40">{study.budget} <span className="text-[#FF3366]">|</span> {study.timeframe}</p>
+                  <div className="mt-4 p-3 bg-red-50 border border-red-100 rounded-xl text-sm leading-relaxed text-[#1A1A1A]/70">
+                    <span className="text-red-500 font-bold block mb-1">Проблема:</span>
+                    {study.problem}
                   </div>
-                  <p className="text-xs font-mono font-bold text-exp-emerald tracking-widest">
-                    STEP / {step.number}
-                  </p>
-                  <h3 className="mt-2 text-lg font-bold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-gray-400">
-                    {step.description}
-                  </p>
-                  <div className="mt-4 pt-4 border-t border-white/5 flex items-center gap-1.5 text-xs font-mono text-gray-500">
-                    <Clock3 className="h-3.5 w-3.5 text-exp-blue" />
-                    TIME: {step.timing}
+                  <div className="mt-4 space-y-2 text-sm text-[#1A1A1A]/60">
+                    <p className="text-[#FF3366] font-bold">Что поменяли:</p>
+                    {study.changes.map((change) => (
+                      <p key={change} className="flex gap-2">
+                        <span className="mt-0.5 text-[#FF3366]">→</span>
+                        <span>{change}</span>
+                      </p>
+                    ))}
+                  </div>
+                  <div className="mt-4 p-3 bg-green-50 border border-green-100 rounded-xl space-y-2 text-sm">
+                    <p className="text-green-600 font-bold">Результат:</p>
+                    {study.result.map((result) => (
+                      <p key={result} className="flex gap-2 items-start">
+                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-green-500" />
+                        <span className="font-medium text-[#1A1A1A]">{result}</span>
+                      </p>
+                    ))}
                   </div>
                 </article>
               ))}
             </div>
-            <p className="mt-6 text-sm text-gray-500 font-mono">
-              {">"} После аудита вы можете внедрять с нами или со своей командой. Без
-              обязательного долгого контракта.
-            </p>
-            <div className="mt-6">
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={primaryButtonClass}
-              >
-                Выбрать время для аудита
+
+            <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {testimonials.map((testimonial) => (
+                <article key={testimonial.name} className="rounded-2xl border border-[#1A1A1A]/5 bg-white p-5 relative shadow-sm">
+                  <p className="text-sm leading-relaxed text-[#1A1A1A]/70 italic">"{testimonial.quote}"</p>
+                  <div className="mt-4 flex items-center gap-3">
+                    <div className="h-10 w-10 rounded-full bg-[#FF3366]/10 border border-[#FF3366]/20 flex items-center justify-center font-bold text-[#FF3366]">
+                      {testimonial.name.charAt(0)}
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-[#1A1A1A]">{testimonial.name}</p>
+                      <p className="text-xs text-[#1A1A1A]/40">{testimonial.role}</p>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-7 flex justify-center">
+              <button type="button" onClick={() => scrollToForm(false)}
+                className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                Разобрать мой проект
               </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <h2 className="text-3xl font-bold text-white flex items-center gap-2">
-            <span className="w-2 h-6 bg-exp-blue block rounded-sm"></span>
-            PROVEN_RESULTS
-          </h2>
-          <p className="mt-3 max-w-3xl text-gray-400">
-            Примеры из ниш, где важны контролируемый CPL/CPA и прозрачный
-            трекинг, а не «просто больше трафика».
-          </p>
-
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            {caseStudies.map((study) => (
-              <article key={study.niche} className={`${cardClass} p-5 border-t-2 border-transparent hover:border-exp-emerald/30 transition-all`}>
-                <p className="text-lg font-bold text-white">
-                  {study.niche}
-                </p>
-                <p className="mt-1 text-xs font-mono text-gray-400">
-                  {study.budget} <span className="text-exp-emerald">|</span> {study.timeframe}
-                </p>
-                <div className="mt-4 p-3 bg-red-500/5 border border-red-500/10 rounded-lg text-sm leading-relaxed text-gray-300">
-                  <span className="font-mono text-red-400 font-bold block mb-1">
-                    [!] Проблема:
-                  </span>
-                  {study.problem}
-                </div>
-                <div className="mt-4 space-y-2 text-sm text-gray-400">
-                  <p className="font-mono text-exp-blue font-bold">{"//"} Что поменяли:</p>
-                  {study.changes.map((change) => (
-                    <p key={change} className="flex gap-2">
-                      <span className="mt-0.5 text-exp-blue">{">"}</span>
-                      <span>{change}</span>
-                    </p>
+        {/* Why HaloAgency + Trust */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="bg-white border border-[#1A1A1A]/5 rounded-[2rem] grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] shadow-sm">
+              <div>
+                <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                  Почему HaloAgency
+                </h2>
+                <ul className="mt-5 space-y-3 text-sm leading-relaxed text-[#1A1A1A]/60">
+                  <li className="flex gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" /><span><strong className="text-[#1A1A1A]">Tracking-first:</strong> сначала чиним данные, затем масштабируем бюджет.</span></li>
+                  <li className="flex gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" /><span><strong className="text-[#1A1A1A]">Фокус на бизнес-метриках:</strong> CPL/CPA/ROAS и качество лида.</span></li>
+                  <li className="flex gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" /><span><strong className="text-[#1A1A1A]">Скорость:</strong> первые внедрения запускаются в течение 72 часов после аудита.</span></li>
+                  <li className="flex gap-3"><ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" /><span><strong className="text-[#1A1A1A]">Локальная экспертиза:</strong> сезонность, гео и креативы под CZ-аудиторию.</span></li>
+                </ul>
+              </div>
+              <div className="rounded-2xl border border-[#1A1A1A]/5 bg-[#F5F5F7] p-5">
+                <p className="text-xs font-bold text-[#FF3366] tracking-widest uppercase">Сертификации</p>
+                <div className="mt-4 grid gap-2">
+                  {trustSignals.map((signal) => (
+                    <div key={signal} className="flex items-center gap-2 rounded-xl border border-[#1A1A1A]/5 bg-white px-3 py-2 text-sm text-[#1A1A1A]/70">
+                      <CheckCircle2 className="h-3 w-3 text-[#FF3366] flex-shrink-0" />
+                      {signal}
+                    </div>
                   ))}
                 </div>
-                <div className="mt-4 p-3 bg-exp-emerald/5 border border-exp-emerald/20 rounded-lg space-y-2 text-sm text-gray-300">
-                  <p className="font-mono text-exp-emerald font-bold">{"=>"} Результат:</p>
-                  {study.result.map((result) => (
-                    <p key={result} className="flex gap-2 items-start">
-                      <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                      <span className="font-medium text-white">{result}</span>
-                    </p>
-                  ))}
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {testimonials.map((testimonial) => (
-              <article key={testimonial.name} className="rounded-xl border border-white/5 bg-white/5 p-5 relative">
-                <div className="absolute top-4 right-4 text-4xl text-exp-blue/20 rotate-180 font-serif">"</div>
-                <p className="text-sm leading-relaxed text-gray-300 relative z-10 italic">
-                  "{testimonial.quote}"
-                </p>
-                <div className="mt-4 flex items-center gap-3">
-                  <div className="h-10 w-10 rounded-full bg-exp-bg-soft border border-white/10 flex items-center justify-center font-mono font-bold text-exp-blue">
-                    {testimonial.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="text-sm font-bold text-white">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-xs text-gray-500 font-mono tracking-wide uppercase">{testimonial.role}</p>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-7 flex justify-center items-center">
-            <button
-              type="button"
-              onClick={() => scrollToForm(false)}
-              className={primaryButtonClass}
-            >
-              Разобрать мой проект
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <div
-            className={`${cardClass} grid gap-6 p-6 sm:p-8 lg:grid-cols-[1.1fr_0.9fr] border-t-2 border-white/10`}
-          >
-            <div>
-              <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">
-                Why_HaloAgency
-              </h2>
-              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-gray-300">
-                <li className="flex gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                  <span>
-                    <strong className="text-white">Tracking-first:</strong> сначала чиним данные, затем масштабируем бюджет.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                  <span>
-                    <strong className="text-white">Фокус на бизнес-метриках:</strong> CPL/CPA/ROAS и качество лида.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                  <span>
-                    <strong className="text-white">Скорость:</strong> первые внедрения запускаются в течение 72 часов после аудита.
-                  </span>
-                </li>
-                <li className="flex gap-3">
-                  <ShieldCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-exp-emerald" />
-                  <span>
-                    <strong className="text-white">Локальная экспертиза:</strong> сезонность, гео и креативы под CZ-аудиторию.
-                  </span>
-                </li>
-              </ul>
+                <button type="button" onClick={() => scrollToForm(false)}
+                  className="inline-flex w-full mt-5 items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                  Записаться на аудит
+                </button>
+              </div>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-              <p className="text-xs font-mono font-bold text-exp-blue tracking-widest uppercase">
-                Trust_Signals
+          </div>
+        </section>
+
+        {/* Offer + Guarantee */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="bg-white border-2 border-[#FF3366]/20 rounded-[2rem] p-6 sm:p-8 shadow-sm">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>Оффер и Гарантия</h2>
+                <div className="inline-flex items-center gap-2 rounded-full border border-green-200 bg-green-50 px-4 py-1.5 text-sm font-bold text-green-600">
+                  <ShieldCheck className="h-4 w-4" />
+                  100% Refund Guarantee
+                </div>
+              </div>
+              <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
+                <div className="rounded-2xl border border-[#1A1A1A]/5 bg-[#F5F5F7] p-6 flex flex-col justify-center">
+                  <p className="text-xs font-bold text-[#FF3366] tracking-widest uppercase">Growth Audit</p>
+                  <p className="mt-2 text-4xl font-extrabold text-[#1A1A1A]">4 900 CZK</p>
+                  <p className="mt-3 text-sm text-[#1A1A1A]/60 leading-relaxed border-t border-[#1A1A1A]/5 pt-3">
+                    Полный аудит рекламы + лендинга + трекинга, 20-мин разбор и PDF-план на 30 дней.
+                  </p>
+                </div>
+                <div className="space-y-4 text-sm leading-relaxed text-[#1A1A1A]/60 flex flex-col justify-center">
+                  <p><span className="text-[#FF3366] font-bold">Ежемесячное ведение:</span> от 35 000 CZK + рекламный бюджет.</p>
+                  <p>Аудит платный, потому что это 4–5 часов senior-анализа, а не «продающий звонок».</p>
+                  <p className="text-[#1A1A1A] p-3 rounded-xl border border-green-200 bg-green-50">
+                    <span className="text-green-600 font-bold block mb-1">Гарантия:</span>
+                    Если на звонке вы не получаете минимум 3 конкретные точки роста с цифрами, возвращаем 100% стоимости аудита прямо на звонке.
+                  </p>
+                  <p className="text-[#1A1A1A]/40 italic">* Если стартуем ведение в течение 14 дней после аудита, 4 900 CZK засчитываются в первый счет.</p>
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <button type="button" onClick={() => scrollToForm(false)}
+                      className="inline-flex items-center justify-center rounded-full bg-[#FF3366] px-6 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                      Забронировать аудит
+                    </button>
+                    <button type="button" onClick={() => scrollToForm(true)}
+                      className="inline-flex items-center justify-center rounded-full border border-[#1A1A1A]/10 bg-white px-6 py-3 text-sm font-bold text-[#1A1A1A] transition hover:-translate-y-0.5 hover:border-[#FF3366] hover:text-[#FF3366]">
+                      Пример PDF
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-10 sm:py-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>Частые вопросы</h2>
+            <div className="mt-6 space-y-3">
+              {faqItems.map((item, index) => (
+                <details key={item.q} open={index === 0}
+                  className="group overflow-hidden rounded-2xl border border-[#1A1A1A]/5 bg-white shadow-sm">
+                  <summary className="cursor-pointer list-none px-5 py-4 text-sm font-bold text-[#1A1A1A] marker:content-none transition-colors group-hover:bg-[#F5F5F7]">
+                    <span className="flex items-center justify-between gap-3">
+                      {item.q}
+                      <ArrowRight className="h-4 w-4 shrink-0 text-[#FF3366] transition group-open:rotate-90" />
+                    </span>
+                  </summary>
+                  <div className="border-t border-[#1A1A1A]/5 px-5 py-4 text-sm leading-relaxed text-[#1A1A1A]/60 bg-[#F5F5F7]">
+                    {item.a}
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="pb-20 pt-10 sm:pb-24 sm:pt-14">
+          <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-[2rem] border border-[#FF3366]/20 bg-white p-6 sm:p-9 text-center shadow-sm relative z-10">
+              <h2 className="text-3xl font-extrabold text-[#1A1A1A] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
+                <span className="text-[#FF3366]">20 минут</span>, чтобы найти точки утечки бюджета
+              </h2>
+              <p className="mt-3 max-w-2xl mx-auto text-[#1A1A1A]/60">
+                Запишитесь на Growth Audit Call и получите внедряемый 30-дневный план уже на этой неделе. WhatsApp-ответ в рабочее время до 2 часов.
               </p>
-              <div className="mt-4 grid gap-2">
-                {trustSignals.map((signal) => (
-                  <div
-                    key={signal}
-                    className="flex items-center gap-2 rounded-lg border border-white/10 bg-exp-bg px-3 py-2 text-sm text-gray-300"
-                  >
-                    <CheckCircle2 className="h-3 w-3 text-exp-blue flex-shrink-0" />
-                    {signal}
-                  </div>
-                ))}
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button type="button" onClick={() => scrollToForm(false)}
+                  className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-[#FF3366] px-8 py-4 text-base font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#FF3366]/90 shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)]">
+                  Забронировать Growth Audit Call
+                </button>
+                <button type="button" onClick={() => scrollToForm(true)}
+                  className="inline-flex w-full sm:w-auto items-center justify-center rounded-full border border-[#1A1A1A]/10 bg-white px-8 py-4 text-base font-bold text-[#1A1A1A] transition hover:-translate-y-0.5 hover:border-[#FF3366] hover:text-[#FF3366]">
+                  Получить пример PDF
+                </button>
               </div>
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={`${primaryButtonClass} mt-5 w-full`}
-              >
-                Записаться на аудит
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <div className={`${cardClass} p-6 sm:p-8 border-2 border-exp-emerald/20`}>
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-              <h2 className="text-3xl font-bold text-white flex items-center gap-2">
-                <span className="w-2 h-6 bg-exp-emerald block rounded-sm"></span>
-                Оффер и Гарантия
-              </h2>
-              <div className="inline-flex items-center gap-2 rounded-full border border-exp-emerald/30 bg-exp-emerald/10 px-4 py-1.5 text-sm font-medium text-exp-emerald shadow-[0_0_15px_rgba(16,185,129,0.15)]">
-                <ShieldCheck className="h-4 w-4" />
-                100% Refund Guarantee
-              </div>
-            </div>
-            <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-              <div className="rounded-xl border border-white/10 bg-exp-bg p-6 flex flex-col justify-center">
-                <p className="text-xs font-mono tracking-widest text-gray-400 uppercase">
-                  Growth Audit
-                </p>
-                <p className="mt-2 text-4xl font-bold text-white font-mono drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">
-                  4 900 CZK
-                </p>
-                <p className="mt-3 text-sm text-gray-400 leading-relaxed border-t border-white/10 pt-3">
-                  Полный аудит рекламы + лендинга + трекинга, 20-мин разбор и
-                  PDF-план на 30 дней.
-                </p>
-              </div>
-              <div className="space-y-4 text-sm leading-relaxed text-gray-300 flex flex-col justify-center">
-                <p>
-                  <span className="font-mono text-exp-blue font-bold tracking-wide">
-                    {">"} ЕЖЕМЕСЯЧНОЕ ВЕДЕНИЕ:
-                  </span>{" "}
-                  от 35 000 CZK + рекламный бюджет.
-                </p>
-                <p>
-                  Аудит платный, потому что это 4–5 часов senior-анализа, а не
-                  «продающий звонок».
-                </p>
-                <p className="text-white p-3 rounded-lg border border-exp-emerald/30 bg-exp-emerald/5">
-                  <span className="font-mono text-exp-emerald font-bold tracking-wide block mb-1">
-                    {">"} ГАРАНТИЯ:
-                  </span>
-                  Если на звонке вы не получаете минимум 3 конкретные точки
-                  роста с цифрами, возвращаем 100% стоимости аудита прямо на звонке.
-                </p>
-                <p className="text-gray-400 italic">
-                  * Если стартуем ведение в течение 14 дней после аудита, 4 900
-                  CZK засчитываются в первый счет.
-                </p>
-                <div className="flex flex-wrap gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => scrollToForm(false)}
-                    className={primaryButtonClass}
-                  >
-                    Забронировать аудит
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollToForm(true)}
-                    className={secondaryButtonClass}
-                  >
-                    Пример PDF
-                  </button>
-                </div>
+              <div className="mt-6 flex justify-center items-center gap-2 text-sm text-[#1A1A1A]/40">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF3366] opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF3366]"></span>
+                </span>
+                На этой неделе: <span className="text-[#1A1A1A] font-bold">{slotsLeft} слотов</span>.
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-10 sm:py-14">
-        <div className={sectionShell}>
-          <h2 className="text-3xl font-bold text-white font-mono uppercase tracking-tight">System_FAQ</h2>
-          <div className="mt-6 space-y-3">
-            {faqItems.map((item, index) => (
-              <details
-                key={item.q}
-                open={index === 0}
-                className="group overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm"
-              >
-                <summary className="cursor-pointer list-none px-5 py-4 text-sm font-semibold text-white marker:content-none transition-colors group-hover:bg-white/5">
-                  <span className="flex items-center justify-between gap-3">
-                    {item.q}
-                    <ArrowRight className="h-4 w-4 shrink-0 text-exp-emerald transition group-open:rotate-90" />
-                  </span>
-                </summary>
-                <div className="border-t border-white/10 px-5 py-4 text-sm leading-relaxed text-gray-400 bg-exp-bg">
-                  {item.a}
-                </div>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="pb-20 pt-10 sm:pb-24 sm:pt-14 relative overflow-hidden">
-        <div className="absolute inset-0 bg-exp-emerald/5 [mask-image:radial-gradient(ellipse_at_center,black_0%,transparent_70%)] pointer-events-none"></div>
-        <div className={sectionShell}>
-          <div className="rounded-3xl border border-exp-emerald/30 bg-exp-bg-soft/80 backdrop-blur-md p-6 shadow-[0_0_40px_rgba(16,185,129,0.1)] sm:p-9 text-center relative z-10">
-            <h2 className="text-3xl font-bold text-white mb-2">
-              <span className="text-exp-emerald">20 минут</span>, чтобы найти точки утечки бюджета
-            </h2>
-            <p className="mt-3 max-w-2xl mx-auto text-gray-400">
-              Запишитесь на Growth Audit Call и получите внедряемый 30-дневный
-              план уже на этой неделе. WhatsApp-ответ в рабочее время до 2
-              часов.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-              <button
-                type="button"
-                onClick={() => scrollToForm(false)}
-                className={`${primaryButtonClass} w-full sm:w-auto text-base py-4 px-8`}
-              >
-                Забронировать Growth Audit Call
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToForm(true)}
-                className={`${secondaryButtonClass} w-full sm:w-auto text-base py-4 px-8`}
-              >
-                Получить пример PDF
-              </button>
-            </div>
-            <div className="mt-6 flex justify-center items-center gap-2 text-sm font-mono text-gray-400">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-exp-emerald opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-exp-emerald"></span>
-              </span>
-              На этой неделе: <span className="text-white font-bold">{slotsLeft} слотов</span>.
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
   );
 }

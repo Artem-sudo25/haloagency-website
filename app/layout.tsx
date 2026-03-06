@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { IBM_Plex_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import "./globals.css";
 import { ContactModalProvider } from "@/context/contact-modal-context";
 import { LayoutShell } from "@/components/layout/LayoutShell";
@@ -7,8 +7,9 @@ import { CookieBanner } from "@/components/ui/cookie-banner";
 import { ConsentScripts } from "@/components/analytics/ConsentScripts";
 import Script from "next/script";
 
-const inter = Inter({
+const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin", "cyrillic"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   preload: true,
   variable: "--font-inter",
@@ -20,6 +21,15 @@ const jetbrainsMono = JetBrains_Mono({
   preload: true,
   variable: "--font-mono",
 });
+
+const syne = Syne({
+  subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  variable: "--font-display",
+});
+
+
 
 export const metadata: Metadata = {
   title: "HaloAgency - Digital Agency",
@@ -72,7 +82,7 @@ export default function RootLayout({
         )}
       </head>
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans bg-ha-bg text-white antialiased`}
+        className={`${ibmPlexSans.variable} ${jetbrainsMono.variable} ${syne.variable} font-sans bg-[#F5F5F7] text-[#1A1A1A] antialiased`}
         suppressHydrationWarning
       >
         {/* Google Tag Manager - Must be in body, immediately after opening tag */}

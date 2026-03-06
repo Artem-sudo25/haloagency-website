@@ -1,143 +1,95 @@
 "use client";
 
-import { TrendingUp, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { TrendingUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 
 const projects = [
   {
-    number: "01",
     title: "Nejbalonky.cz",
     image: "/images/case-studies/nejablonky_updated.png",
     category: "E-commerce",
-    categoryColor: "bg-blue-500/20 text-blue-300 border-blue-500/20",
     subtitle: "E-commerce система с полной автоматизацией",
-    stats: "ROAS 6+",
-    statsIcon: "trending",
-    statsColor: "bg-green-500/20 text-green-400 border-green-500/20",
-    description: "Интеграция логистики, склада и AI-поиска. Стабильный рост без увеличения штата.",
-    span: "md:col-span-2 md:row-span-2",
+    stats: "+45% ROAS",
+    statsColor: "bg-[#06D6A0]/20 text-[#06D6A0]",
+    description: "E-commerce магазин с полной автоматизацией. Интеграция логистики, складов и 1С-онлайн. Стабильный рост без увеличения штата.",
     href: "/case-studies/nejablonky",
+    reverse: false,
   },
   {
-    number: "02",
     title: "ProPradlo.cz",
     image: "/images/case-studies/propradlo-mockup-v3.png",
     category: "Automation",
-    categoryColor: "bg-teal-500/20 text-teal-300 border-teal-500/20",
-    subtitle: "Цифровая трансформация локального бизнеса",
-    stats: "Заявки x3.5",
-    statsColor: "bg-blue-500/20 text-blue-300 border-blue-500/20",
-    description: "70% заказов переведены в онлайн. ТОП-3 в локальном поиске Google.",
-    span: "",
+    subtitle: "Цифровая трансформация оптового бизнеса",
+    stats: "-30% Time",
+    statsColor: "bg-[#A2D2FF]/40 text-[#1A1A1A]",
+    description: "Цифровая трансформация оптового бизнеса. Внедрение CRM, B2B-портала, ERP-системы и комплексная автоматизация продаж.",
     href: "/case-studies/propradlo",
-  },
-  {
-    number: "03",
-    title: "Segway Tours",
-    image: "/images/case-studies/segway.png",
-    category: "SEO + Ads",
-    categoryColor: "bg-amber-500/20 text-amber-300 border-amber-500/20",
-    subtitle: "Комплексный маркетинг в конкурентной нише",
-    stats: "+240% Трафик",
-    statsIcon: "trending",
-    statsColor: "bg-green-500/20 text-green-400 border-green-500/20",
-    description: "Рост прямых продаж на 60% и снижение зависимости от агрегаторов.",
-    span: "",
-    href: "/case-studies/segway-tours-budapest",
+    reverse: true,
   },
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-16 md:py-24 px-4 bg-ha-bg-soft relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-
-      <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-          <div className="text-center md:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
-              <span className="text-sm font-medium text-gray-300">💼 Избранные кейсы</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 md:mb-4 px-4 md:px-0">
-              Результаты, которыми <br />
-              <span className="text-white">мы гордимся</span>
+    <section id="projects" className="py-16 md:py-24 px-6 bg-white">
+      <div className="max-w-[1200px] mx-auto flex flex-col gap-16">
+        {/* Section Header */}
+        <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b-2 border-[#1A1A1A]/10 pb-6">
+          <div className="flex flex-col gap-4 max-w-2xl">
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+              Результаты, которыми мы гордимся
             </h2>
           </div>
-          <div className="hidden md:block" /> {/* Spacer instead of button */}
+          <Link
+            href="/case-studies"
+            className="flex items-center gap-2 text-[#1A1A1A] font-bold hover:text-[#FF3366] transition-all text-lg bg-white px-6 py-3 rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#1A1A1A]"
+          >
+            Смотреть все →
+          </Link>
         </div>
 
-        <div className="flex flex-col gap-6 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-6 md:auto-rows-fr">
+        {/* Project Cards */}
+        <div className="flex flex-col gap-12 md:gap-20">
           {projects.map((project, index) => (
-            <motion.div
+            <Link
               key={index}
-              initial={{ y: 8, opacity: 0.9 }}
-              whileInView={{ y: 0, opacity: 1 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
-              className={`group relative overflow-hidden rounded-3xl bg-transparent border border-white/10 hover:border-white/20 transition-all duration-300 min-h-[400px] w-full isolate ${project.span}`}
+              href={project.href}
+              className={`group flex flex-col ${project.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center cursor-pointer bg-white p-6 md:p-8 rounded-2xl border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] transition-all`}
             >
-              <Link href={project.href || "#"} className="block w-full h-[400px] md:h-full relative">
-                {/* Background Image with Zoom Effect */}
-                <div className="absolute inset-0">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={index < 2}
-                  />
-                  {/* Subtle Gradient for Text Readability */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-80" />
+              {/* Image */}
+              <div className="w-full md:w-3/5 aspect-[16/10] rounded-xl border-2 border-[#1A1A1A] bg-gray-200 overflow-hidden relative">
+                <Image
+                  src={project.image}
+                  alt={`${project.title} project showcase`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  priority={index < 1}
+                />
+                <div className={`absolute top-6 ${project.reverse ? 'right-6' : 'left-6'} px-4 py-2 bg-[#1A1A1A] text-white rounded-full text-xs font-bold uppercase tracking-wider`}>
+                  {project.category}
                 </div>
+              </div>
 
-                {/* Number Watermark */}
-                <div className="text-6xl md:text-8xl font-bold text-white/5 absolute top-6 right-6 select-none pointer-events-none z-10">
-                  {project.number}
+              {/* Content */}
+              <div className="w-full md:w-2/5 flex flex-col gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-1 bg-[#FF3366]" />
                 </div>
-
-                {/* Content */}
-                <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between z-20">
-                  <div className="flex justify-between items-start">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium border ${project.categoryColor} backdrop-blur-md`}>
-                      {project.category}
-                    </span>
-                  </div>
-
-                  <div className="transform transition-transform duration-300 md:group-hover:-translate-y-1">
-                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-3 max-w-md">
-                      {project.subtitle}
-                    </p>
-
-                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border ${project.statsColor} backdrop-blur-md mb-3`}>
-                      {project.statsIcon === "trending" && <TrendingUp className="w-4 h-4" />}
-                      {project.stats}
-                    </div>
-
-                    {project.description && (
-                      <p className="text-gray-400 text-sm mb-4 max-w-md md:group-hover:text-gray-200 transition-colors hidden md:block">
-                        {project.description}
-                      </p>
-                    )}
-
-                    <span className="inline-flex items-center gap-1 text-sm text-white font-medium hover:text-blue-300 transition-colors">
-                      Смотреть кейс →
-                    </span>
-                  </div>
+                <h3 className="text-3xl md:text-4xl font-extrabold leading-tight group-hover:text-[#FF3366] transition-colors" style={{ fontFamily: 'var(--font-display)' }}>
+                  {project.title}
+                </h3>
+                <p className="text-lg text-[#1A1A1A] font-medium leading-relaxed">
+                  {project.description}
+                </p>
+                <div className={`inline-flex items-center px-4 py-2 ${project.statsColor} rounded-lg font-bold text-sm w-max mt-2`}>
+                  <TrendingUp className="w-4 h-4 mr-2" />
+                  {project.stats}
                 </div>
-              </Link>
-            </motion.div>
+              </div>
+            </Link>
           ))}
         </div>
-
-
       </div>
     </section>
   );

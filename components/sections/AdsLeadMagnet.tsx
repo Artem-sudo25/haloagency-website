@@ -175,10 +175,10 @@ export default function AdsLeadMagnet() {
       type="button"
       onClick={onChange}
       className={`
-        px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200
+        px-4 py-2.5 rounded-xl font-bold transition-all duration-200 border-2 border-[#1A1A1A]
         ${selected
-          ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
-          : "bg-white/5 text-slate-300 hover:bg-white/10 border border-white/10"
+          ? "bg-[#FF3366] text-white shadow-[4px_4px_0px_0px_#1A1A1A]"
+          : "bg-white text-[#1A1A1A] hover:bg-[#1A1A1A]/5 shadow-[2px_2px_0px_0px_#1A1A1A] hover:shadow-[4px_4px_0px_0px_#1A1A1A]"
         }
       `}
     >
@@ -188,23 +188,23 @@ export default function AdsLeadMagnet() {
 
   if (isSuccess) {
     return (
-      <section className="py-24 bg-ha-bg relative overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
+      <section className="py-16 md:py-24 bg-[#F5F5F7] border-y-2 border-[#1A1A1A] relative overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF3366]/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FFD166]/10 rounded-full blur-3xl" />
 
         <div className="container mx-auto max-w-2xl px-4 relative z-10">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="text-center p-12 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-orange-500/30"
+            className="text-center p-12 rounded-3xl bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A]"
           >
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
-              <Check className="w-8 h-8 text-white" />
+            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#06D6A0] border-2 border-[#1A1A1A] flex items-center justify-center shadow-[4px_4px_0px_0px_#1A1A1A]">
+              <Check className="w-8 h-8 text-[#1A1A1A] font-bold" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">
+            <h3 className="text-3xl font-extrabold text-[#1A1A1A] mb-4" style={{ fontFamily: 'var(--font-display)' }}>
               Заявка отправлена!
             </h3>
-            <p className="text-slate-400">
+            <p className="text-[#1A1A1A]/80 font-medium text-lg">
               Мы свяжемся с вами в течение 1–2 рабочих часов и подготовим план запуска рекламы.
             </p>
           </motion.div>
@@ -214,10 +214,10 @@ export default function AdsLeadMagnet() {
   }
 
   return (
-    <section className="py-24 bg-ha-bg relative overflow-hidden">
+    <section className="py-16 md:py-24 bg-[#F5F5F7] border-y-2 border-[#1A1A1A] relative overflow-hidden">
       {/* Background */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF3366]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FFD166]/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto max-w-2xl px-4 relative z-10">
         {/* Header */}
@@ -231,33 +231,33 @@ export default function AdsLeadMagnet() {
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-orange-500/30 to-orange-600/20 border border-orange-500/30 flex items-center justify-center"
+            className="inline-flex w-16 h-16 mx-auto mb-6 rounded-2xl bg-[#FFD166] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] items-center justify-center"
           >
-            <Megaphone className="w-8 h-8 text-orange-400" />
+            <Megaphone className="w-8 h-8 text-[#1A1A1A]" />
           </motion.div>
 
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
             Не уверены, с какого канала начать?
           </h2>
-          <p className="text-gray-400 text-lg md:text-xl max-w-xl mx-auto">
-            Мы подготовим короткий план запуска рекламы под ваш бизнес и бюджет — <span className="text-orange-400 font-medium">бесплатно</span>.
+          <p className="text-[#1A1A1A]/80 font-medium text-xl max-w-xl mx-auto">
+            Мы подготовим короткий план запуска рекламы под ваш бизнес и бюджет — <span className="text-[#FF3366] font-extrabold underline decoration-2 underline-offset-4">бесплатно</span>.
           </p>
         </motion.div>
 
         {/* Progress */}
-        <div className="p-4 rounded-2xl bg-white/5 border border-white/10 mb-6">
+        <div className="p-4 rounded-3xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-8">
           <div className="flex items-center justify-center gap-4">
-            <div className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${step === 1
-              ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
-              : "bg-orange-500/20 text-orange-400"
+            <div className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all border-2 border-[#1A1A1A] ${step === 1
+              ? "bg-[#FF3366] text-white shadow-[4px_4px_0px_0px_#1A1A1A]"
+              : "bg-white text-[#1A1A1A]"
               }`}>
-              {step > 1 ? <Check className="w-4 h-4" /> : <span>1</span>}
+              {step > 1 ? <Check className="w-5 h-5 font-bold" /> : <span>1</span>}
               <span className="hidden sm:inline">Бизнес и задача</span>
             </div>
-            <div className="w-12 h-px bg-white/20" />
-            <div className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all ${step === 2
-              ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
-              : "bg-white/10 text-slate-400"
+            <div className="w-8 h-1 bg-[#1A1A1A] rounded-full opacity-20" />
+            <div className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all border-2 border-[#1A1A1A] ${step === 2
+              ? "bg-[#06D6A0] text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]"
+              : "bg-white text-[#1A1A1A]/50"
               }`}>
               <span>2</span>
               <span className="hidden sm:inline">Контакт</span>
@@ -270,7 +270,7 @@ export default function AdsLeadMagnet() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="p-8 md:p-10 rounded-3xl bg-gradient-to-br from-slate-900/80 to-slate-900/50 border border-white/10"
+          className="p-8 md:p-12 rounded-3xl bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A]"
         >
           <AnimatePresence mode="wait">
             {step === 1 && (
@@ -283,7 +283,7 @@ export default function AdsLeadMagnet() {
               >
                 {/* Question 1 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Чем занимается ваш бизнес?
                   </label>
                   <input
@@ -291,28 +291,28 @@ export default function AdsLeadMagnet() {
                     value={formData.business}
                     onChange={(e) => updateField("business", e.target.value)}
                     placeholder="Например: ремонт квартир, доставка еды, стоматология..."
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] font-medium placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#FF3366] transition-all shadow-[4px_4px_0px_0px_#1A1A1A]"
                   />
                 </div>
 
                 {/* Question 1b - Link */}
                 <div>
-                  <label className="block text-white font-medium mb-2">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Ссылка на сайт или соцсети
-                    <span className="text-slate-500 font-normal ml-2 text-sm">(необязательно)</span>
+                    <span className="text-[#1A1A1A]/50 font-medium ml-2 text-sm">(необязательно)</span>
                   </label>
                   <input
                     type="text"
                     value={formData.businessLink}
                     onChange={(e) => updateField("businessLink", e.target.value)}
                     placeholder="Сайт, Instagram, Facebook или Google Maps"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] font-medium placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#FF3366] transition-all shadow-[4px_4px_0px_0px_#1A1A1A]"
                   />
                 </div>
 
                 {/* Question 2 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Что вы хотите получить от рекламы?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -330,7 +330,7 @@ export default function AdsLeadMagnet() {
 
                 {/* Question 3 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Реклама уже запускалась?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -350,9 +350,9 @@ export default function AdsLeadMagnet() {
                 <Button
                   onClick={() => setStep(2)}
                   disabled={!canProceedStep1}
-                  className={`w-full h-12 rounded-xl font-medium transition-all ${canProceedStep1
-                    ? "bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/30"
-                    : "bg-white/10 text-slate-400 cursor-not-allowed"
+                  className={`w-full h-14 rounded-xl font-bold transition-all text-lg border-2 border-[#1A1A1A] ${canProceedStep1
+                    ? "bg-[#06D6A0] hover:bg-[#06D6A0] text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
+                    : "bg-white text-[#1A1A1A]/40 cursor-not-allowed"
                     }`}
                 >
                   Далее
@@ -373,15 +373,15 @@ export default function AdsLeadMagnet() {
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors mb-2"
+                  className="flex items-center gap-2 text-sm font-bold text-[#1A1A1A]/60 hover:text-[#FF3366] transition-colors mb-4"
                 >
-                  <ChevronLeft className="w-4 h-4" />
+                  <ChevronLeft className="w-5 h-5" />
                   Назад
                 </button>
 
                 {/* Question 4 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Примерный рекламный бюджет в месяц?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -399,7 +399,7 @@ export default function AdsLeadMagnet() {
 
                 {/* Question 5 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Сайт есть?
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -417,7 +417,7 @@ export default function AdsLeadMagnet() {
 
                 {/* Question 6 */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Email для связи
                   </label>
                   <input
@@ -425,13 +425,13 @@ export default function AdsLeadMagnet() {
                     value={formData.contact}
                     onChange={(e) => updateField("contact", e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] font-medium placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#FF3366] transition-all shadow-[4px_4px_0px_0px_#1A1A1A]"
                   />
                 </div>
 
                 {/* Phone (Optional) */}
                 <div>
-                  <label className="block text-white font-medium mb-3">
+                  <label className="block text-[#1A1A1A] font-extrabold text-xl mb-4" style={{ fontFamily: 'var(--font-display)' }}>
                     Телефон
                   </label>
                   <input
@@ -439,22 +439,22 @@ export default function AdsLeadMagnet() {
                     value={formData.phone}
                     onChange={(e) => updateField("phone", e.target.value)}
                     placeholder="+420 123 456 789"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-orange-500/50 focus:ring-1 focus:ring-orange-500/50 transition-all"
+                    className="w-full px-5 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] font-medium placeholder:text-[#1A1A1A]/40 focus:outline-none focus:border-[#FF3366] transition-all shadow-[4px_4px_0px_0px_#1A1A1A]"
                   />
                 </div>
 
                 {/* Consent */}
-                <div className="flex items-start gap-3 mt-4 mb-4">
+                <div className="flex items-start gap-3 mt-6 mb-6">
                   <input
                     type="checkbox"
                     id="consent-ads"
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
-                    className="mt-1 w-4 h-4 text-orange-500 border-slate-600 rounded focus:ring-orange-500 bg-slate-800"
+                    className="mt-1 w-5 h-5 text-[#FF3366] border-2 border-[#1A1A1A] rounded bg-white focus:ring-[#FF3366] focus:ring-offset-0"
                   />
-                  <label htmlFor="consent-ads" className="text-sm text-slate-400">
+                  <label htmlFor="consent-ads" className="text-sm font-bold text-[#1A1A1A]">
                     Согласен с{" "}
-                    <a href="/privacy" target="_blank" className="text-orange-400 hover:text-orange-300 underline">
+                    <a href="/privacy-policy" target="_blank" className="text-[#FF3366] hover:text-[#1A1A1A] underline decoration-2 underline-offset-4">
                       политикой конфиденциальности
                     </a>
                   </label>
@@ -462,16 +462,16 @@ export default function AdsLeadMagnet() {
 
                 {/* Error */}
                 {error && (
-                  <p className="text-red-400 text-sm text-center">{error}</p>
+                  <p className="text-[#FF3366] font-bold text-sm text-center bg-[#FF3366]/10 py-3 rounded-xl border-2 border-[#1A1A1A]">{error}</p>
                 )}
 
                 {/* Submit Button */}
                 <Button
                   onClick={handleSubmit}
                   disabled={!canSubmit || isSubmitting}
-                  className={`w-full h-14 rounded-xl font-medium text-lg transition-all ${canSubmit && !isSubmitting
-                    ? "bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white shadow-xl shadow-orange-500/30"
-                    : "bg-white/10 text-slate-400 cursor-not-allowed"
+                  className={`w-full h-16 rounded-xl font-bold text-lg transition-all border-2 border-[#1A1A1A] ${canSubmit && !isSubmitting
+                    ? "bg-[#06D6A0] hover:bg-[#06D6A0] text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
+                    : "bg-white text-[#1A1A1A]/40 cursor-not-allowed"
                     }`}
                 >
                   {isSubmitting ? (
@@ -488,7 +488,7 @@ export default function AdsLeadMagnet() {
                 </Button>
 
                 {/* Note */}
-                <p className="text-center text-slate-500 text-xs">
+                <p className="text-center font-bold text-[#1A1A1A]/60 text-xs mt-6">
                   Мы свяжемся с вами в течение 1–2 рабочих часов и уточним детали, если потребуется.
                 </p>
               </motion.div>

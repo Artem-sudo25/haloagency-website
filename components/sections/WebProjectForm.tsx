@@ -231,7 +231,7 @@ export default function WebProjectForm() {
 
   if (isCompleted) {
     return (
-      <section className="py-20 px-4">
+      <section className="py-16 md:py-20 px-4">
         <div className="container mx-auto max-w-2xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

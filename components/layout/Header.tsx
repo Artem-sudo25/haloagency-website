@@ -19,16 +19,16 @@ interface HeaderProps {
 const navLinks = [
     {
         name: "Услуги",
-        href: "#",
+        href: "/#services",
         dropdown: [
             { name: "Разработка сайтов", href: "/web" },
             { name: "Реклама (Ads)", href: "/ads" },
-            { name: "Трекинг и Аналитика", href: "/tracking" },
+            { name: "Трекинг и аналитика", href: "/tracking" },
             { name: "Автоматизация", href: "/automation" },
         ],
     },
+    { name: "Кейсы", href: "/#projects" },
     { name: "Пакеты", href: "/packages" },
-
     { name: "О нас", href: "/#about" },
 ];
 
@@ -62,25 +62,21 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                 : "Записаться бесплатно";
 
         return (
-            <header className="fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] top-3 bg-slate-900/75 backdrop-blur-xl shadow-lg shadow-black/30 py-3 rounded-2xl border border-white/10">
+            <header className="fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] top-3 bg-white/80 backdrop-blur-xl shadow-sm py-3 rounded-2xl border border-[#1A1A1A]/5">
                 <div className="w-full px-5 md:px-8 flex items-center justify-between gap-3">
-                    <Link href="/" className="flex-shrink-0 relative h-10 w-[180px] sm:h-11 sm:w-[220px]">
-                        <Image
-                            src="/logo-v3.png"
-                            alt="HaloAgency"
-                            fill
-                            className="object-contain object-left"
-                            priority
-                        />
+                    <Link href="/" className="flex-shrink-0 relative flex items-center">
+                        <span className="text-2xl font-extrabold tracking-tighter text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                            HALO<span className="text-[#FF3366]">AGENCY</span>
+                        </span>
                     </Link>
 
                     <div className="flex items-center gap-2">
                         {sourceLabel && (
-                            <span className="hidden md:inline-flex text-xs font-medium text-emerald-300 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
+                            <span className="hidden md:inline-flex text-xs font-medium text-[#FF3366] bg-[#FF3366]/10 border border-[#FF3366]/20 rounded-full px-3 py-1">
                                 {sourceLabel}
                             </span>
                         )}
-                        <Button asChild className="rounded-full bg-gradient-to-r from-emerald-500 to-green-500 hover:from-emerald-600 hover:to-green-600 text-white px-4 md:px-6 h-10 text-sm">
+                        <Button asChild className="rounded-full bg-[#FF3366] hover:bg-[#FF3366]/90 text-white px-4 md:px-6 h-10 text-sm font-bold">
                             <Link href="#audit-form">{ctaLabel}</Link>
                         </Button>
                     </div>
@@ -92,21 +88,17 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
     return (
         <>
             <header
-                className={`fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] transition-all duration-300 rounded-2xl border border-white/10 ${scrolled || mobileMenuOpen
-                    ? "top-3 bg-slate-800/50 backdrop-blur-xl shadow-lg shadow-black/30 py-3"
-                    : "top-4 bg-slate-800/40 backdrop-blur-lg shadow-md shadow-black/20 py-4"
+                className={`fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] transition-all duration-300 rounded-2xl border-2 ${scrolled || mobileMenuOpen
+                    ? "top-3 bg-white border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] py-3"
+                    : "top-4 bg-white/90 backdrop-blur-lg shadow-[4px_4px_0px_0px_#1A1A1A] border-[#1A1A1A] py-4"
                     }`}
             >
                 <div className="w-full px-5 md:px-8 flex items-center justify-between">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 relative h-10 w-[180px] sm:h-12 sm:w-[240px]">
-                        <Image
-                            src="/logo-v3.png"
-                            alt="HaloAgency"
-                            fill
-                            className="object-contain object-left"
-                            priority
-                        />
+                    <Link href="/" className="flex-shrink-0 relative flex items-center">
+                        <span className="text-2xl font-extrabold tracking-tighter text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+                            HALO<span className="text-[#FF3366]">AGENCY</span>
+                        </span>
                     </Link>
 
                     {/* Desktop Navigation */}
@@ -120,7 +112,7 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                             >
                                 <Link
                                     href={link.href}
-                                    className="text-sm font-medium text-gray-300 hover:text-white transition-colors flex items-center gap-1"
+                                    className="text-sm font-semibold text-[#1A1A1A]/80 hover:text-[#FF3366] transition-colors flex items-center gap-1"
                                 >
                                     {link.name}
                                     {link.dropdown && <ChevronDown className="w-4 h-4" />}
@@ -137,12 +129,12 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                                                 transition={{ duration: 0.2 }}
                                                 className="absolute top-full left-0 mt-2 w-56"
                                             >
-                                                <div className="bg-ha-card-dark border border-ha-border-dark rounded-xl shadow-xl overflow-hidden">
+                                                <div className="bg-white border-2 border-[#1A1A1A] rounded-xl shadow-[4px_4px_0px_0px_#1A1A1A] overflow-hidden">
                                                     {link.dropdown.map((item) => (
                                                         <Link
                                                             key={item.name}
                                                             href={item.href}
-                                                            className="block px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                                                            className="block px-4 py-3 text-sm font-bold text-[#1A1A1A] hover:bg-[#FFD166] transition-colors"
                                                         >
                                                             {item.name}
                                                         </Link>
@@ -160,7 +152,7 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                     <div className="hidden md:flex items-center gap-4">
                         <Button
                             onClick={() => openContactModal()}
-                            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white border border-blue-500/20 shadow-lg shadow-blue-500/20 rounded-full px-6"
+                            className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border-2 border-[#1A1A1A] font-bold rounded-xl px-6 shadow-[2px_2px_0px_0px_#1A1A1A] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[4px_4px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
                         >
                             Связаться
                         </Button>
@@ -169,7 +161,7 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                     {/* Mobile Toggle */}
                     <button
                         type="button"
-                        className="md:hidden text-white p-2 flex-shrink-0 bg-slate-900/90 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-slate-800/90 active:bg-slate-700/90 transition-colors shadow-lg"
+                        className="md:hidden text-[#1A1A1A] p-2 flex-shrink-0 bg-white rounded-lg border-2 border-[#1A1A1A] hover:bg-[#FFD166] transition-all shadow-[2px_2px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         aria-label="Toggle menu"
                         aria-expanded={mobileMenuOpen}
@@ -181,46 +173,44 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                         )}
                     </button>
                 </div>
-            </header >
+            </header>
 
-            {/* Mobile Menu - Dropdown panel */}
+            {/* Mobile Menu */}
             <AnimatePresence>
                 {
                     mobileMenuOpen && (
                         <>
-                            {/* Backdrop */}
                             <motion.div
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="fixed inset-0 top-0 z-[9997] bg-black/60 backdrop-blur-sm md:hidden"
+                                className="fixed inset-0 top-0 z-[9997] bg-black/20 backdrop-blur-sm md:hidden"
                                 onClick={() => setMobileMenuOpen(false)}
                             />
-                            {/* Menu Panel */}
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.2 }}
-                                className="fixed left-4 right-4 top-[76px] z-[9998] bg-slate-900/95 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl p-6 md:hidden"
+                                className="fixed left-4 right-4 top-[84px] z-[9998] bg-white border-2 border-[#1A1A1A] rounded-2xl shadow-[6px_6px_0px_0px_#1A1A1A] p-6 md:hidden"
                             >
                                 <nav className="flex flex-col gap-4">
                                     {navLinks.map((link) => (
                                         <div key={link.name}>
                                             <Link
                                                 href={link.href}
-                                                className="text-lg font-semibold text-white block py-2"
+                                                className="text-lg font-bold text-[#1A1A1A] block py-2"
                                                 onClick={() => !link.dropdown && setMobileMenuOpen(false)}
                                             >
                                                 {link.name}
                                             </Link>
                                             {link.dropdown && (
-                                                <div className="pl-4 flex flex-col gap-1 border-l border-white/10 ml-2">
+                                                <div className="pl-4 flex flex-col gap-1 border-l-2 border-[#FF3366]/20 ml-2">
                                                     {link.dropdown.map((item) => (
                                                         <Link
                                                             key={item.name}
                                                             href={item.href}
-                                                            className="text-base text-slate-400 hover:text-white transition-colors block py-1.5"
+                                                            className="text-base text-[#1A1A1A]/60 hover:text-[#FF3366] transition-colors block py-1.5"
                                                             onClick={() => setMobileMenuOpen(false)}
                                                         >
                                                             {item.name}
@@ -232,7 +222,7 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                                     ))}
                                     <Button
                                         size="lg"
-                                        className="w-full mt-4 rounded-full bg-ha-primary text-white"
+                                        className="w-full mt-4 rounded-xl bg-white text-[#1A1A1A] hover:text-white hover:bg-[#1A1A1A] border-2 border-[#1A1A1A] font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
                                         onClick={() => {
                                             setMobileMenuOpen(false);
                                             openContactModal();
@@ -245,7 +235,7 @@ export default function Header({ mode = "default", trafficSource = "other" }: He
                         </>
                     )
                 }
-            </AnimatePresence >
+            </AnimatePresence>
         </>
     );
 }

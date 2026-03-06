@@ -17,7 +17,7 @@ export function CountUp({
   decimals = 0,
   className = ""
 }: CountUpProps) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(end);
   const [isVisible, setIsVisible] = useState(false);
   const countRef = useRef<HTMLSpanElement>(null);
 
@@ -45,6 +45,7 @@ export function CountUp({
   useEffect(() => {
     if (!isVisible) return;
 
+    setCount(0);
     let startTime: number | null = null;
     let animationFrame: number;
 

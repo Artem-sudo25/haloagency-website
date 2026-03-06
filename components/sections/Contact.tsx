@@ -1,10 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Sparkles, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { Mail, MapPin, Phone, CheckCircle2, MessageCircle } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,11 +32,11 @@ export default function Contact() {
   });
 
   const services = [
-    { value: "web", label: "Разработка сайтов", color: "from-blue-500 to-blue-600" },
-    { value: "ads", label: "Реклама (Ads)", color: "from-orange-500 to-red-500" },
-    { value: "tracking", label: "Аналитика и Трекинг", color: "from-green-500 to-emerald-500" },
-    { value: "package", label: "Готовый пакет", color: "from-purple-500 to-pink-500" },
-    { value: "other", label: "Другое", color: "from-slate-500 to-slate-600" },
+    { value: "web", label: "Разработка сайтов" },
+    { value: "ads", label: "Реклама (Ads)" },
+    { value: "tracking", label: "Аналитика и Трекинг" },
+    { value: "package", label: "Готовый пакет" },
+    { value: "other", label: "Другое" },
   ];
 
   const onSubmit = async (data: ContactFormData) => {
@@ -74,7 +72,6 @@ export default function Contact() {
       reset();
       setSelectedService("");
 
-      // Hide success message after 5 seconds
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
@@ -90,238 +87,189 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="bg-ha-bg py-16 md:py-20 pb-10 border-t border-ha-border-dark relative overflow-hidden" aria-labelledby="contact-heading">
-      {/* Background gradients */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
-
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 mb-16 md:mb-20">
+    <section id="contact" className="py-16 md:py-24 px-6" aria-labelledby="contact-heading">
+      <div className="max-w-[1200px] mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
 
           {/* Left Column: Contact Info */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 mb-4 md:mb-6 backdrop-blur-sm">
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-medium text-gray-300">Свяжитесь с нами</span>
-            </div>
-
-            <h2 id="contact-heading" className="text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 text-white">
+          <div>
+            <h2 id="contact-heading" className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
               Готовы обсудить проект?
             </h2>
-            <p className="text-base md:text-lg text-slate-400 mb-8 md:mb-10 max-w-md">
-              Оставьте заявку, и мы свяжемся с вами в течение рабочего дня, чтобы обсудить детали.
+            <p className="text-lg text-[#1A1A1A]/70 mb-10 max-w-md">
+              Оставьте заявку, и мы свяжемся с вами в течение рабочего дня.
             </p>
 
-            <div className="space-y-6 mb-12">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500/20 to-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">
+            <div className="flex flex-col gap-6">
+              <a href="mailto:hello@haloagency.cz" className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-full bg-[#FF3366]/10 flex items-center justify-center text-[#FF3366]">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-sm text-slate-500 mb-1">Email</div>
-                  <a href="mailto:hello@haloagency.cz" className="text-white hover:text-blue-400 transition-colors">
-                    hello@haloagency.cz
-                  </a>
+                  <div className="text-xs text-[#1A1A1A]/40 uppercase tracking-wider font-bold">Email</div>
+                  <span className="font-medium group-hover:text-[#FF3366] transition-colors">hello@haloagency.cz</span>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500/20 to-green-600/20 border border-green-500/30 flex items-center justify-center text-green-400 shrink-0">
+              </a>
+              <a href="tel:+420705729502" className="flex items-center gap-4 group">
+                <div className="w-12 h-12 rounded-full bg-[#FF3366]/10 flex items-center justify-center text-[#FF3366]">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-sm text-slate-500 mb-1">Телефон</div>
-                  <a href="tel:+420705729502" className="text-white hover:text-green-400 transition-colors">
-                    +420 705 729 502
-                  </a>
+                  <div className="text-xs text-[#1A1A1A]/40 uppercase tracking-wider font-bold">Телефон</div>
+                  <span className="font-medium group-hover:text-[#FF3366] transition-colors">+420 705 729 502</span>
                 </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500/20 to-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0">
+              </a>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#FF3366]/10 flex items-center justify-center text-[#FF3366]">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-sm text-slate-500 mb-1">Офис</div>
-                  <span className="text-white">
-                    Прага, Чехия
-                  </span>
+                  <div className="text-xs text-[#1A1A1A]/40 uppercase tracking-wider font-bold">Офис</div>
+                  <span className="font-medium">Прага, Чехия</span>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#FF3366]/10 flex items-center justify-center text-[#FF3366]">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="text-xs text-[#1A1A1A]/40 uppercase tracking-wider font-bold">Мессенджеры</div>
+                  <div className="flex items-center gap-3 mt-0.5">
+                    <a href="https://wa.me/420705729502" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-[#FF3366] transition-colors">WhatsApp</a>
+                    <span className="text-[#1A1A1A]/30">·</span>
+                    <a href="https://t.me/+420705729502" target="_blank" rel="noopener noreferrer" className="font-medium hover:text-[#FF3366] transition-colors">Telegram</a>
+                  </div>
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right Column: Enhanced Form with Gradient */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="relative"
-          >
-            {/* Gradient border effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-2xl blur-xl opacity-50" />
-
-            <div className="relative bg-ha-card-dark/80 backdrop-blur-sm rounded-2xl p-8 border border-slate-700/50">
-              {/* Success Message - Full Card */}
-              {submitSuccess ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
-                >
-                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
-                    <CheckCircle2 className="w-8 h-8 text-white" />
+          {/* Right Column: Form */}
+          <div className="bg-[#FFD166] p-8 md:p-12 rounded-3xl border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A]">
+            {submitSuccess ? (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
+                  <CheckCircle2 className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
+                  Заявка отправлена!
+                </h3>
+                <p className="text-[#1A1A1A]/60">Мы свяжемся с вами в течение 2 рабочих часов.</p>
+              </div>
+            ) : (
+              <>
+                {submitError && (
+                  <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+                    <p className="text-red-600 text-sm">{submitError}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-3">
-                    Заявка отправлена!
-                  </h3>
-                  <p className="text-slate-400">
-                    Мы свяжемся с вами в течение 2 рабочих часов.
-                  </p>
-                </motion.div>
-              ) : (
-                <>
-                  {/* Error Message */}
-                  {submitError && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="mb-6 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
-                    >
-                      <p className="text-red-400 text-sm">{submitError}</p>
-                    </motion.div>
-                  )}
+                )}
 
-                  <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="text-sm font-medium text-slate-300">
-                          Имя <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                          id="name"
-                          {...register("name")}
-                          placeholder="Иван Иванов"
-                          className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.name ? "border-red-500" : ""
-                            }`}
-                        />
-                        {errors.name && (
-                          <p className="text-red-400 text-xs mt-1">{errors.name.message}</p>
-                        )}
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm font-medium text-slate-300">
-                          Email <span className="text-red-500">*</span>
-                        </label>
-                        <Input
-                          id="email"
-                          type="email"
-                          {...register("email")}
-                          placeholder="ivan@company.com"
-                          className={`bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors ${errors.email ? "border-red-500" : ""
-                            }`}
-                        />
-                        {errors.email && (
-                          <p className="text-red-400 text-xs mt-1">{errors.email.message}</p>
-                        )}
-                      </div>
-                      <div className="space-y-2 col-span-1 sm:col-span-2">
-                        <label htmlFor="phone" className="text-sm font-medium text-slate-300">
-                          Телефон <span className="text-slate-500 text-xs font-normal">(опционально)</span>
-                        </label>
-                        <Input
-                          id="phone"
-                          type="tel"
-                          {...register("phone")}
-                          placeholder="+420 123 456 789"
-                          className="bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Service Selector - MOVED HERE */}
-                    <div className="space-y-3">
-                      <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
-                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                        {services.map((service) => (
-                          <button
-                            key={service.value}
-                            type="button"
-                            onClick={() => setSelectedService(service.value)}
-                            className={`relative p-3 rounded-xl border transition-all duration-300 ${selectedService === service.value
-                              ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
-                              : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
-                              }`}
-                          >
-                            {selectedService === service.value && (
-                              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-xl`} />
-                            )}
-                            <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
-                              }`}>
-                              {service.label}
-                            </span>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label htmlFor="message" className="text-sm font-medium text-slate-300">
-                        О проекте <span className="text-red-500">*</span>
+                <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="name" className="text-sm font-bold text-[#1A1A1A]/80 ml-4">
+                        Имя <span className="text-red-500">*</span>
                       </label>
-                      <Textarea
-                        id="message"
-                        {...register("message")}
-                        placeholder="Расскажите немного о вашей задаче..."
-                        className={`min-h-[120px] bg-slate-900/50 border-slate-700 text-white focus:border-blue-500 transition-colors resize-none ${errors.message ? "border-red-500" : ""
-                          }`}
+                      <Input
+                        id="name"
+                        {...register("name")}
+                        placeholder="Иван Иванов"
+                        className={`px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium ${errors.name ? "border-red-500 shadow-[4px_4px_0px_0px_#ef4444]" : ""}`}
                       />
-                      {errors.message && (
-                        <p className="text-red-400 text-xs mt-1">{errors.message.message}</p>
-                      )}
+                      {errors.name && <p className="text-red-500 text-xs ml-4">{errors.name.message}</p>}
                     </div>
-
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-start gap-2">
-                        <input
-                          type="checkbox"
-                          id="consent-contact"
-                          {...register("consent")}
-                          className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
-                        />
-                        <label htmlFor="consent-contact" className="text-sm text-slate-400 cursor-pointer">
-                          Согласен с{" "}
-                          <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
-                            политикой конфиденциальности
-                          </a>
-                        </label>
-                      </div>
-                      {errors.consent && (
-                        <p className="text-red-400 text-xs mt-1">{errors.consent.message}</p>
-                      )}
+                    <div className="flex flex-col gap-2">
+                      <label htmlFor="email" className="text-sm font-bold text-[#1A1A1A]/80 ml-4">
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        {...register("email")}
+                        placeholder="ivan@company.com"
+                        className={`px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium ${errors.email ? "border-red-500 shadow-[4px_4px_0px_0px_#ef4444]" : ""}`}
+                      />
+                      {errors.email && <p className="text-red-500 text-xs ml-4">{errors.email.message}</p>}
                     </div>
+                  </div>
 
-                    <Button
-                      type="submit"
-                      size="lg"
-                      disabled={isSubmitting}
-                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? "Отправка..." : "Отправить заявку"}
-                    </Button>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="phone" className="text-sm font-bold text-[#1A1A1A]/80 ml-4">
+                      Телефон <span className="text-[#1A1A1A]/40 text-xs font-normal">(опционально)</span>
+                    </label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      {...register("phone")}
+                      placeholder="+420 123 456 789"
+                      className="px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium"
+                    />
+                  </div>
 
-                    <p className="text-xs text-slate-500 text-center">
-                      Обычно отвечаем в течение 2 часов в рабочее время
-                    </p>
-                  </form>
-                </>
-              )}
-            </div>
-          </motion.div>
+                  {/* Service Selector */}
+                  <div className="flex flex-col gap-3">
+                    <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Интересующая услуга</label>
+                    <div className="flex flex-wrap gap-2">
+                      {services.map((service) => (
+                        <button
+                          key={service.value}
+                          type="button"
+                          onClick={() => setSelectedService(service.value)}
+                          className={`px-4 py-2 rounded-xl text-sm font-bold transition-all border-2 border-[#1A1A1A] ${selectedService === service.value
+                            ? "bg-[#1A1A1A] text-white shadow-[2px_2px_0px_0px_#FF3366] translate-y-[2px] translate-x-[2px]"
+                            : "bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[5px_5px_0px_0px_#1A1A1A]"
+                            }`}
+                        >
+                          {service.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="message" className="text-sm font-bold text-[#1A1A1A]/80 ml-4">
+                      О проекте <span className="text-red-500">*</span>
+                    </label>
+                    <Textarea
+                      id="message"
+                      {...register("message")}
+                      placeholder="Расскажите немного о вашей задаче..."
+                      className={`min-h-[120px] px-6 py-4 rounded-2xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-[2px] w-full outline-none transition-all resize-none text-[#1A1A1A] font-medium ${errors.message ? "border-red-500 shadow-[4px_4px_0px_0px_#ef4444]" : ""}`}
+                    />
+                    {errors.message && <p className="text-red-500 text-xs ml-4">{errors.message.message}</p>}
+                  </div>
+
+                  <div className="flex items-start gap-2">
+                    <input
+                      type="checkbox"
+                      id="consent-contact"
+                      {...register("consent")}
+                      className="mt-1 w-4 h-4 rounded border-[#1A1A1A]/20 text-[#FF3366] focus:ring-[#FF3366] cursor-pointer accent-[#FF3366]"
+                    />
+                    <label htmlFor="consent-contact" className="text-xs text-[#1A1A1A]/60 cursor-pointer">
+                      Принимаю{" "}
+                      <a href="/privacy" target="_blank" className="text-[#FF3366] hover:underline">
+                        политику конфиденциальности
+                      </a>
+                    </label>
+                  </div>
+                  {errors.consent && <p className="text-red-500 text-xs ml-4">{errors.consent.message}</p>}
+
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#1A1A1A] text-white border-2 border-[#1A1A1A] px-10 py-5 rounded-2xl text-lg font-bold shadow-[4px_4px_0px_0px_#FFFFFF] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#FFFFFF] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#FFFFFF] transition-all disabled:opacity-70"
+                  >
+                    {isSubmitting ? "Отправка..." : "Отправить заявку"}
+                  </button>
+
+                  <p className="text-xs text-[#1A1A1A]/40 text-center">
+                    Обычно отвечаем в течение 2 часов в рабочее время
+                  </p>
+                </form>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </section>

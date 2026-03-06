@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, ArrowRight, CheckCircle2, TrendingUp, Maximize2, X } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Maximize2, X } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContactModalActions } from "@/context/contact-modal-context";
@@ -35,7 +35,7 @@ interface CaseStudyLayoutProps {
         description: string;
         stats: StatProps[];
     };
-    visualColorClass: string; // e.g. "text-blue-500" or "bg-blue-500"
+    visualColorClass: string;
     heroImage: string;
     cta?: {
         title?: string;
@@ -56,7 +56,6 @@ export default function CaseStudyLayout({
     challenge,
     solution,
     results,
-
     visualColorClass,
     heroImage,
     analyticsImage,
@@ -67,17 +66,23 @@ export default function CaseStudyLayout({
     const { open: openContactModal } = useContactModalActions();
     const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-    return (
-        <main className="min-h-screen bg-ha-bg pt-20 overflow-hidden">
-            {/* 1. Hero Section */}
-            <section className="relative py-20 md:py-32 px-4 border-b border-white/5 overflow-hidden">
-                {/* Background Glow */}
-                <div className={`absolute top-0 right-0 w-[500px] h-[500px] opacity-20 blur-[120px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
+    // Map visualColorClass to a neo-brutalist accent color background
+    const getAccentBg = (colorClass: string) => {
+        if (colorClass.includes('blue')) return 'bg-[#118AB2]';
+        if (colorClass.includes('teal')) return 'bg-[#06D6A0]';
+        if (colorClass.includes('amber')) return 'bg-[#FFD166]';
+        return 'bg-[#FF3366]';
+    }
+    const accentBg = getAccentBg(visualColorClass);
 
+    return (
+        <main className="min-h-screen bg-[#F5F5F7] pt-20 overflow-hidden">
+            {/* 1. Hero Section */}
+            <section className="relative py-16 md:py-20 md:py-32 px-4 border-b-2 border-[#1A1A1A] overflow-hidden">
                 <div className="container mx-auto max-w-6xl relative z-10">
-                    <Link href="/#projects" className="inline-flex items-center gap-2 text-slate-400 hover:text-white mb-8 transition-colors">
+                    <Link href="/case-studies" className="inline-flex items-center gap-2 text-[#1A1A1A] font-bold hover:text-[#FF3366] mb-8 transition-colors underline decoration-2 underline-offset-4">
                         <ArrowLeft className="w-4 h-4" />
-                        Назад к проектам
+                        Назад к кейсам
                     </Link>
 
                     <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -85,26 +90,26 @@ export default function CaseStudyLayout({
                         <div>
                             <div className="flex flex-wrap gap-2 mb-6">
                                 {tags.map((tag, i) => (
-                                    <Badge key={i} variant="secondary" className="bg-white/5 hover:bg-white/10 text-slate-300 border-white/10">
+                                    <span key={i} className="text-xs px-3 py-1 rounded-md border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] font-bold shadow-[2px_2px_0px_0px_#1A1A1A]">
                                         {tag}
-                                    </Badge>
+                                    </span>
                                 ))}
                             </div>
 
-                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+                            <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-[#1A1A1A] mb-6 leading-tight" style={{ fontFamily: 'var(--font-display)' }}>
                                 {title}
                             </h1>
-                            <p className="text-xl text-slate-400 max-w-xl leading-relaxed mb-8">
+                            <p className="text-xl text-[#1A1A1A]/80 font-medium max-w-xl leading-relaxed mb-8">
                                 {subtitle}
                             </p>
 
-                            <div className="grid grid-cols-2 gap-6 border-t border-white/10 pt-8">
-                                {mainStats.slice(0, 2).map((stat, i) => ( // Show top 2 stats in hero
+                            <div className="grid grid-cols-2 gap-6 border-t-2 border-[#1A1A1A] pt-8">
+                                {mainStats.slice(0, 2).map((stat, i) => (
                                     <div key={i}>
-                                        <div className={`text-3xl font-bold mb-1 ${visualColorClass}`}>
+                                        <div className="text-4xl font-extrabold mb-1 text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
                                             {stat.value}
                                         </div>
-                                        <div className="text-sm text-slate-500 uppercase tracking-wider font-medium">
+                                        <div className="text-sm text-[#1A1A1A]/60 uppercase tracking-wider font-bold">
                                             {stat.label}
                                         </div>
                                     </div>
@@ -114,8 +119,7 @@ export default function CaseStudyLayout({
 
                         {/* Image Column */}
                         <div className="relative">
-                            <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-slate-900/50 aspect-[4/3] group">
-                                <div className={`absolute inset-0 bg-gradient-to-tr ${visualColorClass.replace('text-', 'from-').replace('500', '500/10')} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                            <div className="relative rounded-3xl overflow-hidden border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] bg-white aspect-[4/3] group">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src={heroImage}
@@ -124,33 +128,33 @@ export default function CaseStudyLayout({
                                 />
                             </div>
                             {/* Decorative Elements */}
-                            <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 -z-10 animate-pulse" />
-                            <div className="absolute -top-6 -left-6 w-32 h-32 bg-white/5 backdrop-blur-md rounded-full border border-white/10 -z-10" />
+                            <div className={`absolute -bottom-6 -right-6 w-24 h-24 ${accentBg} rounded-2xl border-2 border-[#1A1A1A] -z-10 shadow-[4px_4px_0px_0px_#1A1A1A]`} />
+                            <div className="absolute -top-6 -left-6 w-32 h-32 bg-[#B19CD9] rounded-full border-2 border-[#1A1A1A] -z-10 shadow-[4px_4px_0px_0px_#1A1A1A]" />
                         </div>
                     </div>
                 </div>
             </section>
 
             {/* 2. Challenge Section */}
-            <section className="py-16 md:py-24 px-4 bg-ha-bg-soft/50">
-                <div className="container mx-auto max-w-5xl grid md:grid-cols-2 gap-12 md:gap-24 items-start">
+            <section className="py-16 md:py-24 px-4 bg-white border-b-2 border-[#1A1A1A]">
+                <div className="container mx-auto max-w-6xl grid md:grid-cols-2 gap-12 md:gap-24 items-start">
                     <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 mb-6">
-                            <span className="text-xs font-bold text-red-400 uppercase tracking-wider">Проблема</span>
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF3366] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
+                            <span className="text-sm font-bold text-white uppercase tracking-wider">Проблема</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                        <h2 className="text-3xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                             {challenge.title}
                         </h2>
-                        <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                        <p className="text-lg text-[#1A1A1A]/80 font-medium leading-relaxed mb-8">
                             {challenge.description}
                         </p>
                     </div>
-                    <div className="bg-ha-card-dark border border-ha-border-dark rounded-2xl p-8">
-                        <h3 className="text-lg font-semibold text-white mb-6">Ключевые сложности</h3>
+                    <div className="bg-[#FFD166] border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[8px_8px_0px_0px_#1A1A1A]">
+                        <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6">Ключевые сложности</h3>
                         <ul className="space-y-4">
                             {challenge.points.map((point, i) => (
-                                <li key={i} className="flex gap-3 items-start text-slate-300">
-                                    <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-red-500/50 flex-shrink-0" />
+                                <li key={i} className="flex gap-3 items-start text-[#1A1A1A] font-medium">
+                                    <div className="mt-1.5 w-2 h-2 rounded-full bg-[#1A1A1A] flex-shrink-0" />
                                     {point}
                                 </li>
                             ))}
@@ -160,45 +164,42 @@ export default function CaseStudyLayout({
             </section>
 
             {/* 3. Solution Section */}
-            <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-                {/* Background Glow */}
-                <div className={`absolute top-1/4 right-0 w-[500px] h-[500px] opacity-10 blur-[120px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
-
-                <div className="container mx-auto max-w-5xl">
+            <section className="py-16 md:py-24 px-4 relative overflow-hidden bg-[#F5F5F7]">
+                <div className="container mx-auto max-w-6xl">
                     <div className="mb-16">
-                        <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 mb-6`}>
-                            <span className="text-xs font-bold text-blue-400 uppercase tracking-wider">Решение</span>
+                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl ${accentBg} border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6`}>
+                            <span className={`text-sm font-bold ${accentBg === 'bg-[#118AB2]' ? 'text-white' : 'text-[#1A1A1A]'} uppercase tracking-wider`}>Решение</span>
                         </div>
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6 max-w-2xl">
+                        <h2 className="text-3xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6 max-w-3xl" style={{ fontFamily: 'var(--font-display)' }}>
                             {solution.title}
                         </h2>
-                        <p className="text-lg text-slate-400 leading-relaxed max-w-3xl">
+                        <p className="text-lg text-[#1A1A1A]/80 font-medium leading-relaxed max-w-3xl">
                             {solution.description}
                         </p>
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-8 mb-16">
                         {/* Tech Stack */}
-                        <div className="bg-ha-card-dark border border-ha-border-dark rounded-2xl p-8">
-                            <h3 className="text-lg font-semibold text-white mb-6 flex items-center gap-2">
+                        <div className="bg-white border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[6px_6px_0px_0px_#1A1A1A]">
+                            <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6 flex items-center gap-2">
                                 Технологии
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {solution.technologies.map((tech, i) => (
-                                    <Badge key={i} variant="outline" className="border-white/10 text-slate-300">
+                                    <span key={i} className="text-sm px-4 py-2 rounded-md border-2 border-[#1A1A1A] bg-[#F5F5F7] text-[#1A1A1A] font-bold shadow-[2px_2px_0px_0px_#1A1A1A]">
                                         {tech}
-                                    </Badge>
+                                    </span>
                                 ))}
                             </div>
                         </div>
 
                         {/* Key Features / Steps */}
-                        <div className="bg-ha-card-dark border border-ha-border-dark rounded-2xl p-8">
-                            <h3 className="text-lg font-semibold text-white mb-6">Что мы сделали</h3>
+                        <div className="bg-white border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[6px_6px_0px_0px_#1A1A1A]">
+                            <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6">Что мы сделали</h3>
                             <ul className="space-y-4">
                                 {solution.features.map((feature, i) => (
-                                    <li key={i} className="flex gap-3 items-start text-slate-300">
-                                        <CheckCircle2 className={`w-5 h-5 mt-0.5 ${visualColorClass}`} />
+                                    <li key={i} className="flex gap-3 items-start text-[#1A1A1A] font-medium">
+                                        <CheckCircle2 className={`w-6 h-6 mt-0.5 text-[#06D6A0]`} />
                                         {feature}
                                     </li>
                                 ))}
@@ -208,53 +209,40 @@ export default function CaseStudyLayout({
 
                     {/* Analytics/Ads Images or Placeholder */}
                     {(mobileImage || analyticsImage) && (
-                        <div className="relative w-full rounded-3xl overflow-hidden bg-slate-900/50 border border-white/10 group">
+                        <div className="relative w-full rounded-3xl overflow-hidden bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] group">
                             {mobileImage ? (
                                 <div className="p-8 md:p-12">
-                                    {/* Flex container for Desktop Layout */}
                                     <div className={`flex flex-col lg:flex-row gap-12 items-center justify-center relative z-10 ${imageContext ? 'lg:justify-between' : ''}`}>
-
-                                        {/* Clean Vertical Card (Trigger) */}
                                         <div
                                             onClick={() => setIsLightboxOpen(true)}
                                             className="relative flex-shrink-0 cursor-zoom-in group/image max-w-[280px] md:max-w-xs lg:max-w-md w-full"
                                         >
-                                            {/* Background Glow */}
-                                            <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] opacity-20 blur-[100px] ${visualColorClass.replace('text-', 'bg-')}`} />
-
-                                            {/* Image Container */}
-                                            <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/10 bg-white transition-transform duration-500 group-hover/image:scale-[1.02]">
+                                            <div className="relative rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] bg-white transition-transform duration-500 group-hover/image:-translate-y-1 group-hover/image:-translate-x-1 group-hover/image:shadow-[6px_6px_0px_0px_#1A1A1A]">
                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                                 <img
                                                     src={mobileImage}
                                                     alt="Search Result"
-                                                    className="w-full h-auto block"
+                                                    className="w-full h-auto block border-2 border-[#1A1A1A] rounded-xl"
                                                 />
-
-                                                {/* Hover Overlay */}
-                                                <div className="absolute inset-0 bg-black/0 group-hover/image:bg-black/20 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
-                                                    <div className="bg-white/10 backdrop-blur-md border border-white/20 p-3 rounded-full text-white shadow-xl transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
+                                                <div className="absolute inset-0 bg-[#1A1A1A]/0 group-hover/image:bg-[#1A1A1A]/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
+                                                    <div className="bg-white border-2 border-[#1A1A1A] p-3 rounded-xl text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
                                                         <Maximize2 className="w-6 h-6" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        {/* Context Card (if provided) */}
                                         {imageContext && (
-                                            <div className="bg-ha-card-dark/80 backdrop-blur-md border border-white/10 p-8 rounded-2xl max-w-lg relative overflow-hidden">
-                                                <div className={`absolute top-0 right-0 w-32 h-32 opacity-10 blur-[60px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
-
-                                                <h3 className="text-xl font-bold text-white mb-4">{imageContext.title}</h3>
-                                                <p className="text-slate-300 leading-relaxed mb-6">
+                                            <div className="bg-[#B19CD9] border-2 border-[#1A1A1A] p-8 rounded-3xl max-w-lg relative overflow-hidden shadow-[6px_6px_0px_0px_#1A1A1A]">
+                                                <h3 className="text-2xl font-bold text-[#1A1A1A] mb-4">{imageContext.title}</h3>
+                                                <p className="text-[#1A1A1A] font-medium leading-relaxed mb-6">
                                                     {imageContext.description}
                                                 </p>
-
                                                 {imageContext.items && (
                                                     <ul className="space-y-3">
                                                         {imageContext.items.map((item, i) => (
-                                                            <li key={i} className="flex gap-3 items-start text-sm text-slate-400">
-                                                                <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${visualColorClass.replace('text-', 'bg-')}`} />
+                                                            <li key={i} className="flex gap-3 items-start text-sm text-[#1A1A1A] font-bold">
+                                                                <div className={`mt-1.5 w-2 h-2 rounded-full bg-[#1A1A1A] flex-shrink-0`} />
                                                                 {item}
                                                             </li>
                                                         ))}
@@ -268,25 +256,23 @@ export default function CaseStudyLayout({
                                     <AnimatePresence>
                                         {isLightboxOpen && (
                                             <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                                                {/* Backdrop */}
                                                 <motion.div
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
                                                     exit={{ opacity: 0 }}
                                                     onClick={() => setIsLightboxOpen(false)}
-                                                    className="absolute inset-0 bg-black/90 backdrop-blur-sm"
+                                                    className="absolute inset-0 bg-[#1A1A1A]/90 backdrop-blur-sm"
                                                 />
 
-                                                {/* Modal Content */}
                                                 <motion.div
                                                     initial={{ opacity: 0, scale: 0.95 }}
                                                     animate={{ opacity: 1, scale: 1 }}
                                                     exit={{ opacity: 0, scale: 0.95 }}
-                                                    className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden rounded-lg shadow-2xl"
+                                                    className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden rounded-2xl shadow-2xl border-2 border-white"
                                                 >
                                                     <button
                                                         onClick={() => setIsLightboxOpen(false)}
-                                                        className="absolute top-4 right-4 p-2 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors backdrop-blur-md z-20"
+                                                        className="absolute top-4 right-4 p-2 bg-white hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_0px_#1A1A1A] border-2 border-[#1A1A1A] text-[#1A1A1A] rounded-xl transition-all z-20"
                                                     >
                                                         <X className="w-5 h-5" />
                                                     </button>
@@ -294,7 +280,7 @@ export default function CaseStudyLayout({
                                                     <img
                                                         src={mobileImage}
                                                         alt="Full view"
-                                                        className="max-h-[90vh] w-auto object-contain bg-white rounded-lg"
+                                                        className="max-h-[90vh] w-auto object-contain bg-white rounded-xl"
                                                         onClick={(e) => e.stopPropagation()}
                                                     />
                                                 </motion.div>
@@ -304,28 +290,23 @@ export default function CaseStudyLayout({
                                 </div>
                             ) : (
                                 <div className="p-4 md:p-8 lg:p-12 relative">
-                                    {/* Background Gradient Effect */}
-                                    <div className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 opacity-20 blur-[80px] rounded-full pointer-events-none ${visualColorClass.replace('text-', 'bg-')}`} />
-
                                     {/* Browser Window Container */}
-                                    <div className="relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-[#1e293b]">
+                                    <div className="relative rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] bg-white">
                                         {/* Browser Header/Chrome */}
-                                        <div className="h-8 bg-slate-900/80 backdrop-blur-md border-b border-white/5 flex items-center px-4 gap-2">
-                                            <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-                                            <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                                        <div className="h-10 bg-[#F5F5F7] border-b-2 border-[#1A1A1A] flex items-center px-4 gap-2">
+                                            <div className="w-3 h-3 rounded-full border-2 border-[#1A1A1A] bg-red-400" />
+                                            <div className="w-3 h-3 rounded-full border-2 border-[#1A1A1A] bg-yellow-400" />
+                                            <div className="w-3 h-3 rounded-full border-2 border-[#1A1A1A] bg-green-400" />
                                         </div>
 
                                         {/* Image */}
-                                        <div className="relative bg-white"> {/* Ensure white bg for screenshot if it has transparency */}
+                                        <div className="relative bg-white border-t-0 p-4">
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img
                                                 src={analyticsImage}
                                                 alt="Analytics Dashboard"
-                                                className="w-full h-auto block"
+                                                className="w-full h-auto block rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]"
                                             />
-                                            {/* Subtle Shine/Glass Effect over image */}
-                                            <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent pointer-events-none mix-blend-overlay" />
                                         </div>
                                     </div>
                                 </div>
@@ -336,17 +317,17 @@ export default function CaseStudyLayout({
             </section>
 
             {/* 4. Results Section */}
-            <section className="py-16 md:py-24 px-4 bg-ha-bg-soft/30 border-t border-white/5">
-                <div className="container mx-auto max-w-5xl">
+            <section className="py-16 md:py-24 px-4 bg-white border-y-2 border-[#1A1A1A]">
+                <div className="container mx-auto max-w-6xl">
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
-                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 mb-6">
-                                <span className="text-xs font-bold text-green-400 uppercase tracking-wider">Результат</span>
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#06D6A0] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
+                                <span className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">Результат</span>
                             </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                            <h2 className="text-3xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>
                                 {results.title}
                             </h2>
-                            <p className="text-lg text-slate-400 leading-relaxed mb-8">
+                            <p className="text-lg text-[#1A1A1A]/80 font-medium leading-relaxed mb-8">
                                 {results.description}
                             </p>
                         </div>
@@ -354,9 +335,9 @@ export default function CaseStudyLayout({
                         {/* Result Cards */}
                         <div className="grid grid-cols-1 gap-4">
                             {results.stats.map((stat, i) => (
-                                <div key={i} className={`bg-ha-card-dark border border-ha-border-dark p-6 rounded-xl flex items-center ${stat.label ? 'justify-between' : 'justify-start'}`}>
-                                    {stat.label && <span className="text-slate-400 font-medium">{stat.label}</span>}
-                                    <span className={`${stat.label ? 'text-2xl text-right' : 'text-lg text-left'} font-bold ${visualColorClass}`}>{stat.value}</span>
+                                <div key={i} className={`bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] p-6 rounded-2xl flex items-center ${stat.label ? 'justify-between' : 'justify-start'}`}>
+                                    {stat.label && <span className="text-[#1A1A1A]/80 font-bold">{stat.label}</span>}
+                                    <span className={`${stat.label ? 'text-4xl text-right' : 'text-xl text-left'} font-extrabold text-[#1A1A1A]`} style={{ fontFamily: 'var(--font-display)' }}>{stat.value}</span>
                                 </div>
                             ))}
                         </div>
@@ -365,27 +346,25 @@ export default function CaseStudyLayout({
             </section>
 
             {/* 5. CTA Section */}
-            <section className="py-24 px-4 text-center">
+            <section className="py-16 md:py-24 px-4 text-center">
                 <div className="container mx-auto max-w-3xl">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">{cta?.title || "Готовы повторить успех?"}</h2>
-                    <p className="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6" style={{ fontFamily: 'var(--font-display)' }}>{cta?.title || "Готовы повторить успех?"}</h2>
+                    <p className="text-xl text-[#1A1A1A]/80 font-medium mb-10 max-w-2xl mx-auto">
                         {cta?.text || "Давайте обсудим вашу задачу. Мы погрузимся в ваш бизнес так же глубоко, как в этом кейсе."}
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                             size="lg"
                             onClick={() => openContactModal()}
-                            className="rounded-full px-10 h-14 text-lg bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/20"
+                            className="rounded-xl px-10 h-14 text-lg bg-[#FF3366] hover:bg-[#FF3366] text-white font-bold border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
                         >
                             Обсудить проект
                         </Button>
                         <Button
-                            variant="outline"
-                            size="lg"
                             asChild
-                            className="rounded-full px-10 h-14 text-lg border-white/10 bg-white/5 text-white hover:bg-white/10"
+                            className="rounded-xl px-10 h-14 text-lg bg-white hover:bg-white text-[#1A1A1A] font-bold border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
                         >
-                            <Link href="/#projects">Другие кейсы</Link>
+                            <Link href="/case-studies">Другие кейсы</Link>
                         </Button>
                     </div>
                 </div>

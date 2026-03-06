@@ -122,10 +122,10 @@ export default function LeadMagnet() {
   };
 
   return (
-    <section id="audit" className="py-16 md:py-24 px-4 bg-ha-bg border-y border-ha-border-dark relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl -translate-y-1/2" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+    <section className="py-16 md:py-24 bg-[#F5F5F7] border-y-2 border-[#1A1A1A] relative overflow-hidden">
+      {/* Background */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#06D6A0]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF3366]/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto max-w-6xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -138,10 +138,9 @@ export default function LeadMagnet() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               style={{ willChange: "opacity, transform" }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-orange-500/20 mb-6 relative"
+              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#FFD166] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6 relative"
             >
-              <div className="absolute inset-0 rounded-full bg-orange-500/30 blur-xl" />
-              <AlertTriangle className="w-8 h-8 text-orange-500 relative z-10" />
+              <AlertTriangle className="w-8 h-8 text-[#1A1A1A] relative z-10" />
             </motion.div>
 
             <motion.div
@@ -150,9 +149,9 @@ export default function LeadMagnet() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, ease: "easeOut" }}
               style={{ willChange: "opacity, transform" }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-[#FFD166] border-2 border-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] mb-6"
             >
-              <span className="text-sm font-medium text-orange-300">
+              <span className="text-sm font-medium text-[#1A1A1A]">
                 🔍 Бесплатная проверка
               </span>
             </motion.div>
@@ -163,7 +162,7 @@ export default function LeadMagnet() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.1, duration: 0.5, ease: "easeOut" }}
               style={{ willChange: "opacity, transform" }}
-              className="text-4xl md:text-5xl font-bold text-white mb-6"
+              className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6"
             >
               Узнайте, почему ваш сайт теряет клиентов
             </motion.h2>
@@ -173,7 +172,7 @@ export default function LeadMagnet() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
               style={{ willChange: "opacity, transform" }}
-              className="text-xl text-slate-400 mb-8 leading-relaxed"
+              className="text-xl text-[#1A1A1A]/80 mb-8 leading-relaxed"
             >
               Проверка скорости, мобильной версии, SEO и аналитики за 30 секунд.
             </motion.p>
@@ -194,10 +193,10 @@ export default function LeadMagnet() {
                 "Наличие систем аналитики",
               ].map((point) => (
                 <div key={point} className="flex items-center gap-3">
-                  <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="w-3 h-3 text-green-500" />
+                  <div className="w-5 h-5 rounded-full bg-[#06D6A0]/20 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="w-3 h-3 text-[#06D6A0]" />
                   </div>
-                  <span className="text-slate-300">{point}</span>
+                  <span className="text-[#1A1A1A]">{point}</span>
                 </div>
               ))}
             </motion.div>
@@ -211,10 +210,10 @@ export default function LeadMagnet() {
               viewport={{ once: true, margin: "-150px" }}
               transition={{ duration: 0.25, ease: "easeOut" }}
               style={{ willChange: "opacity, transform" }}
-              className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-3xl p-6 shadow-2xl"
+              className="bg-white border-2 border-[#1A1A1A] rounded-3xl p-6 shadow-[8px_8px_0px_0px_#1A1A1A]"
             >
               {/* Animated gradient border */}
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/20 via-red-500/20 to-orange-500/20 opacity-50 blur-xl" />
+              <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-orange-500/20 via-red-500/20 to-orange-500/20 opacity-0 blur-xl" />
 
               {/* Status Indicators */}
               <div className="space-y-3 relative z-10 mb-6">
@@ -225,23 +224,23 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.05, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.speedScore > 60
-                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 border-[#1A1A1A] ${demoMetrics.speedScore > 60
+                    ? "bg-[#06D6A0]/10"
+                    : "bg-[#FF3366]/10"
                     }`}
                 >
                   <div className="relative">
                     {demoMetrics.speedScore > 60 ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-[#06D6A0] flex-shrink-0" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <XCircle className="w-5 h-5 text-[#FF3366] flex-shrink-0" />
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-white">
+                    <div className="text-sm font-medium text-[#1A1A1A]">
                       Скорость сайта (PageSpeed)
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-[#1A1A1A]/70">
                       {`${demoMetrics.speedScore}/100 (пример)`}
                     </div>
                   </div>
@@ -254,23 +253,23 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.08, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.mobileScore > 0
-                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 border-[#1A1A1A] ${demoMetrics.mobileScore > 0
+                    ? "bg-[#06D6A0]/10"
+                    : "bg-[#FF3366]/10"
                     }`}
                 >
                   <div className="relative">
                     {demoMetrics.mobileScore > 0 ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-[#06D6A0] flex-shrink-0" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <XCircle className="w-5 h-5 text-[#FF3366] flex-shrink-0" />
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-white">
+                    <div className="text-sm font-medium text-[#1A1A1A]">
                       Мобильная оптимизация
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-[#1A1A1A]/70">
                       {demoMetrics.mobileScore > 0
                         ? "Оптимизировано (пример)"
                         : "Есть проблемы (пример)"}
@@ -285,23 +284,23 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.11, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
-                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                    : "bg-gradient-to-r from-orange-500/10 to-transparent border-orange-500/20"
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 border-[#1A1A1A] ${demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
+                    ? "bg-[#06D6A0]/10"
+                    : "bg-[#FFD166]/10"
                     }`}
                 >
                   <div className="relative">
                     {demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1 ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-[#06D6A0] flex-shrink-0" />
                     ) : (
-                      <AlertCircle className="w-5 h-5 text-orange-500 flex-shrink-0" />
+                      <AlertCircle className="w-5 h-5 text-[#FFD166] flex-shrink-0" />
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-white">
+                    <div className="text-sm font-medium text-[#1A1A1A]">
                       SEO основы
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-[#1A1A1A]/70">
                       {demoMetrics.seo.hasTitle && demoMetrics.seo.hasH1
                         ? "Базовые теги найдены (пример)"
                         : "Отсутствуют важные теги (пример)"}
@@ -316,27 +315,27 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.14, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className={`flex items-center gap-3 p-3.5 rounded-xl border ${demoMetrics.analytics.hasGA4 ||
+                  className={`flex items-center gap-3 p-3.5 rounded-xl border-2 border-[#1A1A1A] ${demoMetrics.analytics.hasGA4 ||
                     demoMetrics.analytics.hasGTM ||
                     demoMetrics.analytics.hasPixel
-                    ? "bg-gradient-to-r from-green-500/10 to-transparent border-green-500/20"
-                    : "bg-gradient-to-r from-red-500/10 to-transparent border-red-500/20"
+                    ? "bg-[#06D6A0]/10"
+                    : "bg-[#FF3366]/10"
                     }`}
                 >
                   <div className="relative">
                     {demoMetrics.analytics.hasGA4 ||
                       demoMetrics.analytics.hasGTM ||
                       demoMetrics.analytics.hasPixel ? (
-                      <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-5 h-5 text-[#06D6A0] flex-shrink-0" />
                     ) : (
-                      <XCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
+                      <XCircle className="w-5 h-5 text-[#FF3366] flex-shrink-0" />
                     )}
                   </div>
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-white">
+                    <div className="text-sm font-medium text-[#1A1A1A]">
                       Наличие аналитики
                     </div>
-                    <div className="text-xs text-slate-400">
+                    <div className="text-xs text-[#1A1A1A]/70">
                       {demoMetrics.analytics.hasGA4 ||
                         demoMetrics.analytics.hasGTM ||
                         demoMetrics.analytics.hasPixel
@@ -353,15 +352,15 @@ export default function LeadMagnet() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ delay: 0.17, duration: 0.25, ease: "easeOut" }}
                   style={{ willChange: "opacity, transform" }}
-                  className="p-6 bg-gradient-to-r from-orange-500/20 to-red-500/20 rounded-xl border border-orange-500/30 text-center"
+                  className="p-6 bg-[#FF3366]/10 rounded-xl border-2 border-[#1A1A1A] text-center"
                 >
-                  <div className="text-6xl font-bold text-white mb-2">
+                  <div className="text-6xl font-bold text-[#1A1A1A] mb-2">
                     {100 - demoMetrics.conversionLoss}%
                   </div>
-                  <div className="text-sm text-orange-300 font-medium">
+                  <div className="text-sm text-[#FF3366] font-medium">
                     {`Вы можете терять ~${demoMetrics.conversionLoss}% конверсий`}
                   </div>
-                  <p className="text-xs text-orange-200/50 mt-2">
+                  <p className="text-xs text-[#FF3366]/70 mt-2">
                     (пример чужого сайта)
                   </p>
                 </motion.div>
@@ -372,14 +371,14 @@ export default function LeadMagnet() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-4 p-4 bg-green-500/10 border border-green-500/30 rounded-xl flex items-center gap-3 relative z-10"
+                  className="mb-4 p-4 bg-[#06D6A0]/10 border-2 border-[#1A1A1A] rounded-xl flex items-center gap-3 relative z-10"
                 >
-                  <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                  <CheckCircle2 className="w-5 h-5 text-[#06D6A0] flex-shrink-0" />
                   <div>
-                    <p className="text-green-400 text-sm font-medium">
+                    <p className="text-[#06D6A0] text-sm font-medium">
                       Анализ завершён!
                     </p>
-                    <p className="text-green-400/80 text-xs">
+                    <p className="text-[#06D6A0]/80 text-xs">
                       Детальный отчёт отправлен на ваш email
                     </p>
                   </div>
@@ -391,9 +390,9 @@ export default function LeadMagnet() {
                 <motion.div
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mb-4 p-4 bg-red-500/10 border border-red-500/30 rounded-xl relative z-10"
+                  className="mb-4 p-4 bg-[#FF3366]/10 border-2 border-[#1A1A1A] rounded-xl relative z-10"
                 >
-                  <p className="text-red-400 text-sm">{analysisError}</p>
+                  <p className="text-[#FF3366] text-sm">{analysisError}</p>
                 </motion.div>
               )}
 
@@ -407,11 +406,11 @@ export default function LeadMagnet() {
                     type="url"
                     {...register("url")}
                     placeholder="https://yoursite.com"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.url ? "border-red-500" : ""
+                    className={`h-12 bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] placeholder:text-[#1A1A1A]/40 focus:border-[#06D6A0] shadow-[4px_4px_0px_0px_#1A1A1A] ${errors.url ? "border-[#FF3366]" : ""
                       }`}
                   />
                   {errors.url && (
-                    <p className="text-red-400 text-xs mt-1">
+                    <p className="text-[#FF3366] text-xs mt-1">
                       {errors.url.message}
                     </p>
                   )}
@@ -422,11 +421,11 @@ export default function LeadMagnet() {
                     type="email"
                     {...register("email")}
                     placeholder="ivan@company.cz"
-                    className={`h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500 ${errors.email ? "border-red-500" : ""
+                    className={`h-12 bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] placeholder:text-[#1A1A1A]/40 focus:border-[#06D6A0] shadow-[4px_4px_0px_0px_#1A1A1A] ${errors.email ? "border-[#FF3366]" : ""
                       }`}
                   />
                   {errors.email && (
-                    <p className="text-red-400 text-xs mt-1">
+                    <p className="text-[#FF3366] text-xs mt-1">
                       {errors.email.message}
                     </p>
                   )}
@@ -437,7 +436,7 @@ export default function LeadMagnet() {
                     type="tel"
                     {...register("phone")}
                     placeholder="Телефон"
-                    className="h-12 bg-slate-900/50 border-slate-700 text-white placeholder:text-slate-500 focus:border-orange-500"
+                    className="h-12 bg-white border-2 border-[#1A1A1A] text-[#1A1A1A] placeholder:text-[#1A1A1A]/40 focus:border-[#06D6A0] shadow-[4px_4px_0px_0px_#1A1A1A]"
                   />
                 </div>
 
@@ -447,15 +446,15 @@ export default function LeadMagnet() {
                       type="checkbox"
                       id="privacy"
                       {...register("consent")}
-                      className={`mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-orange-500 focus:ring-orange-500 ${errors.consent ? "border-red-500" : ""
+                      className={`mt-1 w-4 h-4 rounded border-2 border-[#1A1A1A] bg-white text-[#06D6A0] focus:ring-[#06D6A0] focus:ring-offset-0 ${errors.consent ? "border-[#FF3366]" : ""
                         }`}
                     />
-                    <label htmlFor="privacy" className="text-xs text-slate-400">
+                    <label htmlFor="privacy" className="text-xs text-[#1A1A1A]">
                       Согласен с политикой конфиденциальности
                     </label>
                   </div>
                   {errors.consent && (
-                    <p className="text-red-400 text-xs mt-1">
+                    <p className="text-[#FF3366] text-xs mt-1">
                       {errors.consent.message}
                     </p>
                   )}
@@ -464,12 +463,12 @@ export default function LeadMagnet() {
                 <Button
                   type="submit"
                   disabled={isAnalyzing}
-                  className="w-full h-12 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white rounded-xl font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full h-12 bg-[#06D6A0] hover:bg-[#06D6A0] text-[#1A1A1A] rounded-xl font-bold disabled:opacity-50 disabled:cursor-not-allowed border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
                 >
                   {isAnalyzing ? "Анализ..." : "Проверить сайт →"}
                 </Button>
 
-                <p className="text-xs text-slate-500 text-center">
+                <p className="text-xs text-[#1A1A1A]/70 text-center">
                   Обычно анализ занимает 30-60 секунд. Детальный отчёт придёт на
                   email.
                 </p>
@@ -480,16 +479,16 @@ export default function LeadMagnet() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="absolute inset-0 z-50 flex items-center justify-center bg-slate-900/95 backdrop-blur-sm rounded-2xl p-6"
+                  className="absolute inset-0 z-50 flex items-center justify-center bg-[#F5F5F7]/95 backdrop-blur-sm rounded-2xl p-6"
                 >
                   <div className="text-center max-w-md">
-                    <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <CheckCircle2 className="w-8 h-8 text-green-500" />
+                    <div className="w-16 h-16 bg-[#06D6A0] border-2 border-[#1A1A1A] rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-[4px_4px_0px_0px_#1A1A1A]">
+                      <CheckCircle2 className="w-8 h-8 text-[#1A1A1A]" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">
+                    <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3">
                       Анализ запущен!
                     </h3>
-                    <p className="text-slate-300 mb-6 leading-relaxed">
+                    <p className="text-[#1A1A1A]/80 mb-6 leading-relaxed">
                       Спасибо за заявку. Мы начали технический аудит вашего
                       сайта.
                       <br />
@@ -498,14 +497,14 @@ export default function LeadMagnet() {
                       отправлен на ваш email в течение 5-10 минут.
                       <br />
                       <br />
-                      <span className="text-orange-300">
+                      <span className="text-[#FF3366]">
                         ⚠️ Если письма нет во входящих, пожалуйста, проверьте
                         папку «Спам».
                       </span>
                     </p>
                     <Button
                       onClick={() => setShowSuccessPopup(false)}
-                      className="bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 w-full"
+                      className="bg-white hover:bg-white text-[#1A1A1A] border-2 border-[#1A1A1A] w-full shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
                     >
                       Закрыть
                     </Button>
@@ -514,8 +513,8 @@ export default function LeadMagnet() {
               )}
 
               {/* Alternative CTA */}
-              <div className="pt-4 border-t border-slate-700 relative z-10">
-                <p className="text-sm text-slate-400 text-center mb-3">
+              <div className="pt-4 border-t-2 border-[#1A1A1A] relative z-10 mt-6">
+                <p className="text-sm text-[#1A1A1A]/70 text-center mb-3">
                   Планируете новый проект?
                 </p>
                 <Button

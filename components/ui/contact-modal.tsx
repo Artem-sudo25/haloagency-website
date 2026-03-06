@@ -46,11 +46,11 @@ export function ContactModal() {
     const isPackageFlow = prefilledData?.package_name;
 
     const services = [
-        { value: "web", label: "Разработка сайтов", color: "from-blue-500 to-blue-600" },
-        { value: "ads", label: "Реклама (Ads)", color: "from-orange-500 to-red-500" },
-        { value: "tracking", label: "Аналитика", color: "from-green-500 to-emerald-500" },
-        { value: "package", label: "Пакет", color: "from-purple-500 to-pink-500" },
-        { value: "other", label: "Другое", color: "from-slate-500 to-slate-600" },
+        { value: "web", label: "Разработка сайтов", color: "bg-[#A2D2FF]" },
+        { value: "ads", label: "Реклама (Ads)", color: "bg-[#FFD166]" },
+        { value: "tracking", label: "Аналитика", color: "bg-[#06D6A0]" },
+        { value: "package", label: "Пакет", color: "bg-[#B19CD9]" },
+        { value: "other", label: "Другое", color: "bg-[#F5F5F7]" },
     ];
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -193,21 +193,21 @@ export function ContactModal() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={close}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[10000]"
                     />
 
                     {/* Modal */}
-                    <div className="fixed inset-0 flex items-center justify-center z-[101] p-4 pointer-events-none">
+                    <div className="fixed inset-0 z-[10001] p-4 sm:p-6 flex justify-center items-start sm:items-center overflow-y-auto pointer-events-none">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="bg-ha-card-dark border border-ha-border-dark w-full max-w-lg rounded-3xl shadow-2xl overflow-hidden pointer-events-auto relative"
+                            className="bg-white border-2 border-[#1A1A1A] w-full max-w-lg rounded-3xl shadow-[8px_8px_0px_0px_#1A1A1A] pointer-events-auto relative my-8 sm:my-auto shrink-0"
                         >
                             {/* Close Button */}
                             <button
                                 onClick={close}
-                                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-white/10 z-10"
+                                className="absolute top-4 right-4 p-2 text-[#1A1A1A]/40 hover:text-[#FF3366] transition-all duration-300 rounded-full hover:bg-[#FF3366]/10 z-10 hover:rotate-90"
                             >
                                 <X className="w-5 h-5" />
                             </button>
@@ -215,19 +215,19 @@ export function ContactModal() {
                             <div className="p-8">
                                 {isSuccess ? (
                                     <div className="flex flex-col items-center justify-center py-12 text-center">
-                                        <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
-                                            <CheckCircle2 className="w-8 h-8 text-green-500" />
+                                        <div className="w-16 h-16 bg-[#06D6A0]/20 border-2 border-[#1A1A1A] rounded-full flex items-center justify-center mb-6 shadow-[4px_4px_0px_0px_#1A1A1A]">
+                                            <CheckCircle2 className="w-8 h-8 text-[#06D6A0]" />
                                         </div>
-                                        <h3 className="text-2xl font-bold text-white mb-2">Заявка отправлена!</h3>
-                                        <p className="text-slate-400">Мы свяжемся с вами в течение 24 часов.</p>
+                                        <h3 className="text-2xl font-bold text-[#1A1A1A] mb-2" style={{ fontFamily: 'var(--font-display)' }}>Заявка отправлена!</h3>
+                                        <p className="text-[#1A1A1A]/60 font-medium">Мы свяжемся с вами в течение 24 часов.</p>
                                     </div>
                                 ) : (
                                     <>
                                         <div className="mb-8">
-                                            <h2 className="text-2xl font-bold text-white mb-2">
+                                            <h2 className="text-3xl font-extrabold text-[#1A1A1A] mb-2" style={{ fontFamily: 'var(--font-display)' }}>
                                                 {isPackageFlow ? `Пакет "${prefilledData.package_name}"` : "Обсудить проект"}
                                             </h2>
-                                            <p className="text-slate-400">
+                                            <p className="text-[#1A1A1A]/60 font-medium">
                                                 {isPackageFlow
                                                     ? "Оставьте контакты, и мы свяжемся с вами для уточнения деталей."
                                                     : "Оставьте заявку, и мы предложим лучшее решение для вашего бизнеса."
@@ -237,60 +237,55 @@ export function ContactModal() {
 
                                         <form onSubmit={handleSubmit} className="space-y-4">
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Имя</label>
-                                                <Input
+                                                <label className="text-sm font-bold text-[#1A1A1A]">Имя</label>
+                                                <input
                                                     required
                                                     value={name}
                                                     onChange={(e) => setName(e.target.value)}
                                                     placeholder="Иван Иванов"
-                                                    className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
+                                                    className="w-full rounded-xl bg-white border-2 border-[#1A1A1A] px-4 py-3 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:outline-none focus:shadow-[4px_4px_0px_0px_#FF3366] focus:-translate-y-[1px] focus:-translate-x-[1px] transition-all"
                                                 />
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Email</label>
-                                                <Input
+                                                <label className="text-sm font-bold text-[#1A1A1A]">Email</label>
+                                                <input
                                                     required
+                                                    type="email"
                                                     value={contact}
                                                     onChange={(e) => setContact(e.target.value)}
                                                     placeholder="email@example.com"
-                                                    className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
+                                                    className="w-full rounded-xl bg-white border-2 border-[#1A1A1A] px-4 py-3 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:outline-none focus:shadow-[4px_4px_0px_0px_#FF3366] focus:-translate-y-[1px] focus:-translate-x-[1px] transition-all"
                                                 />
                                             </div>
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">Телефон</label>
-                                                <Input
+                                                <label className="text-sm font-bold text-[#1A1A1A]">Телефон <span className="text-[#1A1A1A]/40 font-normal">(необязательно)</span></label>
+                                                <input
                                                     type="tel"
                                                     value={phone}
                                                     onChange={(e) => setPhone(e.target.value)}
                                                     placeholder="+420 123 456 789"
-                                                    className="bg-slate-900/50 border-slate-700 focus:border-blue-500"
+                                                    className="w-full rounded-xl bg-white border-2 border-[#1A1A1A] px-4 py-3 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:outline-none focus:shadow-[4px_4px_0px_0px_#FF3366] focus:-translate-y-[1px] focus:-translate-x-[1px] transition-all"
                                                 />
                                             </div>
 
                                             {/* Service Selector - Hidden for package flow */}
                                             {!isPackageFlow && (
                                                 <div className="space-y-2">
-                                                    <label className="text-sm font-medium text-slate-300">Интересующая услуга</label>
+                                                    <label className="text-sm font-bold text-[#1A1A1A]">Интересующая услуга</label>
                                                     <div className="grid grid-cols-2 gap-2">
                                                         {services.map((service) => (
                                                             <button
                                                                 key={service.value}
                                                                 type="button"
                                                                 onClick={() => setSelectedService(service.value)}
-                                                                className={`relative p-2.5 rounded-lg border transition-all duration-300 ${selectedService === service.value
-                                                                    ? 'border-blue-500 bg-blue-500/10 shadow-lg shadow-blue-500/20'
-                                                                    : 'border-slate-700 bg-slate-800/50 hover:border-slate-600'
+                                                                className={`relative p-2.5 rounded-xl border-2 transition-all duration-300 font-bold text-xs ${selectedService === service.value
+                                                                    ? `border-[#1A1A1A] ${service.color} text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] -translate-y-[2px] -translate-x-[2px]`
+                                                                    : 'border-[#1A1A1A] bg-white text-[#1A1A1A]/60 hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[4px_4px_0px_0px_#1A1A1A] hover:text-[#1A1A1A]'
                                                                     }`}
                                                             >
-                                                                {selectedService === service.value && (
-                                                                    <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-10 rounded-lg`} />
-                                                                )}
-                                                                <span className={`relative text-xs font-medium ${selectedService === service.value ? 'text-white' : 'text-slate-400'
-                                                                    }`}>
-                                                                    {service.label}
-                                                                </span>
+                                                                {service.label}
                                                             </button>
                                                         ))}
                                                     </div>
@@ -298,41 +293,42 @@ export function ContactModal() {
                                             )}
 
                                             <div className="space-y-2">
-                                                <label className="text-sm font-medium text-slate-300">О проекте</label>
-                                                <Textarea
+                                                <label className="text-sm font-bold text-[#1A1A1A]">О проекте</label>
+                                                <textarea
                                                     placeholder="Кратко о вашей задаче..."
                                                     value={message}
                                                     onChange={(e) => setMessage(e.target.value)}
-                                                    className="bg-slate-900/50 border-slate-700 focus:border-blue-500 min-h-[100px] resize-none"
+                                                    rows={3}
+                                                    className="w-full rounded-xl bg-white border-2 border-[#1A1A1A] px-4 py-3 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:outline-none focus:shadow-[4px_4px_0px_0px_#FF3366] focus:-translate-y-[1px] focus:-translate-x-[1px] transition-all resize-none"
                                                 />
                                             </div>
 
                                             {/* Consent */}
                                             <div>
-                                                <div className="flex items-start gap-2 mt-4">
+                                                <div className="flex items-start gap-3 mt-4">
                                                     <input
                                                         type="checkbox"
                                                         id="consent-modal"
                                                         checked={consent}
                                                         onChange={(e) => setConsent(e.target.checked)}
-                                                        className="mt-1 w-4 h-4 rounded bg-slate-900/50 border-slate-700 text-blue-500 focus:ring-blue-500 cursor-pointer"
+                                                        className="mt-1 h-4 w-4 rounded border-[#1A1A1A]/10 bg-[#F5F5F7] accent-[#FF3366] cursor-pointer"
                                                     />
-                                                    <label htmlFor="consent-modal" className="text-sm text-slate-400 cursor-pointer">
+                                                    <label htmlFor="consent-modal" className="text-sm text-[#1A1A1A]/60 cursor-pointer font-medium">
                                                         Согласен с{" "}
-                                                        <a href="/privacy" target="_blank" className="text-blue-400 hover:text-blue-300 underline">
+                                                        <a href="/privacy-policy" target="_blank" className="text-[#FF3366] hover:text-[#FF3366]/80 underline underline-offset-4 font-bold">
                                                             политикой конфиденциальности
                                                         </a>
                                                     </label>
                                                 </div>
                                                 {error && (
-                                                    <p className="text-red-400 text-xs mt-2 text-center">{error}</p>
+                                                    <p className="text-red-500 font-bold text-xs mt-2 text-center">{error}</p>
                                                 )}
                                             </div>
 
                                             <Button
                                                 type="submit"
                                                 disabled={isLoading}
-                                                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white h-12 text-lg font-medium rounded-xl mt-4"
+                                                className="w-full rounded-xl h-12 bg-[#FF3366] hover:bg-[#FF3366] text-white font-bold border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all mt-4 text-base"
                                             >
                                                 {isLoading ? (
                                                     <>
