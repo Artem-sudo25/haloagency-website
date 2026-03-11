@@ -9,7 +9,7 @@ export default function PropradloPage() {
             subtitle="Цифровая трансформация для прачечной: современный лендинг, автоматизация заказов и доминирование в локальном поиске."
             tags={["Landing Page", "Local SEO", "Automation", "Lead Magnet", "PPC"]}
             visualColorClass="text-teal-500"
-            heroImage="/images/case-studies/propradlo-mockup-v3.png"
+            heroImage="/images/case-studies/propradlo-screenshot.png"
             mobileImage="/images/case-studies/propradlo-search-mobile.png"
             imageContext={{
                 title: "Доминирование в AI и поиске",

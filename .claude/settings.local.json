@@ -8,7 +8,10 @@
       "Bash(npm install:*)",
       "mcp__Claude_Preview__preview_start",
       "Bash(lsof:*)",
-      "Bash(kill:*)"
+      "Bash(kill:*)",
+      "mcp__plugin_superpowers-chrome_chrome__use_browser",
+      "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/nejbalonky-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/nejbalonky-screenshot.png)",
+      "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-screenshot.png)"
     ],
     "deny": [],
     "ask": []

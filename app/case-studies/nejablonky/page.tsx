@@ -9,7 +9,7 @@ export default function NejablonkyPage() {
             subtitle="Создание и продвижение вебсайта с интеграцией логистики, оплаты, склада, кассы, аналитики и performance-маркетинга в единую систему продаж."
             tags={["E-commerce", "WooCommerce", "Google Ads", "Meta Ads", "Server-Side Tracking", "AI Search Visibility"]}
             visualColorClass="text-blue-500"
-            heroImage="/images/case-studies/nejablonky_updated.png"
+            heroImage="/images/case-studies/nejbalonky-screenshot.png"
             analyticsImage="/images/case-studies/nejbalonky-analytics.png"
             mainStats={[
                 { label: "Возватность Google Ads ", value: "6+" },

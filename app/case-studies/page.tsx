@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, BarChart3, Code2, Megaphone, Filter } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useContactModal } from "@/context/contact-modal-context";
@@ -17,6 +18,7 @@ const projects = [
     tags: ["Google Ads", "Meta Ads", "SEO"],
     size: "large",
     href: "/case-studies/nejablonky",
+    image: "/images/case-studies/nejbalonky-screenshot.png",
   },
   {
     id: 2,
@@ -27,6 +29,7 @@ const projects = [
     tags: ["Landing Page", "Local SEO", "PPC"],
     size: "small",
     href: "/case-studies/propradlo",
+    image: "/images/case-studies/propradlo-screenshot.png",
   },
   {
     id: 3,
@@ -37,24 +40,29 @@ const projects = [
     tags: ["SEO", "TripAdvisor", "Google Ads"],
     size: "small",
     href: "/case-studies/segway-tours-budapest",
+    image: "/images/case-studies/segway.png",
   },
   {
     id: 4,
-    name: "TechStart",
-    category: "SaaS",
-    description: "Разработка корпоративного сайта для IT-стартапа.",
-    stats: { label: "Скорость загрузки", value: "0.4s" },
-    tags: ["Next.js", "Tailwind", "Motion"],
+    name: "GetCafe",
+    category: "HoReCa",
+    description: "Редизайн сайта, адаптивная вёрстка, оптимизация под рекламу и система бронирования с синхронизацией в календарь владельца.",
+    stats: { label: "Бронирований онлайн", value: "+240%" },
+    tags: ["Web Redesign", "Booking System", "Google Ads"],
     size: "large",
+    href: "/case-studies/catcafe",
+    image: "/images/case-studies/catcafe-screenshot.png",
   },
   {
     id: 5,
-    name: "BeautySalon",
+    name: "DoggyStyle",
     category: "Local Business",
-    description: "Система онлайн-записи и Instagram продвижение.",
-    stats: { label: "Новые клиенты", value: "+50/мес" },
-    tags: ["Instagram", "Booking System"],
+    description: "Конверсионный сайт, CRM и автоматизация записи для грумингсалона.",
+    stats: { label: "Онлайн-записи", value: "+180%" },
+    tags: ["CRM", "Booking System", "Web"],
     size: "small",
+    href: "/case-studies/doggy-salon",
+    image: "/images/case-studies/doggy-screenshot.png",
   },
 ];
 
@@ -131,8 +139,24 @@ export default function CaseStudiesPage() {
                     {(project as any).href && (
                       <Link href={(project as any).href} className="absolute inset-0 z-20" aria-label={`Открыть кейс ${project.name}`} />
                     )}
-                    {/* Background Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#FF3366]/5 to-pink-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {/* Background Image */}
+                    {(project as any).image && (
+                      <div className="absolute inset-0 z-0">
+                        <Image
+                          src={(project as any).image}
+                          alt={project.name}
+                          fill
+                          className="object-cover object-top"
+                          sizes="(max-width: 768px) 100vw, 66vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-white/30" />
+                      </div>
+                    )}
+
+                    {/* Background Gradient (no-image fallback) */}
+                    {!(project as any).image && (
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#FF3366]/5 to-pink-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    )}
 
                     <div className="absolute inset-0 p-8 flex flex-col justify-between z-10">
                       <div className="flex justify-between items-start">

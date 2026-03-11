@@ -7,7 +7,7 @@ import Image from "next/image";
 const projects = [
   {
     title: "Nejbalonky.cz",
-    image: "/images/case-studies/nejablonky_updated.png",
+    image: "/images/case-studies/nejbalonky-screenshot.png",
     category: "E-commerce",
     subtitle: "E-commerce система с полной автоматизацией",
     stats: "+45% ROAS",
@@ -18,8 +18,8 @@ const projects = [
   },
   {
     title: "ProPradlo.cz",
-    image: "/images/case-studies/propradlo-mockup-v3.png",
-    category: "Automation",
+    image: "/images/case-studies/propradlo-screenshot.png",
+    category: "Web + Ads",
     subtitle: "Цифровая трансформация оптового бизнеса",
     stats: "-30% Time",
     statsColor: "bg-[#A2D2FF]/40 text-[#1A1A1A]",
@@ -62,7 +62,7 @@ export default function Projects() {
                   src={project.image}
                   alt={`${project.title} project showcase`}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 60vw"
                   priority={index < 1}
                 />
