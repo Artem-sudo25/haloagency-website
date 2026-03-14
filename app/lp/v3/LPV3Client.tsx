@@ -1,10 +1,17 @@
 "use client";
 
-import { ArrowRight, CheckCircle, Phone, Star } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  ChevronLeft,
+  ChevronRight,
+  Phone,
+  Star,
+} from "lucide-react";
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
-import { type FormEvent, useEffect, useRef, useState } from "react";
-import { hasConsented } from "@/lib/consent";
+import { type FormEvent, useRef, useState } from "react";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -30,12 +37,6 @@ const heroBullets = [
   "Можно запускать рекламу и вести людей в понятную точку",
 ];
 
-const heroStats = [
-  { value: "40+", label: "сайтов для бизнеса в Чехии" },
-  { value: "7–14 дн.", label: "обычно до запуска" },
-  { value: "Сайт + реклама", label: "и аналитика под заявки" },
-];
-
 const steps = [
   {
     num: "01",
@@ -57,54 +58,30 @@ const steps = [
   },
 ];
 
-const caseStudies = [
+const websiteExamples = [
   {
-    business: "DoggyStyle",
-    meta: "Груминг-салон, Прага",
-    before:
-      "До сайта записи шли только через Instagram, WhatsApp и сарафанное радио.",
-    changes: [
-      "Сделали сайт с онлайн-записью",
-      "Подключили CRM и уведомления",
-      "Оптимизировали Google-профиль",
-    ],
-    results: [
-      { value: "85%", label: "записей онлайн" },
-      { value: "−90%", label: "звонков для записи" },
-      { value: "+18", label: "новых клиентов в месяц из Google" },
-    ],
+    title: "Груминг салон",
+    feature: "онлайн запись",
+    image: "/images/case-studies/doggy-screenshot.png",
+    alt: "Пример сайта для груминг-салона",
   },
   {
-    business: "ProPradlo",
-    meta: "Прачечная, Прага",
-    before:
-      "Заказы принимали по телефону и email, а старый сайт не давал заявок с мобильных.",
-    changes: [
-      "Собрали лендинг с понятным оффером и формой заказа",
-      "Автоматизировали приём заявок через Telegram",
-      "Подготовили страницы под локальный поиск и рекламу",
-    ],
-    results: [
-      { value: "3.5x", label: "рост онлайн-заявок" },
-      { value: "ТОП-3", label: "в Google по локальным запросам" },
-      { value: "+250%", label: "рост заявок после запуска" },
-    ],
+    title: "Кафе",
+    feature: "бронирование столиков",
+    image: "/images/case-studies/catcafe-screenshot.png",
+    alt: "Пример сайта для кафе",
   },
   {
-    business: "GetCafe",
-    meta: "Кафе, Прага",
-    before:
-      "Бронирование шло только по телефону, а рекламу запускать было некуда.",
-    changes: [
-      "Переработали сайт под мобильный трафик",
-      "Добавили онлайн-бронирование и интеграцию с календарём",
-      "Подготовили посадочные страницы под Google Ads",
-    ],
-    results: [
-      { value: "+240%", label: "онлайн-бронирований" },
-      { value: "8.5%", label: "конверсия сайта" },
-      { value: "−90%", label: "ручной работы по брони" },
-    ],
+    title: "Прачечная",
+    feature: "landing page для рекламы",
+    image: "/images/case-studies/propradlo-screenshot.png",
+    alt: "Пример landing page для прачечной",
+  },
+  {
+    title: "Оформление мероприятий",
+    feature: "сайт-портфолио и заявки",
+    image: "/images/case-studies/nejbalonky-screenshot.png",
+    alt: "Пример сайта для event-бизнеса",
   },
 ];
 
@@ -162,7 +139,7 @@ const faqItems = [
 type FormValues = {
   name: string;
   websiteOrProfile: string;
-  contact: string;
+  phone: string;
   consent: boolean;
 };
 
@@ -172,16 +149,14 @@ export default function LPV3Client() {
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
-    contact: "",
+    phone: "",
     consent: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [hasCookieChoice, setHasCookieChoice] = useState(true);
-  const [showSticky, setShowSticky] = useState(false);
-  const formRef = useRef<HTMLDivElement>(null);
+  const examplesRef = useRef<HTMLDivElement>(null);
 
   const scrollToForm = () => {
     document
@@ -189,40 +164,10 @@ export default function LPV3Client() {
       ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
-  useEffect(() => {
-    const syncConsentState = () => {
-      setHasCookieChoice(hasConsented());
-    };
-
-    syncConsentState();
-
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "halo_cookie_consent") syncConsentState();
-    };
-    const onConsentUpdated = () => syncConsentState();
-
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("consent-updated", onConsentUpdated);
-
-    return () => {
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("consent-updated", onConsentUpdated);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!formRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setShowSticky(!entry.isIntersecting);
-      },
-      { threshold: 0.2 },
-    );
-
-    observer.observe(formRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const scrollExamples = (direction: -1 | 1) => {
+    if (!examplesRef.current) return;
+    examplesRef.current.scrollBy({ left: direction * 340, behavior: "smooth" });
+  };
 
   const validate = () => {
     const nextErrors: FormErrors = {};
@@ -231,8 +176,8 @@ export default function LPV3Client() {
     if (!values.websiteOrProfile.trim()) {
       nextErrors.websiteOrProfile = "Добавьте Instagram или ссылку на сайт";
     }
-    if (!values.contact.trim() || values.contact.trim().length < 5) {
-      nextErrors.contact = "Укажите телефон, WhatsApp или email";
+    if (!values.phone.trim()) {
+      nextErrors.phone = "Укажите телефон для связи";
     }
     if (!values.consent)
       nextErrors.consent = "Нужно согласие на обработку данных";
@@ -251,8 +196,6 @@ export default function LPV3Client() {
 
     try {
       const leadId = crypto.randomUUID();
-      const contactValue = values.contact.trim();
-      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue);
 
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
@@ -268,9 +211,7 @@ export default function LPV3Client() {
           landing_page_type: "v3",
           name: values.name.trim(),
           websiteOrProfile: values.websiteOrProfile.trim(),
-          email: isEmail ? contactValue : "",
-          phone: isEmail ? "" : contactValue,
-          preferredContact: contactValue,
+          phone: values.phone.trim(),
           service: "Free Website Demo",
           value: 0,
           currency: "CZK",
@@ -290,7 +231,7 @@ export default function LPV3Client() {
       setValues({
         name: "",
         websiteOrProfile: "",
-        contact: "",
+        phone: "",
         consent: false,
       });
       setErrors({});
@@ -312,7 +253,7 @@ export default function LPV3Client() {
 
   return (
     <main
-      className={`${inter.variable} min-h-screen bg-[#fafafa] pb-24 font-[family-name:var(--font-inter)] text-gray-900 lg:pb-0`}
+      className={`${inter.variable} min-h-screen bg-[#fafafa] font-[family-name:var(--font-inter)] text-gray-900`}
       style={{
         backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
         backgroundSize: "32px 32px",
@@ -372,8 +313,8 @@ export default function LPV3Client() {
                 предлагаете и почему вам можно доверять.
               </p>
               <p className="mt-4 text-base leading-relaxed text-gray-900 sm:text-lg">
-                Закажите короткий созвон — и через 48 часов мы покажем
-                бесплатное демо сайта именно под ваш бизнес.
+                Созвонимся на 15 минут — и через 48 часов вы получите рабочее
+                демо сайта для вашего бизнеса.
               </p>
             </div>
 
@@ -422,40 +363,19 @@ export default function LPV3Client() {
                 </span>
               ))}
             </div>
-
-            <div className="grid gap-4 border-t border-gray-200 pt-6 sm:grid-cols-3 sm:gap-8">
-              {heroStats.map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <span className="text-2xl font-bold text-gray-900">
-                    {stat.value}
-                  </span>
-                  <span className="mt-0.5 text-xs text-gray-500">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div ref={formRef} className="relative lg:col-span-5" id="v3-form">
+          <div className="relative lg:col-span-5" id="v3-form">
             <div className="absolute inset-0 -z-10 translate-x-3 translate-y-3 rounded-2xl bg-[#f43f5e] opacity-90 sm:translate-x-4 sm:translate-y-4"></div>
 
             <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] sm:p-8">
-              <div className="mb-6 flex items-start justify-between gap-4">
-                <div>
-                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#f43f5e]">
-                    Бесплатно
-                  </p>
-                  <h3 className="text-3xl font-bold text-gray-900">
-                    Бесплатное демо сайта
-                  </h3>
-                  <p className="mt-2 text-sm text-gray-500">
-                    15 минут на созвон. 48 часов на демо.
-                  </p>
-                </div>
-                <span className="rounded-md bg-green-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-green-800">
-                  Бесплатно
-                </span>
+              <div className="mb-6">
+                <h3 className="text-3xl font-bold text-gray-900">
+                  Бесплатное демо сайта
+                </h3>
+                <p className="mt-2 text-sm text-gray-500">
+                  15 минут на созвон. 48 часов на демо.
+                </p>
               </div>
 
               <p className="mb-6 rounded-xl border border-[#f43f5e]/10 bg-[#fff5f7] px-4 py-3 text-sm leading-relaxed text-gray-600">
@@ -515,23 +435,24 @@ export default function LPV3Client() {
                   </div>
 
                   <div>
-                    <label className={labelClass} htmlFor="v3-contact">
-                      Телефон / WhatsApp или Email
+                    <label className={labelClass} htmlFor="v3-phone">
+                      Телефон / WhatsApp
                     </label>
                     <input
-                      id="v3-contact"
+                      id="v3-phone"
+                      type="tel"
                       className={fieldClass}
-                      placeholder="+420... или you@company.com"
-                      value={values.contact}
+                      placeholder="777 777 777"
+                      value={values.phone}
                       onChange={(e) =>
                         setValues((prev) => ({
                           ...prev,
-                          contact: e.target.value,
+                          phone: e.target.value,
                         }))
                       }
                     />
-                    {errors.contact && (
-                      <p className={errorClass}>{errors.contact}</p>
+                    {errors.phone && (
+                      <p className={errorClass}>{errors.phone}</p>
                     )}
                   </div>
 
@@ -565,7 +486,7 @@ export default function LPV3Client() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#f43f5e] py-4 font-bold text-white transition-all hover:bg-[#e11d48] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#111827] py-4 font-bold text-white transition-all hover:bg-[#0b1220] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {isSubmitting ? "Отправляем..." : "Получить демо сайта"}
                     {!isSubmitting && (
@@ -680,82 +601,101 @@ export default function LPV3Client() {
 
       <section className="mb-24 sm:mb-32">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 lg:text-4xl">
-              Как сайт{" "}
-              <span className="text-[#f43f5e]">меняет бизнес на практике</span>
-            </h2>
-            <p className="mt-3 max-w-2xl text-gray-500">
-              Кейсы из сфер, где клиент принимает решение онлайн и должен быстро
-              понять, кому доверять.
-            </p>
-          </div>
+          <div className="relative overflow-hidden rounded-[2rem] border border-[#111827]/10 bg-[#111827] px-5 py-8 text-white shadow-[0_30px_120px_-50px_rgba(17,24,39,0.7)] sm:px-8 sm:py-10 lg:px-10">
+            <div className="absolute left-0 top-0 h-48 w-48 rounded-full bg-[#f43f5e]/20 blur-3xl" />
+            <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#f59e0b]/10 blur-3xl" />
 
-          <div className="space-y-8">
-            {caseStudies.map((item, index) => (
-              <article
-                key={item.business}
-                className={`overflow-hidden rounded-2xl border bg-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] ${
-                  index === 0
-                    ? "border-2 border-gray-900/10"
-                    : "border-gray-200"
-                }`}
-              >
-                <div className="flex flex-col md:flex-row">
-                  <div className="border-b border-gray-200 p-7 md:w-3/5 md:border-b-0 md:border-r md:p-8">
-                    <div className="mb-5 flex items-center gap-3">
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+            <div className="relative mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">
+                  Showcase
+                </p>
+                <h2 className="mt-3 text-3xl font-bold lg:text-4xl">
+                  Примеры сайтов
+                </h2>
+                <p className="mt-3 max-w-2xl text-white/70">
+                  Вот как обычно выглядят сайты, которые мы делаем для бизнеса.
+                </p>
+              </div>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => scrollExamples(-1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-white/30 hover:bg-white/10"
+                  aria-label="Прокрутить примеры назад"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => scrollExamples(1)}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-white/30 hover:bg-white/10"
+                  aria-label="Прокрутить примеры вперёд"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            <div
+              ref={examplesRef}
+              className="relative flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            >
+              {websiteExamples.map((example, index) => (
+                <article
+                  key={example.title}
+                  className="group min-w-[292px] max-w-[360px] flex-none snap-start"
+                >
+                  <div className="rounded-[28px] border border-white/10 bg-white/[0.97] p-4 text-gray-900 shadow-[0_25px_70px_-35px_rgba(0,0,0,0.65)] transition-transform duration-300 group-hover:-translate-y-1">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="rounded-full bg-[#111827] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-white">
                         0{index + 1}
                       </span>
+                      <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-gray-400">
+                        Demo concept
+                      </span>
+                    </div>
+
+                    <div className="relative overflow-hidden rounded-[22px] border border-gray-200 bg-[#f5f5f7] p-2">
+                      <div className="mb-2 flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 shadow-sm">
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#f87171]"></span>
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#fbbf24]"></span>
+                        <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]"></span>
+                      </div>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] border border-gray-200 bg-white">
+                        <Image
+                          src={example.image}
+                          alt={example.alt}
+                          fill
+                          sizes="(max-width: 768px) 292px, 360px"
+                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/18 to-transparent" />
+                      </div>
+                    </div>
+
+                    <div className="mt-5 flex items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-xl font-bold text-gray-900">
-                          {item.business}, {item.meta}
-                        </h3>
+                        <p className="text-xl font-semibold text-[#111827]">
+                          {example.title}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed text-gray-500">
+                          {example.feature}
+                        </p>
+                      </div>
+                      <div className="rounded-full border border-[#f43f5e]/15 bg-[#fff1f4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#f43f5e]">
+                        Preview
                       </div>
                     </div>
-
-                    <div className="mb-6">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        До
-                      </p>
-                      <p className="text-sm leading-relaxed text-gray-900">
-                        {item.before}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">
-                        Что сделали
-                      </p>
-                      <ul className="space-y-2 text-sm text-gray-900">
-                        {item.changes.map((change) => (
-                          <li key={change} className="flex items-start gap-2">
-                            <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-[#f43f5e]" />
-                            <span>{change}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
+                </article>
+              ))}
+            </div>
 
-                  <div className="grid gap-4 bg-[#fafafa] p-7 md:w-2/5 md:p-8">
-                    {item.results.map((result) => (
-                      <div
-                        key={result.label}
-                        className="rounded-xl border border-gray-200 bg-white px-4 py-5"
-                      >
-                        <div className="text-2xl font-bold text-gray-900">
-                          {result.value}
-                        </div>
-                        <div className="mt-1 text-sm leading-relaxed text-gray-500">
-                          {result.label}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            ))}
+            <p className="relative mt-5 text-sm text-white/55">
+              Листайте примеры или используйте стрелки, чтобы посмотреть разные
+              стили сайтов.
+            </p>
           </div>
         </div>
       </section>
@@ -918,21 +858,6 @@ export default function LPV3Client() {
           <span>© 2026 HaloAgency.cz</span>
         </div>
       </footer>
-
-      <div
-        className={`fixed left-0 right-0 z-50 border-t border-[#f43f5e]/20 bg-white/95 p-3 backdrop-blur-md transition-transform duration-300 lg:hidden ${
-          hasCookieChoice ? "bottom-0" : "bottom-28"
-        } ${showSticky && !submitSuccess ? "translate-y-0" : "translate-y-full"}`}
-      >
-        <button
-          type="button"
-          onClick={scrollToForm}
-          className="flex w-full items-center justify-center rounded-xl bg-[#f43f5e] py-3.5 font-bold text-white shadow-lg transition-all hover:bg-[#e11d48]"
-        >
-          Получить демо сайта
-          <ArrowRight className="ml-2 h-4 w-4" />
-        </button>
-      </div>
     </main>
   );
 }

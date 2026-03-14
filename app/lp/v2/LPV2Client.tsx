@@ -258,7 +258,7 @@ export default function LPV2Client() {
               Реклама работает,<br />
               а заявок мало?<br />
               <span className="relative inline-block">
-                <span className="relative z-10">Покажем где теряются<br />клиенты. Бесплатно.</span>
+                <span className="relative z-10">Покажем, где теряются<br />клиенты. Бесплатно.</span>
                 <span className="absolute bottom-1 left-0 w-full h-3 bg-[#f43f5e]/20 -z-0 -skew-x-[15deg]"></span>
               </span>
             </h1>
