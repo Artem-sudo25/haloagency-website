@@ -1,9 +1,10 @@
 "use client";
 
+import { ArrowRight, CheckCircle, Phone, Star } from "lucide-react";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-import { useState, useMemo } from "react";
-import { ArrowRight, Phone, Star, CheckCircle } from "lucide-react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
+import { hasConsented } from "@/lib/consent";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -11,216 +12,293 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-/* ─── Shared styles ─── */
 const shell = "mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8";
 const primaryBtn =
-  "inline-flex items-center justify-center rounded-xl bg-[#f43f5e] px-8 py-4 text-sm font-semibold text-white transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 hover:bg-[#e11d48] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f43f5e] focus-visible:ring-offset-2";
+  "inline-flex items-center justify-center rounded-xl bg-[#f43f5e] px-8 py-4 text-sm font-semibold text-white transition-all shadow-lg hover:-translate-y-0.5 hover:bg-[#e11d48] hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f43f5e] focus-visible:ring-offset-2";
 
-/* ─── Pain checklist ─── */
 const painPoints = [
-  "Клиенты спрашивают цены в Instagram — и не все возвращаются с ответом",
+  "Клиенты спрашивают цены в Instagram — и не все возвращаются после ответа",
   "Хотите запустить рекламу, но некуда вести трафик",
-  "У конкурентов есть сайт — и они стабильно появляются в Google",
-  "Записи, заказы, брони — всё вручную через звонки и мессенджеры",
-  "Клиент заходит, ничего не понимает — и молча уходит к другим",
+  "У конкурентов есть сайт — и они стабильно получают клиентов из Google",
+  "Записи, заявки и брони идут вручную через звонки и мессенджеры",
+  "Клиент заходит, ничего не понимает — и уходит к другим",
 ];
 
-/* ─── How it works ─── */
+const heroBullets = [
+  "Клиенту не нужно писать и ждать ответа",
+  "Ваши услуги и преимущества понятны за 30 секунд",
+  "Можно запускать рекламу и вести людей в понятную точку",
+];
+
+const heroStats = [
+  { value: "40+", label: "сайтов для бизнеса в Чехии" },
+  { value: "7–14 дн.", label: "обычно до запуска" },
+  { value: "Сайт + реклама", label: "и аналитика под заявки" },
+];
+
 const steps = [
   {
     num: "01",
     title: "Оставьте заявку",
-    desc: "Имя и email — больше ничего. Займёт меньше минуты.",
+    desc: "Имя, контакт и ссылка на Instagram или сайт. Займёт меньше минуты.",
     time: "1 минута",
   },
   {
     num: "02",
-    title: "Созвонимся на 20 минут",
-    desc: "Расскажем честно: как вас находят сейчас, где уходят клиенты и что с этим делать.",
-    time: "20 минут",
+    title: "Короткий созвон",
+    desc: "За 15 минут поймём, что вы продаёте, кто ваш клиент и какой сайт вам нужен.",
+    time: "15 минут",
   },
   {
     num: "03",
-    title: "Получите конкретный план",
-    desc: "PDF с шагами, сроками и стоимостью под ваш бизнес. Без обязательств.",
-    time: "В тот же день",
+    title: "Получите демо сайта",
+    desc: "Через 48 часов отправим рабочее демо, чтобы вы увидели, как ваш бизнес может выглядеть онлайн.",
+    time: "48 часов",
   },
 ];
 
-/* ─── Case studies ─── */
 const caseStudies = [
   {
-    business: "Грумингсалон DoggyStyle, Прага",
-    meta: "Сайт + CRM + онлайн-запись · 3 недели",
-    situation:
-      "Салон работал только через Instagram и сарафанное радио. Все записи — по телефону и в WhatsApp. Клиенты не могли быстро понять цены, записаться или найти в Google.",
+    business: "DoggyStyle",
+    meta: "Груминг-салон, Прага",
+    before:
+      "До сайта записи шли только через Instagram, WhatsApp и сарафанное радио.",
     changes: [
-      "Сделали сайт с онлайн-записью и карточкой питомца",
-      "Настроили CRM и уведомления в Telegram",
-      "Оптимизировали Google My Business под локальный поиск",
+      "Сделали сайт с онлайн-записью",
+      "Подключили CRM и уведомления",
+      "Оптимизировали Google-профиль",
     ],
     results: [
-      { label: "Онлайн-записи", before: "0%", after: "85%", delta: "с нуля" },
-      { label: "Звонки для записи", before: "100%", after: "↓ 90%", delta: "−90%" },
-      { label: "Новые клиенты из Google", before: "0", after: "+18/мес", delta: "органика" },
+      { value: "85%", label: "записей онлайн" },
+      { value: "−90%", label: "звонков для записи" },
+      { value: "+18", label: "новых клиентов в месяц из Google" },
     ],
   },
   {
-    business: "Прачечная ProPradlo, Прага",
-    meta: "Лендинг + автоматизация · 2 недели",
-    situation:
-      "Принимали заказы только по телефону и email. Старый сайт не отображался на мобильных и не приносил заявок. В локальном поиске Google компании не было.",
+    business: "ProPradlo",
+    meta: "Прачечная, Прага",
+    before:
+      "Заказы принимали по телефону и email, а старый сайт не давал заявок с мобильных.",
     changes: [
-      "Создали конверсионный лендинг с формой онлайн-заказа",
+      "Собрали лендинг с понятным оффером и формой заказа",
       "Автоматизировали приём заявок через Telegram",
-      "Вышли в ТОП-3 Google по ключевым запросам в Праге",
+      "Подготовили страницы под локальный поиск и рекламу",
     ],
     results: [
-      { label: "Онлайн-заявки", before: "0", after: "3.5x рост", delta: "+250%" },
-      { label: "Конверсия сайта", before: "—", after: "12%", delta: "с нуля" },
-      { label: "Позиция в Google", before: "не было", after: "ТОП 3", delta: "локально" },
+      { value: "3.5x", label: "рост онлайн-заявок" },
+      { value: "ТОП-3", label: "в Google по локальным запросам" },
+      { value: "+250%", label: "рост заявок после запуска" },
     ],
   },
   {
-    business: "Кафе GetCafe, Прага",
-    meta: "Редизайн + бронирование · 2 недели",
-    situation:
-      "Устаревший сайт плохо отображался на телефоне. Бронирование — только по телефону. Реклама не запускалась, потому что вести трафик было некуда.",
+    business: "GetCafe",
+    meta: "Кафе, Прага",
+    before:
+      "Бронирование шло только по телефону, а рекламу запускать было некуда.",
     changes: [
-      "Полностью переработали сайт под мобильные и рекламу",
-      "Встроили онлайн-бронирование с Google Календарём",
-      "Запустили Google Ads на готовые посадочные страницы",
+      "Переработали сайт под мобильный трафик",
+      "Добавили онлайн-бронирование и интеграцию с календарём",
+      "Подготовили посадочные страницы под Google Ads",
     ],
     results: [
-      { label: "Онлайн-брони", before: "0", after: "+240%", delta: "за 4 недели" },
-      { label: "Конверсия сайта", before: "1.2%", after: "8.5%", delta: "+608%" },
-      { label: "Ручная работа по брони", before: "100%", after: "↓ 90%", delta: "автопилот" },
+      { value: "+240%", label: "онлайн-бронирований" },
+      { value: "8.5%", label: "конверсия сайта" },
+      { value: "−90%", label: "ручной работы по брони" },
     ],
-  },
-];
-
-const faqItems = [
-  {
-    q: "Сколько стоит сайт?",
-    a: "Конверсионный лендинг — от 25 000 Kč. Многостраничный сайт с интеграциями — от 40 000 Kč. На разборе покажем, что именно нужно вашему бизнесу, и посчитаем смету. Никаких скрытых платежей.",
-  },
-  {
-    q: "Сколько времени занимает сделать сайт?",
-    a: "Конверсионный лендинг — 7–14 дней. Многостраничный сайт — 2–4 недели. Мы не затягиваем: работаем по чёткому плану с фиксированными дедлайнами.",
-  },
-  {
-    q: "Что нужно подготовить с моей стороны?",
-    a: "Минимум: рассказать о бизнесе, дать фотографии (или мы поможем с этим). Всё остальное — тексты, структуру, дизайн — берём на себя.",
-  },
-  {
-    q: "Смогу ли я потом сам редактировать сайт?",
-    a: "Да. Все сайты передаём с инструкцией и короткой демонстрацией. Если нужно — добавим простую панель управления контентом.",
-  },
-  {
-    q: "Вы работаете только с Прагой?",
-    a: "Работаем онлайн с русскоязычным бизнесом по всей Чехии. Встречи — по видеозвонку, без лишних поездок.",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "Раньше клиенты спрашивали цены в Instagram, и половина уходила, не дождавшись ответа. После сайта — сами находят, читают и записываются.",
+      "Раньше клиенты спрашивали цены в Instagram, и часть просто пропадала. После запуска сайта сами читают, понимают и записываются онлайн.",
     author: "Анна В.",
-    business: "DoggyStyle, Прага",
+    details: "DoggyStyle, Прага · сайт + онлайн-запись",
     initial: "А",
   },
   {
     quote:
-      "Думал, сайт — это дорого и долго. Сделали за 10 дней. Теперь 70% заказов приходят онлайн, без единого звонка с моей стороны.",
+      "Думал, что сайт будет долгим и дорогим проектом. Получили понятную структуру, запустились быстро и перевели большую часть заказов в онлайн.",
     author: "Дмитрий К.",
-    business: "ProPradlo, Прага",
+    details: "ProPradlo, Прага · лендинг + автоматизация",
     initial: "Д",
   },
   {
     quote:
-      "Наконец-то могу давать рекламу — есть куда вести людей. За первый месяц окупили сайт в несколько раз.",
+      "Наконец-то стало куда вести трафик. После нормальной точки входа реклама начала работать заметно лучше, а бронирование перестало висеть на звонках.",
     author: "Катерина М.",
-    business: "GetCafe, Прага",
+    details: "GetCafe, Прага · сайт + бронирование",
     initial: "К",
   },
 ];
 
-/* ─── Form types ─── */
+const faqItems = [
+  {
+    q: "Что если демо сайт мне не понравится?",
+    a: "Ничего страшного. Вы ничего не платите. Мы просто покажем, как может выглядеть сайт для вашего бизнеса, а дальше вы сами решаете, идти ли дальше.",
+  },
+  {
+    q: "Сколько стоит сайт?",
+    a: "Зависит от задачи. Простой landing page обычно стартует от 25 000 Kč, сайт услуг с дополнительными блоками и интеграциями — от 40 000 Kč. Точную стоимость скажем после короткого созвона.",
+  },
+  {
+    q: "Сколько времени занимает сделать сайт?",
+    a: "Обычно 7–14 дней, если речь о landing page или сайте услуг без сложной кастомной логики. Более объёмные проекты занимают дольше, но сроки фиксируем заранее.",
+  },
+  {
+    q: "Что нужно подготовить с моей стороны?",
+    a: "Достаточно коротко рассказать о бизнесе и прислать Instagram, старый сайт или примеры, которые вам нравятся. Структуру, тексты и визуальную подачу поможем собрать вместе.",
+  },
+  {
+    q: "Смогу ли я потом сам редактировать сайт?",
+    a: "Да, если проект делается на подходящей для этого системе. Мы сразу подбираем решение под то, хотите ли вы менять контент сами или передавать это нам.",
+  },
+  {
+    q: "Вы работаете только с Прагой?",
+    a: "Нет. Работаем по всей Чехии и с бизнесами за её пределами. Созвоны проводим онлайн, поэтому география не ограничивает проект.",
+  },
+];
+
 type FormValues = {
   name: string;
-  currentPresence: string;
-  email: string;
+  websiteOrProfile: string;
+  contact: string;
   consent: boolean;
 };
+
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
-/* ─── Component ─── */
 export default function LPV3Client() {
   const [values, setValues] = useState<FormValues>({
     name: "",
-    currentPresence: "",
-    email: "",
+    websiteOrProfile: "",
+    contact: "",
     consent: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
+  const [hasCookieChoice, setHasCookieChoice] = useState(true);
+  const [showSticky, setShowSticky] = useState(false);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const scrollToForm = () => {
-    document.getElementById("v3-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById("v3-form")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
+
+  useEffect(() => {
+    const syncConsentState = () => {
+      setHasCookieChoice(hasConsented());
+    };
+
+    syncConsentState();
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "halo_cookie_consent") syncConsentState();
+    };
+    const onConsentUpdated = () => syncConsentState();
+
+    window.addEventListener("storage", onStorage);
+    window.addEventListener("consent-updated", onConsentUpdated);
+
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("consent-updated", onConsentUpdated);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!formRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setShowSticky(!entry.isIntersecting);
+      },
+      { threshold: 0.2 },
+    );
+
+    observer.observe(formRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const validate = () => {
-    const e: FormErrors = {};
-    if (!values.name.trim()) e.name = "Укажите ваше имя";
-    if (!values.currentPresence.trim()) e.currentPresence = "Укажите как вас находят клиенты";
-    if (!values.email.trim() || !emailRegex.test(values.email.trim()))
-      e.email = "Укажите корректный email";
-    if (!values.consent) e.consent = "Нужно согласие на обработку данных";
-    setErrors(e);
-    return Object.keys(e).length === 0;
+    const nextErrors: FormErrors = {};
+
+    if (!values.name.trim()) nextErrors.name = "Укажите ваше имя";
+    if (!values.websiteOrProfile.trim()) {
+      nextErrors.websiteOrProfile = "Добавьте Instagram или ссылку на сайт";
+    }
+    if (!values.contact.trim() || values.contact.trim().length < 5) {
+      nextErrors.contact = "Укажите телефон, WhatsApp или email";
+    }
+    if (!values.consent)
+      nextErrors.consent = "Нужно согласие на обработку данных";
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitError("");
+
     if (!validate()) return;
+
     setIsSubmitting(true);
+
     try {
+      const leadId = crypto.randomUUID();
+      const contactValue = values.contact.trim();
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactValue);
+
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+          "X-Webhook-Secret":
+            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
-          type: "website-audit-v3",
-          lead_id: crypto.randomUUID(),
+          type: "website-demo-v3",
+          lead_id: leadId,
           source: "lp_v3",
           landing_page_type: "v3",
           name: values.name.trim(),
-          email: values.email.trim(),
-          currentPresence: values.currentPresence.trim(),
-          service: "Free Website Audit",
+          websiteOrProfile: values.websiteOrProfile.trim(),
+          email: isEmail ? contactValue : "",
+          phone: isEmail ? "" : contactValue,
+          preferredContact: contactValue,
+          service: "Free Website Demo",
           value: 0,
           currency: "CZK",
           consent_given: true,
           timestamp: new Date().toISOString(),
         }),
       });
+
       if (!res.ok) {
-        const d = await res.json().catch(() => ({ error: "Ошибка отправки" }));
-        throw new Error(d.error || "Ошибка отправки");
+        const data = await res
+          .json()
+          .catch(() => ({ error: "Ошибка отправки" }));
+        throw new Error(data.error || "Ошибка отправки");
       }
+
       setSubmitSuccess(true);
-      setValues({ name: "", currentPresence: "", email: "", consent: false });
+      setValues({
+        name: "",
+        websiteOrProfile: "",
+        contact: "",
+        consent: false,
+      });
       setErrors({});
     } catch (err) {
       setSubmitError(
-        err instanceof Error ? err.message : "Не удалось отправить заявку. Попробуйте снова.",
+        err instanceof Error
+          ? err.message
+          : "Не удалось отправить заявку. Попробуйте снова.",
       );
     } finally {
       setIsSubmitting(false);
@@ -228,21 +306,20 @@ export default function LPV3Client() {
   };
 
   const fieldClass =
-    "w-full rounded-lg border border-gray-200 bg-[#fafafa] px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 transition-shadow focus:ring-2 focus:ring-[#f43f5e] focus:border-[#f43f5e]";
-  const labelClass = "block text-sm font-medium text-gray-900 mb-1.5";
+    "w-full rounded-lg border border-gray-200 bg-[#fafafa] px-4 py-3 text-sm text-gray-900 outline-none placeholder:text-gray-400 transition-shadow focus:border-[#f43f5e] focus:ring-2 focus:ring-[#f43f5e]";
+  const labelClass = "mb-1.5 block text-sm font-medium text-gray-900";
   const errorClass = "mt-1 text-xs text-red-600";
 
   return (
     <main
-      className={`${inter.variable} font-[family-name:var(--font-inter)] min-h-screen bg-[#fafafa] text-gray-900`}
+      className={`${inter.variable} min-h-screen bg-[#fafafa] pb-24 font-[family-name:var(--font-inter)] text-gray-900 lg:pb-0`}
       style={{
         backgroundImage: "radial-gradient(#e5e7eb 1px, transparent 1px)",
         backgroundSize: "32px 32px",
       }}
     >
-      {/* ── Nav ── */}
       <header
-        className="fixed top-0 w-full z-50 shadow-sm"
+        className="fixed top-0 z-50 w-full shadow-sm"
         style={{
           background: "rgba(255,255,255,0.7)",
           backdropFilter: "blur(10px)",
@@ -251,12 +328,15 @@ export default function LPV3Client() {
         }}
       >
         <div className={`${shell} flex h-20 items-center justify-between`}>
-          <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">
+          <Link
+            href="/"
+            className="text-2xl font-bold tracking-tight text-gray-900"
+          >
             Halo<span className="text-[#f43f5e]">Agency</span>
           </Link>
           <a
             href="tel:+420705729502"
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium"
+            className="flex items-center gap-2 font-medium text-gray-500 transition-colors hover:text-gray-900"
           >
             <Phone className="h-4 w-4" />
             +420 705 729 502
@@ -264,97 +344,129 @@ export default function LPV3Client() {
         </div>
       </header>
 
-      {/* ── Hero ── */}
-      <section className="pt-32 pb-20 relative">
-        <div className={`${shell} relative grid gap-16 lg:grid-cols-12 items-start`}>
-          {/* Left copy */}
-          <div className="lg:col-span-7 flex flex-col justify-center pt-8">
-            {/* Urgency badge */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold rounded-full mb-6 w-fit">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              Свободно 3 слота на следующей неделе
+      <section className="relative pb-14 pt-28 sm:pb-20 sm:pt-32">
+        <div
+          className={`${shell} grid items-start gap-12 lg:grid-cols-12 lg:gap-16`}
+        >
+          <div className="flex flex-col justify-center lg:col-span-7">
+            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500"></span>
+              На следующей неделе доступно 3 демо-слота
             </div>
 
-            <h1 className="text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 tracking-tight text-gray-900">
-              Нет сайта —<br />
-              значит, вы каждый<br />
-              день теряете<br />
+            <h1 className="mb-6 text-4xl font-bold leading-[1.05] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              Нет сайта — значит,
+              <br className="hidden lg:block" />
+              вы каждый день теряете
+              <br className="hidden lg:block" />
               <span className="relative inline-block">
                 <span className="relative z-10">клиентов.</span>
-                <span className="absolute bottom-1 left-0 w-full h-3 bg-[#f43f5e]/20 -z-0 -skew-x-[15deg]"></span>
+                <span className="absolute bottom-1 left-0 -z-0 h-3 w-full -skew-x-[15deg] bg-[#f43f5e]/20"></span>
               </span>
             </h1>
 
-            <div className="border-l-4 border-[#f43f5e] pl-6 py-2 mb-6">
-              <p className="text-lg text-gray-500 leading-relaxed">
-                Не потому что плохой продукт. А потому что людям негде быстро понять:
-                кто вы, что предлагаете и почему именно вы.
+            <div className="mb-6 border-l-4 border-[#f43f5e] py-2 pl-5 sm:pl-6">
+              <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
+                Не потому что у вас плохой продукт.
+                <br />А потому что людям негде быстро понять, кто вы, что вы
+                предлагаете и почему вам можно доверять.
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-gray-900 sm:text-lg">
+                Закажите короткий созвон — и через 48 часов мы покажем
+                бесплатное демо сайта именно под ваш бизнес.
               </p>
             </div>
 
-            <div className="mb-8 space-y-2 pl-6">
-              <p className="text-gray-700 leading-relaxed">
-                Если клиенту нужно <span className="font-semibold">писать и ждать ответа</span> —
-                часть просто уходит к тем, у кого всё понятно за 2 минуты.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                Сайт — это не «модно». Это{" "}
-                <span className="font-semibold text-gray-900">точка принятия решения</span>.
-              </p>
-              <p className="text-gray-700 leading-relaxed">
-                Мы делаем сайты как инструмент продаж, а не как красивые визитки.
-              </p>
-            </div>
+            <ul className="mb-8 space-y-3">
+              {heroBullets.map((bullet) => (
+                <li
+                  key={bullet}
+                  className="flex items-start gap-3 text-sm text-gray-700 sm:text-base"
+                >
+                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#f43f5e]" />
+                  <span>{bullet}</span>
+                </li>
+              ))}
+            </ul>
 
-            <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
-              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn}`}>
-                Получить разбор за 20 мин
+            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className={`w-full sm:w-auto ${primaryBtn}`}
+              >
+                Получить демо сайта
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <a
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-2 decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e]"
               >
-                Написать в WhatsApp
+                Или написать в WhatsApp
               </a>
             </div>
 
-            {/* Quick stats */}
-            <div className="flex flex-wrap gap-8 pt-2 border-t border-gray-200">
+            <div className="mb-10 flex flex-wrap gap-3 text-xs text-gray-500">
               {[
-                { value: "40+", label: "сайтов в Чехии" },
-                { value: "7–14 дн.", label: "до запуска" },
-                { value: "12%", label: "средняя конверсия" },
-              ].map((s) => (
-                <div key={s.label} className="flex flex-col">
-                  <span className="text-2xl font-bold text-gray-900">{s.value}</span>
-                  <span className="text-xs text-gray-500 mt-0.5">{s.label}</span>
+                "Без оплаты",
+                "Без обязательств",
+                "Сначала покажем результат",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-gray-200 bg-white px-3 py-1.5"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            <div className="grid gap-4 border-t border-gray-200 pt-6 sm:grid-cols-3 sm:gap-8">
+              {heroStats.map((stat) => (
+                <div key={stat.label} className="flex flex-col">
+                  <span className="text-2xl font-bold text-gray-900">
+                    {stat.value}
+                  </span>
+                  <span className="mt-0.5 text-xs text-gray-500">
+                    {stat.label}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Right — Form card */}
-          <div className="lg:col-span-5 relative" id="v3-form">
-            {/* Offset shadow */}
-            <div className="absolute inset-0 bg-[#f43f5e] translate-x-4 translate-y-4 rounded-2xl -z-10 opacity-90"></div>
+          <div ref={formRef} className="relative lg:col-span-5" id="v3-form">
+            <div className="absolute inset-0 -z-10 translate-x-3 translate-y-3 rounded-2xl bg-[#f43f5e] opacity-90 sm:translate-x-4 sm:translate-y-4"></div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-200 relative">
-              <div className="flex justify-between items-start mb-6">
+            <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] sm:p-8">
+              <div className="mb-6 flex items-start justify-between gap-4">
                 <div>
-                  <h3 className="text-2xl font-bold mb-1">Бесплатный разбор</h3>
-                  <p className="text-sm text-gray-500">20 минут. Честно. Конкретно.</p>
+                  <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#f43f5e]">
+                    Бесплатно
+                  </p>
+                  <h3 className="text-3xl font-bold text-gray-900">
+                    Бесплатное демо сайта
+                  </h3>
+                  <p className="mt-2 text-sm text-gray-500">
+                    15 минут на созвон. 48 часов на демо.
+                  </p>
                 </div>
-                <span className="px-3 py-1 bg-green-50 text-green-800 text-xs font-bold rounded-md tracking-wider uppercase">
+                <span className="rounded-md bg-green-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-green-800">
                   Бесплатно
                 </span>
               </div>
 
+              <p className="mb-6 rounded-xl border border-[#f43f5e]/10 bg-[#fff5f7] px-4 py-3 text-sm leading-relaxed text-gray-600">
+                Не продаём вслепую — сначала покажем, как это может выглядеть
+                для вашего бизнеса.
+              </p>
+
               {submitSuccess && (
                 <div className="mt-5 rounded-lg border border-green-300 bg-green-50 p-4 text-sm font-medium text-green-800">
-                  ✓ Заявка отправлена. Напишем на email в течение 2 рабочих часов.
+                  Заявка отправлена. Ответим в течение дня и согласуем короткий
+                  созвон.
                 </div>
               )}
               {submitError && (
@@ -374,72 +486,106 @@ export default function LPV3Client() {
                       className={fieldClass}
                       placeholder="Например, Ирина"
                       value={values.name}
-                      onChange={(e) => setValues((p) => ({ ...p, name: e.target.value }))}
+                      onChange={(e) =>
+                        setValues((prev) => ({ ...prev, name: e.target.value }))
+                      }
                     />
                     {errors.name && <p className={errorClass}>{errors.name}</p>}
                   </div>
 
                   <div>
-                    <label className={labelClass} htmlFor="v3-presence">
-                      Как сейчас находят вас клиенты?
+                    <label className={labelClass} htmlFor="v3-link">
+                      Ссылка на Instagram / сайт
                     </label>
                     <input
-                      id="v3-presence"
+                      id="v3-link"
                       className={fieldClass}
-                      placeholder="Instagram, сарафанное радио, старый сайт..."
-                      value={values.currentPresence}
+                      placeholder="@brand или https://example.com"
+                      value={values.websiteOrProfile}
                       onChange={(e) =>
-                        setValues((p) => ({ ...p, currentPresence: e.target.value }))
+                        setValues((prev) => ({
+                          ...prev,
+                          websiteOrProfile: e.target.value,
+                        }))
                       }
                     />
-                    {errors.currentPresence && (
-                      <p className={errorClass}>{errors.currentPresence}</p>
+                    {errors.websiteOrProfile && (
+                      <p className={errorClass}>{errors.websiteOrProfile}</p>
                     )}
                   </div>
 
                   <div>
-                    <label className={labelClass} htmlFor="v3-email">
-                      Email для связи
+                    <label className={labelClass} htmlFor="v3-contact">
+                      Телефон / WhatsApp или Email
                     </label>
                     <input
-                      id="v3-email"
-                      type="email"
+                      id="v3-contact"
                       className={fieldClass}
-                      placeholder="you@company.com"
-                      value={values.email}
-                      onChange={(e) => setValues((p) => ({ ...p, email: e.target.value }))}
+                      placeholder="+420... или you@company.com"
+                      value={values.contact}
+                      onChange={(e) =>
+                        setValues((prev) => ({
+                          ...prev,
+                          contact: e.target.value,
+                        }))
+                      }
                     />
-                    {errors.email && <p className={errorClass}>{errors.email}</p>}
+                    {errors.contact && (
+                      <p className={errorClass}>{errors.contact}</p>
+                    )}
                   </div>
 
-                  <div className="flex items-start gap-3 pt-2">
-                    <div className="flex items-center h-5">
+                  <div className="flex items-start gap-3 pt-1">
+                    <div className="flex h-5 items-center">
                       <input
+                        id="v3-consent"
                         type="checkbox"
                         checked={values.consent}
-                        onChange={(e) => setValues((p) => ({ ...p, consent: e.target.checked }))}
-                        className="w-4 h-4 rounded border-gray-300 text-[#f43f5e] focus:ring-[#f43f5e] bg-[#fafafa]"
+                        onChange={(e) =>
+                          setValues((prev) => ({
+                            ...prev,
+                            consent: e.target.checked,
+                          }))
+                        }
+                        className="h-4 w-4 rounded border-gray-300 bg-[#fafafa] text-[#f43f5e] focus:ring-[#f43f5e]"
                       />
                     </div>
-                    <label className="text-xs text-gray-500 leading-snug">
-                      Согласен(а) на обработку данных. Только контакт по вашему разбору, без рассылок.
+                    <label
+                      htmlFor="v3-consent"
+                      className="text-xs leading-snug text-gray-500"
+                    >
+                      Согласен(а) на обработку данных. Используем контакт только
+                      для ответа по вашей заявке, без рассылок.
                     </label>
                   </div>
-                  {errors.consent && <p className={errorClass}>{errors.consent}</p>}
+                  {errors.consent && (
+                    <p className={errorClass}>{errors.consent}</p>
+                  )}
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="group w-full py-4 bg-gray-900 text-white font-bold rounded-xl transition-all hover:opacity-90 flex items-center justify-center gap-2 mt-2 disabled:cursor-not-allowed disabled:opacity-60"
+                    className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[#f43f5e] py-4 font-bold text-white transition-all hover:bg-[#e11d48] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    {isSubmitting ? "Отправляем..." : "Хочу узнать, сколько теряю"}
+                    {isSubmitting ? "Отправляем..." : "Получить демо сайта"}
                     {!isSubmitting && (
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     )}
                   </button>
-                  <p className="text-center text-xs text-gray-400 mt-3">
-                    Ответим за 2 часа · Без продаж в лоб · Только по делу
+
+                  <p className="text-center text-xs text-gray-500">
+                    Ответим в течение дня · Без обязательств · Покажем реальный
+                    пример
                   </p>
+
+                  <a
+                    href="https://wa.me/420705729502"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e]"
+                  >
+                    Или сразу написать в WhatsApp
+                  </a>
                 </form>
               )}
             </div>
@@ -447,31 +593,38 @@ export default function LPV3Client() {
         </div>
       </section>
 
-      {/* ── Pain Checklist ── */}
-      <section className="mb-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden">
-            <div className="px-8 pt-8 pb-5 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Узнайте себя:</h2>
-              <p className="text-sm text-gray-500 mt-1">
-                Если хотя бы 2 пункта — это про вас, стоит поговорить.
+      <section className="mb-20 sm:mb-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+            <div className="border-b border-gray-100 px-6 pb-5 pt-7 sm:px-8 sm:pt-8">
+              <h2 className="text-xl font-bold text-gray-900">Узнайте себя</h2>
+              <p className="mt-1 text-sm text-gray-500">
+                Если узнали себя хотя бы в двух пунктах, демо покажет, как это
+                можно исправить.
               </p>
             </div>
+
             <ul className="divide-y divide-gray-100">
               {painPoints.map((point) => (
-                <li key={point} className="flex items-start gap-4 px-8 py-4">
-                  <CheckCircle className="w-5 h-5 text-[#f43f5e] shrink-0 mt-0.5" />
-                  <span className="text-sm text-gray-700 leading-relaxed">{point}</span>
+                <li
+                  key={point}
+                  className="flex items-start gap-4 px-6 py-4 sm:px-8"
+                >
+                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#f43f5e]" />
+                  <span className="text-sm leading-relaxed text-gray-700">
+                    {point}
+                  </span>
                 </li>
               ))}
             </ul>
-            <div className="px-8 pb-8 pt-6 bg-gray-50 border-t border-gray-100">
+
+            <div className="border-t border-gray-100 bg-gray-50 px-6 pb-7 pt-6 sm:px-8 sm:pb-8">
               <button
                 type="button"
                 onClick={scrollToForm}
-                className={`w-full sm:w-auto ${primaryBtn} text-sm`}
+                className={`w-full text-sm sm:w-auto ${primaryBtn}`}
               >
-                Разобраться бесплатно — за 20 минут
+                Получить демо сайта
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
             </div>
@@ -479,117 +632,124 @@ export default function LPV3Client() {
         </div>
       </section>
 
-      {/* ── How It Works ── */}
-      <section className="mb-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="mb-24 sm:mb-32">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
-            <h2 className="text-3xl font-bold mb-2">Как это работает</h2>
-            <p className="text-gray-500">Три шага от «нет сайта» до первых онлайн-клиентов.</p>
+            <h2 className="text-3xl font-bold text-gray-900">
+              Как это работает
+            </h2>
+            <p className="mt-2 text-gray-500">
+              Вы оставляете минимум данных, созваниваемся на 15 минут и затем
+              показываем рабочее демо.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
-            {/* Connector line (desktop only) */}
-            <div className="hidden md:block absolute top-10 left-[calc(16.66%-1rem)] right-[calc(16.66%-1rem)] h-px bg-gray-200 z-0 pointer-events-none"></div>
+          <div className="relative grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="pointer-events-none absolute left-[calc(16.66%-1rem)] right-[calc(16.66%-1rem)] top-10 hidden h-px bg-gray-200 md:block"></div>
 
-            {steps.map((step, i) => (
+            {steps.map((step, index) => (
               <div
                 key={step.num}
-                className="bg-white rounded-2xl border border-gray-200 p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] relative z-10"
+                className="relative z-10 rounded-2xl border border-gray-200 bg-white p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]"
               >
-                <div className="flex items-center gap-3 mb-5">
+                <div className="mb-5 flex items-center gap-3">
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0 ${
-                      i === 0 ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-500"
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                      index === 0
+                        ? "bg-gray-900 text-white"
+                        : "bg-gray-100 text-gray-500"
                     }`}
                   >
                     {step.num}
                   </div>
-                  <span className="text-xs font-semibold text-[#f43f5e] uppercase tracking-wider">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-[#f43f5e]">
                     {step.time}
                   </span>
                 </div>
-                <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+                <h3 className="mb-2 text-lg font-bold text-gray-900">
+                  {step.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-gray-500">
+                  {step.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Case Studies ── */}
-      <section className="mb-32">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="mb-24 sm:mb-32">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Что происходит после{" "}
-              <span className="text-[#f43f5e]">запуска сайта</span>
+            <h2 className="text-3xl font-bold text-gray-900 lg:text-4xl">
+              Как сайт{" "}
+              <span className="text-[#f43f5e]">меняет бизнес на практике</span>
             </h2>
-            <div className="border-l-2 border-[#f43f5e] pl-4">
-              <p className="text-gray-500">
-                Реальные кейсы из ниш, где клиенты принимают решение онлайн.
-              </p>
-            </div>
+            <p className="mt-3 max-w-2xl text-gray-500">
+              Кейсы из сфер, где клиент принимает решение онлайн и должен быстро
+              понять, кому доверять.
+            </p>
           </div>
 
           <div className="space-y-8">
-            {caseStudies.map((cs, idx) => (
+            {caseStudies.map((item, index) => (
               <article
-                key={cs.business}
-                className={`bg-white rounded-2xl ${idx === 0 ? "border-2" : "border"} border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden`}
+                key={item.business}
+                className={`overflow-hidden rounded-2xl border bg-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] ${
+                  index === 0
+                    ? "border-2 border-gray-900/10"
+                    : "border-gray-200"
+                }`}
               >
                 <div className="flex flex-col md:flex-row">
-                  {/* Left: Content */}
-                  <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-200">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
-                        0{idx + 1}
+                  <div className="border-b border-gray-200 p-7 md:w-3/5 md:border-b-0 md:border-r md:p-8">
+                    <div className="mb-5 flex items-center gap-3">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                        0{index + 1}
                       </span>
-                      <h3 className="text-xl font-bold">{cs.business}</h3>
-                    </div>
-                    <div className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-semibold rounded mb-6">
-                      {cs.meta}
+                      <div>
+                        <h3 className="text-xl font-bold text-gray-900">
+                          {item.business}, {item.meta}
+                        </h3>
+                      </div>
                     </div>
 
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">
-                        Ситуация:
-                      </h4>
-                      <p className="text-sm text-gray-900 leading-relaxed">{cs.situation}</p>
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-500">
+                        До
+                      </p>
+                      <p className="text-sm leading-relaxed text-gray-900">
+                        {item.before}
+                      </p>
                     </div>
 
                     <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">
-                        Что сделали:
-                      </h4>
+                      <p className="mb-3 text-xs font-bold uppercase tracking-wider text-gray-500">
+                        Что сделали
+                      </p>
                       <ul className="space-y-2 text-sm text-gray-900">
-                        {cs.changes.map((c) => (
-                          <li key={c} className="flex items-start gap-2">
-                            <ArrowRight className="h-4 w-4 text-[#f43f5e] shrink-0 mt-0.5" />
-                            <span>{c}</span>
+                        {item.changes.map((change) => (
+                          <li key={change} className="flex items-start gap-2">
+                            <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-[#f43f5e]" />
+                            <span>{change}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   </div>
 
-                  {/* Right: Results */}
-                  <div className="p-8 md:w-1/3 bg-[#fafafa] flex flex-col justify-center space-y-6">
-                    {cs.results.map((r, rIdx) => (
-                      <div key={r.label}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs text-gray-500">{r.label}</span>
-                          <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded">
-                            {r.delta}
-                          </span>
+                  <div className="grid gap-4 bg-[#fafafa] p-7 md:w-2/5 md:p-8">
+                    {item.results.map((result) => (
+                      <div
+                        key={result.label}
+                        className="rounded-xl border border-gray-200 bg-white px-4 py-5"
+                      >
+                        <div className="text-2xl font-bold text-gray-900">
+                          {result.value}
                         </div>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-sm text-gray-400 line-through">{r.before}</span>
-                          <ArrowRight className="h-3 w-3 text-gray-400" />
-                          <span className="text-xl font-bold">{r.after}</span>
+                        <div className="mt-1 text-sm leading-relaxed text-gray-500">
+                          {result.label}
                         </div>
-                        {rIdx < cs.results.length - 1 && (
-                          <div className="h-px bg-gray-200 w-full mt-6"></div>
-                        )}
                       </div>
                     ))}
                   </div>
@@ -600,39 +760,47 @@ export default function LPV3Client() {
         </div>
       </section>
 
-      {/* ── Testimonials ── */}
-      <section className="mb-32">
+      <section className="mb-24 sm:mb-32">
         <div className={shell}>
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-            <h2 className="text-3xl font-bold">
-              Что <span className="text-[#f43f5e]">говорят</span> клиенты
-            </h2>
-            <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-full border border-gray-200 shadow-sm">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">
+                Что <span className="text-[#f43f5e]">говорят</span> клиенты
+              </h2>
+              <p className="mt-2 text-gray-500">
+                Отзывы клиентов после запуска сайта
+              </p>
+            </div>
+            <div className="flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 shadow-sm">
               <span className="font-bold">5.0</span>
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-              <span className="text-xs text-gray-500 ml-1">40+ проектов</span>
+              <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+              <span className="ml-1 text-xs text-gray-500">40+ проектов</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonials.map((t) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            {testimonials.map((item) => (
               <div
-                key={t.author}
-                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] flex flex-col h-full"
+                key={item.author}
+                className="flex h-full flex-col rounded-2xl border border-gray-200 bg-white p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]"
               >
-                <div className="flex gap-1 text-yellow-400 mb-4">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-3.5 h-3.5 fill-yellow-400" />
+                <div className="mb-4 flex gap-1 text-yellow-400">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <Star key={star} className="h-3.5 w-3.5 fill-yellow-400" />
                   ))}
                 </div>
-                <p className="text-gray-900 mb-8 flex-grow">&laquo;{t.quote}&raquo;</p>
-                <div className="flex items-center gap-4 mt-auto pt-6 border-t border-gray-200">
-                  <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
-                    {t.initial}
+                <p className="mb-8 flex-grow text-gray-900">
+                  &laquo;{item.quote}&raquo;
+                </p>
+                <div className="mt-auto flex items-center gap-4 border-t border-gray-200 pt-6">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                    {item.initial}
                   </div>
                   <div>
-                    <p className="font-bold text-sm">{t.author}</p>
-                    <p className="text-xs text-gray-500">{t.business}</p>
+                    <p className="text-sm font-bold text-gray-900">
+                      {item.author}
+                    </p>
+                    <p className="text-xs text-gray-500">{item.details}</p>
                   </div>
                 </div>
               </div>
@@ -641,19 +809,23 @@ export default function LPV3Client() {
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section className="mb-32">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold mb-8">Частые вопросы</h2>
+      <section className="mb-24 sm:mb-32">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-3 text-2xl font-bold text-gray-900">
+            Частые вопросы
+          </h2>
+          <p className="mb-8 text-sm text-gray-500">
+            Сначала показываем демо, потом вы решаете, нужно ли продолжать.
+          </p>
           <div className="space-y-4">
             {faqItems.map((item) => (
               <details
                 key={item.q}
-                className="group bg-white rounded-xl border border-gray-200 hover:border-[#f43f5e]/30 transition-colors overflow-hidden"
+                className="group overflow-hidden rounded-xl border border-gray-200 bg-white transition-colors hover:border-[#f43f5e]/30"
               >
                 <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 font-medium text-gray-900 marker:content-none">
                   {item.q}
-                  <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#f43f5e] opacity-70 group-hover:opacity-100 transition-all group-open:rotate-90" />
+                  <ArrowRight className="h-4 w-4 flex-shrink-0 text-[#f43f5e] opacity-70 transition-all group-open:rotate-90 group-hover:opacity-100" />
                 </summary>
                 <div className="border-t border-gray-200 px-5 py-4 text-sm leading-relaxed text-gray-500">
                   {item.a}
@@ -664,66 +836,103 @@ export default function LPV3Client() {
         </div>
       </section>
 
-      {/* ── Final CTA ── */}
-      <section className="pb-20 relative">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="absolute inset-0 bg-[#f43f5e] translate-y-4 rounded-[2rem] -z-10 mx-4 sm:mx-6 lg:mx-8"></div>
+      <section className="relative pb-20">
+        <div className="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 -z-10 translate-y-4 rounded-[2rem] bg-[#f43f5e] sm:mx-6 lg:mx-8"></div>
 
-          <div className="bg-white rounded-[2rem] p-12 md:p-16 text-center border border-gray-200 shadow-2xl relative overflow-hidden">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-50 border border-amber-200 text-amber-800 text-xs font-semibold rounded-full mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-              Свободно 3 слота на следующей неделе
+          <div className="relative overflow-hidden rounded-[2rem] border border-gray-200 bg-white p-10 text-center shadow-2xl sm:p-12 md:p-16">
+            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-xs font-semibold text-amber-800">
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500"></span>
+              На следующей неделе доступно 3 демо-слота
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-              Хотите понять,<br />
-              <span className="text-[#f43f5e]">сколько вы теряете?</span>
+
+            <h2 className="mb-6 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl">
+              Покажем демо сайта
+              <br />
+              <span className="text-[#f43f5e]">под ваш бизнес за 48 часов</span>
             </h2>
-            <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10">
-              Разберём за 20 минут — бесплатно. Покажем конкретно, где уходят клиенты и что с этим сделать.
+
+            <p className="mx-auto mb-10 max-w-2xl text-lg text-gray-500">
+              Короткий созвон — и через 48 часов вы получите рабочее демо сайта
+              без оплаты и без обязательств.
             </p>
 
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
+            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
               <button
                 type="button"
                 onClick={scrollToForm}
-                className={`w-full sm:w-auto ${primaryBtn} text-lg px-10`}
+                className={`w-full text-lg sm:w-auto ${primaryBtn}`}
               >
-                Получить разбор бесплатно
+                Получить демо сайта
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
-              <span className="text-gray-400 hidden sm:inline">или</span>
               <a
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e] sm:text-base"
               >
-                напишите в WhatsApp
+                или напишите в WhatsApp
               </a>
+            </div>
+
+            <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs text-gray-500">
+              {[
+                "Без оплаты",
+                "Без обязательств",
+                "Если не понравится — ничего не платите",
+              ].map((item) => (
+                <span
+                  key={item}
+                  className="rounded-full border border-gray-200 bg-[#fafafa] px-3 py-1.5"
+                >
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="border-t border-gray-200 py-8 bg-white mt-20">
+      <footer className="mt-20 border-t border-gray-200 bg-white py-8">
         <div
-          className={`${shell} flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400`}
+          className={`${shell} flex flex-col items-center justify-between gap-4 text-xs text-gray-400 sm:flex-row`}
         >
-          <Link href="/" className="font-bold text-sm text-gray-900">
+          <Link href="/" className="text-sm font-bold text-gray-900">
             Halo<span className="text-[#f43f5e]">Agency</span>
           </Link>
           <div className="flex gap-6">
-            <Link href="/privacy-policy" className="hover:text-gray-600 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="transition-colors hover:text-gray-600"
+            >
               Политика конфиденциальности
             </Link>
-            <Link href="/terms-of-service" className="hover:text-gray-600 transition-colors">
+            <Link
+              href="/terms-of-service"
+              className="transition-colors hover:text-gray-600"
+            >
               Условия использования
             </Link>
           </div>
           <span>© 2026 HaloAgency.cz</span>
         </div>
       </footer>
+
+      <div
+        className={`fixed left-0 right-0 z-50 border-t border-[#f43f5e]/20 bg-white/95 p-3 backdrop-blur-md transition-transform duration-300 lg:hidden ${
+          hasCookieChoice ? "bottom-0" : "bottom-28"
+        } ${showSticky && !submitSuccess ? "translate-y-0" : "translate-y-full"}`}
+      >
+        <button
+          type="button"
+          onClick={scrollToForm}
+          className="flex w-full items-center justify-center rounded-xl bg-[#f43f5e] py-3.5 font-bold text-white shadow-lg transition-all hover:bg-[#e11d48]"
+        >
+          Получить демо сайта
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </button>
+      </div>
     </main>
   );
 }

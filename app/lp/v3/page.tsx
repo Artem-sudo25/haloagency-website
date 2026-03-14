@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import LPV3Client from "./LPV3Client";
 
 export const metadata: Metadata = {
-  title: "Нет сайта? Вы каждый день теряете клиентов | HaloAgency",
+  title: "Бесплатное демо сайта за 48 часов | HaloAgency",
   description:
-    "Сайт — это точка принятия решения. Разберём бесплатно, сколько клиентов вы теряете без него и что с этим сделать.",
+    "Короткий созвон — и через 48 часов покажем бесплатное демо сайта под ваш бизнес. Без оплаты, без обязательств, с понятным результатом.",
   robots: { index: false, follow: false },
 };
 
