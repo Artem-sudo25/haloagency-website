@@ -12,36 +12,72 @@ export async function POST(req: NextRequest) {
         }
 
         const body = await req.json();
-        const {
-            type,
-            session_id,
-            email,
-            ...formData
-        } = body;
+        const { type, phone, email, name, ...formData } = body;
         const normalizedSource =
             typeof body.source === "string" && body.source.trim().length > 0
                 ? body.source
                 : "haloagency_website";
 
-        // Basic validation
-        if (!type || !email) {
+        // Basic validation — phone is the primary identifier, email is optional
+        const contactIdentifier = phone || email;
+        if (!type || !contactIdentifier) {
             return NextResponse.json(
-                { success: false, error: "Missing required fields: type or email" },
+                { success: false, error: "Missing required fields: type and phone (or email)" },
                 { status: 400 }
             );
         }
 
+        // --- 1. Email Notification to Admin (Primary) ---
+        const resendApiKey = process.env.RESEND_API_KEY;
+        const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
+        let emailPromise = Promise.resolve();
+
+        if (resendApiKey && adminEmail) {
+            const resend = new Resend(resendApiKey);
+            const timestamp = new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' });
+
+            const emailContent = `
+                <h1>📞 Новая заявка на разбор</h1>
+                <table style="border-collapse:collapse;width:100%;max-width:500px;">
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Имя</td><td style="padding:8px;border-bottom:1px solid #eee;">${name || "—"}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Телефон</td><td style="padding:8px;border-bottom:1px solid #eee;"><a href="tel:${phone}">${phone || "—"}</a></td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Сайт / Instagram</td><td style="padding:8px;border-bottom:1px solid #eee;">${formData.websiteOrProfile || "—"}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Тип</td><td style="padding:8px;border-bottom:1px solid #eee;">${type}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Источник</td><td style="padding:8px;border-bottom:1px solid #eee;">${normalizedSource}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;">Время</td><td style="padding:8px;">${timestamp}</td></tr>
+                </table>
+            `;
+
+            const subjectLabel = name ? `${name} (${phone})` : phone;
+
+            emailPromise = resend.emails.send({
+                from: "HaloAgency Lead <leads@haloagency.cz>",
+                to: adminEmail,
+                subject: `📞 Новая заявка: ${subjectLabel}`,
+                html: emailContent
+            }).then(({ data, error }) => {
+                if (error) {
+                    console.error("Email notification failed (API Error):", error);
+                    return null;
+                }
+                console.log("Email notification sent:", data?.id);
+                return data;
+            }).catch(err => {
+                console.error("Email notification failed (Network Error):", err);
+                return null;
+            }) as any;
+        } else {
+            console.error("RESEND_API_KEY or ADMIN_NOTIFICATION_EMAIL is not defined");
+        }
+
+        // --- 2. Send to n8n (Optional Automation) ---
+        let n8nPromise = Promise.resolve(new Response(JSON.stringify({ skipped: true }), { status: 200 }));
         const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 
-        // --- 1. Send to n8n (Primary Automation) ---
-        let n8nPromise = Promise.resolve(new Response(JSON.stringify({ skipped: true }), { status: 200 }));
-
         if (n8nWebhookUrl) {
-            // Construct the payload
-            const timestamp = new Date().toISOString();
             const payload = {
                 ...body,
-                timestamp,
+                timestamp: new Date().toISOString(),
                 source: normalizedSource,
             };
 
@@ -50,11 +86,9 @@ export async function POST(req: NextRequest) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
             });
-        } else {
-            console.error("N8N_WEBHOOK_URL is not defined");
         }
 
-        // --- 2. Send to HaloTrack (Attribution / Dashboard) ---
+        // --- 3. Send to HaloTrack (Attribution / Dashboard) ---
         const halotrackDomain = process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN;
         let halotrackPromise = Promise.resolve();
 
@@ -76,18 +110,18 @@ export async function POST(req: NextRequest) {
             } = body;
 
             const halotrackPayload = {
-                lead_id: lead_id || crypto.randomUUID(), // Use provided ID or generate matched ID for tracking
+                lead_id: lead_id || crypto.randomUUID(),
                 source: source || normalizedSource,
-                form_type: type, // e.g. 'growth-plan'
-                email: email || contact, // Normalized email
+                form_type: type,
+                email: email || contact || "",
                 name: name || "",
                 phone: phone || "",
-                message: message || JSON.stringify(extras), // Use message or stringified extras
+                message: message || JSON.stringify(extras),
                 session_id: session_id,
                 consent_given: consent_given ?? true,
                 lead_value: Number.isFinite(Number(value)) ? Number(value) : 0,
                 currency: typeof currency === "string" && currency ? currency : "CZK",
-                custom_fields: extras // All rich data (goals, business type, etc.)
+                custom_fields: extras
             };
 
             const protocol = halotrackDomain.startsWith('localhost') ? 'http' : 'https';
@@ -103,63 +137,17 @@ export async function POST(req: NextRequest) {
                 return res;
             }).catch(err => {
                 console.error("HaloTrack push error:", err);
-                return null; // Don't fail the written response
-            }) as any;
-        }
-
-        // --- 3. Backup Email to Admin (Safety Net) ---
-        const resendApiKey = process.env.RESEND_API_KEY;
-        const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
-        let backupEmailPromise = Promise.resolve();
-
-        if (resendApiKey && adminEmail) {
-            const resend = new Resend(resendApiKey);
-
-            const emailContent = `
-                <h1>New Lead Received</h1>
-                <p><strong>Type:</strong> ${type}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Timestamp:</strong> ${new Date().toLocaleString('cs-CZ', { timeZone: 'Europe/Prague' })}</p>
-                <h3>Details:</h3>
-                <pre>${JSON.stringify(formData, null, 2)}</pre>
-            `;
-
-            backupEmailPromise = resend.emails.send({
-                from: "HaloAgency Lead <leads@haloagency.cz>",
-                to: adminEmail,
-                subject: `🔔 New Lead: ${type} (${email})`,
-                replyTo: email, // Allow reply directly to lead
-                html: emailContent
-            }).then(({ data, error }) => {
-                if (error) {
-                    console.error("Backup email failed (API Error):", error);
-                    return null;
-                }
-                console.log("Backup email sent:", data?.id);
-                return data;
-            }).catch(err => {
-                console.error("Backup email failed (Network Error):", err);
                 return null;
             }) as any;
         }
 
         // Await all services
-        // We prioritise n8n success for the response status, but we ensure backup email is attempted
-        const [n8nResponse] = await Promise.all([n8nPromise, halotrackPromise, backupEmailPromise]);
+        const [emailResult, n8nResponse] = await Promise.all([emailPromise, n8nPromise, halotrackPromise]);
 
+        // Log n8n failure but don't block the response (email is primary)
         if (n8nWebhookUrl && !n8nResponse.ok) {
             const errorText = await n8nResponse.text().catch(() => "No error details");
             console.error(`n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`, errorText);
-
-            // Note: We return error even if backup email succeeded, because the primary automation failed.
-            // But at least you have the email!
-            return NextResponse.json(
-                {
-                    success: false,
-                    error: `Workflow Error (${n8nResponse.status}): ${errorText.substring(0, 100)}`
-                },
-                { status: n8nResponse.status }
-            );
         }
 
         return NextResponse.json({ success: true, message: "Lead processed" });

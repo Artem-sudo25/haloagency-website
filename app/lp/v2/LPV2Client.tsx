@@ -1,8 +1,9 @@
 "use client";
 
 import { Inter } from "next/font/google";
+import Image from "next/image";
 import Link from "next/link";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { ArrowRight, Phone, Star } from "lucide-react";
 
 const inter = Inter({
@@ -19,62 +20,65 @@ const primaryBtn =
 /* ─── Data ─── */
 const caseStudies = [
   {
-    business: "Салон лазерной эпиляции, Прага 3",
-    context: "3 кабинета • запись через сайт",
-    meta: "55 000 CZK/мес · Meta Ads · 45 дней",
+    business: "Интернет-магазин товаров для праздника",
+    context: "шары с гелием и декор • доставка по Праге",
     situation:
-      "Стоимость заявки — 1 420 CZK, 38 заявок в месяц. Часть событий терялась после iOS-ограничений: Meta видела меньше конверсий, алгоритм оптимизировался по неполным данным.",
+      "Реклама уже была запущена, но кампании работали нестабильно — стоимость продаж сильно колебалась, а часть бюджета уходила в менее эффективные аудитории.",
     changes: [
-      "Настроили Meta CAPI и дедупликацию событий",
-      "Пересобрали структуру lead-кампаний",
-      "Обновили оффер и блоки доверия на лендинге",
+      "Пересобрали структуру рекламных кампаний",
+      "Настроили корректное отслеживание покупок",
+      "Разделили холодный трафик и ретаргетинг",
     ],
+    resultText:
+      "Реклама стала стабильнее масштабироваться без резкого роста стоимости продаж.",
     results: [
-      { label: "Стоимость заявки", before: "1 420", after: "820 CZK", delta: "−42%" },
-      { label: "Заявок в месяц", before: "38", after: "71", delta: "+87%" },
-      { label: "Стоимость записи", before: "2 630", after: "1 540 CZK", delta: "−41%" },
+      { label: "Возвратность рекламы", before: "3.3", value: "5.8", delta: "+76%" },
+      { label: "Стоимость продажи", before: "463", value: "229 CZK", delta: "−51%" },
+      { label: "Конверсии", value: "+35%" },
     ],
   },
   {
-    business: "Клининговый сервис, Прага",
-    context: "5 сотрудников • заявки через звонки и сайт",
-    meta: "80 000 CZK/мес · Google Ads · 60 дней",
+    business: "Груминг салон, Прага",
+    context: "салон для собак и кошек • запись по времени",
     situation:
-      "Дорогие нерелевантные звонки, цена заявки 1 950 CZK. Call-tracking отсутствовал — было невозможно понять, какие кампании приводят реальных клиентов, а какие — случайные звонки.",
+      "Салон привлекал клиентов в основном через Instagram и рекомендации. Реклама запускалась, но вела людей просто в профиль — часть пользователей смотрела страницу, но не доходила до записи. Не было понятного пути записи и невозможно было оценить эффективность рекламы.",
     changes: [
-      "Поставили call-tracking через GA4 и GTM",
-      "Разделили Search по услугам и районам",
-      "Добавили минус-слова, улучшили посадочные страницы",
+      "Сделали простую страницу с услугами, ценами и примерами работ",
+      "Настроили рекламу в Meta с переходом на запись",
+      "Настроили отслеживание заявок и сообщений",
     ],
+    resultText:
+      "Количество записей из рекламы выросло, а стоимость привлечения клиента снизилась.",
     results: [
-      { label: "Квалифицированных заявок", before: "29", after: "54/мес", delta: "+86%" },
-      { label: "Цена заявки", before: "1 950", after: "1 130 CZK", delta: "−42%" },
-      { label: "Нерелевантные звонки", before: "34%", after: "12%", delta: "−65%" },
+      { label: "Рост количества записей", value: "+55%" },
+      { label: "Стоимость продажи", before: "630", value: "280 CZK", delta: "−56%" },
+      { label: "Доля новых клиентов из рекламы", value: "+40%" },
     ],
   },
   {
-    business: "Интернет-магазин косметики, Чехия",
-    context: "~150 товаров • Meta + Google Shopping",
-    meta: "120 000 CZK/мес · Meta + Shopping · 30 дней",
+    business: "Студия дизайна штор, Прага",
+    context: "частные интерьеры • индивидуальный пошив",
     situation:
-      "ROAS 1.8, дубли Purchase-событий. Решения принимались по искажённой аналитике: реальная картина по марже и источникам была скрыта за некорректными данными.",
+      "Основной поток клиентов приходил через рекомендации и Instagram. Реклама запускалась нерегулярно, а заявки приходили хаотично — было сложно планировать замеры и загрузку.",
     changes: [
-      "Перешли на server-side tracking",
-      "Починили value/currency и дедупликацию Purchase",
-      "Сегментировали фид по марже, оптимизировали PDP и checkout",
+      "Создали понятную страницу с услугами, примерами работ и формой заявки",
+      "Настроили рекламу в Google и Meta для привлечения новых клиентов",
+      "Настроили отслеживание заявок",
     ],
+    resultText:
+      "Заявки начали приходить регулярно через сайт, а не только через личные сообщения. Стало проще планировать замеры и загрузку.",
     results: [
-      { label: "ROAS", before: "1.8", after: "3.1", delta: "+72%" },
-      { label: "Стоимость заказа", before: "520", after: "360 CZK", delta: "−31%" },
-      { label: "Выручка", before: "база", after: "+72%", delta: "при +18% расхода" },
+      { label: "Основные источники клиентов", value: "Google + Meta" },
+      { label: "Рост количества заявок", value: "+65%" },
+      { label: "Средний бюджет проекта", value: "~35-60 тыс Kč" },
     ],
   },
 ];
 
 const faqItems = [
   {
-    q: "Подойдёт ли разбор, если трекинг вообще не настроен?",
-    a: "Да. Это частая ситуация. Разберём что именно нужно настроить в первую очередь и пришлём приоритеты в PDF.",
+    q: "Подойдёт ли разбор, если у меня нет сайта?",
+    a: "Да, подойдёт, и на самом деле это даже очень частая ситуация. Многие локальные бизнесы в Чехии работают без сайта вообще.",
   },
   {
     q: "Можно взять рекомендации и внедрять самостоятельно?",
@@ -95,19 +99,19 @@ const testimonials = [
     quote: "Заказал аудит контекстной рекламы. Выяснилось, что кампании велись пассивно и почти не тестировались. После внедрения рекомендаций расходы на рекламу снизились, а окупаемость выросла более чем в 2 раза.",
     author: "Алексей Р.",
     business: "Интернет-магазин, Прага",
-    initial: "А",
+    initial: "АР",
   },
   {
     quote: "Работали только через Instagram и запускали рекламу на профиль. Сначала помогли настроить рекламу в форму заявки, позже сделали простую посадочную страницую. Поток заявок заметно вырос — запись теперь заполнена примерно на месяц вперёд.",
     author: "Виктория Б.",
     business: "Бьюти Салон, Брно",
-    initial: "M",
+    initial: "ВБ",
   },
   {
-    quote: "Думали, что проблема в рекламе, но аудит показал, что не продаёт сама посадочная страница — предложение было неясныи, а форма заявки спрятана. После изменения структуры страницы и усиления призыва к действию количество заявок заметно выросло.",
+    quote: "Думали, что проблема в рекламе, но аудит показал, что не продаёт сам веб-сайт — предложение было неясныи, а форма заявки спрятана. После изменения структуры страницы и усиления призыва к действию количество заявок заметно выросло.",
     author: "Роман Г.",
     business: "Прачечная, Прага",
-    initial: "И",
+    initial: "РГ",
   },
 ];
 
@@ -115,8 +119,6 @@ const testimonials = [
 type FormValues = {
   name: string;
   websiteOrProfile: string;
-  monthlyBudget: string;
-  email: string;
   phone: string;
   consent: boolean;
 };
@@ -127,8 +129,6 @@ export default function LPV2Client() {
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
-    monthlyBudget: "",
-    email: "",
     phone: "",
     consent: false,
   });
@@ -136,7 +136,6 @@ export default function LPV2Client() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
   const scrollToForm = () => {
     document.getElementById("v2-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -145,10 +144,7 @@ export default function LPV2Client() {
   const validate = () => {
     const e: FormErrors = {};
     if (!values.name.trim()) e.name = "Укажите ваше имя";
-    if (!values.websiteOrProfile.trim()) e.websiteOrProfile = "Укажите сайт или Instagram";
-    if (!values.monthlyBudget.trim()) e.monthlyBudget = "Укажите рекламный бюджет";
-    if (!values.email.trim() || !emailRegex.test(values.email.trim()))
-      e.email = "Укажите корректный email";
+    if (!values.phone.trim()) e.phone = "Укажите телефон для связи";
     if (!values.consent) e.consent = "Нужно согласие на обработку данных";
     setErrors(e);
     return Object.keys(e).length === 0;
@@ -160,6 +156,7 @@ export default function LPV2Client() {
     if (!validate()) return;
     setIsSubmitting(true);
     try {
+      const leadId = crypto.randomUUID();
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
@@ -168,13 +165,12 @@ export default function LPV2Client() {
         },
         body: JSON.stringify({
           type: "growth-audit-v2",
-          lead_id: crypto.randomUUID(),
+          lead_id: leadId,
           source: "lp_v2",
           landing_page_type: "v2",
           name: values.name.trim(),
-          email: values.email.trim(),
-          websiteOrProfile: values.websiteOrProfile.trim(),
-          monthlyBudget: values.monthlyBudget.trim(),
+          phone: values.phone.trim(),
+          websiteOrProfile: values.websiteOrProfile.trim() || undefined,
           service: "Free Growth Audit",
           value: 0,
           currency: "CZK",
@@ -186,8 +182,30 @@ export default function LPV2Client() {
         const d = await res.json().catch(() => ({ error: "Ошибка отправки" }));
         throw new Error(d.error || "Ошибка отправки");
       }
+
+      // Facebook Pixel — Lead event
+      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "Lead", {
+          content_name: "growth_audit_v2",
+          currency: "CZK",
+          value: 0,
+        }, { eventID: leadId });
+      }
+
+      // Google Ads / GTM — dataLayer push
+      if (typeof window !== "undefined") {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "generate_lead_v2",
+          eventID: leadId,
+          user_data: {
+            phone_number: values.phone.trim(),
+          },
+        });
+      }
+
       setSubmitSuccess(true);
-      setValues({ name: "", websiteOrProfile: "", monthlyBudget: "", email: "", phone: "", consent: false });
+      setValues({ name: "", websiteOrProfile: "", phone: "", consent: false });
       setErrors({});
     } catch (err) {
       setSubmitError(
@@ -272,7 +290,7 @@ export default function LPV2Client() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <a
-                href="https://wa.me/420705729502"
+                href="https://wa.me/420705729502?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%80%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D1%8B."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-2 decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
@@ -283,10 +301,16 @@ export default function LPV2Client() {
             <p className="text-sm text-gray-400 mb-10">Без обязательств работать с нами</p>
 
             <div className="flex items-center gap-4">
-              <div className="flex -space-x-3">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className={`w-10 h-10 rounded-full bg-gray-200 border-2 border-[#fafafa] ${i > 1 ? `opacity-${i === 2 ? 80 : 60}` : ''}`}></div>
-                ))}
+              <div className="flex items-center -space-x-2">
+                <div className="w-10 h-10 rounded-full border-2 border-[#fafafa] overflow-hidden">
+                  <Image src="/victoria-drapes.png" alt="Виктория" width={40} height={40} className="object-cover w-full h-full" />
+                </div>
+                <div className="w-10 h-10 rounded-full bg-white border-2 border-[#fafafa] overflow-hidden flex items-center justify-center z-10">
+                  <Image src="/logo_nejbalonky.webp" alt="NejBalonky" width={36} height={36} className="object-contain" />
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-[#fafafa] overflow-hidden">
+                  <Image src="/alex-grooming.png" alt="Алексей" width={40} height={40} className="object-cover w-full h-full" />
+                </div>
               </div>
               <p className="text-sm text-gray-500 font-medium">
                 <span className="font-bold text-gray-900">90+</span> аудитов рекламы и сайтов для бизнеса в Чехии
@@ -310,7 +334,7 @@ export default function LPV2Client() {
 
               {submitSuccess && (
                 <div className="mt-5 rounded-lg border border-green-300 bg-green-50 p-4 text-sm font-medium text-green-800">
-                  Заявка отправлена. Напишем на email в течение 2 рабочих часов.
+                  Заявка отправлена. Перезвоним в течение 20 минут в рабочее время.
                 </div>
               )}
               {submitError && (
@@ -481,68 +505,86 @@ export default function LPV2Client() {
             </h2>
             <div className="border-l-2 border-[#f43f5e] pl-4">
               <p className="text-gray-500">
-                Примеры из ниш, где важна стоимость заявки, а не просто пустой трафик.
+                Примеры проектов, где важен результат — заявки, продажи и окупаемость рекламы.
               </p>
             </div>
           </div>
 
-          <div className="space-y-8 mb-6">
+          <div className="space-y-10 mb-6">
             {caseStudies.map((cs, idx) => (
               <article
                 key={cs.business}
-                className={`bg-white rounded-2xl ${idx === 0 ? 'border-2' : 'border'} border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden`}
+                className={`bg-white rounded-2xl border ${idx === 0 ? 'border-[#f43f5e]/30 shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)]' : 'border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]'} overflow-hidden`}
               >
+                {/* Card header */}
+                <div className={`px-8 py-5 border-b ${idx === 0 ? 'bg-gradient-to-r from-[#f43f5e]/[0.04] to-transparent border-[#f43f5e]/10' : 'bg-gray-50/80 border-gray-100'}`}>
+                  <div className="flex items-center gap-3">
+                    <span className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${idx === 0 ? 'bg-[#f43f5e] text-white' : 'bg-gray-900 text-white'}`}>
+                      0{idx + 1}
+                    </span>
+                    <div>
+                      <h3 className="text-lg font-bold leading-tight">{cs.business}</h3>
+                      <p className="text-xs text-gray-500 mt-0.5">{cs.context}</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex flex-col md:flex-row">
                   {/* Left: Content */}
-                  <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-200">
-                    <div className="flex items-center gap-3 mb-1">
-                      <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
-                        0{idx + 1}
-                      </span>
-                      <h3 className="text-xl font-bold">{cs.business}</h3>
-                    </div>
-                    <p className="text-sm text-gray-500 ml-11 mb-4">{cs.context}</p>
-                    <div className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-semibold rounded mb-6">
-                      {cs.meta}
-                    </div>
-
+                  <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-100">
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Ситуация:</h4>
-                      <p className="text-sm text-gray-900 leading-relaxed">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Ситуация</h4>
+                      <p className="text-sm text-gray-700 leading-relaxed">
                         {cs.situation}
                       </p>
                     </div>
 
-                    <div>
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-500 mb-3">Что изменили:</h4>
-                      <ul className="space-y-2 text-sm text-gray-900">
+                    <div className="h-px bg-gray-100 mb-6"></div>
+
+                    <div className="mb-6">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Что сделали</h4>
+                      <ul className="space-y-2.5 text-sm text-gray-900">
                         {cs.changes.map((c) => (
-                          <li key={c} className="flex items-start gap-2">
-                            <ArrowRight className="h-4 w-4 text-[#f43f5e] shrink-0 mt-0.5" />
+                          <li key={c} className="flex items-start gap-2.5">
+                            <span className="w-5 h-5 rounded-full bg-[#f43f5e]/10 flex items-center justify-center shrink-0 mt-0.5">
+                              <ArrowRight className="h-3 w-3 text-[#f43f5e]" />
+                            </span>
                             <span>{c}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
+
+                    <div className="h-px bg-gray-100 mb-6"></div>
+
+                    <div className="border-l-3 border-green-500 pl-4 py-1 bg-green-50/50 rounded-r-lg">
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-green-700 mb-1.5">Результат</h4>
+                      <p className="text-sm text-gray-900 leading-relaxed font-medium">
+                        {cs.resultText}
+                      </p>
+                    </div>
                   </div>
 
-                  {/* Right: Results */}
-                  <div className="p-8 md:w-1/3 bg-[#fafafa] flex flex-col justify-center space-y-6">
+                  {/* Right: Metrics */}
+                  <div className="p-8 md:w-1/3 bg-gray-50 flex flex-col justify-center space-y-0">
                     {cs.results.map((r, rIdx) => (
-                      <div key={r.label}>
-                        <div className="flex justify-between items-center mb-1">
-                          <span className="text-xs text-gray-500">{r.label}</span>
-                          <span className="px-2 py-0.5 bg-green-100 text-green-800 text-xs font-bold rounded">
-                            {r.delta}
-                          </span>
+                      <div key={r.label} className={`${rIdx > 0 ? 'border-t border-gray-200 pt-5 mt-5' : ''}`}>
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-xs text-gray-500 uppercase tracking-wide">{r.label}</span>
+                          {r.delta && (
+                            <span className="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
+                              {r.delta}
+                            </span>
+                          )}
                         </div>
-                        <div className="flex items-baseline gap-2">
-                          <span className="text-sm text-gray-400 line-through">{r.before}</span>
-                          <ArrowRight className="h-3 w-3 text-gray-400" />
-                          <span className="text-xl font-bold">{r.after}</span>
-                        </div>
-                        {rIdx < cs.results.length - 1 && (
-                          <div className="h-px bg-gray-200 w-full mt-6"></div>
+                        {r.before ? (
+                          <div className="flex items-baseline gap-2">
+                            <span className="text-sm text-gray-400 line-through">{r.before}</span>
+                            <ArrowRight className="h-3 w-3 text-gray-400" />
+                            <span className="text-2xl font-bold text-gray-900">{r.value}</span>
+                          </div>
+                        ) : (
+                          <span className="text-2xl font-bold text-gray-900">{r.value}</span>
                         )}
                       </div>
                     ))}
@@ -581,7 +623,7 @@ export default function LPV2Client() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <a
-                href="https://wa.me/420705729502"
+                href="https://wa.me/420705729502?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%80%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D1%8B."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
@@ -667,7 +709,7 @@ export default function LPV2Client() {
               </button>
               <span className="text-gray-400 hidden sm:inline">или</span>
               <a
-                href="https://wa.me/420705729502"
+                href="https://wa.me/420705729502?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D1%8B%D0%B9%20%D1%80%D0%B0%D0%B7%D0%B1%D0%BE%D1%80%20%D0%BE%D0%BD%D0%BB%D0%B0%D0%B9%D0%BD-%D1%80%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D1%8B."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
