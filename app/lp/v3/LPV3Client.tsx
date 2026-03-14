@@ -57,12 +57,6 @@ const steps = [
 
 const websiteExamples = [
   {
-    title: "Груминг салон",
-    feature: "онлайн запись",
-    image: "/images/case-studies/doggy-screenshot.png",
-    alt: "Пример сайта для груминг-салона",
-  },
-  {
     title: "Кафе",
     feature: "бронирование столиков",
     image: "/images/case-studies/catcafe-screenshot.png",
@@ -79,6 +73,12 @@ const websiteExamples = [
     feature: "Доставка и физический магазин",
     image: "/images/case-studies/nejbalonky-screenshot.png",
     alt: "Пример сайта для event-бизнеса",
+  },
+  {
+    title: "Груминг салон",
+    feature: "онлайн запись",
+    image: "/images/case-studies/doggy-screenshot.png",
+    alt: "Пример сайта для груминг-салона",
   },
   {
     title: "Услуги дизайнера",
