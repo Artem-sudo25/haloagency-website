@@ -60,7 +60,7 @@ const adsPackages = [
     ],
     note: "Для бизнеса, которому важно присутствие в нескольких источниках",
     highlight: true,
-    badge: "⭐ POPULAR",
+    badge: "Популярный",
     icon: Rocket,
   },
   {
@@ -440,9 +440,8 @@ export default function AdsPageClient() {
                     <Card className={`relative flex flex-col h-full transition-all duration-300 rounded-3xl ${pkg.highlight
                       ? "bg-[#1A1A1A] border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#FF3366] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#FF3366] lg:scale-105"
                       : "bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A]"
-                      } overflow-hidden`}>
-                      {pkg.highlight && <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#FF3366] to-pink-400" />}
-                      {pkg.badge && <div className="absolute top-4 right-4 bg-[#FF3366] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-lg">{pkg.badge}</div>}
+                      }`}>
+                      {pkg.badge && <div className="absolute -top-4 right-4 bg-[#FF3366] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-none border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] rotate-3 z-20 hover:rotate-6 transition-transform">{pkg.badge}</div>}
 
                       <CardHeader className="p-8 pb-3">
                         <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-4 ${pkg.highlight ? "bg-[#FF3366]/20 text-[#FF3366]" : "bg-[#FF3366]/10 text-[#FF3366]"}`}>

@@ -34,7 +34,7 @@ const webPackages = [
     id: "landing",
     title: "Landing Page",
     subtitle: "Идеально для запуска продукта",
-    price: "от 8,000 CZK",
+    price: "от 10,000 CZK",
     time: "от 3 дней",
     features: [
       "Продающая структура",
@@ -50,7 +50,7 @@ const webPackages = [
     id: "corporate",
     title: "Корпоративный",
     subtitle: "Многостраничный сайт для компании",
-    price: "от 15,000 CZK",
+    price: "от 16,000 CZK",
     time: "от 7 дней",
     features: [
       "До 10 страниц",
@@ -60,7 +60,7 @@ const webPackages = [
       "Адаптив под все устройства",
     ],
     highlight: true,
-    badge: "⭐ POPULAR",
+    badge: "Популярный",
     icon: Layout,
   },
   {
@@ -391,14 +391,10 @@ export default function WebPageClient() {
                       className={`relative flex flex-col h-full transition-all duration-300 rounded-3xl ${pkg.highlight
                         ? "bg-[#1A1A1A] border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#FF3366] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#FF3366] lg:scale-105"
                         : "bg-white border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A]"
-                        } overflow-hidden`}
+                        }`}
                     >
-                      {pkg.highlight && (
-                        <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-[#FF3366] to-pink-400"></div>
-                      )}
-
                       {pkg.badge && (
-                        <div className="absolute top-4 right-4 bg-[#FF3366] text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full shadow-lg">
+                        <div className="absolute -top-4 right-4 bg-[#FF3366] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-none border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] rotate-3 z-20 hover:rotate-6 transition-transform">
                           {pkg.badge}
                         </div>
                       )}
