@@ -14,7 +14,10 @@
       "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-screenshot.png)",
       "Bash(npx tsc --noEmit --strict false app/lp/v2/LPV2Client.tsx)",
       "Bash(npx next build --no-lint)",
-      "Bash(npx next build)"
+      "Bash(npx next build)",
+      "Bash(find /Users/artemhorvatsky/Documents/dev/haloagency-website -type f -name *v2*)",
+      "Bash(find /Users/artemhorvatsky/Documents/dev/haloagency-website/app/api -type f -name *.ts)",
+      "Bash(ls -la /Users/artemhorvatsky/Documents/dev/haloagency-website/.env*)"
     ],
     "deny": [],
     "ask": []

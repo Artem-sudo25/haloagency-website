@@ -106,23 +106,23 @@ const heroProofs = [
 const testimonials = [
   {
     quote:
-      "Раньше клиенты спрашивали цены в Instagram, и часть просто пропадала. После запуска сайта сами читают, понимают и записываются онлайн.",
+      "Раньше все клиенты писали нам в Instagram, спрашивали цены, и часть просто пропадала. Ребята показали демо сайта под наш салон — стало понятно, как можно нормально объяснить услуги и записываться онлайн. После запуска сайта люди сами читают и оставляют заявку.",
     author: "Анна В.",
-    details: "DoggyStyle, Прага · сайт + онлайн-запись",
+    details: "Салон красоты, Прага",
     initial: "А",
   },
   {
     quote:
-      "Думал, что сайт будет долгим и дорогим проектом. Получили понятную структуру, запустились быстро и перевели большую часть заказов в онлайн.",
+      "Думал, что разработка сайта — это долгий и сложный проект. В итоге всё оказалось намного проще. Мы созвонились, через пару дней показали демо сайта под наш сервис. Стало понятно, как всё будет выглядеть, и мы спокойно решили запускать.",
     author: "Дмитрий К.",
-    details: "ProPradlo, Прага · лендинг + автоматизация",
+    details: "Прачечная B2B, Прага",
     initial: "Д",
   },
   {
     quote:
-      "Наконец-то стало куда вести трафик. После нормальной точки входа реклама начала работать заметно лучше, а бронирование перестало висеть на звонках.",
+      "Понравился подход: сначала показали демо сайта под наш бизнес, без давления и продаж. Мы посмотрели, обсудили правки и только потом решили делать полноценный сайт. В итоге получили понятную страницу, куда теперь ведём рекламу.",
     author: "Катерина М.",
-    details: "GetCafe, Прага · сайт + бронирование",
+    details: "Кафе, Прага",
     initial: "К",
   },
 ];
@@ -191,9 +191,6 @@ export default function LPV3Client() {
     const nextErrors: FormErrors = {};
 
     if (!values.name.trim()) nextErrors.name = "Укажите ваше имя";
-    if (!values.websiteOrProfile.trim()) {
-      nextErrors.websiteOrProfile = "Добавьте Instagram или ссылку на сайт";
-    }
     if (!values.phone.trim()) {
       nextErrors.phone = "Укажите телефон для связи";
     }
@@ -228,7 +225,7 @@ export default function LPV3Client() {
           source: "lp_v3",
           landing_page_type: "v3",
           name: values.name.trim(),
-          websiteOrProfile: values.websiteOrProfile.trim(),
+          websiteOrProfile: values.websiteOrProfile.trim() || undefined,
           phone: values.phone.trim(),
           service: "Free Website Demo",
           value: 0,
@@ -243,6 +240,27 @@ export default function LPV3Client() {
           .json()
           .catch(() => ({ error: "Ошибка отправки" }));
         throw new Error(data.error || "Ошибка отправки");
+      }
+
+      // Facebook Pixel — Lead event
+      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
+        (window as any).fbq("track", "Lead", {
+          content_name: "website_demo_v3",
+          currency: "CZK",
+          value: 0,
+        }, { eventID: leadId });
+      }
+
+      // Google Ads / GTM — dataLayer push
+      if (typeof window !== "undefined") {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        (window as any).dataLayer.push({
+          event: "generate_lead_v3",
+          eventID: leadId,
+          user_data: {
+            phone_number: values.phone.trim(),
+          },
+        });
       }
 
       setSubmitSuccess(true);
@@ -360,7 +378,7 @@ export default function LPV3Client() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <a
-                href="https://wa.me/420705729502"
+                href="https://wa.me/420705729502?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B4%D0%B5%D0%BC%D0%BE%20%D0%B2%D0%B5%D0%B1%D1%81%D0%B0%D0%B9%D1%82%D0%B0."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-gray-900 underline decoration-2 decoration-gray-200 underline-offset-4 transition-colors hover:text-[#f43f5e] hover:decoration-[#f43f5e]"
@@ -517,7 +535,7 @@ export default function LPV3Client() {
                       className="text-xs leading-snug text-gray-500"
                     >
                       Согласен(а) на обработку данных. Мы используем контакт
-                      только для ответа по разбору.
+                      только для ответа по демо сайта.
                     </label>
                   </div>
                   {errors.consent && (
@@ -632,102 +650,81 @@ export default function LPV3Client() {
 
       <section className="mb-24 sm:mb-32">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-[2rem] border border-[#111827]/10 bg-[#111827] px-5 py-8 text-white shadow-[0_30px_120px_-50px_rgba(17,24,39,0.7)] sm:px-8 sm:py-10 lg:px-10">
-            <div className="absolute left-0 top-0 h-48 w-48 rounded-full bg-[#f43f5e]/20 blur-3xl" />
-            <div className="absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#f59e0b]/10 blur-3xl" />
-
-            <div className="relative mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/50">
-                  Showcase
-                </p>
-                <h2 className="mt-3 text-3xl font-bold lg:text-4xl">
-                  Примеры сайтов
-                </h2>
-                <p className="mt-3 max-w-2xl text-white/70">
-                  Вот как обычно выглядят сайты, которые мы делаем для бизнеса.
-                </p>
-              </div>
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => scrollExamples(-1)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-white/30 hover:bg-white/10"
-                  aria-label="Прокрутить примеры назад"
-                >
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => scrollExamples(1)}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-white/30 hover:bg-white/10"
-                  aria-label="Прокрутить примеры вперёд"
-                >
-                  <ChevronRight className="h-5 w-5" />
-                </button>
-              </div>
+          <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900 lg:text-4xl">
+                Примеры сайтов
+              </h2>
+              <p className="mt-2 text-gray-500">
+                Вот как обычно выглядят сайты, которые мы делаем для бизнеса.
+              </p>
             </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => scrollExamples(-1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50"
+                aria-label="Прокрутить примеры назад"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollExamples(1)}
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 shadow-sm transition-colors hover:border-gray-300 hover:bg-gray-50"
+                aria-label="Прокрутить примеры вперёд"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
 
-            <div
-              ref={examplesRef}
-              className="relative flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {websiteExamples.map((example, index) => (
-                <article
-                  key={example.title}
-                  className="group min-w-[292px] max-w-[360px] flex-none snap-start"
-                >
-                  <div className="rounded-[28px] border border-white/10 bg-white/[0.97] p-4 text-gray-900 shadow-[0_25px_70px_-35px_rgba(0,0,0,0.65)] transition-transform duration-300 group-hover:-translate-y-1">
-                    <div className="mb-4 flex items-center justify-between">
-                      <span className="rounded-full bg-[#111827] px-3 py-1 text-[11px] font-semibold tracking-[0.18em] text-white">
-                        0{index + 1}
-                      </span>
-                      <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-gray-400">
-                        Demo concept
-                      </span>
+          <div
+            ref={examplesRef}
+            className="relative flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {websiteExamples.map((example, index) => (
+              <article
+                key={example.title}
+                className="group min-w-[292px] max-w-[360px] flex-none snap-start"
+              >
+                <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]">
+                  <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-[#f5f5f7] p-2">
+                    <div className="mb-2 flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 shadow-sm">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#f87171]"></span>
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#fbbf24]"></span>
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]"></span>
                     </div>
-
-                    <div className="relative overflow-hidden rounded-[22px] border border-gray-200 bg-[#f5f5f7] p-2">
-                      <div className="mb-2 flex items-center gap-1.5 rounded-2xl bg-white px-3 py-2 shadow-sm">
-                        <span className="h-2.5 w-2.5 rounded-full bg-[#f87171]"></span>
-                        <span className="h-2.5 w-2.5 rounded-full bg-[#fbbf24]"></span>
-                        <span className="h-2.5 w-2.5 rounded-full bg-[#34d399]"></span>
-                      </div>
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] border border-gray-200 bg-white">
-                        <Image
-                          src={example.image}
-                          alt={example.alt}
-                          fill
-                          sizes="(max-width: 768px) 292px, 360px"
-                          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                        />
-                        <div className="absolute inset-x-0 top-0 h-16 bg-gradient-to-b from-white/18 to-transparent" />
-                      </div>
-                    </div>
-
-                    <div className="mt-5 flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-xl font-semibold text-[#111827]">
-                          {example.title}
-                        </p>
-                        <p className="mt-1 text-sm leading-relaxed text-gray-500">
-                          {example.feature}
-                        </p>
-                      </div>
-                      <div className="rounded-full border border-[#f43f5e]/15 bg-[#fff1f4] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#f43f5e]">
-                        Preview
-                      </div>
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-lg border border-gray-200 bg-white">
+                      <Image
+                        src={example.image}
+                        alt={example.alt}
+                        fill
+                        sizes="(max-width: 768px) 292px, 360px"
+                        className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
                     </div>
                   </div>
-                </article>
-              ))}
-            </div>
 
-            <p className="relative mt-5 text-sm text-white/55">
-              Листайте примеры или используйте стрелки, чтобы посмотреть разные
-              стили сайтов.
-            </p>
+                  <div className="mt-4 flex items-start justify-between gap-4 px-1">
+                    <div>
+                      <p className="text-lg font-semibold text-gray-900">
+                        {example.title}
+                      </p>
+                      <p className="mt-1 text-sm leading-relaxed text-gray-500">
+                        {example.feature}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
           </div>
+
+          <p className="mt-5 text-sm text-gray-400">
+            Листайте примеры или используйте стрелки, чтобы посмотреть разные
+            стили сайтов.
+          </p>
         </div>
       </section>
 
@@ -838,7 +835,7 @@ export default function LPV3Client() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
               <a
-                href="https://wa.me/420705729502"
+                href="https://wa.me/420705729502?text=%D0%94%D0%BE%D0%B1%D1%80%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%2C%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B4%D0%B5%D0%BC%D0%BE%20%D0%B2%D0%B5%D0%B1%D1%81%D0%B0%D0%B9%D1%82%D0%B0."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e] sm:text-base"

@@ -720,6 +720,31 @@ export default function LPV2Client() {
           </div>
         </div>
       </section>
+
+      <footer className="mt-20 border-t border-gray-200 bg-white py-8">
+        <div
+          className={`${shell} flex flex-col items-center justify-between gap-4 text-xs text-gray-400 sm:flex-row`}
+        >
+          <Link href="/" className="text-sm font-bold text-gray-900">
+            Halo<span className="text-[#f43f5e]">Agency</span>
+          </Link>
+          <div className="flex gap-6">
+            <Link
+              href="/privacy-policy"
+              className="transition-colors hover:text-gray-600"
+            >
+              Политика конфиденциальности
+            </Link>
+            <Link
+              href="/terms-of-service"
+              className="transition-colors hover:text-gray-600"
+            >
+              Условия использования
+            </Link>
+          </div>
+          <span>© 2026 HaloAgency.cz</span>
+        </div>
+      </footer>
     </main>
   );
 }
