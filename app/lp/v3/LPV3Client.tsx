@@ -99,7 +99,7 @@ const heroProofs = [
   },
   {
     icon: ShieldCheck,
-    text: "Если не понравится — ничего не платите",
+    text: "Вы увидите результат до того, как решите запускать сайт",
   },
 ];
 
@@ -134,11 +134,11 @@ const faqItems = [
   },
   {
     q: "Сколько стоит сайт?",
-    a: "Зависит от задачи. Простой landing page обычно стартует от 25 000 Kč, сайт услуг с дополнительными блоками и интеграциями — от 40 000 Kč. Точную стоимость скажем после короткого созвона.",
+    a: "Зависит от задачи. Простой landing page обычно стартует от 10 000 Kč, сайт услуг с дополнительными блоками и интеграциями — от 20 000 Kč. Точную стоимость скажем после короткого созвона.",
   },
   {
     q: "Сколько времени занимает сделать сайт?",
-    a: "Обычно 7–14 дней, если речь о landing page или сайте услуг без сложной кастомной логики. Более объёмные проекты занимают дольше, но сроки фиксируем заранее.",
+    a: "Обычно 3-7 дней, если речь о landing page или сайте услуг без сложной кастомной логики. Более объёмные проекты занимают дольше, но сроки фиксируем заранее.",
   },
   {
     q: "Что нужно подготовить с моей стороны?",
@@ -149,8 +149,8 @@ const faqItems = [
     a: "Да, если проект делается на подходящей для этого системе. Мы сразу подбираем решение под то, хотите ли вы менять контент сами или передавать это нам.",
   },
   {
-    q: "Вы работаете только с Прагой?",
-    a: "Нет. Работаем по всей Чехии и с бизнесами за её пределами. Созвоны проводим онлайн, поэтому география не ограничивает проект.",
+    q: "Вы работаете только в Чехии?",
+    a: "Нет. Работаем не только по Чехии, но и с бизнесами за её пределами. Созвоны проводим онлайн, поэтому география не ограничивает проект.",
   },
 ];
 
@@ -325,9 +325,8 @@ export default function LPV3Client() {
 
             <div className="mb-8 max-w-3xl border-l-4 border-[#f43f5e] py-2 pl-5 sm:pl-6">
               <p className="text-lg leading-relaxed text-gray-500">
-                Созвонимся на 15 минут — и мы сделаем рабочее демо сайта под ваш
-                бизнес. Если понравится — запускаем. Если нет — вы ничего не
-                платите.
+                Созвонимся на 15 минут — и мы сделаем демо сайта под ваш бизнес.
+                Если понравится — запускаем. Если нет — вы ничего не платите.
               </p>
             </div>
 
@@ -370,7 +369,7 @@ export default function LPV3Client() {
               </a>
             </div>
             <p className="mb-10 text-sm text-gray-400">
-              Без оплаты, пока не увидите демо.
+              Сначала демо — потом решение.
             </p>
 
             <div className="flex items-center gap-4">
@@ -813,8 +812,8 @@ export default function LPV3Client() {
           <div className="absolute inset-0 -z-10 translate-y-4 rounded-[2rem] bg-[#f43f5e] sm:mx-6 lg:mx-8"></div>
 
           <div className="relative overflow-hidden rounded-[2rem] border border-gray-200 bg-white p-10 text-center shadow-2xl sm:p-12 md:p-16">
-            <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-4 py-1.5 text-xs font-semibold text-amber-800">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500"></span>
+            <div className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-500">
+              <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-green-500"></span>
               На следующей неделе доступно 3 демо-слота
             </div>
 
@@ -848,18 +847,13 @@ export default function LPV3Client() {
               </a>
             </div>
 
-            <div className="mt-6 flex flex-wrap justify-center gap-3 text-xs text-gray-500">
+            <div className="mt-6 flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-gray-400">
               {[
                 "Без оплаты",
                 "Без обязательств",
                 "Если не понравится — ничего не платите",
               ].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-gray-200 bg-[#fafafa] px-3 py-1.5"
-                >
-                  {item}
-                </span>
+                <span key={item}>{item}</span>
               ))}
             </div>
           </div>
