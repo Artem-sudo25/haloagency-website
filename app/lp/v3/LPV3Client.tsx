@@ -5,7 +5,10 @@ import {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
+  LayoutTemplate,
   Phone,
+  ShieldCheck,
+  Sparkles,
   Star,
 } from "lucide-react";
 import { Inter } from "next/font/google";
@@ -25,16 +28,10 @@ const primaryBtn =
 
 const painPoints = [
   "Клиенты спрашивают цены в Instagram — и не все возвращаются после ответа",
+  "Сайт у вас есть, но он старый и не обновлялся годами",
   "Хотите запустить рекламу, но некуда вести трафик",
   "У конкурентов есть сайт — и они стабильно получают клиентов из Google",
   "Записи, заявки и брони идут вручную через звонки и мессенджеры",
-  "Клиент заходит, ничего не понимает — и уходит к другим",
-];
-
-const heroBullets = [
-  "Клиенту не нужно писать и ждать ответа",
-  "Ваши услуги и преимущества понятны за 30 секунд",
-  "Можно запускать рекламу и вести людей в понятную точку",
 ];
 
 const steps = [
@@ -78,10 +75,31 @@ const websiteExamples = [
     alt: "Пример landing page для прачечной",
   },
   {
-    title: "Оформление мероприятий",
-    feature: "сайт-портфолио и заявки",
+    title: "Интернет магазин",
+    feature: "Доставка и физический магазин",
     image: "/images/case-studies/nejbalonky-screenshot.png",
     alt: "Пример сайта для event-бизнеса",
+  },
+  {
+    title: "Услуги дизайнера",
+    feature: "премиальный сайт услуг",
+    image: "/images/case-studies/drape-studio.png",
+    alt: "Пример сайта для студии штор",
+  },
+];
+
+const heroProofs = [
+  {
+    icon: LayoutTemplate,
+    text: "Покажем, как сайт будет выглядеть для вашего бизнеса",
+  },
+  {
+    icon: Sparkles,
+    text: "Сделаем демо под ваши услуги, оффер и подачу",
+  },
+  {
+    icon: ShieldCheck,
+    text: "Если не понравится — ничего не платите",
   },
 ];
 
@@ -289,48 +307,51 @@ export default function LPV3Client() {
         <div
           className={`${shell} grid items-start gap-12 lg:grid-cols-12 lg:gap-16`}
         >
-          <div className="flex flex-col justify-center lg:col-span-7">
-            <div className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500"></span>
-              На следующей неделе доступно 3 демо-слота
-            </div>
+          <div className="flex flex-col justify-center lg:col-span-7 lg:pt-12">
+            <p className="mb-4 text-sm font-medium uppercase tracking-wide text-[#f43f5e]">
+              Для бизнеса в Чехии
+            </p>
 
-            <h1 className="mb-6 text-4xl font-bold leading-[1.05] tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
-              Нет сайта — значит,
-              <br className="hidden lg:block" />
-              вы каждый день теряете
-              <br className="hidden lg:block" />
+            <h1 className="mb-8 max-w-5xl text-5xl font-bold leading-[1.1] tracking-tight text-gray-900 lg:text-6xl">
+              Нет сайта?
+              <br />
+              Получите бесплатное
+              <br />
               <span className="relative inline-block">
-                <span className="relative z-10">клиентов.</span>
-                <span className="absolute bottom-1 left-0 -z-0 h-3 w-full -skew-x-[15deg] bg-[#f43f5e]/20"></span>
+                <span className="relative z-10">демо сайта за 48 часов.</span>
+                <span className="absolute bottom-2 left-0 -z-0 h-4 w-full -skew-x-[15deg] bg-[#f43f5e]/20" />
               </span>
             </h1>
 
-            <div className="mb-6 border-l-4 border-[#f43f5e] py-2 pl-5 sm:pl-6">
-              <p className="text-base leading-relaxed text-gray-600 sm:text-lg">
-                Не потому что у вас плохой продукт.
-                <br />А потому что людям негде быстро понять, кто вы, что вы
-                предлагаете и почему вам можно доверять.
-              </p>
-              <p className="mt-4 text-base leading-relaxed text-gray-900 sm:text-lg">
-                Созвонимся на 15 минут — и через 48 часов вы получите рабочее
-                демо сайта для вашего бизнеса.
+            <div className="mb-8 max-w-3xl border-l-4 border-[#f43f5e] py-2 pl-5 sm:pl-6">
+              <p className="text-lg leading-relaxed text-gray-500">
+                Созвонимся на 15 минут — и мы сделаем рабочее демо сайта под ваш
+                бизнес. Если понравится — запускаем. Если нет — вы ничего не
+                платите.
               </p>
             </div>
 
-            <ul className="mb-8 space-y-3">
-              {heroBullets.map((bullet) => (
-                <li
-                  key={bullet}
-                  className="flex items-start gap-3 text-sm text-gray-700 sm:text-base"
-                >
-                  <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#f43f5e]" />
-                  <span>{bullet}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="mb-10 flex flex-col gap-4">
+              {heroProofs.map((item) => {
+                const Icon = item.icon;
 
-            <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+                return (
+                  <div
+                    key={item.text}
+                    className="flex items-start gap-3 text-gray-700"
+                  >
+                    <div className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-full border border-[#f43f5e]/15 bg-white shadow-sm">
+                      <Icon className="h-4 w-4 text-[#f43f5e]" />
+                    </div>
+                    <span className="max-w-xl text-base leading-relaxed">
+                      {item.text}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mb-3 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
               <button
                 type="button"
                 onClick={scrollToForm}
@@ -343,25 +364,48 @@ export default function LPV3Client() {
                 href="https://wa.me/420705729502"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e]"
+                className="font-medium text-gray-900 underline decoration-2 decoration-gray-200 underline-offset-4 transition-colors hover:text-[#f43f5e] hover:decoration-[#f43f5e]"
               >
-                Или написать в WhatsApp
+                Написать в WhatsApp →
               </a>
             </div>
+            <p className="mb-10 text-sm text-gray-400">
+              Без оплаты, пока не увидите демо.
+            </p>
 
-            <div className="mb-10 flex flex-wrap gap-3 text-xs text-gray-500">
-              {[
-                "Без оплаты",
-                "Без обязательств",
-                "Сначала покажем результат",
-              ].map((item) => (
-                <span
-                  key={item}
-                  className="rounded-full border border-gray-200 bg-white px-3 py-1.5"
-                >
-                  {item}
-                </span>
-              ))}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center -space-x-2">
+                <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-[#fafafa]">
+                  <Image
+                    src="/victoria-drapes.png"
+                    alt="Клиент HaloAgency"
+                    width={40}
+                    height={40}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="z-10 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border-2 border-[#fafafa] bg-white">
+                  <Image
+                    src="/logo_nejbalonky.webp"
+                    alt="NejBalonky"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="h-10 w-10 overflow-hidden rounded-full border-2 border-[#fafafa]">
+                  <Image
+                    src="/alex-grooming.png"
+                    alt="Клиент HaloAgency"
+                    width={40}
+                    height={40}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              </div>
+              <p className="text-sm font-medium text-gray-500">
+                Сайты для локального бизнеса, сервисов и рекламы в Чехии
+              </p>
             </div>
           </div>
 
@@ -370,23 +414,21 @@ export default function LPV3Client() {
 
             <div className="relative rounded-2xl border border-gray-200 bg-white p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] sm:p-8">
               <div className="mb-6">
+                <span className="mb-3 inline-block rounded-md bg-green-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-green-800">
+                  Бесплатное демо
+                </span>
                 <h3 className="text-3xl font-bold text-gray-900">
-                  Бесплатное демо сайта
+                  Получите демо сайта
                 </h3>
                 <p className="mt-2 text-sm text-gray-500">
-                  15 минут на созвон. 48 часов на демо.
+                  15 минут на созвон · демо сайта через 48 часов
                 </p>
               </div>
 
-              <p className="mb-6 rounded-xl border border-[#f43f5e]/10 bg-[#fff5f7] px-4 py-3 text-sm leading-relaxed text-gray-600">
-                Не продаём вслепую — сначала покажем, как это может выглядеть
-                для вашего бизнеса.
-              </p>
-
               {submitSuccess && (
                 <div className="mt-5 rounded-lg border border-green-300 bg-green-50 p-4 text-sm font-medium text-green-800">
-                  Заявка отправлена. Ответим в течение дня и согласуем короткий
-                  созвон.
+                  Заявка отправлена. Перезвоним в течение 20 минут в рабочее
+                  время.
                 </div>
               )}
               {submitError && (
@@ -399,12 +441,12 @@ export default function LPV3Client() {
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
                     <label className={labelClass} htmlFor="v3-name">
-                      Ваше имя
+                      Имя
                     </label>
                     <input
                       id="v3-name"
                       className={fieldClass}
-                      placeholder="Например, Ирина"
+                      placeholder="Ваше имя"
                       value={values.name}
                       onChange={(e) =>
                         setValues((prev) => ({ ...prev, name: e.target.value }))
@@ -415,12 +457,12 @@ export default function LPV3Client() {
 
                   <div>
                     <label className={labelClass} htmlFor="v3-link">
-                      Ссылка на Instagram / сайт
+                      Сайт или Instagram (если есть)
                     </label>
                     <input
                       id="v3-link"
                       className={fieldClass}
-                      placeholder="@brand или https://example.com"
+                      placeholder="https://... или @ваш_профиль"
                       value={values.websiteOrProfile}
                       onChange={(e) =>
                         setValues((prev) => ({
@@ -436,7 +478,7 @@ export default function LPV3Client() {
 
                   <div>
                     <label className={labelClass} htmlFor="v3-phone">
-                      Телефон / WhatsApp
+                      Телефон для связи
                     </label>
                     <input
                       id="v3-phone"
@@ -475,8 +517,8 @@ export default function LPV3Client() {
                       htmlFor="v3-consent"
                       className="text-xs leading-snug text-gray-500"
                     >
-                      Согласен(а) на обработку данных. Используем контакт только
-                      для ответа по вашей заявке, без рассылок.
+                      Согласен(а) на обработку данных. Мы используем контакт
+                      только для ответа по разбору.
                     </label>
                   </div>
                   {errors.consent && (
@@ -494,19 +536,9 @@ export default function LPV3Client() {
                     )}
                   </button>
 
-                  <p className="text-center text-xs text-gray-500">
-                    Ответим в течение дня · Без обязательств · Покажем реальный
-                    пример
+                  <p className="mt-4 text-center text-xs text-gray-400">
+                    Обычно перезваниваем в течение 20 минут в рабочее время
                   </p>
-
-                  <a
-                    href="https://wa.me/420705729502"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block text-center text-sm font-medium text-gray-600 transition-colors hover:text-[#f43f5e]"
-                  >
-                    Или сразу написать в WhatsApp
-                  </a>
                 </form>
               )}
             </div>
@@ -518,7 +550,7 @@ export default function LPV3Client() {
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
             <div className="border-b border-gray-100 px-6 pb-5 pt-7 sm:px-8 sm:pt-8">
-              <h2 className="text-xl font-bold text-gray-900">Узнайте себя</h2>
+              <h2 className="text-xl font-bold text-gray-900">Узнаёте себя?</h2>
               <p className="mt-1 text-sm text-gray-500">
                 Если узнали себя хотя бы в двух пунктах, демо покажет, как это
                 можно исправить.
