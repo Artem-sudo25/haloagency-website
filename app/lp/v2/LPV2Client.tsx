@@ -20,38 +20,41 @@ const primaryBtn =
 const caseStudies = [
   {
     business: "Салон лазерной эпиляции, Прага 3",
+    context: "3 кабинета • запись через сайт",
     meta: "55 000 CZK/мес · Meta Ads · 45 дней",
     situation:
-      "CPA лида — 1 420 CZK, 38 лидов в месяц. Часть событий терялась после iOS-ограничений: Meta видела меньше конверсий, алгоритм оптимизировался по неполным данным.",
+      "Стоимость заявки — 1 420 CZK, 38 заявок в месяц. Часть событий терялась после iOS-ограничений: Meta видела меньше конверсий, алгоритм оптимизировался по неполным данным.",
     changes: [
       "Настроили Meta CAPI и дедупликацию событий",
       "Пересобрали структуру lead-кампаний",
       "Обновили оффер и блоки доверия на лендинге",
     ],
     results: [
-      { label: "CPA лида", before: "1 420", after: "820 CZK", delta: "−42%" },
-      { label: "Лидов в месяц", before: "38", after: "71", delta: "+87%" },
+      { label: "Стоимость заявки", before: "1 420", after: "820 CZK", delta: "−42%" },
+      { label: "Заявок в месяц", before: "38", after: "71", delta: "+87%" },
       { label: "Стоимость записи", before: "2 630", after: "1 540 CZK", delta: "−41%" },
     ],
   },
   {
-    business: "Клининг-сервис, Прага",
+    business: "Клининговый сервис, Прага",
+    context: "5 сотрудников • заявки через звонки и сайт",
     meta: "80 000 CZK/мес · Google Ads · 60 дней",
     situation:
-      "Дорогие нерелевантные звонки, CPL 1 950 CZK. Call-tracking отсутствовал — было невозможно понять, какие кампании приводят реальных клиентов, а какие — случайные звонки.",
+      "Дорогие нерелевантные звонки, цена заявки 1 950 CZK. Call-tracking отсутствовал — было невозможно понять, какие кампании приводят реальных клиентов, а какие — случайные звонки.",
     changes: [
       "Поставили call-tracking через GA4 и GTM",
       "Разделили Search по услугам и районам",
       "Добавили минус-слова, улучшили посадочные страницы",
     ],
     results: [
-      { label: "Квалифицированных лидов", before: "29", after: "54/мес", delta: "+86%" },
-      { label: "CPL", before: "1 950", after: "1 130 CZK", delta: "−42%" },
+      { label: "Квалифицированных заявок", before: "29", after: "54/мес", delta: "+86%" },
+      { label: "Цена заявки", before: "1 950", after: "1 130 CZK", delta: "−42%" },
       { label: "Нерелевантные звонки", before: "34%", after: "12%", delta: "−65%" },
     ],
   },
   {
-    business: "E-commerce косметики, Чехия",
+    business: "Интернет-магазин косметики, Чехия",
+    context: "~150 товаров • Meta + Google Shopping",
     meta: "120 000 CZK/мес · Meta + Shopping · 30 дней",
     situation:
       "ROAS 1.8, дубли Purchase-событий. Решения принимались по искажённой аналитике: реальная картина по марже и источникам была скрыта за некорректными данными.",
@@ -62,7 +65,7 @@ const caseStudies = [
     ],
     results: [
       { label: "ROAS", before: "1.8", after: "3.1", delta: "+72%" },
-      { label: "CPA заказа", before: "520", after: "360 CZK", delta: "−31%" },
+      { label: "Стоимость заказа", before: "520", after: "360 CZK", delta: "−31%" },
       { label: "Выручка", before: "база", after: "+72%", delta: "при +18% расхода" },
     ],
   },
@@ -89,21 +92,21 @@ const faqItems = [
 
 const testimonials = [
   {
-    quote: "Думал, будут впаривать услуги — а реально получил план с конкретными цифрами. CPA упал за первый же месяц.",
+    quote: "Заказал аудит контекстной рекламы. Выяснилось, что кампании велись пассивно и почти не тестировались. После внедрения рекомендаций расходы на рекламу снизились, а окупаемость выросла более чем в 2 раза.",
     author: "Алексей Р.",
-    business: "Барбершоп, Прага",
+    business: "Интернет-магазин, Прага",
     initial: "А",
   },
   {
-    quote: "За 20 минут узнал больше, чем за 3 платных консультации у других агентств.",
-    author: "Мартин К.",
-    business: "ProPradlo, Брно",
+    quote: "Работали только через Instagram и запускали рекламу на профиль. Сначала помогли настроить рекламу в форму заявки, позже сделали простую посадочную страницую. Поток заявок заметно вырос — запись теперь заполнена примерно на месяц вперёд.",
+    author: "Виктория Б.",
+    business: "Бьюти Салон, Брно",
     initial: "M",
   },
   {
-    quote: "Наконец-то кто-то показал реальную картину по трекингу. Половина конверсий просто не считалась.",
-    author: "Ирина С.",
-    business: "Косметология, Прага",
+    quote: "Думали, что проблема в рекламе, но аудит показал, что не продаёт сама посадочная страница — предложение было неясныи, а форма заявки спрятана. После изменения структуры страницы и усиления призыва к действию количество заявок заметно выросло.",
+    author: "Роман Г.",
+    business: "Прачечная, Прага",
     initial: "И",
   },
 ];
@@ -114,6 +117,7 @@ type FormValues = {
   websiteOrProfile: string;
   monthlyBudget: string;
   email: string;
+  phone: string;
   consent: boolean;
 };
 type FormErrors = Partial<Record<keyof FormValues, string>>;
@@ -125,6 +129,7 @@ export default function LPV2Client() {
     websiteOrProfile: "",
     monthlyBudget: "",
     email: "",
+    phone: "",
     consent: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
@@ -182,7 +187,7 @@ export default function LPV2Client() {
         throw new Error(d.error || "Ошибка отправки");
       }
       setSubmitSuccess(true);
-      setValues({ name: "", websiteOrProfile: "", monthlyBudget: "", email: "", consent: false });
+      setValues({ name: "", websiteOrProfile: "", monthlyBudget: "", email: "", phone: "", consent: false });
       setErrors({});
     } catch (err) {
       setSubmitError(
@@ -227,25 +232,41 @@ export default function LPV2Client() {
         <div className={`${shell} relative grid gap-16 lg:grid-cols-12 items-start`}>
           {/* Left copy */}
           <div className="lg:col-span-7 flex flex-col justify-center pt-8">
+            <p className="text-sm font-medium text-[#f43f5e] tracking-wide uppercase mb-4">
+              Для предпринимателей в Чехии
+            </p>
+
             <h1 className="text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 tracking-tight text-gray-900">
-              Реклама уходит,<br />
-              а заявок не<br />
-              прибавляется.<br />
+              Реклама работает,<br />
+              а заявок мало?<br />
               <span className="relative inline-block">
-                <span className="relative z-10">Разберём почему<br />— бесплатно.</span>
+                <span className="relative z-10">Покажем где теряются<br />клиенты. Бесплатно.</span>
                 <span className="absolute bottom-1 left-0 w-full h-3 bg-[#f43f5e]/20 -z-0 -skew-x-[15deg]"></span>
               </span>
             </h1>
 
-            <div className="border-l-4 border-[#f43f5e] pl-6 py-2 mb-10">
+            <div className="border-l-4 border-[#f43f5e] pl-6 py-2 mb-8">
               <p className="text-lg text-gray-500 leading-relaxed">
-                За 20 минут смотрим на вашу рекламу, лендинг и трекинг — и
-                называем конкретные причины. После звонка присылаем PDF с
-                приоритетами под ваш проект. Без обязательств работать с нами.
+                За 20–30 минут покажем 3–5 конкретных ошибок, которые мешают получать заявки.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
+            <div className="flex flex-col gap-3 mb-10">
+              <div className="flex items-center gap-3 text-gray-700">
+                <span className="text-lg">🔍</span>
+                <span className="text-base">Проверим рекламу</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-700">
+                <span className="text-lg">🌐</span>
+                <span className="text-base">Посмотрим сайт или Instagram</span>
+              </div>
+              <div className="flex items-center gap-3 text-gray-700">
+                <span className="text-lg">📊</span>
+                <span className="text-base">Найдём ошибки в аналитике</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-6 mb-3">
               <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn}`}>
                 Записаться на бесплатный разбор
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -256,9 +277,10 @@ export default function LPV2Client() {
                 rel="noopener noreferrer"
                 className="text-gray-900 font-medium hover:text-[#f43f5e] transition-colors underline decoration-2 decoration-gray-200 underline-offset-4 hover:decoration-[#f43f5e]"
               >
-                Написать в WhatsApp
+                Написать в WhatsApp →
               </a>
             </div>
+            <p className="text-sm text-gray-400 mb-10">Без обязательств работать с нами</p>
 
             <div className="flex items-center gap-4">
               <div className="flex -space-x-3">
@@ -267,7 +289,7 @@ export default function LPV2Client() {
                 ))}
               </div>
               <p className="text-sm text-gray-500 font-medium">
-                <span className="font-bold text-gray-900">90+</span> разборов для SMB в Чехии
+                <span className="font-bold text-gray-900">90+</span> аудитов рекламы и сайтов для бизнеса в Чехии
               </p>
             </div>
           </div>
@@ -278,14 +300,12 @@ export default function LPV2Client() {
             <div className="absolute inset-0 bg-[#f43f5e] translate-x-4 translate-y-4 rounded-2xl -z-10 opacity-90"></div>
 
             <div className="bg-white rounded-2xl p-8 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.1)] border border-gray-200 relative">
-              <div className="flex justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold mb-1">Growth Audit</h3>
-                  <p className="text-sm text-gray-500">20 минут. Без воды и продаж.</p>
-                </div>
-                <span className="px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold rounded-md tracking-wider uppercase">
-                  Free
+              <div className="mb-6">
+                <span className="inline-block px-3 py-1 bg-green-50 text-green-800 text-xs font-bold rounded-md tracking-wider uppercase mb-3">
+                  Бесплатный аудит
                 </span>
+                <h3 className="text-2xl font-bold mb-1">Оставьте контакты для разбора</h3>
+                <p className="text-sm text-gray-500">Проверим рекламу, сайт и аналитику</p>
               </div>
 
               {submitSuccess && (
@@ -308,7 +328,7 @@ export default function LPV2Client() {
                     <input
                       id="v2-name"
                       className={fieldClass}
-                      placeholder="Например, Ирина"
+                      placeholder="Ваше имя"
                       value={values.name}
                       onChange={(e) => setValues((p) => ({ ...p, name: e.target.value }))}
                     />
@@ -316,7 +336,7 @@ export default function LPV2Client() {
                   </div>
                   <div>
                     <label className={labelClass} htmlFor="v2-site">
-                      Сайт или Instagram
+                      Сайт или Instagram (если есть)
                     </label>
                     <input
                       id="v2-site"
@@ -332,35 +352,18 @@ export default function LPV2Client() {
                     )}
                   </div>
                   <div>
-                    <label className={labelClass} htmlFor="v2-budget">
-                      Рекламный бюджет в месяц (CZK)
-                    </label>
-                    <input
-                      id="v2-budget"
-                      className={fieldClass}
-                      placeholder="Например, 60 000"
-                      value={values.monthlyBudget}
-                      onChange={(e) =>
-                        setValues((p) => ({ ...p, monthlyBudget: e.target.value }))
-                      }
-                    />
-                    {errors.monthlyBudget && (
-                      <p className={errorClass}>{errors.monthlyBudget}</p>
-                    )}
-                  </div>
-                  <div>
                     <label className={labelClass} htmlFor="v2-email">
-                      Email для связи
+                      Телефон для связи
                     </label>
                     <input
-                      id="v2-email"
-                      type="email"
+                      id="v2-phone"
+                      type="tel"
                       className={fieldClass}
-                      placeholder="you@company.com"
-                      value={values.email}
-                      onChange={(e) => setValues((p) => ({ ...p, email: e.target.value }))}
+                      placeholder="777 777 777"
+                      value={values.phone}
+                      onChange={(e) => setValues((p) => ({ ...p, phone: e.target.value }))}
                     />
-                    {errors.email && <p className={errorClass}>{errors.email}</p>}
+                    {errors.phone && <p className={errorClass}>{errors.phone}</p>}
                   </div>
                   <div className="flex items-start gap-3 pt-2">
                     <div className="flex items-center h-5">
@@ -374,8 +377,7 @@ export default function LPV2Client() {
                       />
                     </div>
                     <label className="text-xs text-gray-500 leading-snug">
-                      Согласен(а) на обработку данных. Только контакт по вашему
-                      разбору, без рассылок.
+                      Согласен(а) на обработку данных. Мы используем контакт только для ответа по разбору.
                     </label>
                   </div>
                   {errors.consent && <p className={errorClass}>{errors.consent}</p>}
@@ -386,12 +388,12 @@ export default function LPV2Client() {
                     className="group w-full py-4 bg-gray-900 text-white font-bold rounded-xl transition-all hover:opacity-90 flex items-center justify-center gap-2 mt-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      {isSubmitting ? "Отправляем..." : "Получить разбор"}
+                      {isSubmitting ? "Отправляем..." : "Записаться на бесплатный разбор"}
                       {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
                     </span>
                   </button>
                   <p className="text-center text-xs text-gray-400 mt-4">
-                    Ответим за 2 часа в рабочее время
+                    Обычно отвечаем в течение 20 минут в рабочее время
                   </p>
                 </form>
               )}
@@ -444,21 +446,47 @@ export default function LPV2Client() {
         </div>
       </section>
 
+      {/* ── Common Issues ── */}
+      <section className="mb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
+            Что обычно находим на <span className="text-[#f43f5e]">первом разборе</span>
+          </h2>
+          <p className="text-gray-500 mb-8">Самые частые проблемы:</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              "Реклама оптимизируется не по заявкам",
+              "Форма заявки спрятана или неудобна",
+              "Бюджет уходит в нерелевантный трафик",
+              "Сайт не объясняет, почему выбрать именно вас",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-3 bg-white rounded-xl border border-gray-200 p-5 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]"
+              >
+                <ArrowRight className="h-4 w-4 text-[#f43f5e] shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-900">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Case Studies ── */}
       <section className="mb-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12">
             <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Что меняется после <span className="text-blue-500">разбора</span>
+              Примеры <span className="text-blue-500">разборов</span>
             </h2>
             <div className="border-l-2 border-[#f43f5e] pl-4">
               <p className="text-gray-500">
-                Примеры из ниш, где важен стабильный CPL/CPA, а не просто пустой трафик.
+                Примеры из ниш, где важна стоимость заявки, а не просто пустой трафик.
               </p>
             </div>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-8 mb-6">
             {caseStudies.map((cs, idx) => (
               <article
                 key={cs.business}
@@ -467,12 +495,13 @@ export default function LPV2Client() {
                 <div className="flex flex-col md:flex-row">
                   {/* Left: Content */}
                   <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-200">
-                    <div className="flex items-center gap-3 mb-4">
+                    <div className="flex items-center gap-3 mb-1">
                       <span className="w-8 h-8 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm">
                         0{idx + 1}
                       </span>
                       <h3 className="text-xl font-bold">{cs.business}</h3>
                     </div>
+                    <p className="text-sm text-gray-500 ml-11 mb-4">{cs.context}</p>
                     <div className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-semibold rounded mb-6">
                       {cs.meta}
                     </div>
@@ -522,6 +551,7 @@ export default function LPV2Client() {
               </article>
             ))}
           </div>
+          <p className="text-xs text-gray-400 text-center">Данные усреднены по проектам.</p>
         </div>
       </section>
 
@@ -532,10 +562,10 @@ export default function LPV2Client() {
             <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold tracking-wider uppercase rounded mb-6">
               Гарантия прозрачности
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Это не продажа.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Без обязательств</h2>
             <div className="border-l-2 border-gray-200 pl-6 space-y-4 mb-10">
               <p className="text-lg text-gray-900 leading-relaxed">
-                На звонке разбираем вашу ситуацию честно: где теряются деньги, что
+                На звонке разбираем вашу ситуацию : где теряются деньги, что
                 мешает расти конверсии, что в трекинге даёт неправильную картину.
                 После — присылаем <strong>документ с приоритетами</strong>.
               </p>
@@ -584,6 +614,29 @@ export default function LPV2Client() {
                 </div>
               </details>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Lead Filter ── */}
+      <section className="mb-32">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-white rounded-2xl border border-gray-200 p-10 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+            <h2 className="text-2xl font-bold mb-6">
+              Разбор подойдёт, если:
+            </h2>
+            <ul className="space-y-4">
+              {[
+                "Вы уже запускаете рекламу",
+                "Хотите увеличить количество заявок",
+                "Готовы внедрять рекомендации",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-3 text-gray-900">
+                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold shrink-0">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

@@ -11,7 +11,10 @@
       "Bash(kill:*)",
       "mcp__plugin_superpowers-chrome_chrome__use_browser",
       "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/nejbalonky-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/nejbalonky-screenshot.png)",
-      "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-screenshot.png)"
+      "Bash(mv /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-new /Users/artemhorvatsky/Documents/dev/haloagency-website/public/images/case-studies/propradlo-screenshot.png)",
+      "Bash(npx tsc --noEmit --strict false app/lp/v2/LPV2Client.tsx)",
+      "Bash(npx next build --no-lint)",
+      "Bash(npx next build)"
     ],
     "deny": [],
     "ask": []
