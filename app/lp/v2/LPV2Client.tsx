@@ -232,9 +232,9 @@ export default function LPV2Client() {
       {/* ── Nav ── */}
       <header className="fixed top-0 w-full z-50 shadow-sm" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", borderBottom: "1px solid rgba(255,255,255,0.3)" }}>
         <div className={`${shell} flex h-20 items-center justify-between`}>
-          <Link href="/" className="text-2xl font-bold tracking-tight text-gray-900">
+          <span className="text-2xl font-bold tracking-tight text-gray-900">
             Halo<span className="text-[#f43f5e]">Agency</span>
-          </Link>
+          </span>
           <a
             href="tel:+420705729502"
             className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors font-medium"
@@ -725,9 +725,9 @@ export default function LPV2Client() {
         <div
           className={`${shell} flex flex-col items-center justify-between gap-4 text-xs text-gray-400 sm:flex-row`}
         >
-          <Link href="/" className="text-sm font-bold text-gray-900">
+          <span className="text-sm font-bold text-gray-900">
             Halo<span className="text-[#f43f5e]">Agency</span>
-          </Link>
+          </span>
           <div className="flex gap-6">
             <Link
               href="/privacy-policy"

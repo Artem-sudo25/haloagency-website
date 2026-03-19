@@ -46,11 +46,13 @@ export async function POST(req: NextRequest) {
       const leadHeadline =
         type === "website-demo-v3"
           ? "Новая заявка на демо сайта"
-          : typeof type === "string" && type.includes("audit")
-            ? "Новая заявка на разбор"
-            : type === "website"
-              ? "Новая заявка на сайт"
-              : "Новая заявка";
+          : typeof type === "string" && type.includes("plan")
+            ? "Новая заявка на разбор и план"
+            : typeof type === "string" && type.includes("audit")
+              ? "Новая заявка на разбор"
+              : type === "website"
+                ? "Новая заявка на сайт"
+                : "Новая заявка";
       const websiteOrProfile =
         formData.websiteOrProfile || formData.currentPresence || "—";
       const phoneCell = phone ? `<a href="tel:${phone}">${phone}</a>` : "—";
