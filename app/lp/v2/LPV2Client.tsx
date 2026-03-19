@@ -157,6 +157,7 @@ export default function LPV2Client() {
     setIsSubmitting(true);
     try {
       const leadId = crypto.randomUUID();
+      const sessionId = (window as any).HaloTrack?.getSessionId?.() || null;
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
         headers: {
@@ -175,6 +176,7 @@ export default function LPV2Client() {
           value: 0,
           currency: "CZK",
           consent_given: true,
+          session_id: sessionId,
           timestamp: new Date().toISOString(),
         }),
       });
@@ -202,6 +204,11 @@ export default function LPV2Client() {
             phone_number: values.phone.trim(),
           },
         });
+      }
+
+      // Store phone in HaloTrack session for fallback attribution matching
+      if ((window as any).HaloTrack?.identify) {
+        (window as any).HaloTrack.identify({ phone: values.phone.trim() });
       }
 
       setSubmitSuccess(true);
