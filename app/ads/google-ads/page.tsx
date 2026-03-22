@@ -8,7 +8,12 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 import AdsServicePage from "../_components/AdsServicePage";
 
 const breadcrumbItems = [
@@ -40,16 +45,15 @@ const googleAdsFaqs = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Google Ads в Чехии | Настройка и ведение рекламы — HaloAgency",
   description:
     "Google Ads для бизнеса в Чехии: запуск с нуля, аудит текущего аккаунта, план кампаний, посадочных страниц и аналитики. Подходит для локальных услуг, сервиса и интернет-магазинов.",
-  openGraph: {
-    title: "Google Ads в Чехии — HaloAgency",
-    description:
-      "Разбираем, когда бизнесу подходит Google Ads, как его запускать и как связать поиск с сайтом, заявками и продажами.",
-  },
-};
+  path: "/ads/google-ads",
+  openGraphTitle: "Google Ads в Чехии — HaloAgency",
+  openGraphDescription:
+    "Разбираем, когда бизнесу подходит Google Ads, как его запускать и как связать поиск с сайтом, заявками и продажами.",
+});
 
 export default function GoogleAdsServicePage() {
   return (

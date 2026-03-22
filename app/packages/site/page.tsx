@@ -8,11 +8,12 @@ import {
   Smartphone,
   Zap,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
@@ -20,11 +21,13 @@ const breadcrumbItems = [
   { label: "Старт", href: "/packages/site" },
 ];
 
-export const metadata = {
-  title: 'Пакет "Старт" - HaloAgency',
+export const metadata: Metadata = buildMetadata({
+  title: 'Пакет "Старт" | HaloAgency',
   description:
     "Сайт, реклама, аналитика и локальный поиск для бизнеса в Чехии. От 15,000 Kč запуск + от 5,000 Kč/мес.",
-};
+  path: "/packages/site",
+  openGraphTitle: 'Пакет "Старт" — HaloAgency',
+});
 
 export default function SitePackagePage() {
   return (

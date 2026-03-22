@@ -10,7 +10,6 @@ import { caseStudyCards } from "@/lib/case-study-cards";
 const breadcrumbItems = [{ label: "Главная", href: "/" }, { label: "Кейсы" }];
 
 export default function CaseStudiesPage() {
-
   return (
     <main className="min-h-screen bg-[#F5F5F7] pt-20">
       <div
@@ -67,81 +66,79 @@ export default function CaseStudiesPage() {
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-1 gap-6 auto-rows-[400px] md:grid-cols-3">
               {caseStudyCards.map((project) => (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4 }}
-                    key={project.id}
-                    className={`group relative overflow-hidden rounded-2xl border-2 border-[#1A1A1A] bg-white shadow-[6px_6px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] ${
-                      project.size === "large"
-                        ? "md:col-span-2"
-                        : "md:col-span-1"
-                    }`}
-                  >
-                    <Link
-                      href={project.href}
-                      className="absolute inset-0 z-20"
-                      aria-label={`Открыть кейс ${project.name}`}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  key={project.id}
+                  className={`group relative overflow-hidden rounded-2xl border-2 border-[#1A1A1A] bg-white shadow-[6px_6px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] ${
+                    project.size === "large" ? "md:col-span-2" : "md:col-span-1"
+                  }`}
+                >
+                  <Link
+                    href={project.href}
+                    className="absolute inset-0 z-20"
+                    aria-label={`Открыть кейс ${project.name}`}
+                  />
+
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src={project.image}
+                      alt={`Скриншот кейса ${project.name}`}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 768px) 100vw, 66vw"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-white/30" />
+                  </div>
 
-                    <div className="absolute inset-0 z-0">
-                      <Image
-                        src={project.image}
-                        alt={project.name}
-                        fill
-                        className="object-cover object-top"
-                        sizes="(max-width: 768px) 100vw, 66vw"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/85 to-white/30" />
+                  <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
+                    <div className="flex justify-between items-start">
+                      <div className="rounded-md border-2 border-[#1A1A1A] bg-[#FFD166] px-3 py-1 text-xs font-bold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A]">
+                        {project.category}
+                      </div>
+                      <div className="translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-[#1A1A1A] bg-white shadow-[2px_2px_0px_0px_#1A1A1A]">
+                          <span className="text-lg font-bold text-[#1A1A1A]">
+                            ↗
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="absolute inset-0 z-10 flex flex-col justify-between p-8">
-                      <div className="flex justify-between items-start">
-                        <div className="rounded-md border-2 border-[#1A1A1A] bg-[#FFD166] px-3 py-1 text-xs font-bold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A]">
-                          {project.category}
+                    <div>
+                      <h3 className="mb-2 text-3xl font-bold text-[#1A1A1A]">
+                        {project.name}
+                      </h3>
+                      <p className="mb-6 line-clamp-2 text-[#1A1A1A]/60">
+                        {project.description}
+                      </p>
+
+                      <div className="flex items-end justify-between border-t border-[#1A1A1A]/5 pt-6">
+                        <div>
+                          <p className="mb-1 text-xs uppercase tracking-wider text-[#1A1A1A]/40">
+                            {project.stats.label}
+                          </p>
+                          <p className="text-2xl font-bold text-[#1A1A1A]">
+                            {project.stats.value}
+                          </p>
                         </div>
-                        <div className="translate-x-4 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-xl border-2 border-[#1A1A1A] bg-white shadow-[2px_2px_0px_0px_#1A1A1A]">
-                            <span className="text-lg font-bold text-[#1A1A1A]">
-                              ↗
+                        <div className="flex gap-2">
+                          {project.tags.slice(0, 2).map((tag) => (
+                            <span
+                              key={tag}
+                              className="rounded-md border-2 border-[#1A1A1A] bg-[#06D6A0] px-2 py-1 text-xs font-bold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A]"
+                            >
+                              {tag}
                             </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div>
-                        <h3 className="mb-2 text-3xl font-bold text-[#1A1A1A]">
-                          {project.name}
-                        </h3>
-                        <p className="mb-6 line-clamp-2 text-[#1A1A1A]/60">
-                          {project.description}
-                        </p>
-
-                        <div className="flex items-end justify-between border-t border-[#1A1A1A]/5 pt-6">
-                          <div>
-                            <p className="mb-1 text-xs uppercase tracking-wider text-[#1A1A1A]/40">
-                              {project.stats.label}
-                            </p>
-                            <p className="text-2xl font-bold text-[#1A1A1A]">
-                              {project.stats.value}
-                            </p>
-                          </div>
-                          <div className="flex gap-2">
-                            {project.tags.slice(0, 2).map((tag) => (
-                              <span
-                                key={tag}
-                                className="rounded-md border-2 border-[#1A1A1A] bg-[#06D6A0] px-2 py-1 text-xs font-bold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A]"
-                              >
-                                {tag}
-                              </span>
-                            ))}
-                          </div>
+                          ))}
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-                ))}
+                  </div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </section>

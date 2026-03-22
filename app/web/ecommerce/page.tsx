@@ -8,7 +8,12 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 import WebServicePage from "../_components/WebServicePage";
 
 const breadcrumbItems = [
@@ -41,17 +46,16 @@ const ecommerceFaqs = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title:
     "Разработка интернет-магазинов в Чехии | Магазины под продажи и рост — HaloAgency",
   description:
     "Разработка интернет-магазинов для бизнеса в Чехии: каталог, корзина, оплата, аналитика, реклама и архитектура под рост. Для проектов, которым нужен не только запуск, но и масштабирование.",
-  openGraph: {
-    title: "Разработка интернет-магазинов в Чехии — HaloAgency",
-    description:
-      "Разбираем, когда бизнесу нужен полноценный интернет-магазин, как его связывать с аналитикой, рекламой и каталогом, и что важно для роста продаж.",
-  },
-};
+  path: "/web/ecommerce",
+  openGraphTitle: "Разработка интернет-магазинов в Чехии — HaloAgency",
+  openGraphDescription:
+    "Разбираем, когда бизнесу нужен полноценный интернет-магазин, как его связывать с аналитикой, рекламой и каталогом, и что важно для роста продаж.",
+});
 
 export default function EcommerceServicePage() {
   return (

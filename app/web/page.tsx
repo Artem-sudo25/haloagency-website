@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, collectionPageJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 import WebPageClient from "./WebPageClient";
 
 const breadcrumbItems = [
@@ -8,11 +12,12 @@ const breadcrumbItems = [
   { label: "Сайты", href: "/web" },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title:
     "Создание сайтов в Чехии | Лендинги, сайты для бизнеса, интернет-магазины — HaloAgency",
   description:
     "Создаём лендинги, сайты для бизнеса и интернет-магазины в Чехии. Помогаем выбрать правильный формат сайта под рекламу, SEO, заявки и онлайн-продажи.",
+  path: "/web",
   keywords: [
     "создание сайтов",
     "создание сайтов для бизнеса",
@@ -27,12 +32,10 @@ export const metadata: Metadata = {
     "wordpress сайт",
     "woocommerce интернет магазин",
   ],
-  openGraph: {
-    title: "Создание сайтов для бизнеса в Чехии — HaloAgency",
-    description:
-      "Объясняем, когда бизнесу нужен лендинг, сайт для услуг или интернет-магазин, и как сайт должен работать вместе с рекламой, формами и аналитикой.",
-  },
-};
+  openGraphTitle: "Создание сайтов для бизнеса в Чехии — HaloAgency",
+  openGraphDescription:
+    "Объясняем, когда бизнесу нужен лендинг, сайт для услуг или интернет-магазин, и как сайт должен работать вместе с рекламой, формами и аналитикой.",
+});
 
 export default function WebPage() {
   return (

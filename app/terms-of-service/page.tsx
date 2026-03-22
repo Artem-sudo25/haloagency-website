@@ -1,8 +1,15 @@
-"use client";
-
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { legalEntity } from "@/lib/legal";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Условия использования | HaloAgency",
+  description:
+    "Условия использования HaloAgency: общие положения, описание услуг, обязательства клиента, оплата, ограничения ответственности и применимое право.",
+  path: "/terms-of-service",
+});
 
 export default function TermsOfServicePage() {
   return (

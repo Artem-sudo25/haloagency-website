@@ -1,12 +1,22 @@
-"use client";
-
+import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Segway Tours Budapest | Кейс HaloAgency",
+  description:
+    "Кейс Segway Tours Budapest: SEO и PPC для туристического оператора с ростом прямых бронирований и снижением зависимости от агрегаторов.",
+  path: "/case-studies/segway-tours-budapest",
+  openGraphTitle: "Segway Tours Budapest — кейс HaloAgency",
+  type: "article",
+});
 
 export default function SegwayToursPage() {
   return (
     <CaseStudyLayout
       title="Segway Tours Budapest"
       path="/case-studies/segway-tours-budapest"
+      heroImageAlt="Главный экран сайта Segway Tours Budapest для прямых бронирований экскурсий"
       subtitle="Агрессивный SEO и PPC маркетинг для туристического оператора в одной из самых конкурентных столиц Европы."
       tags={["SEO", "Google Ads", "Meta Ads", "Tourism", "Analytics"]}
       visualColorClass="text-amber-500"

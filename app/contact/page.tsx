@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import Contact from "@/components/sections/Contact";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
@@ -23,16 +23,15 @@ const briefChecklist = [
   "какой следующий шаг нужен: заявки, звонки, продажи, брони",
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Контакты HaloAgency | Обсудить сайт, рекламу или аналитику",
   description:
     "Свяжитесь с HaloAgency, чтобы обсудить сайт, рекламу, аналитику или автоматизацию для бизнеса в Чехии. Отвечаем по делу и без лишней бюрократии.",
-  openGraph: {
-    title: "Контакты HaloAgency",
-    description:
-      "Обсудите сайт, рекламу, аналитику или автоматизацию и получите понятный следующий шаг без лишней бюрократии.",
-  },
-};
+  path: "/contact",
+  openGraphTitle: "Контакты HaloAgency",
+  openGraphDescription:
+    "Обсудите сайт, рекламу, аналитику или автоматизацию и получите понятный следующий шаг без лишней бюрократии.",
+});
 
 export default function ContactPage() {
   return (

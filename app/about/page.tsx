@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const signatureFont = Caveat({
   subsets: ["latin", "cyrillic"],
@@ -97,16 +97,15 @@ const decisionPoints = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "О HaloAgency | Кто ведёт проект и как мы работаем",
   description:
     "Как HaloAgency связывает сайт, рекламу, аналитику и автоматизацию в одну рабочую систему для заявок и продаж.",
-  openGraph: {
-    title: "О HaloAgency",
-    description:
-      "Сайт, реклама, аналитика и автоматизация как одна система, а не набор отдельных услуг.",
-  },
-};
+  path: "/about",
+  openGraphTitle: "О HaloAgency",
+  openGraphDescription:
+    "Сайт, реклама, аналитика и автоматизация как одна система, а не набор отдельных услуг.",
+});
 
 export default function AboutPage() {
   return (

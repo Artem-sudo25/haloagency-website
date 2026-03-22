@@ -3,23 +3,26 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import Packages from "@/components/sections/Packages";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, collectionPageJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
   { label: "Пакеты", href: "/packages" },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Пакеты HaloAgency | Сайты, реклама и интернет-магазины",
   description:
     "Пакеты HaloAgency для бизнеса в Чехии: стартовый сайт, система заявок, интернет-магазин и кастомные проекты. Помогают быстро понять формат работ и ориентир по бюджету.",
-  openGraph: {
-    title: "Пакеты HaloAgency",
-    description:
-      "Ориентиры по стоимости и форматам работы: сайты, реклама, аналитика и интернет-магазины для бизнеса в Чехии.",
-  },
-};
+  path: "/packages",
+  openGraphTitle: "Пакеты HaloAgency",
+  openGraphDescription:
+    "Ориентиры по стоимости и форматам работы: сайты, реклама, аналитика и интернет-магазины для бизнеса в Чехии.",
+});
 
 export default function PackagesPage() {
   return (

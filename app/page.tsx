@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
 import About from "@/components/sections/About";
-import Hero from "@/components/sections/Hero";
 import GrowthPlanMagnet from "@/components/sections/GrowthPlanMagnet";
+import Hero from "@/components/sections/Hero";
 import Process from "@/components/sections/Process";
 import Projects from "@/components/sections/Projects";
 import Services from "@/components/sections/Services";
 import SocialProof from "@/components/sections/SocialProof";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { organizationJsonLd, webPageJsonLd, webSiteJsonLd } from "@/lib/seo";
+import {
+  buildMetadata,
+  organizationJsonLd,
+  webPageJsonLd,
+  webSiteJsonLd,
+} from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "HaloAgency — маркетинговое агентство в Праге | Сайты и реклама",
   description:
     "Создание сайтов, таргетированная реклама в Instagram и Facebook, контекстная реклама в Google. Помогаем бизнесу в Чехии привлекать клиентов и расти.",
-
+  path: "/",
+  openGraphTitle: "HaloAgency — сайты и реклама для бизнеса в Чехии",
   keywords: [
     "маркетинговое агентство",
     "настройка таргетированной рекламы",
@@ -30,21 +36,7 @@ export const metadata: Metadata = {
     "настройка таргет",
     "настройка таргет прага",
   ],
-
-  authors: [{ name: "HaloAgency" }],
-  creator: "HaloAgency",
-  publisher: "HaloAgency",
-
-  openGraph: {
-    title: "HaloAgency — сайты и реклама для бизнеса в Чехии",
-    description:
-      "Создание сайтов, таргетированная реклама в Instagram и Facebook, контекстная реклама в Google. Помогаем бизнесу в Чехии привлекать клиентов и расти.",
-    url: "https://haloagency.cz",
-    siteName: "HaloAgency",
-    locale: "ru_RU",
-    type: "website",
-  },
-};
+});
 
 export default function Home() {
   return (

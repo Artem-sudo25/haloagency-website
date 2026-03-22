@@ -1,12 +1,23 @@
-"use client";
-
+import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "ProPradlo.cz | Кейс HaloAgency",
+  description:
+    "Кейс ProPradlo.cz: лендинг, локальное SEO, автоматизация и Google Ads для роста онлайн-заявок прачечной в Праге.",
+  path: "/case-studies/propradlo",
+  openGraphTitle: "ProPradlo.cz — кейс HaloAgency",
+  type: "article",
+});
 
 export default function PropradloPage() {
   return (
     <CaseStudyLayout
       title="ProPradlo.cz"
       path="/case-studies/propradlo"
+      heroImageAlt="Главный экран лендинга ProPradlo.cz для прачечной с заметным CTA"
+      mobileImageAlt="Мобильный результат поиска ProPradlo.cz с высокой видимостью в Google"
       subtitle="Цифровая трансформация для прачечной: современный лендинг, автоматизация заказов и доминирование в локальном поиске."
       tags={[
         "Лендинг",

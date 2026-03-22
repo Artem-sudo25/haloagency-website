@@ -1,12 +1,22 @@
-"use client";
-
+import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "DoggyStyle | Кейс HaloAgency",
+  description:
+    "Кейс DoggyStyle: сайт для груминг-салона, онлайн-запись, CRM и автоматизация, которые заменили телефонные записи и Excel.",
+  path: "/case-studies/doggy-salon",
+  openGraphTitle: "DoggyStyle — кейс HaloAgency",
+  type: "article",
+});
 
 export default function DoggySalonPage() {
   return (
     <CaseStudyLayout
       title="DoggyStyle"
       path="/case-studies/doggy-salon"
+      heroImageAlt="Главный экран сайта DoggyStyle с акцентом на онлайн-запись в груминг-салон"
       subtitle="Конверсионный сайт с онлайн-записью, CRM-системой и автоматизацией для грумингсалона — вместо телефонных звонков и Excel."
       tags={[
         "Сайт",

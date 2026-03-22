@@ -30,9 +30,25 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "HaloAgency - Digital Agency",
-  description: "Web Development, Ads & Tracking",
+  title: "HaloAgency | Сайты, реклама, аналитика и автоматизация в Чехии",
+  description:
+    "HaloAgency помогает бизнесу в Чехии связать сайт, рекламу, аналитику и автоматизацию в одну рабочую систему для заявок и продаж.",
   metadataBase: new URL("https://haloagency.cz"),
+  openGraph: {
+    title: "HaloAgency | Сайты, реклама, аналитика и автоматизация в Чехии",
+    description:
+      "Сайты, Google Ads, Meta Ads, трекинг и автоматизация для бизнеса в Чехии.",
+    url: "https://haloagency.cz",
+    siteName: "HaloAgency",
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HaloAgency | Сайты, реклама, аналитика и автоматизация в Чехии",
+    description:
+      "Сайты, Google Ads, Meta Ads, трекинг и автоматизация для бизнеса в Чехии.",
+  },
 };
 
 export const viewport = {

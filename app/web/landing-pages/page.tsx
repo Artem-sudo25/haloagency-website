@@ -1,7 +1,12 @@
 import { Layers, Rocket, Sparkles, Target, Zap } from "lucide-react";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 import WebServicePage from "../_components/WebServicePage";
 
 const breadcrumbItems = [
@@ -33,16 +38,15 @@ const landingPagesFaqs = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Лендинги в Чехии | Страницы под заявки и рекламу — HaloAgency",
   description:
     "Создание лендингов для бизнеса в Чехии: страницы под заявки, звонки, бронирования и рекламу. Сильный первый экран, ясный CTA, структура под рекламу и аналитику.",
-  openGraph: {
-    title: "Лендинги для бизнеса в Чехии — HaloAgency",
-    description:
-      "Разбираем, когда бизнесу нужен лендинг, что в него должно входить и как связать страницу с рекламой, формой и аналитикой.",
-  },
-};
+  path: "/web/landing-pages",
+  openGraphTitle: "Лендинги для бизнеса в Чехии — HaloAgency",
+  openGraphDescription:
+    "Разбираем, когда бизнесу нужен лендинг, что в него должно входить и как связать страницу с рекламой, формой и аналитикой.",
+});
 
 export default function LandingPagesServicePage() {
   return (

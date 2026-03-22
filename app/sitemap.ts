@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://haloagency.cz";
+  const contentLastModified = new Date("2026-03-22T00:00:00+01:00");
+  const legalLastModified = new Date("2026-01-23T00:00:00+01:00");
 
   // Priority:
   // 1.0 - Home
@@ -13,142 +15,148 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     {
       url: `${baseUrl}`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${baseUrl}/ads`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/ads/google-ads`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/ads/meta-ads`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/web`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/web/landing-pages`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/web/business-websites`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/web/ecommerce`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/tracking`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/automation`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/about`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/case-studies`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
     {
       url: `${baseUrl}/contact`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.8,
     },
+    // Case Studies
     {
-      url: `${baseUrl}/growth-plan`,
-      lastModified: new Date(),
+      url: `${baseUrl}/case-studies/catcafe`,
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
-    // Case Studies
+    {
+      url: `${baseUrl}/case-studies/doggy-salon`,
+      lastModified: contentLastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
     {
       url: `${baseUrl}/case-studies/nejablonky`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/case-studies/propradlo`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/case-studies/segway-tours-budapest`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     // Packages
     {
       url: `${baseUrl}/packages`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       url: `${baseUrl}/packages/site`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${baseUrl}/packages/ecommerce`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${baseUrl}/packages/leads`,
-      lastModified: new Date(),
+      lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     // Legal
     {
       url: `${baseUrl}/privacy-policy`,
-      lastModified: new Date(),
+      lastModified: legalLastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     },
     {
       url: `${baseUrl}/terms-of-service`,
-      lastModified: new Date(),
+      lastModified: legalLastModified,
       changeFrequency: "yearly",
       priority: 0.5,
     },

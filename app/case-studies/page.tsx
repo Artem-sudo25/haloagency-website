@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, collectionPageJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 import CaseStudiesPageClient from "./CaseStudiesPageClient";
 
 const breadcrumbItems = [
@@ -8,16 +12,16 @@ const breadcrumbItems = [
   { label: "Кейсы", href: "/case-studies" },
 ];
 
-export const metadata: Metadata = {
-  title: "Кейсы HaloAgency | Сайты, реклама и автоматизация для бизнеса в Чехии",
+export const metadata: Metadata = buildMetadata({
+  title:
+    "Кейсы HaloAgency | Сайты, реклама и автоматизация для бизнеса в Чехии",
   description:
     "Реальные кейсы HaloAgency: разработка сайтов, Google Ads, Meta Ads, аналитика и автоматизация для бизнеса в Чехии. Смотрите подход, задачи и результаты.",
-  openGraph: {
-    title: "Кейсы HaloAgency",
-    description:
-      "Кейсы по сайтам, рекламе, аналитике и автоматизации для бизнеса в Чехии. Практические результаты и примеры проектов.",
-  },
-};
+  path: "/case-studies",
+  openGraphTitle: "Кейсы HaloAgency",
+  openGraphDescription:
+    "Кейсы по сайтам, рекламе, аналитике и автоматизации для бизнеса в Чехии. Практические результаты и примеры проектов.",
+});
 
 export default function CaseStudiesPage() {
   return (

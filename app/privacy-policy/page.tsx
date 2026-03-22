@@ -1,8 +1,15 @@
-"use client";
-
 import { ArrowLeft } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { legalEntity } from "@/lib/legal";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Политика конфиденциальности | HaloAgency",
+  description:
+    "Политика конфиденциальности HaloAgency: как мы обрабатываем персональные данные, контактную информацию и данные сайта в соответствии с GDPR и законодательством Чехии.",
+  path: "/privacy-policy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

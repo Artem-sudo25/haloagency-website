@@ -3,23 +3,26 @@ import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import GrowthPlanMagnet from "@/components/sections/GrowthPlanMagnet";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
   { label: "Короткий разбор", href: "/growth-plan" },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Короткий разбор ситуации | HaloAgency",
   description:
     "Если пока неясно, с чего начать, отправьте короткий бриф. Поможем понять, что мешает росту и какой шаг стоит сделать первым.",
-  openGraph: {
-    title: "Короткий разбор ситуации — HaloAgency",
-    description:
-      "Короткий разбор сайта, рекламы, аналитики или автоматизации для бизнеса в Чехии. Помогаем понять, с чего лучше начать.",
+  path: "/growth-plan",
+  openGraphTitle: "Короткий разбор ситуации — HaloAgency",
+  openGraphDescription:
+    "Короткий разбор сайта, рекламы, аналитики или автоматизации для бизнеса в Чехии. Помогаем понять, с чего лучше начать.",
+  robots: {
+    index: false,
+    follow: true,
   },
-};
+});
 
 export default function GrowthPlanPage() {
   return (

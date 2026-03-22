@@ -1,12 +1,22 @@
-"use client";
-
+import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "CatCafe | Кейс HaloAgency",
+  description:
+    "Кейс CatCafe: редизайн сайта кафе, онлайн-бронирование и синхронизация записей с Google Календарём для роста онлайн-броней.",
+  path: "/case-studies/catcafe",
+  openGraphTitle: "CatCafe — кейс HaloAgency",
+  type: "article",
+});
 
 export default function CatCafePage() {
   return (
     <CaseStudyLayout
       title="CatCafe"
       path="/case-studies/catcafe"
+      heroImageAlt="Главный экран сайта CatCafe с онлайн-бронированием столиков"
       subtitle="Полный редизайн сайта кафе: современный адаптивный дизайн, оптимизация под рекламу и система онлайн-бронирования с синхронизацией в Google Календарь владельца."
       tags={[
         "Web Redesign",

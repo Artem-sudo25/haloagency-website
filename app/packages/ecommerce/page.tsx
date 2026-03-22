@@ -8,11 +8,12 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
@@ -20,11 +21,13 @@ const breadcrumbItems = [
   { label: "Интернет-магазин", href: "/packages/ecommerce" },
 ];
 
-export const metadata = {
-  title: 'Пакет "Интернет-магазин" - HaloAgency',
+export const metadata: Metadata = buildMetadata({
+  title: 'Пакет "Интернет-магазин" | HaloAgency',
   description:
     "Интернет-магазин под ключ с рекламой, аналитикой продаж и ведением. 50,000 Kč запуск + от 20,000 Kč/мес.",
-};
+  path: "/packages/ecommerce",
+  openGraphTitle: 'Пакет "Интернет-магазин" — HaloAgency',
+});
 
 export default function EcommercePackagePage() {
   return (
@@ -91,8 +94,8 @@ export default function EcommercePackagePage() {
               </h1>
 
               <p className="text-lg md:text-2xl text-[#1A1A1A]/60 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Полностью готовый интернет-магазин с рекламой, аналитикой продаж и
-                ведением. Вы занимаетесь товаром, мы занимаемся ростом.
+                Полностью готовый интернет-магазин с рекламой, аналитикой продаж
+                и ведением. Вы занимаетесь товаром, мы занимаемся ростом.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-10">

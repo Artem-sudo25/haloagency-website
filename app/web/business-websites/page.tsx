@@ -1,7 +1,12 @@
 import { Briefcase, FileText, Globe2, Layers, Users, Zap } from "lucide-react";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 import WebServicePage from "../_components/WebServicePage";
 
 const breadcrumbItems = [
@@ -34,17 +39,16 @@ const businessWebsitesFaqs = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title:
     "Сайты для бизнеса в Чехии | Корпоративные сайты и сайты услуг — HaloAgency",
   description:
     "Создание сайтов для бизнеса в Чехии: структура услуг, страницы доверия, кейсы, SEO-основа, формы и логика сайта. Для компаний, которым нужен не лендинг, а полноценный сайт.",
-  openGraph: {
-    title: "Сайты для бизнеса в Чехии — HaloAgency",
-    description:
-      "Разбираем, когда бизнесу нужен многостраничный сайт, что в него должно входить и как он работает вместе с доверием, SEO и рекламой.",
-  },
-};
+  path: "/web/business-websites",
+  openGraphTitle: "Сайты для бизнеса в Чехии — HaloAgency",
+  openGraphDescription:
+    "Разбираем, когда бизнесу нужен многостраничный сайт, что в него должно входить и как он работает вместе с доверием, SEO и рекламой.",
+});
 
 export default function BusinessWebsitesServicePage() {
   return (

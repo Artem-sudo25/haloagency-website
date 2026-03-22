@@ -8,7 +8,12 @@ import {
 } from "lucide-react";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, faqPageJsonLd, serviceJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  faqPageJsonLd,
+  serviceJsonLd,
+} from "@/lib/seo";
 import AdsServicePage from "../_components/AdsServicePage";
 
 const breadcrumbItems = [
@@ -40,17 +45,16 @@ const metaAdsFaqs = [
   },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title:
     "Meta Ads в Чехии | Таргетированная реклама Instagram и Facebook — HaloAgency",
   description:
     "Meta Ads для бизнеса в Чехии: запуск таргетированной рекламы, аудит текущего таргета, оффера, креативов, лендинга и обработки заявок. Подходит для локальных услуг, сервиса и интернет-магазинов.",
-  openGraph: {
-    title: "Meta Ads в Чехии — HaloAgency",
-    description:
-      "Разбираем, когда бизнесу подходит Meta Ads, как связать таргет с оффером, креативами, лендингом и качеством лидов.",
-  },
-};
+  path: "/ads/meta-ads",
+  openGraphTitle: "Meta Ads в Чехии — HaloAgency",
+  openGraphDescription:
+    "Разбираем, когда бизнесу подходит Meta Ads, как связать таргет с оффером, креативами, лендингом и качеством лидов.",
+});
 
 export default function MetaAdsServicePage() {
   return (

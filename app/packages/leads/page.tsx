@@ -3,16 +3,16 @@ import {
   Check,
   Code2,
   Megaphone,
-  Server,
   Star,
   Wrench,
   Zap,
 } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
-import { breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
+import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
 const breadcrumbItems = [
   { label: "Главная", href: "/" },
@@ -20,11 +20,13 @@ const breadcrumbItems = [
   { label: "Лид-машина", href: "/packages/leads" },
 ];
 
-export const metadata = {
-  title: 'Пакет "Лид-машина" - HaloAgency',
+export const metadata: Metadata = buildMetadata({
+  title: 'Пакет "Лид-машина" | HaloAgency',
   description:
     "Бизнес-сайт, реклама и серверная аналитика в одной связке. Пакет для бизнеса, которому нужна готовая система заявок: 35,000 Kč запуск + от 16,000 Kč/мес.",
-};
+  path: "/packages/leads",
+  openGraphTitle: 'Пакет "Лид-машина" — HaloAgency',
+});
 
 export default function LeadsPackagePage() {
   return (
@@ -361,8 +363,8 @@ export default function LeadsPackagePage() {
                   Ведение сайта и оперативная поддержка
                 </h3>
                 <p className="text-[#1A1A1A]/80 font-medium max-w-2xl mx-auto">
-                  Проблемы с сайтом, рекламой или аналитикой — решаем быстро, без
-                  длинной цепочки посредников. Всё в одних руках.
+                  Проблемы с сайтом, рекламой или аналитикой — решаем быстро,
+                  без длинной цепочки посредников. Всё в одних руках.
                 </p>
               </div>
             </div>

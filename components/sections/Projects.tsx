@@ -49,7 +49,7 @@ export default function Projects() {
               <div className="w-full md:w-3/5 aspect-[16/10] rounded-xl border-2 border-[#1A1A1A] bg-gray-200 overflow-hidden relative">
                 <Image
                   src={project.image}
-                  alt={`${project.name} case study preview`}
+                  alt={`Превью кейса ${project.name}`}
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 60vw"

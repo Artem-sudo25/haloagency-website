@@ -1,12 +1,23 @@
-"use client";
-
+import type { Metadata } from "next";
 import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata: Metadata = buildMetadata({
+  title: "Nejbalonky.cz | Кейс HaloAgency",
+  description:
+    "Кейс Nejbalonky.cz: интернет-магазин с рекламой, серверным трекингом, логистикой и аналитикой продаж в одной рабочей системе.",
+  path: "/case-studies/nejablonky",
+  openGraphTitle: "Nejbalonky.cz — кейс HaloAgency",
+  type: "article",
+});
 
 export default function NejablonkyPage() {
   return (
     <CaseStudyLayout
       title="Nejbalonky.cz"
       path="/case-studies/nejablonky"
+      heroImageAlt="Главный экран интернет-магазина Nejbalonky.cz с каталогом товаров для праздника"
+      analyticsImageAlt="Дашборд аналитики Nejbalonky.cz с рекламными и продажными метриками"
       subtitle="Создание и продвижение интернет-магазина с интеграцией логистики, оплаты, склада, кассы, аналитики и рекламы в единую систему продаж."
       tags={[
         "Интернет-магазин",

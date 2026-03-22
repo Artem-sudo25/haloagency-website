@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbJsonLd, collectionPageJsonLd } from "@/lib/seo";
+import {
+  breadcrumbJsonLd,
+  buildMetadata,
+  collectionPageJsonLd,
+} from "@/lib/seo";
 import AdsPageClient from "./AdsPageClient";
 
 const breadcrumbItems = [
@@ -8,10 +12,11 @@ const breadcrumbItems = [
   { label: "Реклама", href: "/ads" },
 ];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildMetadata({
   title: "Реклама в Google Ads и Meta Ads в Чехии | HaloAgency",
   description:
     "Google Ads, Meta Ads и Seznam для бизнеса в Чехии. Помогаем понять, какой канал подойдёт, что нужно подготовить до запуска и как считать результат по заявкам.",
+  path: "/ads",
   keywords: [
     "реклама в google",
     "google ads чехия",
@@ -30,12 +35,10 @@ export const metadata: Metadata = {
     "таргет прага",
     "настройка таргет",
   ],
-  openGraph: {
-    title: "Реклама в Google Ads и Meta Ads в Чехии — HaloAgency",
-    description:
-      "Помогаем понять, когда бизнесу подходят Google Ads, Meta Ads и Seznam, и что нужно для запуска рекламы с понятным результатом.",
-  },
-};
+  openGraphTitle: "Реклама в Google Ads и Meta Ads в Чехии — HaloAgency",
+  openGraphDescription:
+    "Помогаем понять, когда бизнесу подходят Google Ads, Meta Ads и Seznam, и что нужно для запуска рекламы с понятным результатом.",
+});
 
 export default function AdsPage() {
   return (

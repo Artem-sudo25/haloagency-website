@@ -38,6 +38,9 @@ interface CaseStudyLayoutProps {
   };
   visualColorClass: string;
   heroImage: string;
+  heroImageAlt?: string;
+  analyticsImageAlt?: string;
+  mobileImageAlt?: string;
   path: string;
   cta?: {
     title?: string;
@@ -65,9 +68,12 @@ export default function CaseStudyLayout({
   results,
   visualColorClass,
   heroImage,
+  heroImageAlt,
   path,
   analyticsImage,
+  analyticsImageAlt,
   mobileImage,
+  mobileImageAlt,
   imageContext,
   relatedRoutes,
   cta,
@@ -98,6 +104,7 @@ export default function CaseStudyLayout({
             description: subtitle,
             path,
             keywords: tags,
+            imagePath: heroImage,
           }),
         ]}
       />
@@ -160,7 +167,9 @@ export default function CaseStudyLayout({
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={heroImage}
-                  alt={`${title} mockup`}
+                  alt={
+                    heroImageAlt ?? `Скриншот проекта ${title} от HaloAgency`
+                  }
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
@@ -291,7 +300,10 @@ export default function CaseStudyLayout({
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={mobileImage}
-                          alt="Search Result"
+                          alt={
+                            mobileImageAlt ??
+                            `Мобильный экран проекта ${title} от HaloAgency`
+                          }
                           className="w-full h-auto block border-2 border-[#1A1A1A] rounded-xl"
                         />
                         <div className="absolute inset-0 bg-[#1A1A1A]/0 group-hover/image:bg-[#1A1A1A]/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
@@ -357,7 +369,10 @@ export default function CaseStudyLayout({
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={mobileImage}
-                            alt="Full view"
+                            alt={
+                              mobileImageAlt ??
+                              `Мобильный экран проекта ${title} от HaloAgency`
+                            }
                             className="max-h-[90vh] w-auto object-contain bg-white rounded-xl"
                           />
                         </motion.div>
@@ -381,7 +396,10 @@ export default function CaseStudyLayout({
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={analyticsImage}
-                        alt="Analytics Dashboard"
+                        alt={
+                          analyticsImageAlt ??
+                          `Экран аналитики по проекту ${title} от HaloAgency`
+                        }
                         className="w-full h-auto block rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]"
                       />
                     </div>
