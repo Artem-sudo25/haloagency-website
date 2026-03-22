@@ -17,7 +17,10 @@
       "Bash(npx next build)",
       "Bash(find /Users/artemhorvatsky/Documents/dev/haloagency-website -type f -name *v2*)",
       "Bash(find /Users/artemhorvatsky/Documents/dev/haloagency-website/app/api -type f -name *.ts)",
-      "Bash(ls -la /Users/artemhorvatsky/Documents/dev/haloagency-website/.env*)"
+      "Bash(ls -la /Users/artemhorvatsky/Documents/dev/haloagency-website/.env*)",
+      "Bash(git log:*)",
+      "Bash(npx tsc:*)",
+      "Bash(sips -s format jpeg /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.heic --out /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.jpg)"
     ],
     "deny": [],
     "ask": []

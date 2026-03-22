@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, ReactNode } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 
 interface CSSScrollAnimationProps {
   children: ReactNode;
@@ -19,24 +19,50 @@ export function CSSScrollAnimation({
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const fallbackTimer = window.setTimeout(() => {
+      setIsVisible(true);
+    }, 900);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          window.clearTimeout(fallbackTimer);
           setIsVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "-50px" }
+      {
+        threshold: 0.01,
+        rootMargin: "0px 0px 18% 0px",
+      },
     );
 
     if (ref.current) {
       observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 
-  const animationClass = isVisible ? `css-animate-${animation}` : "css-animate-hidden";
+  const animationClass = isVisible
+    ? `css-animate-${animation}`
+    : "css-animate-hidden";
   const delayStyle = delay > 0 ? { animationDelay: `${delay}s` } : undefined;
 
   return (
@@ -57,39 +83,78 @@ interface CSSStaggerProps {
   staggerDelay?: number;
 }
 
-export function CSSStagger({ children, className = "", staggerDelay = 0.1 }: CSSStaggerProps) {
+export function CSSStagger({
+  children,
+  className = "",
+  staggerDelay: _staggerDelay = 0.1,
+}: CSSStaggerProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+      setIsVisible(true);
+      return;
+    }
+
+    const fallbackTimer = window.setTimeout(() => {
+      setIsVisible(true);
+    }, 900);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
+          window.clearTimeout(fallbackTimer);
           setIsVisible(true);
           observer.disconnect();
         }
       },
-      { threshold: 0.1, rootMargin: "-50px" }
+      {
+        threshold: 0.01,
+        rootMargin: "0px 0px 18% 0px",
+      },
     );
 
     if (ref.current) {
       observer.observe(ref.current);
     }
 
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observer.disconnect();
+    };
   }, []);
 
   return (
-    <div ref={ref} className={`css-stagger-container ${isVisible ? "css-stagger-visible" : ""} ${className}`}>
+    <div
+      ref={ref}
+      className={`css-stagger-container ${isVisible ? "css-stagger-visible" : ""} ${className}`}
+    >
       {children}
     </div>
   );
 }
 
 // Simple item for stagger - gets animation from parent
-export function CSSStaggerItem({ children, className = "", index = 0 }: { children: ReactNode; className?: string; index?: number }) {
+export function CSSStaggerItem({
+  children,
+  className = "",
+  index = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  index?: number;
+}) {
   return (
-    <div 
+    <div
       className={`css-stagger-item ${className}`}
       style={{ "--stagger-index": index } as React.CSSProperties}
     >
@@ -97,8 +162,3 @@ export function CSSStaggerItem({ children, className = "", index = 0 }: { childr
     </div>
   );
 }
-
-
-
-
-

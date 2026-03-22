@@ -1,72 +1,78 @@
-"use client";
-
 import Link from "next/link";
-import { useContactModalActions } from "@/context/contact-modal-context";
-import { CountUp } from "@/components/animated/CountUp";
+
+const quickRoutes = [
+  { label: "Сайты", href: "/web" },
+  { label: "Реклама", href: "/ads" },
+  { label: "Аналитика", href: "/tracking" },
+  { label: "Автоматизация", href: "/automation" },
+];
 
 export default function Hero() {
-  const { open: openContactModal } = useContactModalActions();
-
   return (
-    <section className="relative pt-28 pb-16 md:pb-24 px-6">
-      <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-16 md:gap-24">
-        {/* Hero Content - Centered */}
-        <div className="flex flex-col items-center justify-center text-center py-10 gap-10">
-          {/* Main Heading */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-[var(--font-display)] font-extrabold leading-[1.1] tracking-tight max-w-5xl text-[#1A1A1A] relative" style={{ fontFamily: 'var(--font-display)' }}>
-            Весь{" "}
+    <section className="relative px-5 pb-6 pt-24 md:px-6 md:pb-10 md:pt-28">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col">
+        <div className="flex flex-col items-center justify-center gap-8 py-4 text-center md:gap-10 md:py-8">
+          <h1
+            className="relative max-w-5xl font-[var(--font-display)] text-[2.75rem] font-extrabold leading-[1.05] tracking-tight text-[#1A1A1A] sm:text-5xl md:text-7xl lg:text-8xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Сайты, реклама
+            <br />и{" "}
             <span className="relative inline-block z-10">
-              маркетинг
-              <svg className="absolute -bottom-2 left-0 w-full h-4 text-[#FF3366] -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeLinecap="round" strokeWidth="4" />
+              аналитика
+              <svg
+                aria-hidden="true"
+                className="absolute -bottom-2 left-0 h-4 w-full text-[#FF3366] -z-10"
+                fill="none"
+                preserveAspectRatio="none"
+                viewBox="0 0 100 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M0 10 Q 50 20 100 10"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeWidth="4"
+                />
               </svg>
             </span>
-            <br />под одной крышей.
+            <br />
+            для роста бизнеса.
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg md:text-2xl font-bold text-[#1A1A1A] max-w-2xl leading-relaxed">
-            От сайта и аналитики до онлайн-рекламы и автоматизации процессов — один партнёр, одна ответственность.
+          <p className="max-w-3xl text-base font-bold leading-relaxed text-[#1A1A1A] md:text-2xl">
+            Помогаем бизнесу в Чехии получать больше заявок и продаж: делаем
+            сайты, запускаем Google Ads и Meta Ads, настраиваем аналитику и
+            автоматизацию так, чтобы всё работало вместе.
           </p>
 
-          {/* CTA */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mt-4">
+          <div className="mt-2 flex flex-col items-center justify-center gap-4 sm:mt-4 sm:flex-row sm:gap-6">
             <Link
-              href="/#projects"
-              className="bg-[#FF3366] text-white px-10 py-5 rounded-2xl border-2 border-[#1A1A1A] text-lg font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
+              href="/contact"
+              data-cta-track="true"
+              data-cta-name="Обсудить проект"
+              data-cta-location="home_hero"
+              data-cta-category="primary"
+              className="rounded-2xl border-2 border-[#1A1A1A] bg-[#FF3366] px-8 py-4 text-base font-bold text-white shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-1 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#1A1A1A] md:px-10 md:py-5 md:text-lg"
             >
-              Посмотреть кейсы
-            </Link>
-            <Link
-              href="/#pricing"
-              className="text-[#1A1A1A] font-bold hover:text-[#FF3366] transition-colors text-lg border-b-2 border-[#1A1A1A] hover:border-[#FF3366]"
-            >
-              Узнать цены →
+              Обсудить проект
             </Link>
           </div>
-        </div>
 
-        {/* Stats Strip */}
-        <div className="w-full border-2 border-[#1A1A1A] rounded-xl bg-white shadow-[6px_6px_0px_0px_#1A1A1A] overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-2 divide-[#1A1A1A]">
-            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
-              <p className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
-                <CountUp end={50} duration={2000} />+
-              </p>
-              <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/50">Проектов</p>
-            </div>
-            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
-              <p className="text-4xl md:text-5xl font-extrabold text-[#FF3366]" style={{ fontFamily: 'var(--font-display)' }}>
-                <CountUp end={250} duration={2000} />%
-              </p>
-              <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/50">Средний рост</p>
-            </div>
-            <div className="p-7 md:p-8 lg:p-10 flex flex-row md:flex-col items-center md:items-start justify-between md:justify-start gap-4 md:gap-2">
-              <p className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
-                <CountUp end={10} duration={1500} />+
-              </p>
-              <p className="text-xs font-bold uppercase tracking-widest text-[#1A1A1A]/50">Лет опыта</p>
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+            {quickRoutes.map((route) => (
+              <Link
+                key={route.href}
+                href={route.href}
+                data-cta-track="true"
+                data-cta-name={route.label}
+                data-cta-location="home_quick_routes"
+                data-cta-category="routing"
+                className="rounded-full border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-xs font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] sm:px-4 sm:py-2 sm:text-sm"
+              >
+                {route.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

@@ -1,49 +1,59 @@
-"use client";
-
 import Image from "next/image";
+import Link from "next/link";
 
 export default function About() {
-    return (
-        <section id="about" className="py-16 md:py-24 px-6">
-            <div className="max-w-[1200px] mx-auto">
-                <div className="flex flex-col md:flex-row gap-12 items-center bg-white p-8 md:p-12 rounded-2xl border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A]">
-                    {/* Image Column */}
-                    <div className="w-full md:w-1/2 relative">
-                        <div className="relative rounded-xl border-2 border-[#1A1A1A] overflow-hidden shadow-[4px_4px_0px_0px_#1A1A1A] aspect-[4/5] max-w-md mx-auto md:max-w-none">
-                            <Image
-                                src="/artem_about_portrait_final.jpg"
-                                alt="Артём — основатель HaloAgency"
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                priority
-                            />
-                        </div>
-                    </div>
-
-                    {/* Content Column */}
-                    <div className="w-full md:w-1/2 flex flex-col gap-6">
-                        <h2 className="text-4xl md:text-5xl font-extrabold leading-tight text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
-                            Маркетинг как система, а не набор услуг
-                        </h2>
-                        <div className="space-y-4 text-[#1A1A1A] font-medium leading-relaxed">
-                            <p>
-                                Я прошёл весь путь онлайн-маркетинга на практике — от создания сайтов и запуска рекламы до аналитики и автоматизации. Работая с сервисными бизнесами и e-commerce, я хорошо понимаю реальные задачи и ограничения малого и среднего бизнеса.
-                            </p>
-                            <p>
-                                В основе моего подхода — выстраивать единую систему, где сайт, реклама и внутренние процессы связаны между собой и не требуют постоянного ручного управления.
-                            </p>
-                            <p>
-                                Сегодня я использую AI и автоматизацию не как модный инструмент, а как рабочую основу: для аналитики, оптимизации рекламы и принятия решений на основе данных.
-                            </p>
-                        </div>
-                        <div className="mt-4 flex flex-col">
-                            <span className="font-extrabold text-xl text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>Artem K.</span>
-                            <span className="text-sm text-[#1A1A1A] uppercase tracking-wider font-bold">Основатель HaloAgency</span>
-                        </div>
-                    </div>
-                </div>
+  return (
+    <section id="about" className="px-5 py-8 md:px-6 md:py-12">
+      <div className="mx-auto max-w-[1200px]">
+        <div className="flex flex-col items-center gap-5 rounded-2xl border-2 border-[#1A1A1A] bg-white px-6 py-6 shadow-[6px_6px_0px_0px_#1A1A1A] sm:flex-row sm:gap-6 md:gap-8 md:px-10 md:py-8">
+          <div className="relative h-20 w-20 flex-shrink-0 rounded-full border-2 border-[#1A1A1A] bg-[#FFD166] p-1.5 shadow-[3px_3px_0px_0px_#1A1A1A] md:h-24 md:w-24">
+            <div className="relative h-full w-full overflow-hidden rounded-full border-2 border-[#1A1A1A]">
+              <Image
+                src="/halo-foundr.jpg"
+                alt="Артём Крицкий — основатель HaloAgency"
+                fill
+                className="object-cover"
+                sizes="96px"
+              />
             </div>
-        </section>
-    );
+          </div>
+
+          <div className="flex flex-col gap-1 text-center sm:text-left">
+            <p className="text-base font-bold text-[#1A1A1A] md:text-lg">
+              Мы строим маркетинг на опыте: сайт, реклама, аналитика и
+              автоматизация должны работать как одна система. Тогда бизнес
+              получает не набор отдельных услуг, а понятный поток заявок и
+              решений на основе данных.
+            </p>
+            <p className="text-sm text-[#1A1A1A]/60 md:text-base">
+              AI используем там, где он реально ускоряет аналитику, оптимизацию
+              и ежедневную работу.
+            </p>
+            <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/contact"
+                data-cta-track="true"
+                data-cta-name="Обсудить задачу"
+                data-cta-location="home_about_compact"
+                data-cta-category="primary"
+                className="inline-flex w-fit rounded-2xl border-2 border-[#1A1A1A] bg-[#FF3366] px-5 py-2.5 text-sm font-bold text-white shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A]"
+              >
+                Обсудить задачу
+              </Link>
+              <Link
+                href="/about"
+                data-cta-track="true"
+                data-cta-name="Читать подробнее"
+                data-cta-location="home_about_compact"
+                data-cta-category="secondary"
+                className="text-sm font-bold text-[#1A1A1A] transition-colors hover:text-[#FF3366]"
+              >
+                Читать подробнее →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

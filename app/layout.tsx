@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, JetBrains_Mono, Syne } from "next/font/google";
-import "./globals.css";
-import { ContactModalProvider } from "@/context/contact-modal-context";
+import Script from "next/script";
+import { ConsentScripts } from "@/components/analytics/ConsentScripts";
+import { CtaTrackingListener } from "@/components/analytics/CtaTrackingListener";
 import { LayoutShell } from "@/components/layout/LayoutShell";
 import { CookieBanner } from "@/components/ui/cookie-banner";
-import { ConsentScripts } from "@/components/analytics/ConsentScripts";
-import Script from "next/script";
+import "./globals.css";
 
 const ibmPlexSans = IBM_Plex_Sans({
   subsets: ["latin", "cyrillic"],
@@ -28,8 +28,6 @@ const syne = Syne({
   preload: true,
   variable: "--font-display",
 });
-
-
 
 export const metadata: Metadata = {
   title: "HaloAgency - Digital Agency",
@@ -112,13 +110,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </>
         )}
 
-        <ContactModalProvider>
-          <LayoutShell>
-            {children}
-          </LayoutShell>
+        <LayoutShell>
+          {children}
           <CookieBanner />
+          <CtaTrackingListener />
           <ConsentScripts />
-        </ContactModalProvider>
+        </LayoutShell>
       </body>
     </html>
   );

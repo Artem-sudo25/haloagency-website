@@ -1,9 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { ContactModal } from "@/components/ui/contact-modal";
+import Header from "@/components/layout/Header";
 
 export function LayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -14,7 +13,6 @@ export function LayoutShell({ children }: { children: React.ReactNode }) {
       {!isLandingPage && <Header />}
       {children}
       {!isLandingPage && <Footer />}
-      {!isLandingPage && <ContactModal />}
     </>
   );
 }

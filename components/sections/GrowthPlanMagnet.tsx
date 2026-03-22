@@ -1,332 +1,492 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
-import { CheckCircle2, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { growthPlanSchema, type GrowthPlanData } from "@/lib/validations";
-import { waitForHaloTrack, getHaloTrackSessionId, trackFormEvent } from "@/lib/halotrack";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  getHaloTrackSessionId,
+  trackFormEvent,
+  waitForHaloTrack,
+} from "@/lib/halotrack";
+import { type GrowthPlanData, growthPlanSchema } from "@/lib/validations";
 
 const businessTypes = [
-    { value: "service", label: "Сервис / услуги" },
-    { value: "ecommerce", label: "Интернет-магазин" },
-    { value: "local", label: "Локальный бизнес" },
-    { value: "other", label: "Другое" },
+  { value: "service", label: "Сервис / услуги" },
+  { value: "ecommerce", label: "Интернет-магазин" },
+  { value: "local", label: "Локальный бизнес" },
+  { value: "other", label: "Другое" },
 ];
 
 const goals = [
-    { value: "leads", label: "Больше заявок" },
-    { value: "sales", label: "Больше продаж" },
-    { value: "check-ads", label: "Проверить рекламу" },
-    { value: "prepare-growth", label: "Подготовить бизнес к росту" },
+  { value: "leads", label: "Больше заявок" },
+  { value: "sales", label: "Больше продаж" },
+  { value: "check-ads", label: "Проверить рекламу" },
+  { value: "prepare-growth", label: "Подготовить бизнес к росту" },
 ];
 
 const triedOptions = [
-    { value: "google-ads", label: "Google Ads" },
-    { value: "meta-ads", label: "Facebook / Instagram Ads" },
-    { value: "seo", label: "SEO" },
-    { value: "social", label: "Соцсети" },
-    { value: "nothing", label: "Пока ничего" },
+  { value: "google-ads", label: "Google Ads" },
+  { value: "meta-ads", label: "Facebook / Instagram Ads" },
+  { value: "seo", label: "SEO" },
+  { value: "social", label: "Соцсети" },
+  { value: "nothing", label: "Пока ничего" },
+];
+
+const useCases = [
+  "когда заявки или продажи идут слабее, чем должны",
+  "когда непонятно, проблема в сайте, рекламе, аналитике или процессах",
+  "когда нужен спокойный первый шаг без лишних работ",
 ];
 
 export default function GrowthPlanMagnet() {
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [showSuccess, setShowSuccess] = useState(false);
-    const [selectedTried, setSelectedTried] = useState<string[]>([]);
-    const [haloSessionId, setHaloSessionId] = useState<string>("");
-    const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedTried, setSelectedTried] = useState<string[]>([]);
+  const [haloSessionId, setHaloSessionId] = useState<string>("");
+  const [submitError, setSubmitError] = useState("");
 
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-        reset,
-    } = useForm<GrowthPlanData>({
-        resolver: zodResolver(growthPlanSchema),
-        defaultValues: {
-            triedBefore: [],
-        },
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+    reset,
+  } = useForm<GrowthPlanData>({
+    resolver: zodResolver(growthPlanSchema),
+    defaultValues: {
+      triedBefore: [],
+      mainProblem: "",
+    },
+  });
+
+  useEffect(() => {
+    waitForHaloTrack().then(() => {
+      setHaloSessionId(getHaloTrackSessionId());
     });
+  }, []);
 
-    // Load HaloTrack session ID on mount
-    useEffect(() => {
-        waitForHaloTrack().then(() => {
-            const sessionId = getHaloTrackSessionId();
-            setHaloSessionId(sessionId);
-        });
-    }, []);
+  const toggleTried = (value: string) => {
+    setSelectedTried((prev) => {
+      if (value === "nothing") {
+        return prev.includes("nothing") ? [] : ["nothing"];
+      }
 
-    const toggleTried = (value: string) => {
-        setSelectedTried((prev) =>
-            prev.includes(value)
-                ? prev.filter((v) => v !== value)
-                : [...prev, value]
+      const withoutNothing = prev.filter((item) => item !== "nothing");
+      return withoutNothing.includes(value)
+        ? withoutNothing.filter((item) => item !== value)
+        : [...withoutNothing, value];
+    });
+  };
+
+  const getLeadValue = (businessType: string): number => {
+    switch (businessType) {
+      case "ecommerce":
+        return 25000;
+      case "service":
+        return 15000;
+      case "local":
+        return 8000;
+      default:
+        return 8000;
+    }
+  };
+
+  const onSubmit = async (data: GrowthPlanData) => {
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    const leadValue = getLeadValue(data.businessType);
+
+    try {
+      const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.contact);
+      const leadId = crypto.randomUUID();
+
+      const response = await fetch("/api/webhook/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "growth-plan",
+          session_id: haloSessionId,
+          websiteOrProfile: data.websiteOrProfile,
+          businessType: data.businessType,
+          mainGoal: data.mainGoal,
+          mainProblem: data.mainProblem,
+          contact: data.contact,
+          email: isEmail ? data.contact : undefined,
+          phone: data.phone,
+          contact_method: isEmail ? "email" : "other",
+          triedBefore: selectedTried,
+          value: leadValue,
+          currency: "CZK",
+          lead_id: leadId,
+          source: "growth_plan_form",
+          consent_given: true,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit");
+      }
+
+      trackFormEvent("growth_plan_submit", {
+        business_type: data.businessType,
+        goal: data.mainGoal,
+        value: leadValue,
+      });
+
+      if (typeof window.fbq === "function") {
+        window.fbq(
+          "track",
+          "Lead",
+          {
+            content_name: "growth_plan",
+            currency: "CZK",
+            value: leadValue,
+          },
+          { eventID: leadId },
         );
-    };
+      }
 
-    const getLeadValue = (businessType: string): number => {
-        switch (businessType) {
-            case "ecommerce": return 25000;
-            case "service": return 15000;
-            case "local": return 8000;
-            case "other": return 8000;
-            default: return 8000;
-        }
-    };
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "generate_lead_v2",
+        eventID: leadId,
+        user_data: {
+          email_address: data.contact,
+        },
+      });
 
-    const onSubmit = async (data: GrowthPlanData) => {
-        setSubmitError("");
-        setIsSubmitting(true);
+      setShowSuccess(true);
+      reset();
+      setSelectedTried([]);
+    } catch (error) {
+      console.error("Failed to submit:", error);
+      setSubmitError("Ошибка отправки. Попробуйте ещё раз.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-        const formData = {
-            ...data,
-            triedBefore: selectedTried,
-            session_id: haloSessionId,
-        };
+  return (
+    <section
+      id="growth-plan"
+      className="relative overflow-hidden px-5 py-12 md:px-6 md:py-24"
+    >
+      <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+        <div className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-6 shadow-[8px_8px_0px_0px_#1A1A1A] md:p-10">
+          <div className="mb-6 inline-flex rounded-full border-2 border-[#1A1A1A] bg-[#FFD166] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]">
+            Если нужен короткий разбор
+          </div>
+          <h2
+            className="mb-4 text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl md:mb-5 md:text-5xl"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            Сначала нужен
+            <br />
+            взгляд со стороны?
+          </h2>
+          <p className="mb-6 text-base font-medium leading-relaxed text-[#1A1A1A]/70 md:mb-8 md:text-lg">
+            Оставьте вводные, и мы поможем понять, где сейчас слабое место и с
+            чего разумнее начать: с сайта, рекламы, аналитики или автоматизации.
+          </p>
 
-        const leadValue = getLeadValue(data.businessType);
+          <div className="mb-6 space-y-3 md:mb-8">
+            {useCases.map((item) => (
+              <div
+                key={item}
+                className="flex items-start gap-3 text-[13px] font-bold text-[#1A1A1A]/75 md:text-sm"
+              >
+                <span className="mt-1 h-2 w-2 rounded-full bg-[#FF3366]" />
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
 
-        try {
-            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contact);
-            const leadId = crypto.randomUUID();
-
-            const response = await fetch("/api/webhook/lead", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    type: "growth-plan",
-                    session_id: haloSessionId,
-                    websiteOrProfile: formData.websiteOrProfile,
-                    businessType: formData.businessType,
-                    mainGoal: formData.mainGoal,
-                    mainProblem: formData.mainProblem,
-                    contact: formData.contact,
-                    email: isEmail ? formData.contact : undefined,
-                    phone: formData.phone,
-                    contact_method: isEmail ? "email" : "other",
-                    triedBefore: selectedTried,
-                    value: leadValue,
-                    currency: "CZK",
-                    lead_id: leadId,
-                    source: "growth_plan_form",
-                    consent_given: true,
-                    timestamp: new Date().toISOString()
-                }),
-            });
-
-            if (!response.ok) {
-                throw new Error("Failed to submit");
-            }
-
-            trackFormEvent("growth_plan_submit", {
-                business_type: data.businessType,
-                goal: data.mainGoal,
-                value: leadValue,
-            });
-
-            // @ts-ignore
-            if (typeof window.fbq === 'function') {
-                // @ts-ignore
-                window.fbq('track', 'Lead', {
-                    content_name: 'growth_plan',
-                    currency: 'CZK',
-                    value: leadValue,
-                }, { eventID: leadId });
-            }
-
-            // @ts-ignore
-            window.dataLayer = window.dataLayer || [];
-            // @ts-ignore
-            window.dataLayer.push({
-                'event': 'generate_lead_v2',
-                'eventID': leadId,
-                'user_data': {
-                    'email_address': formData.contact,
-                }
-            });
-
-            setShowSuccess(true);
-            reset();
-            setSelectedTried([]);
-        } catch (error) {
-            console.error("Failed to submit:", error);
-            setSubmitError("Ошибка отправки. Попробуйте ещё раз.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
-    return (
-        <section id="growth-plan" className="py-16 md:py-24 px-6 relative overflow-hidden">
-            <div className="max-w-[1200px] mx-auto">
-                <div className="w-full max-w-4xl mx-auto p-8 md:p-12 rounded-3xl bg-[#B19CD9] border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] relative overflow-hidden">
-
-                    {/* Header */}
-                    <div className="text-center mb-10">
-                        <h2 className="text-3xl md:text-4xl font-extrabold text-[#1A1A1A] mb-4 relative inline-block" style={{ fontFamily: 'var(--font-display)' }}>
-                            Бесплатный план{" "}
-                            <span className="relative z-10">
-                                роста
-                                <svg className="absolute -bottom-2 left-0 w-full h-3 text-[#FF3366] -z-10" fill="none" preserveAspectRatio="none" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M0 10 Q 50 20 100 10" stroke="currentColor" strokeLinecap="round" strokeWidth="4" />
-                                </svg>
-                            </span>
-                        </h2>
-                        <p className="text-[#1A1A1A] font-bold mt-4">
-                            Ответьте на несколько коротких вопросов — мы посмотрим вашу ситуацию и предложим конкретные шаги для роста бизнеса.
-                        </p>
-                    </div>
-
-                    {showSuccess ? (
-                        <div className="text-center py-12">
-                            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                                <CheckCircle2 className="w-8 h-8 text-green-600" />
-                            </div>
-                            <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3" style={{ fontFamily: 'var(--font-display)' }}>
-                                Спасибо! Заявка отправлена
-                            </h3>
-                            <p className="text-[#1A1A1A]/60 max-w-md mx-auto">
-                                Мы изучим вашу ситуацию и ответим в течение 2 часов с персональным планом роста.
-                            </p>
-                            <button
-                                onClick={() => setShowSuccess(false)}
-                                className="mt-6 px-6 py-2.5 rounded-full border-2 border-[#1A1A1A] text-[#1A1A1A] font-bold hover:bg-[#1A1A1A] hover:text-white transition-all"
-                            >
-                                Отправить ещё
-                            </button>
-                        </div>
-                    ) : (
-                        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-                            {/* Website + Email row */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Сайт или профиль бизнеса</label>
-                                    <Input
-                                        {...register("websiteOrProfile")}
-                                        placeholder="https:// или Instagram"
-                                        className="px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-x-[2px] focus:translate-y-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium"
-                                    />
-                                    {errors.websiteOrProfile && (
-                                        <p className="text-red-500 text-sm ml-4">{errors.websiteOrProfile.message}</p>
-                                    )}
-                                </div>
-                                <div className="flex flex-col gap-2">
-                                    <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Email для ответа</label>
-                                    <Input
-                                        type="email"
-                                        {...register("contact")}
-                                        placeholder="your@email.com"
-                                        className="px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-x-[2px] focus:translate-y-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium"
-                                    />
-                                    {errors.contact && (
-                                        <p className="text-red-500 text-sm ml-4">{errors.contact.message}</p>
-                                    )}
-                                </div>
-                            </div>
-
-                            {/* Business Type */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Тип бизнеса</label>
-                                <Controller
-                                    name="businessType"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <select
-                                            {...field}
-                                            className="w-full px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-x-[2px] focus:translate-y-[2px] outline-none appearance-none cursor-pointer text-[#1A1A1A] font-medium transition-all"
-                                        >
-                                            <option value="">Выберите тип</option>
-                                            {businessTypes.map((type) => (
-                                                <option key={type.value} value={type.value}>{type.label}</option>
-                                            ))}
-                                        </select>
-                                    )}
-                                />
-                                {errors.businessType && (
-                                    <p className="text-red-500 text-sm ml-4">{errors.businessType.message}</p>
-                                )}
-                            </div>
-
-                            {/* Main Goal */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Главная цель</label>
-                                <Controller
-                                    name="mainGoal"
-                                    control={control}
-                                    render={({ field }) => (
-                                        <select
-                                            {...field}
-                                            className="w-full px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-x-[2px] focus:translate-y-[2px] outline-none appearance-none cursor-pointer text-[#1A1A1A] font-medium transition-all"
-                                        >
-                                            <option value="">Выберите цель</option>
-                                            {goals.map((goal) => (
-                                                <option key={goal.value} value={goal.value}>{goal.label}</option>
-                                            ))}
-                                        </select>
-                                    )}
-                                />
-                                {errors.mainGoal && (
-                                    <p className="text-red-500 text-sm ml-4">{errors.mainGoal.message}</p>
-                                )}
-                            </div>
-
-                            {/* Phone (Optional) */}
-                            <div className="flex flex-col gap-2">
-                                <label className="text-sm font-bold text-[#1A1A1A]/80 ml-4">Телефон (опционально)</label>
-                                <Input
-                                    type="tel"
-                                    {...register("phone")}
-                                    placeholder="+420 123 456 789"
-                                    className="px-6 py-4 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] focus:shadow-[2px_2px_0px_0px_#1A1A1A] focus:translate-x-[2px] focus:translate-y-[2px] h-auto outline-none transition-all text-[#1A1A1A] font-medium"
-                                />
-                            </div>
-
-                            {/* Consent */}
-                            <div className="flex items-start gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="consent-growth"
-                                    {...register("consent")}
-                                    className="mt-1 w-4 h-4 rounded border-[#1A1A1A]/20 text-[#FF3366] focus:ring-[#FF3366] cursor-pointer accent-[#FF3366]"
-                                />
-                                <label htmlFor="consent-growth" className="text-xs text-[#1A1A1A]/60 cursor-pointer">
-                                    Принимаю{" "}
-                                    <a href="/privacy" target="_blank" className="text-[#FF3366] hover:underline">
-                                        политику конфиденциальности
-                                    </a>
-                                </label>
-                            </div>
-                            {errors.consent && (
-                                <p className="text-red-500 text-xs ml-4">{errors.consent.message}</p>
-                            )}
-
-                            {/* Submit */}
-                            <div className="pt-2">
-                                {submitError && (
-                                    <p className="text-red-500 text-sm text-center mb-3">{submitError}</p>
-                                )}
-                                <button
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                    className="w-full bg-[#1A1A1A] text-white border-2 border-[#1A1A1A] px-10 py-5 rounded-2xl text-lg font-bold shadow-[4px_4px_0px_0px_#FFFFFF] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0px_0px_#FFFFFF] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0px_0px_#FFFFFF] transition-all disabled:opacity-70"
-                                >
-                                    {isSubmitting ? "Отправляем..." : (
-                                        <>
-                                            Получить план на 30 дней
-                                            <ArrowRight className="w-5 h-5 ml-2 inline" />
-                                        </>
-                                    )}
-                                </button>
-                                <p className="text-xs text-[#1A1A1A]/40 text-center mt-3">
-                                    Мы не передаём данные третьим лицам. Без спама.
-                                </p>
-                            </div>
-                        </form>
-                    )}
-                </div>
+          <div className="rounded-2xl border-2 border-[#1A1A1A] bg-[#F5F5F7] px-4 py-4 shadow-[4px_4px_0px_0px_#1A1A1A] md:px-5 md:py-5">
+            <div className="text-base font-bold text-[#1A1A1A]">
+              Если задача уже ясна
             </div>
-        </section>
-    );
+            <div className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/60">
+              Можно сразу перейти к форме и обсудить проект без промежуточного
+              шага.
+            </div>
+            <Link
+              href="/contact"
+              className="mt-4 inline-flex text-sm font-bold text-[#FF3366] transition-colors hover:text-[#1A1A1A]"
+            >
+              Сразу обсудить проект →
+            </Link>
+          </div>
+        </div>
+
+        <div className="relative overflow-hidden rounded-3xl border-2 border-[#1A1A1A] bg-[#B19CD9] p-6 shadow-[8px_8px_0px_0px_#1A1A1A] md:p-12">
+          <div className="mb-8 text-center md:mb-10">
+            <h3
+              className="mb-3 inline-block text-2xl font-extrabold text-[#1A1A1A] md:mb-4 md:text-4xl"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              Короткий разбор ситуации
+            </h3>
+            <p className="text-sm font-bold text-[#1A1A1A] md:text-base">
+              Чем яснее вводные, тем точнее мы предложим следующий шаг.
+            </p>
+          </div>
+
+          {showSuccess ? (
+            <div className="py-12 text-center">
+              <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                <CheckCircle2 className="h-8 w-8 text-green-600" />
+              </div>
+              <h3
+                className="mb-3 text-2xl font-bold text-[#1A1A1A]"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
+                Спасибо! Заявка отправлена
+              </h3>
+              <p className="mx-auto max-w-md text-[#1A1A1A]/60">
+                Мы изучим ситуацию и ответим в течение рабочего дня с
+                рекомендацией по следующему шагу.
+              </p>
+              <button
+                onClick={() => setShowSuccess(false)}
+                className="mt-6 rounded-full border-2 border-[#1A1A1A] px-6 py-2.5 font-bold text-[#1A1A1A] transition-all hover:bg-[#1A1A1A] hover:text-white"
+                type="button"
+              >
+                Отправить ещё
+              </button>
+            </div>
+          ) : (
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="flex flex-col gap-6"
+            >
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="growth-website"
+                    className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                  >
+                    Сайт или профиль бизнеса
+                  </label>
+                  <Input
+                    id="growth-website"
+                    {...register("websiteOrProfile")}
+                    placeholder="https:// или Instagram"
+                    className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                  />
+                  {errors.websiteOrProfile && (
+                    <p className="ml-4 text-sm text-red-500">
+                      {errors.websiteOrProfile.message}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="growth-contact"
+                    className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                  >
+                    Email для ответа
+                  </label>
+                  <Input
+                    id="growth-contact"
+                    type="email"
+                    {...register("contact")}
+                    placeholder="your@email.com"
+                    className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                  />
+                  {errors.contact && (
+                    <p className="ml-4 text-sm text-red-500">
+                      {errors.contact.message}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="growth-business-type"
+                  className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                >
+                  Тип бизнеса
+                </label>
+                <Controller
+                  name="businessType"
+                  control={control}
+                  render={({ field }) => (
+                    <select
+                      {...field}
+                      id="growth-business-type"
+                      className="w-full cursor-pointer appearance-none rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                    >
+                      <option value="">Выберите тип</option>
+                      {businessTypes.map((type) => (
+                        <option key={type.value} value={type.value}>
+                          {type.label}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                {errors.businessType && (
+                  <p className="ml-4 text-sm text-red-500">
+                    {errors.businessType.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="growth-goal"
+                  className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                >
+                  Главная цель
+                </label>
+                <Controller
+                  name="mainGoal"
+                  control={control}
+                  render={({ field }) => (
+                    <select
+                      {...field}
+                      id="growth-goal"
+                      className="w-full cursor-pointer appearance-none rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                    >
+                      <option value="">Выберите цель</option>
+                      {goals.map((goal) => (
+                        <option key={goal.value} value={goal.value}>
+                          {goal.label}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                />
+                {errors.mainGoal && (
+                  <p className="ml-4 text-sm text-red-500">
+                    {errors.mainGoal.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <div className="ml-4 text-sm font-bold text-[#1A1A1A]/80">
+                  Что уже пробовали
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {triedOptions.map((option) => (
+                    <button
+                      key={option.value}
+                      type="button"
+                      onClick={() => toggleTried(option.value)}
+                      className={`rounded-xl border-2 border-[#1A1A1A] px-4 py-2 text-sm font-bold transition-all ${
+                        selectedTried.includes(option.value)
+                          ? "translate-x-[2px] translate-y-[2px] bg-[#1A1A1A] text-white shadow-[2px_2px_0px_0px_#FF3366]"
+                          : "bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#1A1A1A]"
+                      }`}
+                    >
+                      {option.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="growth-problem"
+                  className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                >
+                  Что сейчас мешает росту
+                </label>
+                <Textarea
+                  id="growth-problem"
+                  {...register("mainProblem")}
+                  placeholder="Коротко: слабая страница, реклама не даёт лидов, аналитика неясная, нет понимания следующего шага..."
+                  className="min-h-[120px] w-full resize-none rounded-2xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                />
+                {errors.mainProblem && (
+                  <p className="ml-4 text-sm text-red-500">
+                    {errors.mainProblem.message}
+                  </p>
+                )}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <label
+                  htmlFor="growth-phone"
+                  className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
+                >
+                  Телефон (опционально)
+                </label>
+                <Input
+                  id="growth-phone"
+                  type="tel"
+                  {...register("phone")}
+                  placeholder="+420 123 456 789"
+                  className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
+                />
+              </div>
+
+              <div className="flex items-start gap-2">
+                <input
+                  type="checkbox"
+                  id="consent-growth"
+                  {...register("consent")}
+                  className="mt-1 h-4 w-4 cursor-pointer rounded border-[#1A1A1A]/20 text-[#FF3366] accent-[#FF3366] focus:ring-[#FF3366]"
+                />
+                <label
+                  htmlFor="consent-growth"
+                  className="cursor-pointer text-xs text-[#1A1A1A]/60"
+                >
+                  Принимаю{" "}
+                  <a
+                    href="/privacy-policy"
+                    target="_blank"
+                    className="text-[#FF3366] hover:underline"
+                    rel="noreferrer"
+                  >
+                    политику конфиденциальности
+                  </a>
+                </label>
+              </div>
+              {errors.consent && (
+                <p className="ml-4 text-xs text-red-500">
+                  {errors.consent.message}
+                </p>
+              )}
+
+              <div className="pt-2">
+                {submitError && (
+                  <p className="mb-3 text-center text-sm text-red-500">
+                    {submitError}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full rounded-2xl border-2 border-[#1A1A1A] bg-[#1A1A1A] px-10 py-5 text-lg font-bold text-white shadow-[4px_4px_0px_0px_#FFFFFF] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#FFFFFF] active:translate-x-1 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#FFFFFF] disabled:opacity-70"
+                >
+                  {isSubmitting ? (
+                    "Отправляем..."
+                  ) : (
+                    <>
+                      Получить план на 30 дней
+                      <ArrowRight className="ml-2 inline h-5 w-5" />
+                    </>
+                  )}
+                </button>
+                <p className="mt-3 text-center text-xs text-[#1A1A1A]/40">
+                  Если задача уже понятна, `/contact` будет быстрее. Эта форма
+                  нужна для диагностического next step.
+                </p>
+              </div>
+            </form>
+          )}
+        </div>
+      </div>
+    </section>
+  );
 }
