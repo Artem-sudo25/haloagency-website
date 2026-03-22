@@ -119,23 +119,6 @@ const packages = [
   },
 ];
 
-const savingsComparison = [
-  {
-    label: "Лид-машина",
-    packagePrice: "35,000 Kč + 8,000 Kč/мес",
-    separatePrice: "~55,000 Kč + ~14,000 Kč/мес",
-    items: ["Лендинг", "Google Ads", "Meta Ads", "Аналитика", "Ведение"],
-    accentColor: "#FF3366",
-  },
-  {
-    label: "Интернет-магазин",
-    packagePrice: "50,000 Kč + 12,000 Kč/мес",
-    separatePrice: "~80,000 Kč + ~20,000 Kč/мес",
-    items: ["Магазин", "Реклама", "Аналитика продаж", "Ведение"],
-    accentColor: "#FFD166",
-  },
-];
-
 const whyPackage = [
   {
     icon: Layers,
@@ -318,77 +301,6 @@ export default function Packages() {
         </div>
       </section>
 
-      {/* Bundle Savings Comparison */}
-      <section className="px-6 py-16 md:py-20">
-        <div className="mx-auto max-w-[1200px]">
-          <div className="mb-12 text-center">
-            <h2
-              className="mb-4 text-3xl font-extrabold text-[#1A1A1A] md:text-4xl"
-              style={{ fontFamily: "var(--font-display)" }}
-            >
-              Пакет vs услуги по отдельности
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-[#1A1A1A]/60">
-              Те же работы, но дешевле и быстрее, потому что всё проектируется
-              как одна система.
-            </p>
-          </div>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {savingsComparison.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-8 shadow-[8px_8px_0px_0px_#1A1A1A]"
-              >
-                <div
-                  className="mb-6 inline-flex rounded-full border-2 border-[#1A1A1A] px-4 py-1.5 text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A] shadow-[3px_3px_0px_0px_#1A1A1A]"
-                  style={{ backgroundColor: item.accentColor }}
-                >
-                  {item.label}
-                </div>
-
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {item.items.map((service) => (
-                    <span
-                      key={service}
-                      className="rounded-lg border border-[#1A1A1A]/15 bg-[#F5F5F7] px-3 py-1 text-xs font-medium text-[#1A1A1A]/70"
-                    >
-                      {service}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="space-y-4">
-                  <div className="rounded-2xl border-2 border-[#1A1A1A]/10 bg-[#F5F5F7] p-5">
-                    <div className="text-xs font-bold uppercase tracking-wide text-[#1A1A1A]/40">
-                      По отдельности
-                    </div>
-                    <div className="mt-1 text-lg font-bold text-[#1A1A1A]/40 line-through decoration-[#FF3366] decoration-2">
-                      {item.separatePrice}
-                    </div>
-                  </div>
-
-                  <div
-                    className="rounded-2xl border-2 border-[#1A1A1A] p-5 shadow-[4px_4px_0px_0px_#1A1A1A]"
-                    style={{ backgroundColor: `${item.accentColor}20` }}
-                  >
-                    <div className="text-xs font-bold uppercase tracking-wide text-[#1A1A1A]/60">
-                      В пакете
-                    </div>
-                    <div
-                      className="mt-1 text-xl font-extrabold text-[#1A1A1A]"
-                      style={{ fontFamily: "var(--font-display)" }}
-                    >
-                      {item.packagePrice}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Why a Package */}
       <section className="border-y-2 border-[#1A1A1A] bg-[#1A1A1A] px-6 py-16 md:py-20">
         <div className="mx-auto max-w-[1200px]">
@@ -438,7 +350,7 @@ export default function Packages() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-3">
-            {processSteps.map((step, i) => (
+            {processSteps.map((step) => (
               <div
                 key={step.num}
                 className="relative rounded-3xl border-2 border-[#1A1A1A] bg-white p-8 shadow-[8px_8px_0px_0px_#1A1A1A]"

@@ -9,9 +9,9 @@ const quickRoutes = [
 
 export default function Hero() {
   return (
-    <section className="relative px-5 pb-6 pt-24 md:px-6 md:pb-10 md:pt-28">
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col">
-        <div className="flex flex-col items-center justify-center gap-8 py-4 text-center md:gap-10 md:py-8">
+    <section className="relative flex min-h-[100svh] px-5 pb-6 pt-24 md:min-h-0 md:px-6 md:pb-10 md:pt-28">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-center">
+        <div className="flex flex-col items-center gap-8 py-4 text-center md:gap-10 md:py-8">
           <h1
             className="relative max-w-5xl font-[var(--font-display)] text-[2.75rem] font-extrabold leading-[1.05] tracking-tight text-[#1A1A1A] sm:text-5xl md:text-7xl lg:text-8xl"
             style={{ fontFamily: "var(--font-display)" }}

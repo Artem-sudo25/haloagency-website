@@ -73,13 +73,10 @@ export default function SocialProof() {
                   style={{ fontFamily: "var(--font-display)" }}
                 >
                   {stat.highlight && (
-                    <span className="relative">
-                      <span className="relative z-10">
-                        {count}
-                        {stat.suffix}
-                      </span>
-                      <span className="absolute -inset-x-2 bottom-0 top-1/3 -z-0 bg-[#B3D4FC]/40" />
-                    </span>
+                    <>
+                      {count}
+                      {stat.suffix}
+                    </>
                   )}
                   {!stat.highlight && (
                     <>

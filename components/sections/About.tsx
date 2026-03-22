@@ -29,7 +29,7 @@ export default function About() {
               AI используем там, где он реально ускоряет аналитику, оптимизацию
               и ежедневную работу.
             </p>
-            <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="mt-3 flex w-full flex-col items-start gap-3 sm:w-auto sm:flex-row sm:items-center">
               <Link
                 href="/contact"
                 data-cta-track="true"
