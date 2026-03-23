@@ -10,11 +10,12 @@ import {
   ShieldCheck,
   Sparkles,
   Star,
+  X,
 } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { type FormEvent, useRef, useState } from "react";
+import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -61,30 +62,55 @@ const websiteExamples = [
     feature: "бронирование столиков",
     image: "/images/case-studies/catcafe-screenshot.png",
     alt: "Пример сайта для кафе",
+    gallery: [
+      "/images/case-studies/catcafe-gallery-1.jpg",
+      "/images/case-studies/catcafe-gallery-2.jpg",
+      "/images/case-studies/catcafe-gallery-3.jpg",
+    ],
   },
   {
     title: "Прачечная",
     feature: "landing page для рекламы",
     image: "/images/case-studies/propradlo-screenshot.png",
     alt: "Пример landing page для прачечной",
+    gallery: [
+      "/images/case-studies/propradlo-gallery-1.jpg",
+      "/images/case-studies/propradlo-gallery-2.jpg",
+      "/images/case-studies/propradlo-gallery-3.jpg",
+    ],
   },
   {
     title: "Интернет магазин",
     feature: "Доставка и физический магазин",
     image: "/images/case-studies/nejbalonky-screenshot.png",
     alt: "Пример сайта для event-бизнеса",
+    gallery: [
+      "/images/case-studies/nejbalonky-gallery-1.jpg",
+      "/images/case-studies/nejbalonky-gallery-2.jpg",
+      "/images/case-studies/nejbalonky-gallery-3.jpg",
+    ],
   },
   {
     title: "Груминг салон",
     feature: "онлайн запись",
     image: "/images/case-studies/doggy-screenshot.png",
     alt: "Пример сайта для груминг-салона",
+    gallery: [
+      "/images/case-studies/doggy-gallery-1.jpg",
+      "/images/case-studies/doggy-gallery-2.jpg",
+      "/images/case-studies/doggy-gallery-3.jpg",
+    ],
   },
   {
     title: "Услуги дизайнера",
     feature: "премиальный сайт услуг",
     image: "/images/case-studies/drape-studio.png",
     alt: "Пример сайта для студии штор",
+    gallery: [
+      "/images/case-studies/drape-gallery-1.jpg",
+      "/images/case-studies/drape-gallery-2.jpg",
+      "/images/case-studies/drape-gallery-3.jpg",
+    ],
   },
 ];
 
@@ -174,7 +200,47 @@ export default function LPV3Client() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
+  const [galleryImageIndex, setGalleryImageIndex] = useState(0);
   const examplesRef = useRef<HTMLDivElement>(null);
+
+  const closeGallery = useCallback(() => {
+    setGalleryOpen(null);
+    setGalleryImageIndex(0);
+  }, []);
+
+  const openGallery = useCallback((index: number) => {
+    setGalleryOpen(index);
+    setGalleryImageIndex(0);
+  }, []);
+
+  const navigateImage = useCallback(
+    (direction: -1 | 1) => {
+      if (galleryOpen === null) return;
+      const images = websiteExamples[galleryOpen].gallery;
+      setGalleryImageIndex((prev) => {
+        const next = prev + direction;
+        if (next < 0 || next >= images.length) return prev;
+        return next;
+      });
+    },
+    [galleryOpen],
+  );
+
+  useEffect(() => {
+    if (galleryOpen === null) return;
+    document.body.style.overflow = "hidden";
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeGallery();
+      if (e.key === "ArrowLeft") navigateImage(-1);
+      if (e.key === "ArrowRight") navigateImage(1);
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [galleryOpen, closeGallery, navigateImage]);
 
   const scrollToForm = () => {
     document
@@ -690,7 +756,16 @@ export default function LPV3Client() {
             {websiteExamples.map((example, index) => (
               <article
                 key={example.title}
-                className="group min-w-[292px] max-w-[360px] flex-none snap-start"
+                className="group min-w-[292px] max-w-[360px] flex-none snap-start cursor-pointer"
+                onClick={() => openGallery(index)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openGallery(index);
+                  }
+                }}
               >
                 <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)]">
                   <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-[#f5f5f7] p-2">
@@ -707,6 +782,11 @@ export default function LPV3Client() {
                         sizes="(max-width: 768px) 292px, 360px"
                         className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
                       />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors duration-300 group-hover:bg-black/10">
+                        <span className="rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-gray-700 opacity-0 shadow-lg backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                          Посмотреть сайт
+                        </span>
+                      </div>
                     </div>
                   </div>
 
@@ -726,8 +806,8 @@ export default function LPV3Client() {
           </div>
 
           <p className="mt-5 text-sm text-gray-400">
-            Листайте примеры или используйте стрелки, чтобы посмотреть разные
-            стили сайтов.
+            Нажмите на карточку, чтобы рассмотреть сайт подробнее. Листайте
+            стрелками, чтобы посмотреть разные стили.
           </p>
         </div>
       </section>
@@ -885,6 +965,110 @@ export default function LPV3Client() {
           <span>© 2026 HaloAgency.cz</span>
         </div>
       </footer>
+      {galleryOpen !== null && (() => {
+        const site = websiteExamples[galleryOpen];
+        const images = site.gallery;
+        return (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            onClick={closeGallery}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Просмотр сайта: ${site.title}`}
+          >
+            <div
+              className="relative mx-2 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:mx-4"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 sm:px-6 sm:py-4">
+                <div className="mr-2 min-w-0 flex-1">
+                  <h3 className="truncate text-base font-bold text-gray-900 sm:text-lg">
+                    {site.title}
+                  </h3>
+                  <p className="truncate text-xs text-gray-500 sm:text-sm">
+                    {site.feature}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={closeGallery}
+                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 sm:h-10 sm:w-10"
+                  aria-label="Закрыть"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Image area */}
+              <div className="relative flex-1 overflow-hidden bg-[#f5f5f7]">
+                <div className="relative p-2 sm:p-4">
+                  <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                    <div className="relative aspect-[16/10] overflow-hidden">
+                      {images.map((src, i) => (
+                        <Image
+                          key={src}
+                          src={src}
+                          alt={`${site.alt} — скриншот ${i + 1}`}
+                          fill
+                          sizes="(max-width: 768px) 95vw, 960px"
+                          className={`object-cover object-top transition-opacity duration-300 ${
+                            i === galleryImageIndex
+                              ? "opacity-100"
+                              : "opacity-0"
+                          }`}
+                          priority={i === 0}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Prev/Next arrows over the image */}
+                {galleryImageIndex > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => navigateImage(-1)}
+                    className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:left-6 sm:h-12 sm:w-12"
+                    aria-label="Предыдущий скриншот"
+                  >
+                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </button>
+                )}
+                {galleryImageIndex < images.length - 1 && (
+                  <button
+                    type="button"
+                    onClick={() => navigateImage(1)}
+                    className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:right-6 sm:h-12 sm:w-12"
+                    aria-label="Следующий скриншот"
+                  >
+                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                  </button>
+                )}
+              </div>
+
+              {/* Footer with dots */}
+              <div className="flex items-center justify-center border-t border-gray-100 px-4 py-3 sm:py-4">
+                <div className="flex items-center gap-2">
+                  {images.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setGalleryImageIndex(i)}
+                      className={`h-2.5 rounded-full transition-all ${
+                        i === galleryImageIndex
+                          ? "w-7 bg-gray-900"
+                          : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                      }`}
+                      aria-label={`Скриншот ${i + 1}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </main>
   );
 }

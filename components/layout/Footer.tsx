@@ -19,6 +19,7 @@ const webLinks = [
 const companyLinks = [
   { label: "О нас", href: "/about" },
   { label: "Кейсы", href: "/case-studies" },
+  { label: "Блог", href: "/blog" },
   { label: "Пакеты", href: "/packages" },
   { label: "Обсудить задачу", href: "/contact" },
 ];

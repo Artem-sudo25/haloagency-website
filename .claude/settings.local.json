@@ -20,7 +20,22 @@
       "Bash(ls -la /Users/artemhorvatsky/Documents/dev/haloagency-website/.env*)",
       "Bash(git log:*)",
       "Bash(npx tsc:*)",
-      "Bash(sips -s format jpeg /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.heic --out /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.jpg)"
+      "Bash(sips -s format jpeg /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.heic --out /Users/artemhorvatsky/Documents/dev/haloagency-website/public/halo-foundr.jpg)",
+      "mcp__plugin_episodic-memory_episodic-memory__search",
+      "Bash(grep -E \"\\\\.\\(ts|tsx\\)$\")",
+      "Bash(npx playwright:*)",
+      "Bash(npx puppeteer:*)",
+      "Bash(node -e \"require\\(''sharp''\\)\")",
+      "Bash(npx -y playwright screenshot --help)",
+      "Bash(npx -y playwright screenshot --full-page --viewport-size=\"1440,900\" \"https://catcafeprague.com\" \"public/images/case-studies/catcafe-gallery-full.jpg\")",
+      "Bash(ls -la public/images/case-studies/*gallery*)",
+      "Bash(npm ls:*)",
+      "Bash(gh repo:*)",
+      "Bash(curl -s https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/README.md)",
+      "Bash(gh api:*)",
+      "Bash(curl -s https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh)",
+      "Bash(mkdir -p ~/.claude/skills)",
+      "Bash(git clone:*)"
     ],
     "deny": [],
     "ask": []

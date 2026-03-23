@@ -74,6 +74,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/blog`,
+      lastModified: contentLastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: contentLastModified,
       changeFrequency: "monthly",
@@ -146,6 +152,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: contentLastModified,
       changeFrequency: "monthly",
       priority: 0.6,
+    },
+    // Blog
+    {
+      url: `${baseUrl}/blog/lending-ili-polnotsennyi-sait-v-chekhii`,
+      lastModified: new Date("2026-03-23T00:00:00+01:00"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/pochemu-google-ads-ne-rabotaet`,
+      lastModified: new Date("2026-03-23T00:00:00+01:00"),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/blog/normalnyi-treking-dlya-malogo-biznesa`,
+      lastModified: new Date("2026-03-23T00:00:00+01:00"),
+      changeFrequency: "monthly",
+      priority: 0.7,
     },
     // Legal
     {

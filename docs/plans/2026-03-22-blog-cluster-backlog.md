@@ -3,6 +3,11 @@
 Date: 2026-03-22
 Goal: Build a practical blog layer that supports service pages, earns informational traffic, and creates more quotable material for AI search systems.
 
+Related docs:
+
+- [Blog Structure System](/Users/artemhorvatsky/Documents/dev/haloagency-website/docs/plans/2026-03-22-blog-structure-system.md)
+- [Priority 1 Blog Briefs](/Users/artemhorvatsky/Documents/dev/haloagency-website/docs/plans/2026-03-22-priority-1-blog-briefs.md)
+
 ## Publishing Rules
 
 - Write for Russian-speaking business owners in Czechia.

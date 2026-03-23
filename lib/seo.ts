@@ -231,21 +231,31 @@ export function articleJsonLd({
   path,
   keywords,
   imagePath,
+  datePublished,
+  dateModified,
+  authorName,
+  articleType = "Article",
 }: {
   headline: string;
   description: string;
   path: string;
   keywords?: string[];
   imagePath?: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+  articleType?: "Article" | "BlogPosting";
 }) {
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": articleType,
     headline,
     description,
     url: absoluteUrl(path),
     inLanguage: DEFAULT_LANGUAGE,
     mainEntityOfPage: absoluteUrl(path),
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
     ...(imagePath
       ? {
           image: {
@@ -254,10 +264,15 @@ export function articleJsonLd({
           },
         }
       : {}),
-    author: {
-      "@type": "Organization",
-      name: ORGANIZATION_NAME,
-    },
+    author: authorName
+      ? {
+          "@type": "Person",
+          name: authorName,
+        }
+      : {
+          "@type": "Organization",
+          name: ORGANIZATION_NAME,
+        },
     publisher: {
       "@type": "Organization",
       name: ORGANIZATION_NAME,
