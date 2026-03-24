@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
@@ -36,10 +36,15 @@ export default function Header({
 }: HeaderProps) {
   const t = useTranslations("header");
   const tCommon = useTranslations("common");
+  const locale = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileExpandedLink, setMobileExpandedLink] = useState<string | null>(
+    null,
+  );
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const closeDropdownTimeoutRef = useRef<number | null>(null);
+  const languageLabel = locale === "cs" ? "Jazyk" : "Язык";
 
   const navLinks: NavLink[] = [
     {
@@ -93,6 +98,12 @@ export default function Header({
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setMobileExpandedLink(null);
+    }
+  }, [mobileMenuOpen]);
 
   const clearDropdownCloseTimeout = () => {
     if (closeDropdownTimeoutRef.current) {
@@ -327,15 +338,25 @@ export default function Header({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className="fixed left-4 right-4 top-[84px] z-[9998] bg-white border-2 border-[#1A1A1A] rounded-2xl shadow-[6px_6px_0px_0px_#1A1A1A] p-6 md:hidden"
+              className="fixed left-4 right-4 top-[84px] bottom-4 z-[9998] flex flex-col overflow-hidden rounded-[28px] border-2 border-[#1A1A1A] bg-white p-4 shadow-[6px_6px_0px_0px_#1A1A1A] md:hidden"
             >
-              <nav className="flex flex-col gap-4">
+              <div className="mb-3 flex items-center justify-between rounded-2xl border-2 border-[#1A1A1A] bg-[#F5F5F7] px-4 py-3">
+                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/45">
+                  {languageLabel}
+                </span>
+                <LocaleSwitcher className="rounded-xl border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-sm font-extrabold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hover:bg-[#FFD166] hover:text-[#1A1A1A]" />
+              </div>
+
+              <nav className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto overscroll-contain pr-1">
                 {navLinks.map((link) => (
-                  <div key={link.name}>
-                    {link.href ? (
+                  <div
+                    key={link.name}
+                    className="rounded-2xl border border-[#1A1A1A]/10 bg-[#F5F5F7] px-4 py-3"
+                  >
+                    {link.href && !link.dropdownSections ? (
                       <Link
                         href={link.href}
-                        className="text-lg font-bold text-[#1A1A1A] block py-2"
+                        className="block text-base font-bold text-[#1A1A1A]"
                         onClick={() =>
                           !link.dropdownSections && setMobileMenuOpen(false)
                         }
@@ -343,43 +364,71 @@ export default function Header({
                         {link.name}
                       </Link>
                     ) : (
-                      <div className="text-lg font-bold text-[#1A1A1A] block py-2">
-                        {link.name}
-                      </div>
+                      <button
+                        type="button"
+                        className="flex w-full items-center justify-between gap-3 text-left text-base font-bold text-[#1A1A1A]"
+                        onClick={() =>
+                          setMobileExpandedLink((current) =>
+                            current === link.name ? null : link.name,
+                          )
+                        }
+                        aria-expanded={mobileExpandedLink === link.name}
+                      >
+                        <span>{link.name}</span>
+                        <ChevronDown
+                          className={`h-5 w-5 flex-shrink-0 transition-transform ${
+                            mobileExpandedLink === link.name
+                              ? "rotate-180"
+                              : "rotate-0"
+                          }`}
+                        />
+                      </button>
                     )}
-                    {link.dropdownSections && (
-                      <div className="pl-4 flex flex-col gap-3 border-l-2 border-[#FF3366]/20 ml-2">
-                        {link.dropdownSections.map((section) => (
-                          <div
-                            key={section.title}
-                            className="flex flex-col gap-1"
+
+                    <AnimatePresence initial={false}>
+                      {link.dropdownSections &&
+                        mobileExpandedLink === link.name && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            className="overflow-hidden"
                           >
-                            <div className="pt-1 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/40">
-                              {section.title}
+                            <div className="ml-1 mt-3 flex flex-col gap-3 border-l-2 border-[#FF3366]/20 pl-4">
+                              {link.dropdownSections.map((section) => (
+                                <div
+                                  key={section.title}
+                                  className="flex flex-col gap-1"
+                                >
+                                  <div className="pt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/40">
+                                    {section.title}
+                                  </div>
+                                  {section.items.map((item) => (
+                                    <Link
+                                      key={item.name}
+                                      href={item.href}
+                                      className="block py-1.5 text-sm font-semibold text-[#1A1A1A]/70 transition-colors hover:text-[#FF3366]"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              ))}
                             </div>
-                            {section.items.map((item) => (
-                              <Link
-                                key={item.name}
-                                href={item.href}
-                                className="text-base text-[#1A1A1A]/60 hover:text-[#FF3366] transition-colors block py-1.5"
-                                onClick={() => setMobileMenuOpen(false)}
-                              >
-                                {item.name}
-                              </Link>
-                            ))}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                          </motion.div>
+                        )}
+                    </AnimatePresence>
                   </div>
                 ))}
-                <div className="flex justify-center mt-2">
-                  <LocaleSwitcher />
-                </div>
+              </nav>
+
+              <div className="mt-4">
                 <Button
                   asChild
                   size="lg"
-                  className="w-full mt-2 rounded-xl bg-white text-[#1A1A1A] hover:text-white hover:bg-[#1A1A1A] border-2 border-[#1A1A1A] font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
+                  className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-[#1A1A1A] hover:text-white hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
                 >
                   <Link
                     href="/contact"
@@ -392,7 +441,7 @@ export default function Header({
                     {t("cta")}
                   </Link>
                 </Button>
-              </nav>
+              </div>
             </motion.div>
           </>
         )}

@@ -2,8 +2,13 @@
 
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/routing";
+import { cn } from "@/lib/utils";
 
-export function LocaleSwitcher() {
+type LocaleSwitcherProps = {
+  className?: string;
+};
+
+export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -16,7 +21,10 @@ export function LocaleSwitcher() {
     <button
       type="button"
       onClick={() => router.replace(pathname, { locale: otherLocale })}
-      className="text-sm font-bold text-[#1A1A1A]/70 hover:text-[#FF3366] transition-colors px-2 py-1 rounded-lg border border-[#1A1A1A]/10 hover:border-[#FF3366]/30"
+      className={cn(
+        "rounded-lg border border-[#1A1A1A]/10 px-2 py-1 text-sm font-bold text-[#1A1A1A]/70 transition-colors hover:border-[#FF3366]/30 hover:text-[#FF3366]",
+        className,
+      )}
       aria-label={ariaLabel}
     >
       {label}
