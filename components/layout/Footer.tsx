@@ -1,30 +1,35 @@
+"use client";
+
 import { Mail, Smartphone } from "lucide-react";
-import Link from "next/link";
-
-const growthLinks = [
-  { label: "Реклама", href: "/ads" },
-  { label: "Google Ads", href: "/ads/google-ads" },
-  { label: "Meta Ads", href: "/ads/meta-ads" },
-  { label: "Аналитика и данные", href: "/tracking" },
-  { label: "Автоматизация", href: "/automation" },
-];
-
-const webLinks = [
-  { label: "Сайты", href: "/web" },
-  { label: "Лендинги", href: "/web/landing-pages" },
-  { label: "Сайты для бизнеса", href: "/web/business-websites" },
-  { label: "Интернет-магазины", href: "/web/ecommerce" },
-];
-
-const companyLinks = [
-  { label: "О нас", href: "/about" },
-  { label: "Кейсы", href: "/case-studies" },
-  { label: "Блог", href: "/blog" },
-  { label: "Пакеты", href: "/packages" },
-  { label: "Обсудить задачу", href: "/contact" },
-];
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
 export default function Footer() {
+  const t = useTranslations("footer");
+
+  const growthLinks = [
+    { label: t("growthColumn.links.ads"), href: "/ads" },
+    { label: "Google Ads", href: "/ads/google-ads" },
+    { label: "Meta Ads", href: "/ads/meta-ads" },
+    { label: t("growthColumn.links.analyticsAndData"), href: "/tracking" },
+    { label: t("growthColumn.links.automation"), href: "/automation" },
+  ];
+
+  const webLinks = [
+    { label: t("webColumn.links.websites"), href: "/web" },
+    { label: t("webColumn.links.landingPages"), href: "/web/landing-pages" },
+    { label: t("webColumn.links.businessWebsites"), href: "/web/business-websites" },
+    { label: t("webColumn.links.ecommerce"), href: "/web/ecommerce" },
+  ];
+
+  const companyLinks = [
+    { label: t("companyColumn.links.aboutUs"), href: "/about" },
+    { label: t("companyColumn.links.caseStudies"), href: "/case-studies" },
+    { label: t("companyColumn.links.blog"), href: "/blog" },
+    { label: t("companyColumn.links.packages"), href: "/packages" },
+    { label: t("companyColumn.links.discussTask"), href: "/contact" },
+  ];
+
   return (
     <footer className="relative bg-[#F5F5F7] pt-20 pb-10 border-t border-[#1A1A1A]/5">
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
@@ -39,7 +44,7 @@ export default function Footer() {
               HALO<span className="text-[#FF3366]">AGENCY</span>
             </Link>
             <p className="max-w-xs text-[#1A1A1A]/60">
-              Сайты, реклама и аналитика для бизнеса в Чехии.
+              {t("description")}
             </p>
 
             <div className="space-y-3 pt-2">
@@ -93,7 +98,7 @@ export default function Footer() {
               className="text-[#1A1A1A] font-bold mb-6"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Реклама
+              {t("growthColumn.title")}
             </h3>
             <ul className="space-y-4 text-[#1A1A1A]/60">
               {growthLinks.map((link) => (
@@ -127,7 +132,7 @@ export default function Footer() {
               className="text-[#1A1A1A] font-bold mb-6"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Сайты
+              {t("webColumn.title")}
             </h3>
             <ul className="space-y-4 text-[#1A1A1A]/60">
               {webLinks.map((link) => (
@@ -149,7 +154,7 @@ export default function Footer() {
               className="text-[#1A1A1A] font-bold mb-6"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Компания
+              {t("companyColumn.title")}
             </h3>
             <ul className="space-y-4 text-[#1A1A1A]/60">
               {companyLinks.map((link) => (
@@ -168,19 +173,19 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-[#1A1A1A]/5 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#1A1A1A]/50">
-          <div>© 2026 HaloAgency.cz | Все права защищены</div>
+          <div>{t("copyright")}</div>
           <div className="flex gap-6">
             <Link
               href="/privacy-policy"
               className="hover:text-[#FF3366] transition-colors"
             >
-              Политика конфиденциальности
+              {t("privacyPolicy")}
             </Link>
             <Link
               href="/terms-of-service"
               className="hover:text-[#FF3366] transition-colors"
             >
-              Условия использования
+              {t("termsOfService")}
             </Link>
           </div>
         </div>

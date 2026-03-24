@@ -11,7 +11,7 @@ export type SeoFaqItem = {
   answer: string;
 };
 
-const SITE_URL = "https://haloagency.cz";
+export const SITE_URL = "https://haloagency.cz";
 const ORGANIZATION_NAME = "HaloAgency";
 const DEFAULT_LOCALE = "ru_RU";
 const DEFAULT_LANGUAGE = "ru";
@@ -29,6 +29,7 @@ type BuildMetadataOptions = {
   keywords?: string[];
   type?: "website" | "article";
   robots?: Metadata["robots"];
+  locale?: string;
 };
 
 export function buildMetadata({
@@ -40,10 +41,12 @@ export function buildMetadata({
   keywords,
   type = "website",
   robots,
+  locale,
 }: BuildMetadataOptions): Metadata {
   const ogTitle = openGraphTitle ?? title;
   const ogDescription = openGraphDescription ?? description;
   const canonical = absoluteUrl(path);
+  const basePath = path.startsWith("/cs") ? path.slice(3) || "/" : path;
 
   return {
     title,
@@ -51,6 +54,11 @@ export function buildMetadata({
     keywords,
     alternates: {
       canonical,
+      languages: {
+        ru: absoluteUrl(basePath === "/" ? "/" : basePath),
+        cs: absoluteUrl(basePath === "/" ? "/cs" : `/cs${basePath}`),
+        "x-default": absoluteUrl(basePath === "/" ? "/" : basePath),
+      },
     },
     authors: [{ name: ORGANIZATION_NAME }],
     creator: ORGANIZATION_NAME,
@@ -60,7 +68,7 @@ export function buildMetadata({
       description: ogDescription,
       url: canonical,
       siteName: ORGANIZATION_NAME,
-      locale: DEFAULT_LOCALE,
+      locale: locale === "cs" ? "cs_CZ" : "ru_RU",
       type,
     },
     twitter: {
@@ -90,11 +98,13 @@ export function webPageJsonLd({
   description,
   path,
   type = "WebPage",
+  locale,
 }: {
   name: string;
   description: string;
   path: string;
   type?: string;
+  locale?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -102,7 +112,7 @@ export function webPageJsonLd({
     name,
     description,
     url: absoluteUrl(path),
-    inLanguage: DEFAULT_LANGUAGE,
+    inLanguage: locale || DEFAULT_LANGUAGE,
     isPartOf: {
       "@type": "WebSite",
       name: ORGANIZATION_NAME,
@@ -140,13 +150,13 @@ export function organizationJsonLd() {
   };
 }
 
-export function webSiteJsonLd() {
+export function webSiteJsonLd({ locale }: { locale?: string } = {}) {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: ORGANIZATION_NAME,
     url: SITE_URL,
-    inLanguage: DEFAULT_LANGUAGE,
+    inLanguage: locale || DEFAULT_LANGUAGE,
     publisher: {
       "@type": "Organization",
       name: ORGANIZATION_NAME,
@@ -163,16 +173,19 @@ export function collectionPageJsonLd({
   name,
   description,
   path,
+  locale,
 }: {
   name: string;
   description: string;
   path: string;
+  locale?: string;
 }) {
   return webPageJsonLd({
     name,
     description,
     path,
     type: "CollectionPage",
+    locale,
   });
 }
 
@@ -181,11 +194,13 @@ export function serviceJsonLd({
   description,
   path,
   serviceType,
+  locale,
 }: {
   name: string;
   description: string;
   path: string;
   serviceType: string;
+  locale?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -193,7 +208,7 @@ export function serviceJsonLd({
     name,
     description,
     url: absoluteUrl(path),
-    inLanguage: DEFAULT_LANGUAGE,
+    inLanguage: locale || DEFAULT_LANGUAGE,
     serviceType,
     provider: {
       "@type": "Organization",
@@ -235,6 +250,7 @@ export function articleJsonLd({
   dateModified,
   authorName,
   articleType = "Article",
+  locale,
 }: {
   headline: string;
   description: string;
@@ -245,6 +261,7 @@ export function articleJsonLd({
   dateModified?: string;
   authorName?: string;
   articleType?: "Article" | "BlogPosting";
+  locale?: string;
 }) {
   return {
     "@context": "https://schema.org",
@@ -252,7 +269,7 @@ export function articleJsonLd({
     headline,
     description,
     url: absoluteUrl(path),
-    inLanguage: DEFAULT_LANGUAGE,
+    inLanguage: locale || DEFAULT_LANGUAGE,
     mainEntityOfPage: absoluteUrl(path),
     ...(datePublished ? { datePublished } : {}),
     ...(dateModified ? { dateModified } : {}),

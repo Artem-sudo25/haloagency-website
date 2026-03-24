@@ -2,9 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -12,37 +13,23 @@ import {
   trackFormEvent,
   waitForHaloTrack,
 } from "@/lib/halotrack";
-import { type GrowthPlanData, growthPlanSchema } from "@/lib/validations";
+import { createGrowthPlanSchema, type GrowthPlanData } from "@/lib/validations";
 
-const businessTypes = [
-  { value: "service", label: "Сервис / услуги" },
-  { value: "ecommerce", label: "Интернет-магазин" },
-  { value: "local", label: "Локальный бизнес" },
-  { value: "other", label: "Другое" },
-];
-
-const goals = [
-  { value: "leads", label: "Больше заявок" },
-  { value: "sales", label: "Больше продаж" },
-  { value: "check-ads", label: "Проверить рекламу" },
-  { value: "prepare-growth", label: "Подготовить бизнес к росту" },
-];
-
-const triedOptions = [
-  { value: "google-ads", label: "Google Ads" },
-  { value: "meta-ads", label: "Facebook / Instagram Ads" },
-  { value: "seo", label: "SEO" },
-  { value: "social", label: "Соцсети" },
-  { value: "nothing", label: "Пока ничего" },
-];
-
-const useCases = [
-  "когда заявки или продажи идут слабее, чем должны",
-  "когда непонятно, проблема в сайте, рекламе, аналитике или процессах",
-  "когда нужен спокойный первый шаг без лишних работ",
-];
+const businessTypeKeys = ["service", "ecommerce", "local", "other"] as const;
+const goalKeys = ["leads", "sales", "checkAds", "prepareGrowth"] as const;
+const triedKeys = ["googleAds", "metaAds", "seo", "social", "nothing"] as const;
+const triedValues: Record<string, string> = {
+  googleAds: "google-ads",
+  metaAds: "meta-ads",
+  seo: "seo",
+  social: "social",
+  nothing: "nothing",
+};
 
 export default function GrowthPlanMagnet() {
+  const t = useTranslations("growthPlanMagnet");
+  const tCommon = useTranslations("common");
+  const tv = useTranslations("validation.growthPlan");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [selectedTried, setSelectedTried] = useState<string[]>([]);
@@ -56,7 +43,18 @@ export default function GrowthPlanMagnet() {
     formState: { errors },
     reset,
   } = useForm<GrowthPlanData>({
-    resolver: zodResolver(growthPlanSchema),
+    resolver: zodResolver(
+      createGrowthPlanSchema((key) =>
+        tv(
+          (
+            {
+              siteOrProfileRequired: "websiteRequired",
+              textTooLong: "mainProblemMax",
+            } as Record<string, string>
+          )[key] ?? key,
+        ),
+      ),
+    ),
     defaultValues: {
       triedBefore: [],
       mainProblem: "",
@@ -166,7 +164,7 @@ export default function GrowthPlanMagnet() {
       setSelectedTried([]);
     } catch (error) {
       console.error("Failed to submit:", error);
-      setSubmitError("Ошибка отправки. Попробуйте ещё раз.");
+      setSubmitError(tCommon("errors.submitError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -180,46 +178,44 @@ export default function GrowthPlanMagnet() {
       <div className="mx-auto grid max-w-[1200px] grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
         <div className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-6 shadow-[8px_8px_0px_0px_#1A1A1A] md:p-10">
           <div className="mb-6 inline-flex rounded-full border-2 border-[#1A1A1A] bg-[#FFD166] px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]">
-            Если нужен короткий разбор
+            {t("eyebrow")}
           </div>
           <h2
             className="mb-4 text-3xl font-extrabold tracking-tight text-[#1A1A1A] sm:text-4xl md:mb-5 md:text-5xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Сначала нужен
+            {t("title")}
             <br />
-            взгляд со стороны?
+            {t("titleLine2")}
           </h2>
           <p className="mb-6 text-base font-medium leading-relaxed text-[#1A1A1A]/70 md:mb-8 md:text-lg">
-            Оставьте вводные, и мы поможем понять, где сейчас слабое место и с
-            чего разумнее начать: с сайта, рекламы, аналитики или автоматизации.
+            {t("subtitle")}
           </p>
 
           <div className="mb-6 space-y-3 md:mb-8">
-            {useCases.map((item) => (
+            {[0, 1, 2].map((i) => (
               <div
-                key={item}
+                key={i}
                 className="flex items-start gap-3 text-[13px] font-bold text-[#1A1A1A]/75 md:text-sm"
               >
                 <span className="mt-1 h-2 w-2 rounded-full bg-[#FF3366]" />
-                <span>{item}</span>
+                <span>{t(`useCases.${i}`)}</span>
               </div>
             ))}
           </div>
 
           <div className="rounded-2xl border-2 border-[#1A1A1A] bg-[#F5F5F7] px-4 py-4 shadow-[4px_4px_0px_0px_#1A1A1A] md:px-5 md:py-5">
             <div className="text-base font-bold text-[#1A1A1A]">
-              Если задача уже ясна
+              {t("taskClearBox.title")}
             </div>
             <div className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/60">
-              Можно сразу перейти к форме и обсудить проект без промежуточного
-              шага.
+              {t("taskClearBox.description")}
             </div>
             <Link
               href="/contact"
               className="mt-4 inline-flex text-sm font-bold text-[#FF3366] transition-colors hover:text-[#1A1A1A]"
             >
-              Сразу обсудить проект →
+              {t("taskClearBox.cta")}
             </Link>
           </div>
         </div>
@@ -230,10 +226,10 @@ export default function GrowthPlanMagnet() {
               className="mb-3 inline-block text-2xl font-extrabold text-[#1A1A1A] md:mb-4 md:text-4xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Короткий разбор ситуации
+              {t("form.title")}
             </h3>
             <p className="text-sm font-bold text-[#1A1A1A] md:text-base">
-              Чем яснее вводные, тем точнее мы предложим следующий шаг.
+              {t("form.subtitle")}
             </p>
           </div>
 
@@ -246,18 +242,17 @@ export default function GrowthPlanMagnet() {
                 className="mb-3 text-2xl font-bold text-[#1A1A1A]"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Спасибо! Заявка отправлена
+                {t("success.title")}
               </h3>
               <p className="mx-auto max-w-md text-[#1A1A1A]/60">
-                Мы изучим ситуацию и ответим в течение рабочего дня с
-                рекомендацией по следующему шагу.
+                {t("success.message")}
               </p>
               <button
                 onClick={() => setShowSuccess(false)}
                 className="mt-6 rounded-full border-2 border-[#1A1A1A] px-6 py-2.5 font-bold text-[#1A1A1A] transition-all hover:bg-[#1A1A1A] hover:text-white"
                 type="button"
               >
-                Отправить ещё
+                {t("success.submitAgain")}
               </button>
             </div>
           ) : (
@@ -271,12 +266,12 @@ export default function GrowthPlanMagnet() {
                     htmlFor="growth-website"
                     className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                   >
-                    Сайт или профиль бизнеса
+                    {t("form.websiteLabel")}
                   </label>
                   <Input
                     id="growth-website"
                     {...register("websiteOrProfile")}
-                    placeholder="https:// или Instagram"
+                    placeholder={t("form.websitePlaceholder")}
                     className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                   />
                   {errors.websiteOrProfile && (
@@ -291,13 +286,13 @@ export default function GrowthPlanMagnet() {
                     htmlFor="growth-contact"
                     className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                   >
-                    Email для ответа
+                    {t("form.emailLabel")}
                   </label>
                   <Input
                     id="growth-contact"
                     type="email"
                     {...register("contact")}
-                    placeholder="your@email.com"
+                    placeholder={t("form.emailPlaceholder")}
                     className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                   />
                   {errors.contact && (
@@ -313,7 +308,7 @@ export default function GrowthPlanMagnet() {
                   htmlFor="growth-business-type"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Тип бизнеса
+                  {t("form.businessTypeLabel")}
                 </label>
                 <Controller
                   name="businessType"
@@ -324,10 +319,10 @@ export default function GrowthPlanMagnet() {
                       id="growth-business-type"
                       className="w-full cursor-pointer appearance-none rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                     >
-                      <option value="">Выберите тип</option>
-                      {businessTypes.map((type) => (
-                        <option key={type.value} value={type.value}>
-                          {type.label}
+                      <option value="">{t("form.businessTypePlaceholder")}</option>
+                      {businessTypeKeys.map((key) => (
+                        <option key={key} value={key}>
+                          {t(`form.businessTypes.${key}`)}
                         </option>
                       ))}
                     </select>
@@ -345,7 +340,7 @@ export default function GrowthPlanMagnet() {
                   htmlFor="growth-goal"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Главная цель
+                  {t("form.goalLabel")}
                 </label>
                 <Controller
                   name="mainGoal"
@@ -356,10 +351,10 @@ export default function GrowthPlanMagnet() {
                       id="growth-goal"
                       className="w-full cursor-pointer appearance-none rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                     >
-                      <option value="">Выберите цель</option>
-                      {goals.map((goal) => (
-                        <option key={goal.value} value={goal.value}>
-                          {goal.label}
+                      <option value="">{t("form.goalPlaceholder")}</option>
+                      {goalKeys.map((key) => (
+                        <option key={key} value={key}>
+                          {t(`form.goals.${key}`)}
                         </option>
                       ))}
                     </select>
@@ -374,23 +369,26 @@ export default function GrowthPlanMagnet() {
 
               <div className="flex flex-col gap-3">
                 <div className="ml-4 text-sm font-bold text-[#1A1A1A]/80">
-                  Что уже пробовали
+                  {t("form.triedLabel")}
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {triedOptions.map((option) => (
-                    <button
-                      key={option.value}
-                      type="button"
-                      onClick={() => toggleTried(option.value)}
-                      className={`rounded-xl border-2 border-[#1A1A1A] px-4 py-2 text-sm font-bold transition-all ${
-                        selectedTried.includes(option.value)
-                          ? "translate-x-[2px] translate-y-[2px] bg-[#1A1A1A] text-white shadow-[2px_2px_0px_0px_#FF3366]"
-                          : "bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#1A1A1A]"
-                      }`}
-                    >
-                      {option.label}
-                    </button>
-                  ))}
+                  {triedKeys.map((key) => {
+                    const value = triedValues[key];
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => toggleTried(value)}
+                        className={`rounded-xl border-2 border-[#1A1A1A] px-4 py-2 text-sm font-bold transition-all ${
+                          selectedTried.includes(value)
+                            ? "translate-x-[2px] translate-y-[2px] bg-[#1A1A1A] text-white shadow-[2px_2px_0px_0px_#FF3366]"
+                            : "bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#1A1A1A]"
+                        }`}
+                      >
+                        {t(`form.triedOptions.${key}`)}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -399,12 +397,12 @@ export default function GrowthPlanMagnet() {
                   htmlFor="growth-problem"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Что сейчас мешает росту
+                  {t("form.problemLabel")}
                 </label>
                 <Textarea
                   id="growth-problem"
                   {...register("mainProblem")}
-                  placeholder="Коротко: слабая страница, реклама не даёт лидов, аналитика неясная, нет понимания следующего шага..."
+                  placeholder={t("form.problemPlaceholder")}
                   className="min-h-[120px] w-full resize-none rounded-2xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                 />
                 {errors.mainProblem && (
@@ -419,13 +417,13 @@ export default function GrowthPlanMagnet() {
                   htmlFor="growth-phone"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Телефон (опционально)
+                  {t("form.phoneLabel")}
                 </label>
                 <Input
                   id="growth-phone"
                   type="tel"
                   {...register("phone")}
-                  placeholder="+420 123 456 789"
+                  placeholder={t("form.phonePlaceholder")}
                   className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                 />
               </div>
@@ -441,14 +439,14 @@ export default function GrowthPlanMagnet() {
                   htmlFor="consent-growth"
                   className="cursor-pointer text-xs text-[#1A1A1A]/60"
                 >
-                  Принимаю{" "}
+                  {tCommon("consent.accept")}{" "}
                   <a
                     href="/privacy-policy"
                     target="_blank"
                     className="text-[#FF3366] hover:underline"
                     rel="noreferrer"
                   >
-                    политику конфиденциальности
+                    {tCommon("consent.privacyPolicy")}
                   </a>
                 </label>
               </div>
@@ -470,17 +468,16 @@ export default function GrowthPlanMagnet() {
                   className="w-full rounded-2xl border-2 border-[#1A1A1A] bg-[#1A1A1A] px-10 py-5 text-lg font-bold text-white shadow-[4px_4px_0px_0px_#FFFFFF] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#FFFFFF] active:translate-x-1 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#FFFFFF] disabled:opacity-70"
                 >
                   {isSubmitting ? (
-                    "Отправляем..."
+                    t("form.submitting")
                   ) : (
                     <>
-                      Получить план на 30 дней
+                      {t("form.submitButton")}
                       <ArrowRight className="ml-2 inline h-5 w-5" />
                     </>
                   )}
                 </button>
                 <p className="mt-3 text-center text-xs text-[#1A1A1A]/40">
-                  Если задача уже понятна, `/contact` будет быстрее. Эта форма
-                  нужна для диагностического next step.
+                  {t("form.footerNote")}
                 </p>
               </div>
             </form>

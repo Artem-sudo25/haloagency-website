@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from "react";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 type FormValues = {
   name: string;
@@ -18,9 +19,7 @@ type MarketingWindow = Window & {
 };
 
 type DemoFormProps = {
-  /** Where the form is placed — used for analytics source tracking */
   source?: string;
-  /** Accent color for the form card background */
   accentColor?: string;
 };
 
@@ -28,6 +27,8 @@ export default function DemoForm({
   source = "web_service_page",
   accentColor = "#FFD166",
 }: DemoFormProps) {
+  const t = useTranslations("demoForm");
+  const tCommon = useTranslations("common");
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
@@ -41,10 +42,10 @@ export default function DemoForm({
 
   const validate = () => {
     const nextErrors: FormErrors = {};
-    if (!values.name.trim()) nextErrors.name = "Укажите ваше имя";
-    if (!values.phone.trim()) nextErrors.phone = "Укажите телефон для связи";
+    if (!values.name.trim()) nextErrors.name = t("validation.nameRequired");
+    if (!values.phone.trim()) nextErrors.phone = t("validation.phoneRequired");
     if (!values.consent)
-      nextErrors.consent = "Нужно согласие на обработку данных";
+      nextErrors.consent = t("validation.consentRequired");
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -88,8 +89,8 @@ export default function DemoForm({
       if (!res.ok) {
         const data = await res
           .json()
-          .catch(() => ({ error: "Ошибка отправки" }));
-        throw new Error(data.error || "Ошибка отправки");
+          .catch(() => ({ error: tCommon("errors.submitErrorGeneric") }));
+        throw new Error(data.error || tCommon("errors.submitErrorGeneric"));
       }
 
       if (typeof window !== "undefined") {
@@ -121,7 +122,7 @@ export default function DemoForm({
       setSubmitError(
         err instanceof Error
           ? err.message
-          : "Не удалось отправить заявку. Попробуйте снова.",
+          : tCommon("errors.submitFailed"),
       );
     } finally {
       setIsSubmitting(false);
@@ -140,7 +141,7 @@ export default function DemoForm({
             >
               <Sparkles className="h-4 w-4 text-[#1A1A1A]" />
               <span className="text-sm font-bold uppercase tracking-wide text-[#1A1A1A]">
-                Демо + расчёт
+                {t("badge")}
               </span>
             </div>
 
@@ -148,26 +149,21 @@ export default function DemoForm({
               className="mb-4 text-4xl font-extrabold text-[#1A1A1A] md:text-5xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Получите демо сайта
+              {t("title")}
               <br />
-              до 48 часов
+              {t("titleLine2")}
             </h2>
 
             <p className="mb-8 max-w-lg text-lg leading-relaxed text-[#1A1A1A]/60">
-              15 минут на созвон, демо-концепт до 48 часов и ориентир по
-              стоимости. Без оплаты и без обязательств.
+              {t("subtitle")}
             </p>
 
             <div className="space-y-4">
-              {[
-                "Короткий созвон — понимаем задачу и бизнес",
-                "До 48 часов отправляем демо под вашу подачу",
-                "Даём ориентир по стоимости и срокам",
-              ].map((item) => (
-                <div key={item} className="flex items-start gap-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-[#FF3366]" />
                   <span className="text-base font-medium text-[#1A1A1A]/75">
-                    {item}
+                    {t(`benefits.${i}`)}
                   </span>
                 </div>
               ))}
@@ -180,20 +176,20 @@ export default function DemoForm({
             style={{ backgroundColor: accentColor }}
           >
             <h3 className="mb-1 text-2xl font-bold text-[#1A1A1A]">
-              Оставьте заявку
+              {t("form.title")}
             </h3>
             <p className="mb-6 text-sm text-[#1A1A1A]/60">
-              Обычно перезваниваем в течение 20 минут в рабочее время
+              {t("form.subtitle")}
             </p>
 
             {submitSuccess && (
               <div className="rounded-xl border-2 border-[#1A1A1A] bg-white p-5 text-center shadow-[4px_4px_0px_0px_#1A1A1A]">
                 <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-[#06D6A0]" />
                 <p className="text-lg font-bold text-[#1A1A1A]">
-                  Заявка отправлена!
+                  {t("success.title")}
                 </p>
                 <p className="mt-2 text-sm text-[#1A1A1A]/60">
-                  Свяжемся с вами и обсудим демо сайта и ориентир по стоимости.
+                  {t("success.message")}
                 </p>
               </div>
             )}
@@ -211,12 +207,12 @@ export default function DemoForm({
                     className="mb-1.5 block text-sm font-bold text-[#1A1A1A]"
                     htmlFor="demo-name"
                   >
-                    Имя *
+                    {t("form.nameLabel")}
                   </label>
                   <input
                     id="demo-name"
                     className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white px-4 py-3 text-sm text-[#1A1A1A] outline-none placeholder:text-[#1A1A1A]/35 transition-shadow focus:shadow-[4px_4px_0px_0px_#1A1A1A]"
-                    placeholder="Ваше имя"
+                    placeholder={t("form.namePlaceholder")}
                     value={values.name}
                     onChange={(e) =>
                       setValues((prev) => ({ ...prev, name: e.target.value }))
@@ -234,12 +230,12 @@ export default function DemoForm({
                     className="mb-1.5 block text-sm font-bold text-[#1A1A1A]"
                     htmlFor="demo-link"
                   >
-                    Сайт, Instagram или пример
+                    {t("form.websiteLabel")}
                   </label>
                   <input
                     id="demo-link"
                     className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white px-4 py-3 text-sm text-[#1A1A1A] outline-none placeholder:text-[#1A1A1A]/35 transition-shadow focus:shadow-[4px_4px_0px_0px_#1A1A1A]"
-                    placeholder="https://... или @ваш_профиль"
+                    placeholder={t("form.websitePlaceholder")}
                     value={values.websiteOrProfile}
                     onChange={(e) =>
                       setValues((prev) => ({
@@ -255,13 +251,13 @@ export default function DemoForm({
                     className="mb-1.5 block text-sm font-bold text-[#1A1A1A]"
                     htmlFor="demo-phone"
                   >
-                    Телефон для связи *
+                    {t("form.phoneLabel")}
                   </label>
                   <input
                     id="demo-phone"
                     type="tel"
                     className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white px-4 py-3 text-sm text-[#1A1A1A] outline-none placeholder:text-[#1A1A1A]/35 transition-shadow focus:shadow-[4px_4px_0px_0px_#1A1A1A]"
-                    placeholder="777 777 777"
+                    placeholder={t("form.phonePlaceholder")}
                     value={values.phone}
                     onChange={(e) =>
                       setValues((prev) => ({ ...prev, phone: e.target.value }))
@@ -291,8 +287,7 @@ export default function DemoForm({
                     htmlFor="demo-consent"
                     className="text-xs leading-snug text-[#1A1A1A]/60"
                   >
-                    Согласен(а) на обработку данных. Мы используем контакт только
-                    для ответа по демо сайта и расчёту стоимости.
+                    {tCommon("consent.agreeProcessing")}
                   </label>
                 </div>
                 {errors.consent && (
@@ -307,8 +302,8 @@ export default function DemoForm({
                   className="group flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#1A1A1A] bg-[#FF3366] py-4 font-bold text-white shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isSubmitting
-                    ? "Отправляем..."
-                    : "Получить демо и расчёт стоимости"}
+                    ? t("form.submitting")
+                    : t("form.submitButton")}
                   {!isSubmitting && (
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   )}

@@ -2,6 +2,7 @@
 
 import { Minus, Plus } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import { CSSStagger, CSSStaggerItem } from "@/components/ui/css-scroll-animation";
 
 type FAQItem = {
@@ -16,68 +17,21 @@ type FAQProps = {
   footer?: ReactNode;
 };
 
-const defaultFaqs = [
-  {
-    question: "Вы больше про сайты, рекламу или автоматизацию?",
-    answer:
-      "Мы работаем с системой целиком. В зависимости от задачи фокус может быть на сайте, рекламе или процессах, но всё выстраивается как единое решение, а не отдельные разрозненные действия.",
-  },
-  {
-    question: "Можно ли начать с одного направления и расширяться позже?",
-    answer:
-      "Да. Многие клиенты начинают с базового решения и переходят к более комплексному формату по мере роста бизнеса и задач.",
-  },
-  {
-    question: "Подойдёт ли ваш подход малому бизнесу?",
-    answer:
-      "Да. Мы работаем с малым и средним бизнесом и выстраиваем решения, которые масштабируются — от простого старта до систем с автоматизацией и AI.",
-  },
-  {
-    question: "Сколько участия требуется от меня как от владельца бизнеса?",
-    answer:
-      "Минимум. Мы берём на себя координацию и операционную часть, чтобы вы могли сосредоточиться на развитии бизнеса, а не на управлении подрядчиками.",
-  },
-  {
-    question: "Как вы принимаете решения и понимаете, что делать дальше?",
-    answer:
-      "Решения принимаются на основе данных, текущих целей бизнеса и результатов предыдущих шагов. Мы регулярно анализируем ситуацию и предлагаем следующий логичный шаг.",
-  },
-  {
-    question: "Можно ли работать с вами, если у меня уже есть сайт или реклама?",
-    answer:
-      "Да. Мы часто подключаемся к существующим проектам, улучшаем текущие решения и выстраиваем систему вокруг того, что уже работает.",
-  },
-  {
-    question: "Работаете ли вы с бизнесом в Чехии и ориентируетесь на местный рынок?",
-    answer:
-      "Да. Мы работаем с бизнесом в Чехии и учитываем особенности локального рынка, конкуренции и поведения клиентов.",
-  },
-  {
-    question: "Как понять, какой пакет мне подойдёт?",
-    answer:
-      "На старте мы смотрим на цели бизнеса, текущую ситуацию и ресурсы, после чего рекомендуем оптимальный формат работы без переплаты за лишнее.",
-  },
-  {
-    question: "Что если результат не оправдает ожиданий?",
-    answer:
-      "Мы работаем прозрачно: все данные, аккаунты и доступы остаются у вас. Вы видите, что делается и какие результаты это даёт. Если по ходу работы становится понятно, что формат не подходит, вы не остаетесь «привязаны» к агентству и сохраняете всю историю и настройки.",
-  },
-  {
-    question: "Как начать работу и как с вами связаться?",
-    answer:
-      "Оставьте заявку через форму на сайте или напишите нам в Telegram или WhatsApp. Мы свяжемся с вами в течение 2 часов в рабочее время и подскажем следующий шаг.",
-  },
-];
-
-const defaultTitle = <>Частые вопросы</>;
-
 export default function FAQ({
-  items = defaultFaqs,
-  title = defaultTitle,
+  items,
+  title,
   eyebrow = "FAQ",
   footer,
 }: FAQProps) {
+  const t = useTranslations("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const faqItems = items ?? Array.from({ length: 10 }, (_, i) => ({
+    question: t(`items.${i}.question`),
+    answer: t(`items.${i}.answer`),
+  }));
+
+  const faqTitle = title ?? <>{t("title")}</>;
 
   return (
     <section id="faq" className="py-16 md:py-24 px-6 bg-white">
@@ -85,13 +39,13 @@ export default function FAQ({
         {/* Section Header */}
         <div className="text-center flex flex-col items-center gap-4 mb-8">
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
-            {title}
+            {faqTitle}
           </h2>
         </div>
 
         {/* FAQ Items */}
         <CSSStagger className="w-full max-w-3xl mx-auto flex flex-col gap-4">
-          {items.map((faq, index) => (
+          {faqItems.map((faq, index) => (
             <CSSStaggerItem key={index} index={index}>
               <button
                 type="button"

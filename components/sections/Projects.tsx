@@ -2,14 +2,17 @@
 
 import { TrendingUp } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { caseStudyCards } from "@/lib/case-study-cards";
-
-const featuredProjects = caseStudyCards.filter(
-  (project) => project.featuredOnHome,
-);
+import { useLocale, useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+import { getCaseStudyCards } from "@/lib/case-study-cards";
 
 export default function Projects() {
+  const locale = useLocale() as "ru" | "cs";
+  const t = useTranslations("projects");
+  const featuredProjects = getCaseStudyCards(locale).filter(
+    (project) => project.featuredOnHome,
+  );
+
   return (
     <section id="projects" className="bg-white px-5 py-12 md:px-6 md:py-24">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-10 md:gap-16">
@@ -20,20 +23,19 @@ export default function Projects() {
               className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Кейсы с реальными
+              {t("title")}
               <br />
-              бизнес-результатами
+              {t("titleLine2")}
             </h2>
             <p className="text-base text-[#1A1A1A]/60 md:text-lg">
-              Проекты, где сайт, реклама, аналитика и процессы помогли получить
-              больше заявок, броней или продаж.
+              {t("subtitle")}
             </p>
           </div>
           <Link
             href="/case-studies"
             className="flex items-center gap-2 rounded-xl border-2 border-[#1A1A1A] bg-white px-5 py-3 text-base font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:text-[#FF3366] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-1 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#1A1A1A] md:px-6 md:text-lg"
           >
-            Смотреть все →
+            {t("viewAll")}
           </Link>
         </div>
 
@@ -49,7 +51,7 @@ export default function Projects() {
               <div className="w-full md:w-3/5 aspect-[16/10] rounded-xl border-2 border-[#1A1A1A] bg-gray-200 overflow-hidden relative">
                 <Image
                   src={project.image}
-                  alt={`Превью кейса ${project.name}`}
+                  alt={t("casePreviewAlt", { name: project.name })}
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 768px) 100vw, 60vw"
@@ -94,7 +96,7 @@ export default function Projects() {
                   ))}
                 </div>
                 <div className="text-sm font-bold text-[#FF3366]">
-                  Открыть кейс →
+                  {t("openCase")}
                 </div>
               </div>
             </Link>

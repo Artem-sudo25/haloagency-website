@@ -2,9 +2,11 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
+import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
+import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
 
 type HeaderMode = "default" | "lp";
 type TrafficSource = "meta" | "google" | "other";
@@ -28,49 +30,51 @@ type NavLink = {
   dropdownSections?: DropdownSection[];
 };
 
-const navLinks: NavLink[] = [
-  {
-    name: "Услуги",
-    dropdownSections: [
-      {
-        title: "Реклама",
-        items: [
-          { name: "Реклама", href: "/ads" },
-          { name: "Google Ads", href: "/ads/google-ads" },
-          { name: "Meta Ads", href: "/ads/meta-ads" },
-        ],
-      },
-      {
-        title: "Сайты",
-        items: [
-          { name: "Сайты", href: "/web" },
-          { name: "Лендинги", href: "/web/landing-pages" },
-          { name: "Сайты для бизнеса", href: "/web/business-websites" },
-          { name: "Интернет-магазины", href: "/web/ecommerce" },
-        ],
-      },
-      {
-        title: "Система",
-        items: [
-          { name: "Аналитика и данные", href: "/tracking" },
-          { name: "Автоматизация", href: "/automation" },
-        ],
-      },
-    ],
-  },
-  { name: "Кейсы", href: "/case-studies" },
-  { name: "Пакеты", href: "/packages" },
-  { name: "О нас", href: "/about" },
-];
-
 export default function Header({
   mode = "default",
   trafficSource = "other",
 }: HeaderProps) {
+  const t = useTranslations("header");
+  const tCommon = useTranslations("common");
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const closeDropdownTimeoutRef = useRef<number | null>(null);
+
+  const navLinks: NavLink[] = [
+    {
+      name: t("nav.services"),
+      dropdownSections: [
+        {
+          title: t("dropdown.ads.title"),
+          items: [
+            { name: t("dropdown.ads.items.ads"), href: "/ads" },
+            { name: t("dropdown.ads.items.googleAds"), href: "/ads/google-ads" },
+            { name: t("dropdown.ads.items.metaAds"), href: "/ads/meta-ads" },
+          ],
+        },
+        {
+          title: t("dropdown.web.title"),
+          items: [
+            { name: t("dropdown.web.items.websites"), href: "/web" },
+            { name: t("dropdown.web.items.landingPages"), href: "/web/landing-pages" },
+            { name: t("dropdown.web.items.businessWebsites"), href: "/web/business-websites" },
+            { name: t("dropdown.web.items.ecommerce"), href: "/web/ecommerce" },
+          ],
+        },
+        {
+          title: t("dropdown.system.title"),
+          items: [
+            { name: t("dropdown.system.items.analyticsAndData"), href: "/tracking" },
+            { name: t("dropdown.system.items.automation"), href: "/automation" },
+          ],
+        },
+      ],
+    },
+    { name: t("nav.caseStudies"), href: "/case-studies" },
+    { name: t("nav.packages"), href: "/packages" },
+    { name: t("nav.aboutUs"), href: "/about" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,8 +130,8 @@ export default function Header({
 
     const ctaLabel =
       trafficSource === "google"
-        ? "Получить план запуска"
-        : "Записаться бесплатно";
+        ? tCommon("cta.getPlanLaunch")
+        : tCommon("cta.bookFree");
 
     return (
       <header className="fixed left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:right-auto md:w-[calc(100%-3rem)] md:max-w-6xl z-[9999] top-3 bg-white/80 backdrop-blur-xl shadow-sm py-3 rounded-2xl border border-[#1A1A1A]/5">
@@ -147,6 +151,7 @@ export default function Header({
                 {sourceLabel}
               </span>
             )}
+            <LocaleSwitcher />
             <Button
               asChild
               className="rounded-full bg-[#FF3366] hover:bg-[#FF3366]/90 text-white px-4 md:px-6 h-10 text-sm font-bold"
@@ -271,7 +276,8 @@ export default function Header({
           </nav>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden md:flex items-center gap-3">
+            <LocaleSwitcher />
             <Button
               asChild
               className="bg-white hover:bg-[#1A1A1A] text-[#1A1A1A] hover:text-white border-2 border-[#1A1A1A] font-bold rounded-xl px-6 shadow-[2px_2px_0px_0px_#1A1A1A] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[4px_4px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
@@ -279,11 +285,11 @@ export default function Header({
               <Link
                 href="/contact"
                 data-cta-track="true"
-                data-cta-name="Обсудить проект"
+                data-cta-name={t("cta")}
                 data-cta-location="header_desktop"
                 data-cta-category="primary"
               >
-                Обсудить проект
+                {t("cta")}
               </Link>
             </Button>
           </div>
@@ -367,20 +373,23 @@ export default function Header({
                     )}
                   </div>
                 ))}
+                <div className="flex justify-center mt-2">
+                  <LocaleSwitcher />
+                </div>
                 <Button
                   asChild
                   size="lg"
-                  className="w-full mt-4 rounded-xl bg-white text-[#1A1A1A] hover:text-white hover:bg-[#1A1A1A] border-2 border-[#1A1A1A] font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
+                  className="w-full mt-2 rounded-xl bg-white text-[#1A1A1A] hover:text-white hover:bg-[#1A1A1A] border-2 border-[#1A1A1A] font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[1px] active:translate-x-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A] transition-all"
                 >
                   <Link
                     href="/contact"
                     data-cta-track="true"
-                    data-cta-name="Обсудить проект"
+                    data-cta-name={t("cta")}
                     data-cta-location="header_mobile"
                     data-cta-category="primary"
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    Обсудить проект
+                    {t("cta")}
                   </Link>
                 </Button>
               </nav>

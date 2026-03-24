@@ -1,7 +1,7 @@
-# Priority 1 Blog Publishing Checklist
+# Blog Publishing Checklist
 
 Date: 2026-03-23
-Goal: Turn the first 3 draft articles into publishable blog pages without extra strategy work.
+Goal: Turn draft articles into publishable blog pages without extra strategy work.
 
 ## Shared Rules
 
@@ -87,6 +87,80 @@ Suggested CTA:
 
 - `Если данные по заявкам вызывают сомнения, разберём, где теряется сигнал и что нужно исправить в первую очередь.`
 
+## Priority 2
+
+### Article 4
+
+Draft:
+
+- [Что должно быть на сайте услуг](/Users/artemhorvatsky/Documents/dev/haloagency-website/docs/content/blog-drafts/2026-03-23-04-chto-dolzhno-byt-na-saite-uslug.md)
+
+What still needs to be added before publish:
+
+- one simple structure visual:
+  - `Главная → Услуги → Кейсы → Контакт`
+- one short before/after example of a weak vs strong service page
+- final author name/date
+
+Best internal links:
+
+- `/web/business-websites`
+- `/packages/site`
+- `/case-studies/doggy-salon`
+- `/contact`
+
+Suggested CTA:
+
+- `Если сайт услуг выглядит нормально, но заявок мало, разберём, что именно мешает человеку написать или позвонить.`
+
+### Article 5
+
+Draft:
+
+- [Meta Ads или Google Ads](/Users/artemhorvatsky/Documents/dev/haloagency-website/docs/content/blog-drafts/2026-03-23-05-meta-ads-ili-google-ads.md)
+
+What still needs to be added before publish:
+
+- one comparison visual:
+  - `Google Ads` vs `Meta Ads` by demand type
+- one short budget-start scenario for small business
+- final author name/date
+
+Best internal links:
+
+- `/ads/google-ads`
+- `/ads/meta-ads`
+- `/web/landing-pages`
+- `/contact`
+
+Suggested CTA:
+
+- `Если неясно, с какого канала начинать именно вашему бизнесу, разберём это по спросу, странице и бюджету.`
+
+### Article 6
+
+Draft:
+
+- [Как подготовить сайт под рекламу](/Users/artemhorvatsky/Documents/dev/haloagency-website/docs/content/blog-drafts/2026-03-23-06-kak-podgotovit-sait-pod-reklamu.md)
+
+What still needs to be added before publish:
+
+- one practical audit visual:
+  - `Оффер → Доверие → CTA → Форма → Аналитика`
+- one short bad-page vs ready-page example
+- final author name/date
+
+Best internal links:
+
+- `/web/landing-pages`
+- `/ads/google-ads`
+- `/tracking`
+- `/contact`
+
+Suggested CTA:
+
+- `Если реклама уже идёт или вот-вот запустится, разберём, готова ли страница к трафику и где вы рискуете потерять деньги.`
+
 ## Best Next Step
 
 The most pragmatic publishing order is still:
@@ -100,3 +174,9 @@ Why:
 - article 1 supports the broadest web-intent audience
 - article 2 is the strongest commercial pain article
 - article 3 builds authority and trust for tracking work
+
+After that, the most practical second cluster is:
+
+4. `Что должно быть на сайте услуг, чтобы он приводил заявки`
+5. `Нужен ли бизнесу Meta Ads или лучше начать с Google Ads`
+6. `Как подготовить сайт под рекламу, чтобы не сливать бюджет`

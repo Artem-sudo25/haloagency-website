@@ -1,68 +1,63 @@
 "use client";
 
 import { ArrowRight, BarChart3, Code2, Cog, Megaphone } from "lucide-react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 
-const services = [
+const serviceConfigs = [
   {
     icon: Code2,
     cardBg: "bg-[#FFD166]",
-    title: "Разработка сайтов",
-    description:
-      "Лендинги, сайты для бизнеса и интернет-магазины под конкретную задачу.",
+    key: "0" as const,
     href: "/web",
     quickLinks: [
-      { label: "Лендинги", href: "/web/landing-pages" },
-      { label: "Сайты для бизнеса", href: "/web/business-websites" },
-      { label: "Интернет-магазины", href: "/web/ecommerce" },
+      { key: "0" as const, href: "/web/landing-pages" },
+      { key: "1" as const, href: "/web/business-websites" },
+      { key: "2" as const, href: "/web/ecommerce" },
     ],
     offset: false,
   },
   {
     icon: Megaphone,
     cardBg: "bg-[#06D6A0]",
-    title: "Онлайн-реклама",
-    description:
-      "Google Ads и Meta Ads, когда нужен управляемый поток заявок, звонков и продаж.",
+    key: "1" as const,
     href: "/ads",
     quickLinks: [
-      { label: "Google Ads", href: "/ads/google-ads" },
-      { label: "Meta Ads", href: "/ads/meta-ads" },
-      { label: "Все по рекламе", href: "/ads" },
+      { key: "0" as const, href: "/ads/google-ads" },
+      { key: "1" as const, href: "/ads/meta-ads" },
+      { key: "2" as const, href: "/ads" },
     ],
     offset: true,
   },
   {
     icon: BarChart3,
     cardBg: "bg-[#B19CD9]",
-    title: "Аналитика и данные",
-    description:
-      "GA4, GTM, HaloTrack и настройка данных, чтобы видеть реальные заявки, продажи и слабые места в воронке.",
+    key: "2" as const,
     href: "/tracking",
     quickLinks: [
-      { label: "HaloTrack", href: "/tracking" },
-      { label: "Пакет Leads", href: "/packages/leads" },
-      { label: "Кейсы", href: "/case-studies" },
+      { key: "0" as const, href: "/tracking" },
+      { key: "1" as const, href: "/packages/leads" },
+      { key: "2" as const, href: "/case-studies" },
     ],
     offset: false,
   },
   {
     icon: Cog,
     cardBg: "bg-[#FFD166]",
-    title: "Автоматизация процессов",
-    description:
-      "CRM, сообщения и повторяющиеся процессы без ручной путаницы и потерь по пути.",
+    key: "3" as const,
     href: "/automation",
     quickLinks: [
-      { label: "Автоматизация", href: "/automation" },
-      { label: "Аналитика", href: "/tracking" },
-      { label: "Контакт", href: "/contact" },
+      { key: "0" as const, href: "/automation" },
+      { key: "1" as const, href: "/tracking" },
+      { key: "2" as const, href: "/contact" },
     ],
     offset: true,
   },
 ];
 
 export default function Services() {
+  const t = useTranslations("services");
+
   return (
     <section id="services" className="bg-white px-5 py-12 md:px-6 md:py-24">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-8 md:gap-12">
@@ -72,17 +67,16 @@ export default function Services() {
             className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            С чего можно начать
+            {t("title")}
           </h2>
           <p className="mt-2 max-w-xl text-base text-[#1A1A1A]/70 md:mt-4 md:text-lg">
-            Если задача уже понятна, открывайте нужное направление. Если нет,
-            отправьте короткий бриф, и мы подскажем самый разумный первый шаг.
+            {t("subtitle")}
           </p>
         </div>
 
         {/* Service Cards Grid */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 lg:grid-cols-4">
-          {services.map((service) => {
+          {serviceConfigs.map((service) => {
             const Icon = service.icon;
             return (
               <div
@@ -98,10 +92,10 @@ export default function Services() {
                   className="text-xl font-bold text-[#1A1A1A] md:text-2xl"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
-                  {service.title}
+                  {t(`items.${service.key}.title`)}
                 </h3>
                 <p className="flex-grow text-[13px] font-medium leading-relaxed text-[#1A1A1A] md:text-sm">
-                  {service.description}
+                  {t(`items.${service.key}.description`)}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {service.quickLinks.map((link, index) => (
@@ -110,13 +104,13 @@ export default function Services() {
                       href={link.href}
                       className={`rounded-full border-2 border-[#1A1A1A] bg-white/80 px-3 py-1 text-xs font-bold text-[#1A1A1A] hover:bg-white ${index === 2 ? "hidden sm:inline-flex" : "inline-flex"}`}
                     >
-                      {link.label}
+                      {t(`items.${service.key}.quickLinks.${link.key}`)}
                     </Link>
                   ))}
                 </div>
                 <div className="mt-2 flex items-center justify-between border-t-2 border-[#1A1A1A]/20 pt-3 text-sm font-bold text-[#1A1A1A] md:mt-4 md:pt-4">
                   <Link href={service.href} className="hover:underline">
-                    Подробнее
+                    {t("learnMore")}
                   </Link>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>

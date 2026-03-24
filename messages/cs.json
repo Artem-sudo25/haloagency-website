@@ -1,0 +1,2906 @@
+{
+  "common": {
+    "cta": {
+      "discussProject": "Nezávazně poptat",
+      "discussTask": "Probrat projekt",
+      "learnMore": "Více info",
+      "readMore": "Číst dál →",
+      "sendBrief": "Poslat podklady",
+      "viewAll": "Zobrazit vše →",
+      "openCase": "Otevřít referenci →",
+      "openPackage": "Otevřít balíček",
+      "submitApplication": "Odeslat poptávku",
+      "submitAgain": "Odeslat znovu",
+      "submitting": "Odesíláme...",
+      "sending": "Odesíláme...",
+      "getGrowthPlan": "Získat plán na 30 dní",
+      "getDemoAndEstimate": "Získat demo a odhad ceny",
+      "viewPackagesFirst": "Nejdřív se podívat na balíčky →",
+      "discussProjectDirectly": "Rovnou probrat projekt →",
+      "getPlanLaunch": "Získat plán spuštění",
+      "bookFree": "Zapsat se zdarma",
+      "discussAds": "Probrat reklamu",
+      "goToDiscussion": "Přejít k domluvě",
+      "goTo": "Přejít"
+    },
+    "labels": {
+      "launch": "Spuštění:",
+      "then": "Dále:",
+      "process": "Proces",
+      "guarantees": "Záruky",
+      "faq": "FAQ"
+    },
+    "consent": {
+      "accept": "Souhlasím",
+      "privacyPolicy": "ochranu osobních údajů",
+      "agreeProcessing": "Souhlasím se zpracováním údajů. Kontakt použijeme jen pro odpověď k demu webu a odhadu ceny."
+    },
+    "success": {
+      "applicationSent": "Poptávka odeslána!",
+      "thankYou": "Děkujeme! Poptávka byla odeslána."
+    },
+    "errors": {
+      "submitError": "Chyba při odeslání. Zkuste to znovu.",
+      "submitFailed": "Nepodařilo se odeslat poptávku. Zkuste to znovu.",
+      "submitErrorGeneric": "Chyba při odeslání",
+      "formSubmitError": "Chyba při odeslání formuláře",
+      "genericError": "Došlo k chybě. Zkuste to později nebo nám napište na Telegram."
+    },
+    "navigation": {
+      "services": "Služby",
+      "caseStudies": "Reference",
+      "packages": "Balíčky",
+      "aboutUs": "O nás"
+    },
+    "serviceTemplate": {
+      "importantAtStart": "Na co myslet na začátku",
+      "priceGuide": "Orientační cena",
+      "getReviewAndPlan": "Získat rozbor a plán",
+      "backToAds": "Zpět na reklamu →",
+      "discussFormat": "Poptat tento formát",
+      "callbackNote": "Obvykle se ozveme do 20 minut v pracovní době"
+    },
+    "form": {
+      "nameLabel": "Jméno",
+      "namePlaceholder": "Vaše jméno",
+      "phoneLabel": "Telefon",
+      "phonePlaceholder": "+420 777 777 777",
+      "nameRequired": "Vyplňte své jméno",
+      "phoneRequired": "Vyplňte telefon pro kontakt",
+      "consentRequired": "Je třeba souhlasit se zpracováním údajů"
+    }
+  },
+  "caseStudiesPage": {
+    "eyebrow": "Reference HaloAgency",
+    "title": "Reference,",
+    "titleLine2": "které vysvětlují náš přístup",
+    "subtitle": "Žádná nafouknutá čísla. Tady je vidět, jak web, reklama, analytika a procesy fungují dohromady na reálných projektech.",
+    "cta": "Poptat podobný projekt",
+    "openCase": "Otevřít referenci",
+    "caseAlt": "Screenshot reference",
+    "finalTitle": "Chcete podobný výsledek, ne jen podobný design",
+    "finalSubtitle": "Probereme zadání, vybereme správný formát a zjistíme, jestli začít webem, reklamou, analytikou nebo rovnou celým balíčkem.",
+    "finalCta": "Nezávazně poptat"
+  },
+  "header": {
+    "nav": {
+      "services": "Služby",
+      "caseStudies": "Reference",
+      "packages": "Balíčky",
+      "aboutUs": "O nás"
+    },
+    "dropdown": {
+      "ads": {
+        "title": "Reklama",
+        "items": {
+          "ads": "Reklama",
+          "googleAds": "Google Ads",
+          "metaAds": "Meta Ads"
+        }
+      },
+      "web": {
+        "title": "Weby",
+        "items": {
+          "websites": "Weby",
+          "landingPages": "Landing pages",
+          "businessWebsites": "Firemní weby",
+          "ecommerce": "E-shopy"
+        }
+      },
+      "system": {
+        "title": "Systém",
+        "items": {
+          "analyticsAndData": "Analytika a data",
+          "automation": "Automatizace"
+        }
+      }
+    },
+    "cta": "Nezávazně poptat"
+  },
+  "footer": {
+    "description": "Weby, reklama a analytika pro firmy v Česku.",
+    "growthColumn": {
+      "title": "Reklama",
+      "links": {
+        "ads": "Reklama",
+        "analyticsAndData": "Analytika a data",
+        "automation": "Automatizace"
+      }
+    },
+    "webColumn": {
+      "title": "Weby",
+      "links": {
+        "websites": "Weby",
+        "landingPages": "Landing pages",
+        "businessWebsites": "Firemní weby",
+        "ecommerce": "E-shopy"
+      }
+    },
+    "companyColumn": {
+      "title": "Firma",
+      "links": {
+        "aboutUs": "O nás",
+        "caseStudies": "Reference",
+        "blog": "Blog",
+        "packages": "Balíčky",
+        "discussTask": "Probrat projekt"
+      }
+    },
+    "copyright": "(c) 2026 HaloAgency.cz | Všechna práva vyhrazena",
+    "privacyPolicy": "Ochrana osobních údajů",
+    "termsOfService": "Obchodní podmínky"
+  },
+  "cookieBanner": {
+    "message": "Používáme cookies pro správný chod webu a lepší uživatelský zážitek.",
+    "acceptAll": "Přijmout vše",
+    "customize": "Nastavení",
+    "settings": {
+      "title": "Nastavení cookies",
+      "necessary": {
+        "title": "Nezbytné cookies",
+        "description": "Nutné pro základní fungování webu."
+      },
+      "analytics": {
+        "title": "Analytické cookies",
+        "description": "Pomáhají nám pochopit, jak web používáte."
+      },
+      "marketing": {
+        "title": "Marketingové cookies",
+        "description": "Používají se pro cílenou reklamu."
+      },
+      "save": "Uložit nastavení",
+      "back": "Zpět"
+    }
+  },
+  "hero": {
+    "title": {
+      "line1": "Weby, reklama",
+      "line2": "a",
+      "highlight": "analytika",
+      "line3": "pro růst vašeho byznysu."
+    },
+    "subtitle": "Pomáháme firmám v Česku získávat více poptávek a prodejů: stavíme weby, spouštíme Google Ads a Meta Ads a nastavujeme analytiku i automatizaci tak, aby vše fungovalo dohromady.",
+    "cta": "Nezávazně poptat",
+    "quickRoutes": {
+      "websites": "Weby",
+      "ads": "Reklama",
+      "analytics": "Analytika",
+      "automation": "Automatizace"
+    }
+  },
+  "services": {
+    "title": "Kde můžete začít",
+    "subtitle": "Pokud už víte, co potřebujete, otevřete si příslušnou sekci. Pokud ne, pošlete krátký brief a poradíme vám, jaký první krok dává smysl.",
+    "items": {
+      "0": {
+        "title": "Tvorba webu",
+        "description": "Landing pages, firemní weby a e-shopy na míru konkrétnímu zadání.",
+        "quickLinks": {
+          "0": "Landing pages",
+          "1": "Firemní weby",
+          "2": "E-shopy"
+        }
+      },
+      "1": {
+        "title": "Online reklama",
+        "description": "Google Ads a Meta Ads, když potřebujete řízený tok poptávek, hovorů a prodejů.",
+        "quickLinks": {
+          "0": "Google Ads",
+          "1": "Meta Ads",
+          "2": "Vše o reklamě"
+        }
+      },
+      "2": {
+        "title": "Analytika a data",
+        "description": "GA4, GTM, HaloTrack a nastavení dat, abyste viděli reálné poptávky, prodeje a slabá místa ve funnelu.",
+        "quickLinks": {
+          "0": "HaloTrack",
+          "1": "Balíček Leads",
+          "2": "Reference"
+        }
+      },
+      "3": {
+        "title": "Automatizace procesů",
+        "description": "CRM, zprávy a opakující se procesy bez ručního chaosu a ztrát po cestě.",
+        "quickLinks": {
+          "0": "Automatizace",
+          "1": "Analytika",
+          "2": "Kontakt"
+        }
+      }
+    },
+    "learnMore": "Více info"
+  },
+  "about": {
+    "founderAlt": "Artem Krickij - zakladatel HaloAgency",
+    "quote": "Stavíme marketing na zkušenostech: web, reklama, analytika a automatizace musí fungovat jako jeden systém. Firma pak nedostává soubor oddělených služeb, ale srozumitelný tok poptávek a rozhodování na základě dat.",
+    "aiNote": "AI používáme tam, kde reálně zrychluje analytiku, optimalizaci a každodenní práci.",
+    "cta": "Probrat projekt",
+    "readMore": "Číst dál →"
+  },
+  "process": {
+    "title": "Jak vypadá další krok",
+    "subtitle": "Bez byrokracie. Chceme rychle pochopit zadání a navrhnout první rozumný krok, který firmě reálně pomůže.",
+    "steps": {
+      "0": {
+        "title": "Pochopíme zadání",
+        "timeline": "Krok 1",
+        "description": "Stačí nám odkaz na současný web, reklamu nebo krátký popis situace. Z toho pochopíme, co teď brzdí růst."
+      },
+      "1": {
+        "title": "Podíváme se, co už máte",
+        "timeline": "Krok 2",
+        "description": "Projdeme web, reklamu, analytiku a zpracování poptávek. Problém často bývá jinde, než kde ho hledáte."
+      },
+      "2": {
+        "title": "Navrhneme srozumitelný formát práce",
+        "timeline": "Krok 3",
+        "description": "Řekneme, co dělat jako první: nový web, spuštění reklamy, nastavení analytiky, automatizaci nebo cílený fix."
+      },
+      "3": {
+        "title": "Uděláme a změříme",
+        "timeline": "Krok 4",
+        "description": "Spustíme práci, připojíme data a sledujeme poptávky, hovory, prodeje a kvalitu toku, ne abstraktní pocity."
+      },
+      "4": {
+        "title": "Posilujeme to, co funguje",
+        "timeline": "Dále",
+        "description": "Když je základ správně postavený, můžete v klidu posilovat reklamu, přidávat stránky a automatizovat procesy bez zbytečného chaosu."
+      }
+    },
+    "cta": "Poslat podklady"
+  },
+  "projects": {
+    "title": "Reference s reálnými",
+    "titleLine2": "výsledky",
+    "subtitle": "Projekty, kde web, reklama, analytika a procesy pomohly získat více poptávek, rezervací nebo prodejů.",
+    "viewAll": "Zobrazit vše →",
+    "casePreviewAlt": "Náhled reference {name}",
+    "openCase": "Otevřít referenci →"
+  },
+  "socialProof": {
+    "stats": {
+      "0": {
+        "label": "PROJEKTU"
+      },
+      "1": {
+        "label": "PRŮMĚRNÝ RŮST"
+      },
+      "2": {
+        "label": "LET ZKUŠENOSTÍ"
+      }
+    }
+  },
+  "homeFinalCta": {
+    "eyebrow": "Pokud jste připraveni začít",
+    "title": "Už víte, co potřebujete?",
+    "subtitle": "Pošlete krátký brief, odkaz na současný web, reklamu nebo popis zadání. Odpovídáme věcně a navrhneme, čím začít.",
+    "cta": "Probrat projekt",
+    "secondaryCta": "Nejdřív se podívat na balíčky →"
+  },
+  "growthPlanMagnet": {
+    "eyebrow": "Pokud potřebujete krátký rozbor",
+    "title": "Nejdřív potřebujete",
+    "titleLine2": "pohled zvenku?",
+    "subtitle": "Nechte nám podklady a pomůžeme zjistit, kde je teď slabé místo a čím má smysl začít: webem, reklamou, analytikou nebo automatizací.",
+    "useCases": {
+      "0": "když poptávky nebo prodeje jdou hůř, než by měly",
+      "1": "když není jasné, jestli je problém ve webu, reklamě, analytice nebo procesech",
+      "2": "když chcete klidný první krok bez zbytečné práce"
+    },
+    "taskClearBox": {
+      "title": "Pokud už máte zadání jasné",
+      "description": "Můžete rovnou přejít na formulář a probrat projekt bez mezikroku.",
+      "cta": "Rovnou probrat projekt →"
+    },
+    "form": {
+      "title": "Krátký rozbor situace",
+      "subtitle": "Čím jasnější podklady, tím přesněji navrhneme další krok.",
+      "websiteLabel": "Web nebo profil firmy",
+      "websitePlaceholder": "https:// nebo Instagram",
+      "emailLabel": "E-mail pro odpověď",
+      "emailPlaceholder": "vás@email.cz",
+      "businessTypeLabel": "Typ podnikání",
+      "businessTypePlaceholder": "Vyberte typ",
+      "businessTypes": {
+        "service": "Služby",
+        "ecommerce": "E-shop",
+        "local": "Lokální byznys",
+        "other": "Jiné"
+      },
+      "goalLabel": "Hlavní cíl",
+      "goalPlaceholder": "Vyberte cíl",
+      "goals": {
+        "leads": "Více poptávek",
+        "sales": "Více prodejů",
+        "checkAds": "Prověřit reklamu",
+        "prepareGrowth": "Připravit firmu na růst"
+      },
+      "triedLabel": "Co už jste zkoušeli",
+      "triedOptions": {
+        "googleAds": "Google Ads",
+        "metaAds": "Facebook / Instagram Ads",
+        "seo": "SEO",
+        "social": "Sociální sítě",
+        "nothing": "Zatím nic"
+      },
+      "problemLabel": "Co teď brzdí růst",
+      "problemPlaceholder": "Krátce: slabý web, reklama nepřináší poptávky, analytika je nejasná, nevím, co dělat dál...",
+      "phoneLabel": "Telefon (nepovinné)",
+      "phonePlaceholder": "+420 123 456 789",
+      "submitButton": "Získat plán na 30 dní",
+      "submitting": "Odesíláme...",
+      "footerNote": "Pokud už máte zadání jasné, `/contact` bude rychlejší. Tento formulář slouží hlavně pro krátký diagnostický rozbor."
+    },
+    "success": {
+      "title": "Děkujeme! Poptávka byla odeslána.",
+      "message": "Prostudujeme situaci a ozveme se během pracovního dne s doporučením dalšího kroku.",
+      "submitAgain": "Odeslat znovu"
+    }
+  },
+  "faq": {
+    "title": "Časté dotazy",
+    "items": {
+      "0": {
+        "question": "Jste spíš o webech, reklamě nebo automatizaci?",
+        "answer": "Pracujeme se systémem jako s celkem. Podle zadání může být těžiště na webu, reklamě nebo procesech, ale vše stavíme jako jedno řešení, ne jako oddělené kusy."
+      },
+      "1": {
+        "question": "Dá se začít s jednou věcí a rozšiřovat později?",
+        "answer": "Ano. Spousta klientů začíná základním řešením a přechází na komplexnější formát podle toho, jak firma roste a přibývá úkolů."
+      },
+      "2": {
+        "question": "Hodí se váš přístup pro malý byznys?",
+        "answer": "Ano. Pracujeme s malými a středními firmami a stavíme řešení, která se dají škálovat, od jednoduchého startu až po systémy s automatizací a AI."
+      },
+      "3": {
+        "question": "Kolik času to ode mě vyžaduje?",
+        "answer": "Minimum. Koordinaci a provozní část bereme na sebe, abyste se mohli soustředit na rozvoj firmy a nemuseli řídit dodavatele."
+      },
+      "4": {
+        "question": "Jak se rozhodujete, co dělat dál?",
+        "answer": "Rozhodnutí stavíme na datech, aktuálních cílech firmy a výsledcích předchozích kroků. Pravidelně analyzujeme situaci a navrhujeme další logický krok."
+      },
+      "5": {
+        "question": "Můžeme s vámi pracovat, když už máme web nebo reklamu?",
+        "answer": "Ano. Často se připojujeme k existujícím projektům, zlepšujeme stávající řešení a stavíme systém kolem toho, co už funguje."
+      },
+      "6": {
+        "question": "Pracujete s firmami v Česku a orientujete se na místní trh?",
+        "answer": "Ano. Pracujeme s firmami v Česku a zohledňujeme specifika místního trhu, konkurence i chování zákazníků."
+      },
+      "7": {
+        "question": "Jak poznám, který balíček se mi hodí?",
+        "answer": "Na začátku se podíváme na cíle firmy, aktuální situaci a zdroje. Pak doporučíme optimální formát práce bez přeplácení za zbytečnosti."
+      },
+      "8": {
+        "question": "Co když výsledek nesplní očekávání?",
+        "answer": "Pracujeme transparentně: všechna data, účty a přístupy zůstanou vám. Vidíte, co se dělá a jaké výsledky to přináší. Pokud se během práce ukáže, že zvolený formát nesedí, nejste připoutaní k agentuře a zachováte si celou historii i nastavení."
+      },
+      "9": {
+        "question": "Jak začít a jak vás kontaktovat?",
+        "answer": "Nechte poptávku přes formulář na webu nebo nám napište na Telegram či WhatsApp. Ozveme se během 2 hodin v pracovní době a poradíme s dalším krokem."
+      }
+    }
+  },
+  "packages": {
+    "priceSetupLabel": "Spuštění:",
+    "priceMonthlyLabel": "Poté:",
+    "items": {
+      "0": {
+        "title": "Start",
+        "subtitle": "Vše, co firma potřebuje, aby ji lidé našli online",
+        "priceSetup": "15 000 Kč",
+        "priceMonthly": "od 5 000 Kč / měs.",
+        "description": "Hotová webová prezentace během týdne. Web, analytika, lokální vyhledávání i AI viditelnost, vše nastavené a pod kontrolou.",
+        "features": {
+          "0": "landing page nebo web do 3 stránek",
+          "1": "1 reklamní kanál (Google Ads nebo Meta Ads)",
+          "2": "SEO optimalizace + viditelnost v AI vyhledávání",
+          "3": "profil na Google Maps",
+          "4": "analytika: GA4 + HaloTrack + záznamy návštěv",
+          "5": "kontaktní formuláře a základní infrastruktura"
+        },
+        "cta": "Otevřít balíček",
+        "relatedLinks": {
+          "0": "Landing pages",
+          "1": "Vícestránky"
+        }
+      },
+      "1": {
+        "title": "Lead Machine",
+        "subtitle": "Web, reklama a analytika, hotový systém poptávek",
+        "badge": "Nejčastější volba",
+        "priceSetup": "35 000 Kč",
+        "priceMonthly": "od 16 000 Kč / měs.",
+        "priceNote": "1 kanál: od 27 000 Kč, od 8 000 Kč / měs.",
+        "description": "Firemní web, napojená reklama a serverová analytika. Vše nastavené, spuštěné a pod naší správou. První měsíc vedení reklamy je v ceně.",
+        "features": {
+          "0": "firemní web na více stránek s SEO",
+          "1": "spuštění Google Ads a/nebo Meta Ads",
+          "2": "serverová analytika: GA4 + HaloTrack + záznamy návštěv",
+          "3": "kompletní nastavení: doména, hosting, pixely, formuláře",
+          "4": "vedení webu a reklamy + podpora"
+        },
+        "cta": "Otevřít balíček",
+        "relatedLinks": {
+          "0": "Google Ads",
+          "1": "Meta Ads",
+          "2": "Tracking"
+        }
+      },
+      "2": {
+        "title": "E-shop",
+        "subtitle": "E-shop na klíč, od katalogu po první prodeje",
+        "priceSetup": "50 000 Kč",
+        "priceMonthly": "od 20 000 Kč / měs.",
+        "description": "Kompletně hotový e-shop s reklamou, analytikou prodejů a správou. Nastavíme, spustíme a vedeme. Vy se staráte o zboží, my o růst.",
+        "features": {
+          "0": "e-shop s katalogem, košíkem a objednávkou",
+          "1": "napojení plateb, dopravy a skladového systému",
+          "2": "spuštění Google Ads a/nebo Meta Ads",
+          "3": "serverová analytika: GA4 + HaloTrack + e-commerce události",
+          "4": "SEO, feed pro srovnávače a produktová reklama",
+          "5": "vedení e-shopu, reklamy a technická podpora"
+        },
+        "cta": "Otevřít balíček",
+        "relatedLinks": {
+          "0": "E-shopy",
+          "1": "Tracking",
+          "2": "Reklama"
+        }
+      },
+      "3": {
+        "title": "Projekt na míru",
+        "subtitle": "Když se zadání nevejde do šablony",
+        "priceSetup": "Podle zadání",
+        "priceMonthly": "Podle rozsahu prací",
+        "description": "Složité integrace, nestandardní logika, migrace z jiné platformy nebo systém, který na trhu ještě není. Probereme zadání, navrhneme architekturu, domluvíme etapy i rozpočet a postavíme to.",
+        "features": {
+          "0": "nestandardní architektura a byznysová logika",
+          "1": "integrace: CRM, ERP, platební systémy, API",
+          "2": "automatizace procesů a AI řešení",
+          "3": "migrace dat a přechod z jiné platformy",
+          "4": "vyhrazený tým a osobní manažer",
+          "5": "dohodnutý plán, etapy a transparentní rozpočet"
+        },
+        "cta": "Nezávazně poptat",
+        "relatedLinks": {
+          "0": "Automatizace",
+          "1": "Analytika",
+          "2": "Kontakt"
+        }
+      }
+    },
+    "whyPackage": {
+      "title": "Proč balíček a ne služby zvlášť",
+      "items": {
+        "0": {
+          "title": "Vše funguje jako systém",
+          "text": "Web, reklama a analytika se navrhují společně. Žádné mezery mezi dodavateli, žádné ztráty dat mezi etapami."
+        },
+        "1": {
+          "title": "Jeden kontakt, jedna zodpovědnost",
+          "text": "Nemusíte koordinovat designéra, PPC specialistu a analytika zvlášť. Vše je v jednom."
+        },
+        "2": {
+          "title": "Rychlejší spuštění, nižší cena",
+          "text": "Balíček vyjde levněji, protože netrávíme čas schvalováním mezi různými týmy. Spuštění za 2 až 4 týdny místo měsíců."
+        }
+      }
+    },
+    "process": {
+      "title": "Jak to funguje",
+      "subtitle": "Od prvního rozhovoru po spuštění, tři srozumitelné kroky.",
+      "steps": {
+        "0": {
+          "title": "Krátký brief",
+          "description": "Popíšete zadání, my se doptáme. Obvykle stačí jeden hovor nebo výměna zpráv.",
+          "time": "1 den"
+        },
+        "1": {
+          "title": "Plán a rozsah prací",
+          "description": "Dohodneme, co je v balíčku, termíny a cenu. Pokud je třeba upravit rozsah, uděláme to před startem.",
+          "time": "2 až 3 dny"
+        },
+        "2": {
+          "title": "Spuštění a správa",
+          "description": "Spustíme web, reklamu a analytiku. Po spuštění vedeme, optimalizujeme a ukazujeme výsledek v číslech.",
+          "time": "2 až 4 týdny"
+        }
+      }
+    },
+    "proofPoint": {
+      "eyebrow": "Výsledek klienta",
+      "title": "Nejbalonky.cz, balíček Lead Machine",
+      "description": "E-shop, Google Ads, Meta Ads a analytika spuštěné jako jeden systém. Průměrný ROAS z reklamy 5,6. Data, reklama i web fungují společně, ne každý zvlášť.",
+      "cta": "Otevřít referenci",
+      "roasLabel": "Průměrný ROAS"
+    },
+    "faq": {
+      "title": "Časté dotazy k balíčkům",
+      "items": {
+        "0": {
+          "question": "Dá se změnit složení balíčků?",
+          "answer": "Ano. Balíčky jsou orientační, ne pevný rámec. Pokud potřebujete jen část nebo chcete něco přidat, probereme to a složíme rozsah na míru."
+        },
+        "1": {
+          "question": "Co když potřebuju jen reklamu bez webu?",
+          "answer": "Jde to. Ale pokud je současný web slabý, reklama jen zrychlí utrácení peněz. Rovnou řekneme, jestli má smysl začít reklamou, nebo nejdřív doladit web."
+        },
+        "2": {
+          "question": "Proč je balíček levnější než služby zvlášť?",
+          "answer": "Protože vše navrhujeme jako jeden systém. Žádné opakované nastavování, žádné ztráty na spojích, žádná zbytečná schvalování. Ušetří to čas i peníze."
+        }
+      }
+    },
+    "bottomCta": {
+      "title": "Nevíte, který balíček se hodí?",
+      "subtitle": "Popište zadání a poradíme, jaký formát práce je mu nejblíž, a složíme rozsah na míru.",
+      "cta": "Probrat projekt"
+    }
+  },
+  "demoForm": {
+    "badge": "Demo + odhad ceny",
+    "title": "Získejte demo webu",
+    "titleLine2": "do 48 hodin",
+    "subtitle": "15minutový hovor, demo koncept do 48 hodin a odhad ceny. Bez platby a bez závazku.",
+    "benefits": {
+      "0": "Krátký hovor, pochopíme zadání a byznys",
+      "1": "Do 48 hodin pošleme demo podle vašeho zadání",
+      "2": "Dostanete odhad ceny i termínu"
+    },
+    "form": {
+      "title": "Nechte poptávku",
+      "subtitle": "Obvykle se ozýváme během 20 minut v pracovní době",
+      "nameLabel": "Jméno *",
+      "namePlaceholder": "Vaše jméno",
+      "websiteLabel": "Web, Instagram nebo příklad",
+      "websitePlaceholder": "https://... nebo @vas_profil",
+      "phoneLabel": "Telefon *",
+      "phonePlaceholder": "777 777 777",
+      "submitButton": "Získat demo a odhad ceny",
+      "submitting": "Odesíláme..."
+    },
+    "success": {
+      "title": "Poptávka odeslána!",
+      "message": "Ozveme se vám a probereme demo webu i odhad ceny."
+    },
+    "validation": {
+      "nameRequired": "Zadejte své jméno",
+      "phoneRequired": "Zadejte telefon pro kontakt",
+      "consentRequired": "Je třeba souhlasit se zpracováním údajů"
+    }
+  },
+  "contact": {
+    "title": "Chcete probrat projekt?",
+    "subtitle": "Nechte krátký brief a ozveme se věcně.",
+    "form": {
+      "nameLabel": "Jméno",
+      "namePlaceholder": "Jan Novák",
+      "emailLabel": "E-mail",
+      "phoneLabel": "Telefon",
+      "phoneOptional": "(nepovinné)",
+      "phonePlaceholder": "+420 123 456 789",
+      "serviceLabel": "O co máte zájem",
+      "services": {
+        "web": "Weby a landing pages",
+        "ads": "Google Ads / Meta Ads",
+        "tracking": "Analytika a data",
+        "package": "Balíček / odhad",
+        "other": "Jiné"
+      },
+      "messageLabel": "O projektu",
+      "messagePlaceholder": "Řekněte nám něco o svém zadání...",
+      "submitButton": "Odeslat poptávku",
+      "submitting": "Odesíláme...",
+      "responseNote": "Obvykle odpovídáme během pracovního dne"
+    },
+    "success": {
+      "title": "Poptávka odeslána!",
+      "message": "Ozveme se vám během pracovního dne."
+    }
+  },
+  "adsFaq": {
+    "title": "Časté dotazy k",
+    "titleLine2": "reklame",
+    "trustLine": "Reklamu vysvětlujeme srozumitelně a neprodáváme něco, co nepřinese výsledek.",
+    "items": {
+      "0": {
+        "question": "Jakým reklamním kanálem začít: Google, Meta nebo Seznam?",
+        "answer": {
+          "intro": "Výběr kanálu závisí nejen na oboru, ale také na tom, v jaké fázi se váš byznys nachází.",
+          "googleAds": "Google Ads se hodí, když zákazník už hledá konkrétní službu nebo řešení.",
+          "metaAds": "Meta Ads dobře fungují pro upoutání pozornosti a vytváření poptávky, zvlášť když se služba přímo nevyhledává.",
+          "seznam": "Seznam může být účinný pro lokální byznys a některé kategorie v Česku.",
+          "outro": "Někdy nejlepší výsledek přináší kombinace kanálů. Poradíme, kdy to dává smysl."
+        }
+      },
+      "1": {
+        "question": "S jakým rozpočtem má smysl spustit reklamu v Česku?",
+        "answer": {
+          "p1": "Minimální rozpočet závisí na oboru a konkurenci.",
+          "p2": "Ve většině případů doporučujeme začít s částkou, která umožní získat první data a ověřit, jestli reklama pro váš byznys funguje.",
+          "p3": "Přesná čísla probereme před startem, bez překvapení."
+        }
+      },
+      "2": {
+        "question": "Kdy přijdou první poptávky?",
+        "answer": {
+          "p1": "Ve většině případů jsou první výsledky vidět během prvních dnů nebo týdnů po spuštění.",
+          "p2": "Stabilní a předvídatelný výsledek ale vyžaduje čas na testování a vylepšování reklamy.",
+          "p3": "Nezapneme a nezapomeneme. Reklamu postupně ladíme do funkčního modelu."
+        }
+      },
+      "3": {
+        "question": "Co když reklama nepřinese očekávaný výsledek?",
+        "answer": {
+          "intro": "Nenavyšujeme rozpočty naslepo. Pokud reklama neukazuje potřebný výsledek:",
+          "point1": "analyzujeme, kde přesně je problém",
+          "point2": "upravíme strategii nebo formát reklamy",
+          "point3": "upřímně řekneme, pokud aktuální model nefunguje",
+          "outro": "Nechceme utracet vás rozpočet bez smyslu."
+        }
+      },
+      "4": {
+        "question": "Potřebuju web pro spuštění reklamy?",
+        "answer": {
+          "p1": "Ano, ve většině případů je web nebo landing page potřeba.",
+          "p2": "Pokud současný web není připravený na reklamu, řekneme to dopředu a navrhneme možnosti zlepšení.",
+          "link": "Více o úpravě webu pro reklamu →"
+        }
+      },
+      "5": {
+        "question": "Řešíte i analytiku a měření výsledků?",
+        "answer": {
+          "p1": "K reklamě používáme základní analytiku, abychom věděli, co funguje a co ne.",
+          "p2": "Pokud projekt vyžaduje hlubší analytiku, nabídneme samostatné řešení.",
+          "link": "Více o analytice a trackingu →"
+        }
+      },
+      "6": {
+        "question": "Dá se spustit reklama bez dlouhých smluv?",
+        "answer": {
+          "p1": "Ano.",
+          "p2": "Minimální doba spolupráce je 1 měsíc.",
+          "p3": "Nejste vázaní dlouhodobými smlouvami a můžete se rozhodovat podle reálných výsledků."
+        }
+      },
+      "7": {
+        "question": "Kdo bude vést mou reklamu?",
+        "answer": {
+          "p1": "Reklamě se věnuje specialista, který se ponoří do vašeho byznysu, ne account manager.",
+          "p2": "Vždy víte, co se s reklamou děje, a můžete se zeptat na cokoli srozumitelným jazykem."
+        }
+      },
+      "8": {
+        "question": "Hodí se vaše reklama pro malý byznys?",
+        "answer": {
+          "p1": "Ano.",
+          "p2": "Pracujeme s malými a středními firmami v Česku a chápeme omezení rozpočtu i času.",
+          "p3": "Pokud reklama v tuhle chvíli nedává smysl, řekneme to upřímně."
+        }
+      }
+    }
+  },
+  "adsProcess": {
+    "eyebrow": "Proces",
+    "title": "Jak pracujeme",
+    "subtitle": "Od prvního rozhovoru po výsledek, srozumitelné etapy",
+    "trustLine": "Vysvětlujeme, co se s reklamou děje, srozumitelně a bez zbytečných termínů.",
+    "steps": {
+      "0": {
+        "title": "Diagnostika a cíle",
+        "description": "Pochopíme váš byznys: co prodáváte, komu a co je dobrý výsledek. Domluvíme KPI."
+      },
+      "1": {
+        "title": "Příprava a strategie",
+        "description": "Vybereme reklamní kanály a formát pro zadání. Prověříme připravenost webu na reklamu."
+      },
+      "2": {
+        "title": "Spuštění reklamy",
+        "description": "Nastavíme kampaně, zkontrolujeme odkazy i tracking. Spustíme a hlídáme první zobrazení."
+      },
+      "3": {
+        "title": "Optimalizace podle dat",
+        "description": "Analyzujeme, co funguje. Odebíráme neefektivní věci a posilujeme to, co přináší poptávky."
+      },
+      "4": {
+        "title": "Škálování",
+        "description": "Když reklama stabilně funguje, opatrně navyšujeme rozpočty a rozšiřujeme dosah."
+      }
+    }
+  },
+  "webFaq": {
+    "eyebrow": "Časté dotazy",
+    "title": "Dotazy k",
+    "titleLine2": "tvorbě webu",
+    "items": {
+      "0": {
+        "question": "Jaké weby vyvíjíte?",
+        "answer": {
+          "intro": "Tvoříme moderní landing pages a vícestránkové weby zaměřené na získávání zákazníků a růst firmy.",
+          "clientsIntro": "Nejčastěji s námi pracují:",
+          "clients": {
+            "0": "servisní firmy,",
+            "1": "lokální byznys v Česku,",
+            "2": "projekty, kde záleží na rychlosti, SEO a připravenosti na reklamu."
+          },
+          "outro": "Podle potřeby realizujeme i složitější řešení, formát vždy vybíráme podle zadání."
+        }
+      },
+      "1": {
+        "question": "Na jakých technologiích pracujete?",
+        "answer": {
+          "intro": "Používáme moderní webové technologie včetně Next.js, které umožňují:",
+          "benefits": {
+            "0": "vysokou rychlost načítání,",
+          "1": "lepší viditelnost v Google,",
+            "2": "stabilní fungování pod reklamním provozem."
+          },
+          "outro": "Technická řešení volíme tak, aby byl web aktuální nejen teď, ale i do budoucna."
+        }
+      },
+      "2": {
+        "question": "Bude mít web administraci pro úpravu obsahu?",
+        "answer": {
+          "intro": "Možnosti správy webu vybíráme individuálně.",
+          "optionsIntro": "Podle zadání:",
+          "options": {
+            "0": "můžeme udělat pohodlnou administraci pro samostatné úpravy,",
+            "1": "nebo aktualizace a úpravy vezmeme na sebe."
+          },
+          "outro": "Vždy navrhneme variantu, aby byl web pohodlný a nezpůsoboval zbytečné komplikace."
+        }
+      },
+      "3": {
+        "question": "Co když budu po spuštění potřebovat změny?",
+        "answer": {
+          "intro": "To je normální, byznys se vyvíjí.",
+          "optionsIntro": "Můžete:",
+          "options": {
+            "0": "provádět změny sami (pokud jste zvolili příslušný formát),",
+            "1": "nebo si objednat úpravy u nás podle potřeby."
+          },
+          "outro": "Všechny změny probereme dopředu, vždy víte, co a kolik to stojí."
+        }
+      },
+      "4": {
+        "question": "Co když nemám zadání?",
+        "answer": {
+          "intro": "Většina klientů přichází bez hotového zadání a to je úplně v pořádku.",
+          "helpIntro": "Pomůžeme vám:",
+          "help": {
+            "0": "určit cíl webu,",
+            "1": "navrhnout strukturu,",
+            "2": "vybrat formát, který se nejlépe hodí pro váš byznys."
+          },
+          "outro": "Nemusíte rozumět technickým detailům, provedeme vás celým procesem."
+        }
+      },
+      "5": {
+        "question": "Bude web fungovat pro Google Ads a Meta Ads?",
+        "answer": {
+          "intro": "Ano. Všechny weby navrhujeme s ohledem na:",
+          "points": {
+            "0": "reklamní provoz,",
+            "1": "strukturu landing pages,",
+            "2": "rychlost a pohodlí pro uživatele."
+          },
+          "outro": "To je obzvlášť důležité pro firmy v Česku, kde reklama vyžaduje kvalitní přípravu webu."
+        }
+      },
+      "6": {
+        "question": "Jak dlouho trvá vývoj webu?",
+        "answer": {
+          "intro": "Termíny závisí na formátu a složitosti projektu.",
+          "timingIntro": "Průměrně:",
+          "timings": {
+            "0": "landing page: 1 až 2 týdny,",
+            "1": "vícestránkový web: do 3 týdnů."
+          },
+          "outro": "Termíny domluvíme dopředu a držíme se dohodnutého plánu."
+        }
+      },
+      "7": {
+        "question": "Co když nebudu s výsledkem spokojený?",
+        "answer": {
+          "intro": "Práce je rozdělená do etap a je transparentní.",
+          "pointsIntro": "Vy:",
+          "points": {
+            "0": "vidíte strukturu a rozhodnutí dopředu,",
+            "1": "účastníte se schvalování,",
+            "2": "rozumíte, jak bude web pracovat pro byznys."
+          },
+          "outro": "Díky tomu se vyhneme překvapením a dostanete přesně to, co potřebujete."
+        }
+      },
+      "8": {
+        "question": "S kým budu během projektu komunikovat?",
+        "answer": {
+          "p1": "Komunikujete přímo s člověkem, který vede projekt a odpovídá za výsledek.",
+          "p2": "Bez zbytečných prostředníků a ztrát informací. Komunikace přes Telegram, WhatsApp nebo e-mail, jak vám vyhovuje."
+        }
+      }
+    }
+  },
+  "webGuarantees": {
+    "eyebrow": "Záruky",
+    "title": "Záruky ve smlouvě",
+    "subtitle": "Ne jen sliby, ale právně ukotvené závazky",
+    "trustBadges": {
+      "0": "NDA na vyžádání",
+      "1": "Smlouva o dílo",
+      "2": "Transparentni podmínky"
+    },
+    "items": {
+      "0": {
+        "title": "Termíny jsou fixní",
+        "description": "Termín je ve smlouvě. Pokud ho nestihneme, sleva 10 % za každý týden zpoždění.",
+        "seal": "POTVRZENO"
+      },
+      "1": {
+        "title": "Opravy zdarma",
+        "description": "Až 3 kola oprav jsou v ceně. Bez skrytých doplatků a „to nebylo v zadání“.",
+        "seal": "ZAHRNUTO"
+      },
+      "2": {
+        "title": "30 dní podpory",
+        "description": "Po spuštění měsíc technické podpory zdarma. Bugy, dotazy i drobné úpravy.",
+        "seal": "GARANTOVANO"
+      },
+      "3": {
+        "title": "Kód je váš",
+        "description": "Úplný převod zdrojových kódů a práv. Žádná vazba na agenturu. Chcete odejít, odcházíte s kódem.",
+        "seal": "PLNÁ PRÁVA"
+      }
+    },
+    "bottomNote": "Všechny podmínky domlouváme individuálně a fixujeme před začátkem prací."
+  },
+  "webProcess": {
+    "eyebrow": "Proces",
+    "title": "Proces vývoje",
+    "subtitle": "Od nápadu po spuštění, transparentní proces se srozumitelnými etapami",
+    "trustLine": "Vždy víte, v jaké fázi je projekt a co bude následovat.",
+    "steps": {
+      "0": {
+        "title": "Pochopení zadání",
+        "duration": "1 až 2 dny",
+        "description": "Probereme váš byznys a cíl webu. Určíme, pro koho web je a co má dělat. Domluvíme formát a strukturu.",
+        "result": "Jasná představa, jaký web potřebujete a proč"
+      },
+      "1": {
+        "title": "Struktura a vizuál",
+        "duration": "3 až 5 dnů",
+        "description": "Navrhneme logiku stránek a uživatelskou cestu. Domluvíme styl i podání.",
+        "result": "Srozumitelný návrh a struktura budoucího webu"
+      },
+      "2": {
+        "title": "Vývoj webu",
+        "duration": "5 až 10 dnů",
+        "description": "Realizujeme web na moderních technologiích. Přizpůsobíme ho pro mobilní zařízení a optimalizujeme rychlost.",
+        "result": "Hotový, rychlý web, který správně funguje"
+      },
+      "3": {
+        "title": "Kontrola a finální úpravy",
+        "duration": "1 až 2 dny",
+        "description": "Zkontrolujeme web na různých zařízeních. Otestujeme rychlost i použitelnost a provedeme finální úpravy.",
+        "result": "Web připravený ke spuštění bez nepříjemných překvapení"
+      },
+      "4": {
+        "title": "Spuštění webu",
+        "duration": "1 den",
+        "description": "Publikujeme web, prověříme správné fungování a předáme přístupy i pokyny.",
+        "result": "Web spuštěný a připravený přijímat zákazníky"
+      }
+    }
+  },
+  "webSocialProof": {
+    "eyebrow": "Reference klientů",
+    "title": "Co říkají klienti",
+    "subtitle": "Reálné ohlasy od firem, se kterými jsme spolupracovali",
+    "testimonials": {
+      "0": {
+        "name": "Martin K.",
+        "company": "ProPradlo",
+        "message": "Web je rychlejší než u konkurence. Poptávky vzrostly o 40 %."
+      },
+      "1": {
+        "name": "Anna S.",
+        "company": "Beauty Studio",
+        "message": "Konečně web, za který se před klienty nemusím stydět. Skvělá práce!"
+      },
+      "2": {
+        "name": "Petr N.",
+        "company": "LogiTrans",
+        "message": "Zvládli za 10 dní to, co jiní slibovali 2 měsíce."
+      }
+    }
+  },
+  "validation": {
+    "contact": {
+      "nameMin": "Jméno musí mít alespoň 2 znaky",
+      "nameMax": "Jméno je příliš dlouhé",
+      "emailRequired": "Email je povinný",
+      "emailInvalid": "Nesprávný formát e-mailu",
+      "messageMin": "Zpráva musí mít alespoň 10 znaků",
+      "messageMax": "Zpráva je příliš dlouhá",
+      "consentRequired": "Je třeba souhlas s ochranou osobních údajů"
+    },
+    "websiteAnalysis": {
+      "urlRequired": "URL je povinné",
+      "urlInvalid": "Nesprávný formát URL",
+      "urlProtocol": "URL musí začínat na http:// nebo https://",
+      "emailRequired": "E-mail je povinný",
+      "emailInvalid": "Nesprávný formát e-mailu",
+      "consentRequired": "Je třeba souhlas s ochranou osobních údajů"
+    },
+    "growthPlan": {
+      "websiteRequired": "Zadejte web nebo profil firmy",
+      "businessTypeRequired": "Vyberte typ podnikání",
+      "mainGoalRequired": "Vyberte hlavní cíl",
+      "mainProblemMax": "Text je příliš dlouhý",
+      "emailRequired": "E-mail je povinný",
+      "emailInvalid": "Nesprávný formát e-mailu",
+      "consentRequired": "Je třeba souhlas s ochranou osobních údajů"
+    },
+    "auditConsultation": {
+      "businessTypeMin": "Zadejte typ podnikání",
+      "emailRequired": "E-mail je povinný",
+      "emailInvalid": "Nesprávný formát e-mailu",
+      "consentRequired": "Je třeba souhlas s ochranou osobních údajů"
+    }
+  },
+  "legal": {
+    "registrationNote": "Registrováno v živnostenském rejstříku (OSVČ)."
+  },
+  "metadata": {
+    "home": {
+      "title": "HaloAgency - marketingová agentura v Praze | Weby a reklama",
+      "description": "Tvorba webu, cílená reklama na Instagramu a Facebooku i reklama v Google. Pomáháme firmám v Česku získávat zákazníky a růst.",
+      "ogTitle": "HaloAgency - weby a reklama pro firmy v Česku"
+    },
+    "about": {
+      "title": "O HaloAgency | Kdo stojí za projektem a jak pracujeme",
+      "description": "Jak HaloAgency propojuje web, reklamu, analytiku a automatizaci do jednoho funkčního systému pro poptávky a prodeje.",
+      "ogTitle": "O HaloAgency",
+      "ogDescription": "Web, reklama, analytika a automatizace jako jeden systém, ne sada oddělených služeb."
+    },
+    "contact": {
+      "title": "Kontakty HaloAgency | Probrat web, reklamu nebo analytiku",
+      "description": "Spojte se s HaloAgency a proberte web, reklamu, analytiku nebo automatizaci pro firmu v Česku. Odpovídáme věcně a bez byrokracie.",
+      "ogTitle": "Kontakty HaloAgency",
+      "ogDescription": "Proberte web, reklamu, analytiku nebo automatizaci a získejte srozumitelný další krok bez zbytečné byrokracie."
+    },
+    "growthPlan": {
+      "title": "Krátký rozbor situace | HaloAgency",
+      "description": "Pokud nevíte, čím začít, pošlete krátký brief. Pomůžeme zjistit, co brzdí růst a jaký krok udělat jako první.",
+      "ogTitle": "Krátký rozbor situace - HaloAgency",
+      "ogDescription": "Krátký rozbor webu, reklamy, analytiky nebo automatizace pro firmy v Česku. Pomáháme pochopit, čím začít."
+    },
+    "privacyPolicy": {
+      "title": "Ochrana osobních údajů | HaloAgency",
+      "description": "Ochrana osobních údajů HaloAgency: jak zpracováváme osobní údaje, kontaktní informace a data webu v souladu s GDPR a legislativou ČR."
+    },
+    "termsOfService": {
+      "title": "Obchodní podmínky | HaloAgency",
+      "description": "Obchodní podmínky HaloAgency: obecná ustanovení, popis služeb, povinnosti klienta, platby, omezení odpovědnosti a rozhodné právo."
+    },
+    "packages": {
+      "title": "Balíčky HaloAgency | Weby, reklama a e-shopy",
+      "description": "Balíčky HaloAgency pro firmy v Česku: startovní web, systém poptávek, e-shop a projekty na míru.",
+      "ogTitle": "Balíčky HaloAgency",
+      "ogDescription": "Orientační ceny a formáty práce: weby, reklama, analytika a e-shopy pro firmy v Česku."
+    },
+    "packageSite": {
+      "title": "Balíček Start | HaloAgency",
+      "description": "Web, reklama, analytika a lokální vyhledávání pro firmy v Česku. Od 15 000 Kč spuštění + od 5 000 Kč / měs.",
+      "ogTitle": "Balíček Start - HaloAgency"
+    },
+    "packageLeads": {
+      "title": "Balíček Lead Machine | HaloAgency",
+      "description": "Firemní web, reklama a serverová analytika v jednom. Balíček pro firmy, které potřebují hotový systém poptávek: 35 000 Kč spuštění + od 16 000 Kč / měs.",
+      "ogTitle": "Balíček Lead Machine - HaloAgency"
+    },
+    "packageEcommerce": {
+      "title": "Balíček E-shop | HaloAgency",
+      "description": "E-shop na klíč s reklamou, analytikou prodejů a správou. 50 000 Kč spuštění + od 20 000 Kč / měs.",
+      "ogTitle": "Balíček E-shop - HaloAgency"
+    },
+    "ads": {
+      "title": "Reklama v Google Ads a Meta Ads v Česku | HaloAgency",
+      "description": "Google Ads, Meta Ads a Seznam pro firmy v Česku. Poradíme, který kanál se hodí, co připravit před spuštěním a jak měřit výsledky podle poptávek.",
+      "ogTitle": "Reklama v Google Ads a Meta Ads v Česku - HaloAgency",
+      "ogDescription": "Pomáháme pochopit, kdy se firmám hodí Google Ads, Meta Ads a Seznam a co je potřeba pro spuštění reklamy s měřitelným výsledkem."
+    },
+    "adsGoogle": {
+      "title": "Google Ads v Česku | Nastavení a správa reklamy - HaloAgency",
+      "description": "Google Ads pro firmy v Česku: spuštění od nuly, audit současného účtu, plán kampaní, landing pages a analytiky.",
+      "ogTitle": "Google Ads v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy se firmám hodí Google Ads, jak ho spouštět a jak propojit vyhledávání s webem, poptávkami a prodeji."
+    },
+    "adsMeta": {
+      "title": "Meta Ads v Česku | Cílená reklama Instagram a Facebook - HaloAgency",
+      "description": "Meta Ads pro firmy v Česku: spuštění cílené reklamy, audit současného targetingu, nabídky, kreativ, landing page a zpracování poptávek.",
+      "ogTitle": "Meta Ads v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy se firmám hodí Meta Ads, jak propojit targeting s nabídkou, kreativami, webem a kvalitou leadu."
+    },
+    "web": {
+      "title": "Tvorba webu v Česku | Landing pages, firemní weby, e-shopy - HaloAgency",
+      "description": "Tvoříme landing pages, firemní weby a e-shopy v Česku. Pomáháme vybrat správný formát webu pro reklamu, SEO, poptávky a online prodeje.",
+      "ogTitle": "Tvorba webu pro firmy v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy firma potřebuje landing page, servisní web nebo e-shop a jak má web fungovat společně s reklamou, formuláři a analytikou."
+    },
+    "webLandingPages": {
+      "title": "Landing pages v Česku | Stránky pro poptávky a reklamu - HaloAgency",
+      "description": "Tvorba landing pages pro firmy v Česku: stránky pro poptávky, hovory, rezervace a reklamu.",
+      "ogTitle": "Landing pages pro firmy v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy firma potřebuje landing page, co v ní má být a jak propojit stránku s reklamou, formulářem a analytikou."
+    },
+    "webBusinessWebsites": {
+      "title": "Firemní weby v Česku | Korporátní weby a weby služeb - HaloAgency",
+      "description": "Tvorba firemních webů v Česku: struktura služeb, stránky důvěry, reference, SEO základ, formuláře a logika webu.",
+      "ogTitle": "Firemní weby v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy firma potřebuje vícestránkový web, co v něm má být a jak funguje společně s důvěrou, SEO a reklamou."
+    },
+    "webEcommerce": {
+      "title": "Vývoj e-shopu v Česku | E-shopy pro prodeje a růst - HaloAgency",
+      "description": "Vývoj e-shopu pro firmy v Česku: katalog, košík, platby, analytika, reklama a architektura pro růst.",
+      "ogTitle": "Vývoj e-shopu v Česku - HaloAgency",
+      "ogDescription": "Vysvětlujeme, kdy firma potřebuje plnohodnotný e-shop a jak ho propojit s analytikou, reklamou i katalogem."
+    },
+    "tracking": {
+      "title": "Server-side tracking a analytika v Česku | Meta CAPI, GA4 - HaloAgency",
+      "description": "Nastavení server-side trackingu, Meta CAPI a analytiky pro firmy v Česku. Pomáháme vidět více reálných konverzí a rozhodovat se na základě dat.",
+      "ogTitle": "Server-side tracking a analytika v Česku - HaloAgency",
+      "ogDescription": "Server-side tracking, Meta CAPI, GA4 a přesná analytika pro firmy v Česku."
+    },
+    "automation": {
+      "title": "Automatizace byznysu a AI v Česku | CRM, WhatsApp, n8n - HaloAgency",
+      "description": "Automatizujeme poptávky, CRM, messengery a rutinu pomocí AI, n8n a integrací. Pomáháme firmám v Česku šetřit čas a neztrácet zákazníky.",
+      "ogTitle": "Automatizace byznysu a AI v Česku - HaloAgency",
+      "ogDescription": "AI, CRM, WhatsApp, Telegram, n8n a automatizace procesů pro firmy v Česku."
+    },
+    "caseStudies": {
+      "title": "Reference HaloAgency | Weby, reklama a automatizace pro firmy v Česku",
+      "description": "Reálné reference HaloAgency: tvorba webu, Google Ads, Meta Ads, analytika a automatizace pro firmy v Česku.",
+      "ogTitle": "Reference HaloAgency",
+      "ogDescription": "Reference k webům, reklamě, analytice a automatizaci pro firmy v Česku."
+    },
+    "blog": {
+      "title": "Blog HaloAgency | Praktické články o webech, reklame a analytice",
+      "description": "Praktické články HaloAgency pro firmy v Česku: weby, Google Ads, Meta Ads, tracking, analytika a automatizace bez agenturního šumu.",
+      "ogTitle": "Blog HaloAgency",
+      "ogDescription": "Praktické články o webech, reklamě, analytice a automatizaci pro firmy v Česku."
+    }
+  },
+  "adsPage": {
+    "hero": {
+      "badge": "Google Ads a Meta Ads",
+      "titleLine1": "Reklama pro firmy,",
+      "titleLine2": "když potřebujete výsledky",
+      "description": "Pokud nevíte, kde začít, tady rychle zjistíte, co se hodí pro váš byznys: Google Ads, Meta Ads nebo kombinace kanálů. Podíváme se, kde už je poptávka, jestli je stránka připravená a zda lze správně měřit poptávky.",
+      "channelGoogleAds": "vytěžíme existující poptávku",
+      "channelMetaAds": "generujeme poptávku a testujeme nabídky",
+      "channelSeznamSklik": "doplňkový zásah v Česku"
+    },
+    "startBlock": {
+      "title": "Jak obvykle začínáme",
+      "text": "Nejprve zjistíme, odkud má přijít zákazník. Pak se podíváme na stránku, nabídku a analytiku. A teprve potom rozhodneme, který kanál spustit a s jakým rozpočtem."
+    },
+    "channels": {
+      "title": "Který reklamní kanál váš byznys potřebuje",
+      "subtitle": "Není nutné spouštět vše najednou. Obvykle stačí pochopit, kde už je poptávka a kde ji je potřeba vytvořit přes nabídku, kreativu a stránku.",
+      "googleAds": {
+        "summary": "Hodí se, když člověk už hledá váš produkt nebo službu.",
+        "cta": "Více o Google Ads",
+        "bullet1": "existuje poptávka ve vyhledávání a jasný dotaz",
+        "bullet2": "potřebujete poptávky z vyhledávání a map",
+        "bullet3": "je důležité vidět návratnost podle dotazů"
+      },
+      "metaAds": {
+        "summary": "Hodí se, když je potřeba poptávku vytvořit přes nabídku, kreativu a funnel.",
+        "cta": "Více o Meta Ads",
+        "bullet1": "lokální byznys, služby a produkty s jasnou nabídkou",
+        "bullet2": "zásah z Instagramu a Facebooku",
+        "bullet3": "testování nabídek, kreativ a cílových skupin"
+      },
+      "seznamSklik": {
+        "summary": "Doplňkový kanál pro český trh a lokální poptávku.",
+        "cta": "Probrat Seznam",
+        "bullet1": "lokální publikum v Česku",
+        "bullet2": "doplňkový zásah ke Google Ads",
+        "bullet3": "zapojujeme, když to má smysl pro daný obor"
+      }
+    },
+    "fit": {
+      "title": "Kdy reklama funguje lépe",
+      "subtitle": "Reklama nefunguje za každých podmínek. Tady je, co pomáhá dosáhnout výsledků a co tomu nejčastěji brání.",
+      "works": {
+        "title": "Reklama se obvykle vyplatí, když",
+        "item1": "byznys má jasnou nabídku a rozumnou marži",
+        "item2": "jste připraveni počítat poptávky, prodeje a cenu za lead",
+        "item3": "stránka už může přijmout návštěvnost bez propadu konverze",
+        "item4": "je někdo, kdo rychle zpracovává poptávky"
+      },
+      "blocks": {
+        "title": "Co nejčastěji brzdí spuštění reklamy",
+        "item1": "nabídka je slabá nebo člověk nechápe, proč by měl nechat poptávku",
+        "item2": "není nastavená analytika a není jasné, odkud poptávky přicházejí",
+        "item3": "stránka se načítá pomalu nebo špatně funguje na mobilech",
+        "item4": "po odeslání formuláře se poptávky zpracovávají pomalu nebo se ztrácejí"
+      }
+    },
+    "support": {
+      "title": "Co podporuje reklamní výsledky",
+      "subtitle": "Dobrá reklama se zřídka drží jen na reklamním účtu. Potřebuje správnou stránku, srozumitelnou analytiku a ukázky práce, aby celé řešení působilo přesvědčivě.",
+      "tracking": {
+        "title": "Tracking a analytika",
+        "text": "Potřebujete je, abyste hodnotili reklamu podle poptávek a prodejů, ne podle kliknutí."
+      },
+      "web": {
+        "title": "Web a landing pages",
+        "text": "Když provoz směřuje na slabou stránku, reklamní rozpočet se prostě spálí."
+      },
+      "cases": {
+        "title": "Reference a příklady",
+        "text": "Ukazuji, jak kombinace reklamy, webu a analytiky funguje v reálných projektech."
+      }
+    },
+    "pricing": {
+      "badge": "Orientační cena",
+      "label": "Správa reklamy",
+      "price": "od 8 000 Kč / měsíc",
+      "note": "za jeden kanál",
+      "note1": "Reklamní rozpočet se platí zvlášť a plánuje se podle potřeb byznysu.",
+      "note2": "Konečný rozsah prací potvrdíme po krátké diagnostice."
+    },
+    "finalCta": {
+      "badge": "Další krok",
+      "title": "Probereme, který kanál opravdu potřebujete",
+      "text": "Pokud už existuje poptávka, díváme se na Google Ads. Pokud je potřeba poptávku generovat, díváme se na Meta Ads. Pokud chybí data, začínáme přípravou trackingu a stránky."
+    }
+  },
+  "breadcrumbs": {
+    "home": "Hlavní stránka",
+    "about": "O nás",
+    "contact": "Kontakty",
+    "growthPlan": "Krátký rozbor",
+    "ads": "Reklama",
+    "googleAds": "Google Ads",
+    "metaAds": "Meta Ads",
+    "web": "Weby",
+    "landingPages": "Landing pages",
+    "businessWebsites": "Firemní weby",
+    "ecommerce": "E-shopy",
+    "tracking": "Tracking",
+    "automation": "Automatizace",
+    "caseStudies": "Reference",
+    "blog": "Blog",
+    "packages": "Balíčky",
+    "start": "Start",
+    "leadMachine": "Lead Machine",
+    "ecommercePackage": "E-shop"
+  },
+  "webPage": {
+    "badge": "Weby pro firmy",
+    "title": "Web jako systém,",
+    "titleLine2": "ne jen design",
+    "subtitle": "Zde rychle zjistíte, jaký formát webu se hodí právě pro váš úkol: landing page, firemní web nebo e-shop. Díváme se nejen na vzhled, ale i na to, jak bude web přinášet poptávky, podporovat reklamu a správně fungovat na mobilech.",
+    "heroCta": "Probrat web",
+    "anchorTypes": "Typy webů",
+    "anchorFit": "Kdy web funguje lépe",
+    "anchorProof": "Reference",
+    "quickLinks": {
+      "0": {
+        "label": "Landing page",
+        "text": "pro nabídku a start reklamy"
+      },
+      "1": {
+        "label": "Firemní web",
+        "text": "pro služby, důvěru a vyhledávání"
+      },
+      "2": {
+        "label": "E-shop",
+        "text": "pro katalog, platby a online objednávky"
+      }
+    },
+    "howToChoose": "Jak vybrat formát",
+    "howToChooseText": "Nejdřív pochopíme úkol vašeho podnikání. Pak rozhodneme, zda potřebujete jednu prodejní stránku, kompletní firemní web nebo e-shop. A až potom probereme rozsah, termíny a spuštění.",
+    "siteTypes": {
+      "0": {
+        "title": "Landing page",
+        "cta": "Více o landing page",
+        "summary": "Pro spuštění nabídky, reklamního provozu a jednoho jasného cíle: poptávka, hovor nebo rezervace.",
+        "bullets": {
+          "0": "rychlý start a krátké termíny",
+          "1": "silná úvodní obrazovka a jasné CTA",
+          "2": "vhodné pro reklamu a testování poptávky"
+        }
+      },
+      "1": {
+        "title": "Firemní web",
+        "cta": "Více o firemním webu",
+        "summary": "Pro firmy, které potřebují důvěru, přehlednou strukturu služeb a základ pro SEO a prodej.",
+        "bullets": {
+          "0": "stránky služeb, reference a o firmě",
+          "1": "lépe funguje pro vyhledávání, doporučení a brandový provoz",
+          "2": "pomáhá v klidu vysvětlit, proč se na vás obrátit"
+        }
+      },
+      "2": {
+        "title": "E-shop",
+        "cta": "Více o e-shopu",
+        "summary": "Pro katalog, online platby, analytiku prodeje a další škálování přes reklamu.",
+        "bullets": {
+          "0": "katalog, košík, platba a logistika",
+          "1": "důležitá je analytika objednávek, ne jen provozu",
+          "2": "vhodné, pokud potřebujete růst přes reklamu a opakované prodeje"
+        }
+      },
+      "title": "Jaký typ webu vaše firma potřebuje",
+      "subtitle": "Firma zřídka potřebuje hned „celý internet“. Obvykle stačí nejdřív pochopit, zda řešíme reklamní start, důvěru ke službám nebo online prodej."
+    },
+    "fit": {
+      "title": "Kdy web opravdu funguje",
+      "subtitle": "Web by neměl existovat odděleně od funkce stránky, zdroje provozu a dalšího kroku. Jinak se stane hezkou, ale slabou vitrínou.",
+      "works": {
+        "0": "je jasné, kdo přijde na stránku a co má udělat dál",
+        "1": "má strukturu pro služby, reference, důvěru a další krok",
+        "2": "se normálně čte a funguje na mobilech",
+        "3": "jsou formuláře a analytika zabudované od začátku, ne dodávané později",
+        "title": "Web funguje lépe, když"
+      },
+      "breaks": {
+        "0": "do jedné stránky se snaží vměstnat všechny služby a všechny scénáře najednou",
+        "1": "není jasné, jaký provoz přijde a co člověk uvidí jako první",
+        "2": "formulář není zabudovaný do reálného zpracování poptávek",
+        "3": "struktura nezvládá růst přes obsah, reklamu nebo nové služby",
+        "title": "Co nejčastěji kazí výsledek webu"
+      }
+    },
+    "support": {
+      "0": {
+        "title": "Reklama a zdroje provozu",
+        "text": "Stránka musí odpovídat zdroji provozu. Jinak i dobrá reklama narazí na slabou vstupní stránku."
+      },
+      "1": {
+        "title": "Analytika a poptávky",
+        "text": "Formuláře, události a zdroje musí být měřeny tak, aby bylo vidět, které stránky opravdu přinášejí poptávky a prodeje."
+      },
+      "title": "Co dalšího ovlivňuje výsledek webu",
+      "subtitle": "Sám o sobě web neřeší vše. Důležité je, odkud člověk přichází, jak zanechává poptávku a zda vidíte, které stránky opravdu přinášejí poptávky a které jen zabírají místo."
+    },
+    "proof": {
+      "0": {
+        "result": "E-shop + reklama + analytika",
+        "text": "Obchod s analytikou, reklamou, integracemi a strukturou navrženou pro růst.",
+        "tags": {
+          "0": "E-shop",
+          "1": "Struktura",
+          "2": "Analytika"
+        }
+      },
+      "1": {
+        "result": "Web + tok poptávek",
+        "text": "Konverzní web, lokální viditelnost, automatizace poptávek a připravenost na reklamu.",
+        "tags": {
+          "0": "Landing page",
+          "1": "Automatizace",
+          "2": "Google Ads"
+        }
+      },
+      "2": {
+        "result": "Web + rezervace + CRM",
+        "text": "Web pro lokální podnikání s logikou rezervací a napojením na interní procesy.",
+        "tags": {
+          "0": "Web",
+          "1": "CRM",
+          "2": "Rezervace"
+        }
+      },
+      "title": "Reference, kde byl web součástí růstu",
+      "subtitle": "Dobrý web nežije odděleně. Funguje společně s reklamou, analytikou, formuláři, CRM a reálným procesem zpracování poptávek.",
+      "openCase": "Otevřít referenci"
+    },
+    "pricing": {
+      "0": {
+        "label": "Landing page",
+        "price": "od 10 000 Kč"
+      },
+      "1": {
+        "label": "Firemní web",
+        "price": "od 15 000 Kč"
+      },
+      "2": {
+        "label": "E-shop",
+        "price": "od 35 000 Kč"
+      },
+      "badge": "Orientační ceny",
+      "title": "U rozpočtu je lepší hned pochopit formát webu",
+      "note": "Přesná cena závisí na rozsahu úkolu. Orientační ceny pomáhají pochopit řádové částky ještě před prvním hovorem."
+    },
+    "finalCta": {
+      "badge": "Další krok",
+      "title": "Probereme, jaký web právě vy potřebujete",
+      "text": "Pokud potřebujete rychle spustit nabídku, uděláme landing page. Pokud potřebujete ukázat služby a posílit důvěru, uděláme firemní web. Pokud potřebujete prodávat online, navrhneme e-shop a rovnou nastavíme analytiku prodeje.",
+      "cta": "Přejít k domluvě"
+    }
+  },
+  "trackingPage": {
+    "hero": {
+      "badge": "Tracking a analytika",
+      "titleLine1": "Vidět",
+      "titleAccent": "každou konverzi",
+      "accentTitle": "Zvýrazňovací linka",
+      "subtitle": "Server-side tracking a Meta CAPI. Obnovujeme 20 až 40 % dat, která se ztrácejí kvůli blokacím a iOS.",
+      "subtitle2": "HaloTrack - server-side tracking od HaloAgency, přizpůsobený GDPR, iOS a reklamě v Česku.",
+      "heroCta": "Nastavit tracking",
+      "heroSecondary": "Jak to funguje →",
+      "quickLinks": {
+        "forWhom": "Pro koho",
+        "pricing": "Cena",
+        "faq": "FAQ"
+      }
+    },
+    "heroGraphic": {
+      "browser": "Browser",
+      "server": "Server",
+      "bypassLabel": "Obcházení blokátorů..."
+    },
+    "whySection": {
+      "title": "Proč běžná analytika už nefunguje",
+      "text": "Prohlížeče, iOS a GDPR čím dál častěji blokují přenos dat. Výsledkem je, že reklama „vidí“ jen část poptávek a učí se na neúplném obrázku.",
+      "solution": "→ Tento problém řešíme pomocí server-side trackingu a přenosu dat přes vaši doménu."
+    },
+    "problem": {
+      "title": "Kam mizí data?",
+      "subtitle": "Ztráta dat není jeden problém, ale hned několik faktorů, které se navzájem násobí.",
+      "cards": {
+        "0": {
+          "title": "iOS 14.5+",
+          "desc": "Standardně blokuje tracking. Minus 20 až 30 % dat."
+        },
+        "1": {
+          "title": "Ad Blockers",
+          "desc": "30 až 40 % uživatelů blokuje analytické skripty."
+        },
+        "2": {
+          "title": "Cookies",
+          "desc": "Prohlížeče omezují životnost cookies na 7 dní."
+        },
+        "3": {
+          "title": "Chyby",
+          "desc": "Nesprávná atribuce a duplikace transakcí."
+        }
+      },
+      "note": "Žádný z těchto faktorů nerozbije reklamu sám o sobě,\nspolečně však dělají data neúplnými a zkreslují učení algoritmů."
+    },
+    "solution": {
+      "title": "Naše řešení: HaloTrack",
+      "subtitle": "Praktický server-side tracking pro byznys, ne „složitý systém pro formu“",
+      "cards": {
+        "0": {
+          "title": "Data jdou přímo z vašeho webu",
+          "desc": "Poptávky a nákupy se nejdříve zaznamenají na vašem serveru, ne že se ztratí v prohlížeči nebo blokátorech. Díky tomu jsou data stabilnější i na iPhonu a při přísných omezeních."
+        },
+        "1": {
+          "title": "Data se dostanou do Google a Meta",
+          "desc": "Obvykle prohlížeč rozhoduje, které události pošle do reklamy a které ne. My měníme trasu: nejprve zaznamenáme událost na serveru webu a odtud ji správně předáme do Google a Meta, legálně a v rámci GDPR."
+        },
+        "2": {
+          "title": "Zaměření na poptávky a prodeje",
+          "desc": "Nastavujeme tracking pro reálné cíle byznysu: poptávky a nákupy. Abyste věděli, co v reklamě funguje a za co prostě platíte."
+        }
+      }
+    },
+    "serverSide": {
+      "badge": "Server-side pro byznys",
+      "title": "Server-side tracking - volba těch, kdo počítají poptávky",
+      "p1": "Obvykle Google, Meta a analytika získávají informace o poptávkách přímo z prohlížeče uživatele. Pokud prohlížeč, iPhone nebo blokátory něco omezí, data prostě nedorazí.",
+      "p2": "Server-side tracking mění cestu dat a opatrně obchází tato omezení. Nejprve se poptávka zaznamená na serveru webu, tam, kde je pro prohlížeč těžší data zablokovat, a odtud se správně a legálně předá do Google a Meta.",
+      "p3": "Díky tomu reklamní systémy vidí více reálných poptávek, nejen tu část, kterou se podařilo zachytit v prohlížeči."
+    },
+    "results": {
+      "title": "Co to přináší?",
+      "stats": {
+        "0": {
+          "value": "85%",
+          "label": "Přesnost dat místo 60 %"
+        },
+        "1": {
+          "value": "+30%",
+          "label": "Více sledovaných konverzí"
+        },
+        "2": {
+          "value": "-20%",
+          "label": "Snížení ceny za lead (CPA)"
+        }
+      },
+      "note": "Čísla závisí na oboru, webu a zdrojích návštěvnosti. Neslibujeme 100 %, ale vracíme maximum možného v rámci omezení prohlížečů a GDPR."
+    },
+    "targetAudience": {
+      "title": "Komu zvlášť pomáhá server-side tracking",
+      "items": {
+        "0": "Pokud inzerujete v Google nebo Meta",
+        "1": "Pokud vidíte rozdíly mezi poptávkami a reporty",
+        "2": "Pokud CPA roste a důvod není jasný",
+        "3": "Pokud působíte v konkurenčním oboru v Česku"
+      }
+    },
+    "routes": {
+      "sectionTitle": "Kde se tracking stává součástí systému",
+      "sectionSubtitle": "Tracking zřídka funguje sám o sobě. Obvykle jde v kombinaci s reklamou, webem nebo automatizací a posiluje výsledek každého z těchto směrů.",
+      "nextBadge": "Kam se podívat dál",
+      "nextTitle": "Co obvykle jde vedle trackingu",
+      "caseBadge": "Case studies",
+      "caseTitle": "Kde už byl vidět efekt",
+      "viewLink": "Zobrazit",
+      "openCase": "Otevřít referenci"
+    },
+    "routeCards": {
+      "0": {
+        "title": "Google Ads a tracking",
+        "text": "Pokud poptávky přicházejí z vyhledávání, přesné konverze jsou potřeba pro řízení nabídek, aby se neplatilo za šum."
+      },
+      "1": {
+        "title": "Meta Ads a tracking",
+        "text": "Pokud Meta ztrácí část událostí, tracking pomáhá vrátit signál do reklamního účtu a vidět reálné poptávky."
+      },
+      "2": {
+        "title": "Balíček „Lead Machine“",
+        "text": "Pokud potřebujete sestavit stránku, reklamu a analytiku do jednoho fungujícího systému, je lepší dívat se na to společně."
+      }
+    },
+    "pricing": {
+      "title": "Cena nastavení",
+      "subtitle": "Kompletní server-side sledování.",
+      "price": "od 8 000 Kč",
+      "priceNote": "Jednorázová platba",
+      "priceDesc": "Vhodné, pokud už máte web a reklamu, ale nejste si jistí, že se data sbírají správně.",
+      "features": {
+        "0": "Nastavení GTM server-side",
+        "1": "Meta CAPI + Google Enhanced",
+        "2": "Nastavení událostí GA4",
+        "3": "Verifikace dat"
+      },
+      "packageNote": "Pro klienty na komplexních balíčcích je tracking už zahrnutý se slevou."
+    },
+    "faq": {
+      "title": "Časté dotazy"
+    },
+    "cta": {
+      "title": "Přestaňte ztrácet data",
+      "subtitle": "Nastavíme analytiku, které můžete věřit.",
+      "ctaButton": "Nastavit tracking"
+    }
+  },
+  "trackingFaq": {
+    "items": {
+      "0": {
+        "question": "Je to legální z hlediska GDPR v Česku?",
+        "answer": "Ano. Tracking nastavujeme v rámci GDPR: zohledňujeme consent banner, minimalizujeme data a předáváme události do reklamních systémů pouze při správných právních základech."
+      },
+      "1": {
+        "question": "Nahrazuje HaloTrack Google Analytics (GA4)?",
+        "answer": "Ne. GA4 zůstává hlavní analytikou a HaloTrack ji posiluje: pomáhá správně sbírat události a předávat přesnější signály do Google Ads a Meta."
+      },
+      "2": {
+        "question": "Co přesně nastavujete?",
+        "answer": "Obvykle: události (Lead / Purchase aj.), propojení webu s GA4, Google Ads a Meta, server-side předávání událostí (Meta CAPI / Enhanced Conversions podle potřeby), kontrolu dataLayeru a finální verifikaci."
+      },
+      "3": {
+        "question": "Hodí se to i pro malý byznys?",
+        "answer": "Ano, pokud už inzerujete nebo to plánujete. Když jsou data neúplná, platíte za poptávky více."
+      },
+      "4": {
+        "question": "Jde to i bez server-side trackingu?",
+        "answer": "Jde, ale část dat se bude nevyhnutelně ztrácet kvůli iOS, blokacím a omezením cookies."
+      },
+      "5": {
+        "question": "Garantujete +20 až 40 % dat?",
+        "answer": "Ne, protože to závisí na oboru, zdrojích návštěvnosti, podílu iOS a nastavení consentu. Garantujeme pečlivé nastavení, transparentní kontrolu a report."
+      },
+      "6": {
+        "question": "Jak dlouho nastavení trvá?",
+        "answer": "Nejčastěji od několika dnů do 1 týdne."
+      },
+      "7": {
+        "question": "Potřebujete přístup k webu nebo hostingu?",
+        "answer": "Obvykle potřebujeme přístup ke GTM/GA4 a reklamním účtům. Přístup k webu závisí na realizaci."
+      }
+    }
+  },
+  "automationPage": {
+    "hero": {
+      "badge": "Automatizace a AI",
+      "titleLine1": "Byznys na",
+      "titleLine2": "autopilotu",
+      "titleAccent": "Zvýraznění",
+      "subtitle": "Zavádíme AI a automatizaci, aby se poptávky zpracovávaly rychleji, klienti se neztráceli a rutina zmizela z vašeho dne.",
+      "heroCta": "Probrat automatizaci",
+      "heroSecondary": "Co automatizujeme →"
+    },
+    "heroGraphic": {
+      "workflowTitle": "Zpracování poptávek",
+      "workflowStatus": "V provozu • 24/7",
+      "activeLabel": "Aktivní",
+      "nodes": {
+        "0": {
+          "title": "Nová poptávka",
+          "sub": "Formulář na webu"
+        },
+        "1": {
+          "title": "Obohacení dat",
+          "sub": "Clearbit API"
+        },
+        "2": {
+          "title": "AI analýza",
+          "sub": "OpenAI GPT-4"
+        },
+        "3": {
+          "title": "Odeslání nabídky",
+          "sub": "Gmail SMTP"
+        }
+      },
+      "timeSaving": "Úspora času",
+      "timeSavingUnit": "/ týd.",
+      "moneySaving": "Úspora peněz",
+      "moneySavingUnit": "/ měs."
+    },
+    "intro": {
+      "title": "Automatizace není o „robotech“.",
+      "titleLine2": "Je to o menším chaosu a větší kontrole.",
+      "subtitle": "Většina firem v Česku přichází o klienty a čas ne kvůli špatným službám, ale kvůli ruční rutině a lidskému faktoru."
+    },
+    "introCards": {
+      "whatHappens": {
+        "0": "Poptávky se ztrácejí ve WhatsAppu, e-mailu nebo formulářích",
+        "1": "Klient čeká na odpověď a odejde ke konkurenci",
+        "2": "Rutina zabírá čas majiteli i týmu",
+        "badge": "Co se běžně děje"
+      },
+      "whatAutomationDoes": {
+        "0": "Každá poptávka se eviduje a neztrácí",
+        "1": "Klient dostane odpověď okamžitě, 24/7",
+        "2": "Vidíte, co se ve firmě děje",
+        "badge": "Co dělá automatizace"
+      },
+      "businessBenefit": {
+        "0": "Více poptávek → bez navyšování lidí",
+        "1": "Rychlejší zpracování → vyšší konverze",
+        "2": "Méně ruční práce → méně chyb",
+        "badge": "Proč to firmě pomáhá"
+      }
+    },
+    "introCtaLabel": "Podívat se na příklady automatizace",
+    "introNote": "Neautomatizujeme „všechno“. Jen procesy, které skutečně šetří čas nebo peníze.",
+    "techStack": {
+      "0": {
+        "label": "Propojení služeb",
+        "helper": "Automaticky předáváme data mezi webem, CRM, e-mailem a messengery."
+      },
+      "1": {
+        "label": "AI pro rutinu",
+        "helper": "Odpovědi, analýza a klasifikace poptávek tam, kde to skutečně šetří čas."
+      },
+      "2": {
+        "label": "Skripty a logika",
+        "helper": "Když je třeba nestandardní řešení: kontroly, výpočty, integrace a zpracování dat."
+      },
+      "3": {
+        "label": "Databáze",
+        "helper": "Ukládáme poptávky i stavy přehledně, aby bylo vše viditelné a dalo se to dál rozvíjet."
+      }
+    },
+    "techSection": {
+      "title": "Nástroje automatizace",
+      "subtitle": "Nemusíte rozumět Make, API ani skriptům. Vybíráme přístup podle úlohy a odpovídáme za stabilní provoz i podporu."
+    },
+    "services": {
+      "0": {
+        "title": "AI asistenti",
+        "description": "Automatické odpovědi, zpracování poptávek a zápis klientů 24/7, abyste neztráceli klienty ani ve chvíli, kdy jste zaneprázdnění.",
+        "included": {
+          "0": "Scénáře odpovědí pro váš byznys (RU/CZ/EN)",
+          "1": "Integrace s WhatsApp/Telegram/webem",
+          "2": "Předání kontaktu do tabulky nebo CRM",
+          "3": "Filtr: spam / necílové / naléhavé",
+          "4": "Logy + krátký návod pro tým"
+        },
+        "price": "od 15 000 Kč",
+        "time": "1 až 2 týdny"
+      },
+      "1": {
+        "title": "CRM integrace",
+        "description": "Aby se žádná poptávka neztratila: poptávky jdou do tabulky nebo CRM, tým dostává notifikace a statusy se aktualizují automaticky.",
+        "included": {
+          "0": "Poptávka → tabulka/CRM (Pipedrive/HubSpot/aj.)",
+          "1": "Notifikace přes Telegram nebo e-mail",
+          "2": "Statusy: nová / v práci / uzavřená",
+          "3": "Deduplikace (odstranění duplicit)",
+          "4": "Mini-report: kolik poptávek a odkud"
+        },
+        "price": "od 10 000 Kč",
+        "time": "3 až 5 dnů"
+      },
+      "2": {
+        "title": "Sběr a zpracování dat",
+        "description": "Automatický sběr dat a reporty bez ruční rutiny: sbíráme, dáváme do pořádku a aktualizujeme podle harmonogramu.",
+        "included": {
+          "0": "Sběr dat podle harmonogramu (weby/tabulky/API)",
+          "1": "Čištění a strukturování dat",
+          "2": "Obohacení dat (podle úlohy)",
+          "3": "Týdenní report na e-mail",
+          "4": "Logy + ochrana před chybami a pády"
+        },
+        "price": "od 20 000 Kč",
+        "time": "2 až 3 týdny"
+      },
+      "title": "Co automatizujeme",
+      "subtitle": "Odstraňujeme lidský faktor tam, kde je to možné. Rychle, přesně a bez víkendových přestávek.",
+      "orderButton": "Objednat",
+      "includedLabel": "Co je zahrnuto:"
+    },
+    "routes": {
+      "sectionTitle": "Kde automatizace přináší maximální efekt",
+      "sectionSubtitle": "Automatizace existuje zřídka sama o sobě. Obvykle posiluje web, tracking, zpracování poptávek i práci týmu. Proto je důležité hned vidět, co dalšího stojí za to připojit.",
+      "nextBadge": "Kam se podívat dál",
+      "nextTitle": "Co obvykle jde ruku v ruce s automatizací",
+      "routeCards": {
+        "0": {
+          "title": "Nejdřív nastavit tracking",
+          "text": "Pokud se automatizace má opírat o poptávky, statusy a zdroje, je lepší nejdřív dát do pořádku data a události."
+        },
+        "1": {
+          "title": "Posílit web",
+          "text": "Pokud automatizace slouží pro zápisy, poptávky a CRM, funguje lépe společně s přehledným webem a správnými stránkami služeb."
+        },
+        "2": {
+          "title": "Probrat úlohu",
+          "text": "Pokud je úloha jasná, je jednodušší rovnou poslat krátký brief přes kontaktní stránku."
+        }
+      },
+      "viewLink": "Podívat se"
+    },
+    "leadMagnet": {
+      "title": "Získejte plán automatizace pro váš byznys v Česku",
+      "subtitle": "Popište, co se u vás děje teď. Poradíme 1 až 2 automatizace, které přinesou maximální efekt, a řekneme, kolik to bude stát.",
+      "examplesTitle": "Příklady, které se zavádějí nejčastěji",
+      "commonAutomations": {
+        "0": {
+          "text": "Poptávka z webu → Telegram/WhatsApp → tabulka/CRM",
+          "note": "žádná poptávka se neztratí"
+        },
+        "1": {
+          "text": "Automatická odpověď ve WhatsAppu → sběr kontaktu",
+          "note": "klient dostane odpověď hned"
+        },
+        "2": {
+          "text": "Rezervace → připomínka 24 hodin předem",
+          "note": "méně nedostavení"
+        },
+        "3": {
+          "text": "Faktura → odeslání klientovi → status \"zaplaceno\"",
+          "note": "méně ruční kontroly"
+        },
+        "4": {
+          "text": "Týdenní report: poptávky/náklady/tržby na e-mail",
+          "note": "jasný přehled o dění"
+        }
+      },
+      "examplesNote": "Pokud si nejste jistí, co přesně automatizovat, to je v pořádku. Položíme pár otázek a navrhneme nejjednodušší start.",
+      "contactTitle": "Jak nás nejlépe kontaktovat",
+      "contactSubtitle": "Všechny hlavní poptávky řešíme přes /contact",
+      "contactDesc": "Popište úlohu krátce přes /contact. Rozebereme současný proces, navrhneme rozumný první krok a řekneme, co zavést hned a co později.",
+      "contactItemsTitle": "Co je dobré poslat v poptávce",
+      "contactItems": {
+        "0": "jaký proces teď zabírá čas nebo nefunguje",
+        "1": "jaké nástroje už používáte: web, CRM, tabulky, WhatsApp, Telegram",
+        "2": "jaký výsledek potřebujete: méně ruční práce, rychlejší odpověď, méně ztracených poptávek"
+      },
+      "checkTrackingFirst": "Nejdřív zkontrolovat tracking",
+      "goToDiscussion": "Přejít k domluvě",
+      "contactNote": "Jeden přehledný komunikační kanál. Poptávka, domluva i další krok zůstanou pohromadě."
+    },
+    "faq": {
+      "title": "Časté dotazy k automatizaci"
+    },
+    "cta": {
+      "title": "Jste připraveni optimalizovat byznys?",
+      "subtitle": "Nechte krátký brief. Podíváme se, kde automatizace skutečně odlehčí ruční práci a zrychlí chod týmu.",
+      "ctaButton": "Probrat automatizaci"
+    }
+  },
+  "automationFaq": {
+    "0": {
+      "question": "Není to pro můj byznys příliš složité?",
+      "answer": "Ne. Nemusíte rozumět AI, API ani automatizacím. Logiku navrhujeme my a vy jen používáte výsledek."
+    },
+    "1": {
+      "question": "Nahradí to zaměstnance?",
+      "answer": "Ne. Automatizace odstraňují rutinu: odpovědi, přenos dat, připomínky. Lidé se dál věnují klientům a prodejům."
+    },
+    "2": {
+      "question": "A když mám málo poptávek, má to smysl?",
+      "answer": "Ano, zvlášť v takovém případě. Když je poptávek málo, každá ztracená bolí."
+    },
+    "3": {
+      "question": "Funguje to s WhatsApp, Telegram a e-mailem?",
+      "answer": "Ano. Automatizace stavíme často právě kolem WhatsAppu a Telegramu, je to nejčastější scénář u firem v Česku."
+    },
+    "4": {
+      "question": "Jak dlouho zavedení trvá?",
+      "answer": "Obvykle od několika dnů do 2 až 3 týdnů, podle počtu scénářů a integrací."
+    },
+    "5": {
+      "question": "Lze začít s malým řešením a rozšiřovat ho?",
+      "answer": "Ano, a přesně tak to doporučujeme. Nejdřív jeden proces, pak se přidávají reporty, připomínky, AI odpovědi a další věci."
+    },
+    "6": {
+      "question": "Je to bezpečné?",
+      "answer": "Ano. Používáme ověřené nástroje a neuchováváme zbytečná data. Přístupy i data zůstávají vždy pod vaší kontrolou."
+    },
+    "7": {
+      "question": "Co když nevím, co přesně automatizovat?",
+      "answer": "To je v pořádku. Popište, kde vás něco zdržuje nebo nefunguje, a my navrhneme konkrétní scénáře pro váš byznys."
+    }
+  },
+  "googleAdsService": {
+    "eyebrow": "Pro firmy s existující poptávkou",
+    "title": "Google Ads pro poptávky, hovory a prodeje v Česku",
+    "description": "Pokud vaše služby už lidé hledají na Googlu, můžete tu postavit nejpřímější cestu od dotazu k poptávce. Pomůžeme buď udělat pořádek ve stávajícím účtu, nebo spustit Google Ads od nuly bez chaosu ve struktuře, stránkách a analytice.",
+    "jsonLd": {
+      "name": "Google Ads v Česku",
+      "description": "Google Ads pro firmy v Česku: spuštění od nuly, audit stávajícího účtu, plán kampaní, landing pages a analytiky. Vhodné pro lokální služby, servis a e-shopy."
+    },
+    "chips": {
+      "0": "Vyhledávání, remarketing, Performance Max",
+      "1": "Pro lokální firmy a e-shopy",
+      "2": "Správa od 8 000 Kč / měsíc"
+    },
+    "proofs": {
+      "0": "Rozumíme, které dotazy a kampaně firma skutečně potřebuje a které jen pálí rozpočet.",
+      "1": "Díváme se nejen na účet, ale i na cestu z vyhledávání k formuláři, hovoru nebo prodeji.",
+      "2": "Pokud je analytika slabá, rovnou ukážeme, co je potřeba opravit před škálováním."
+    },
+    "intentTitle": "Kdy se Google Ads hodí nejlépe",
+    "intentDescription": "Google Ads jsou nejsilnější tam, kde člověk už hledá službu nebo produkt a je připraven udělat další krok.",
+    "intentCards": {
+      "0": {
+        "title": "Spuštění od nuly",
+        "subtitle": "Když potřebujete jasný začátek",
+        "description": "Pomůžeme pochopit, které kampaně spustit jako první, jaký rozpočet je potřeba a na jakou stránku směřovat provoz."
+      },
+      "1": {
+        "title": "Reklama už běží",
+        "subtitle": "Když je potřeba udělat pořádek",
+        "description": "Ukážeme, kde se ztrácejí poptávky a peníze: dotazy, struktura, nabídka, landing page nebo analytika."
+      },
+      "2": {
+        "title": "Potřebujete správu",
+        "subtitle": "Když je důležitá systematičnost",
+        "description": "Převezmeme spuštění i optimalizaci, pokud nepotřebujete jednorázový setup, ale průběžnou práci s výsledky."
+      }
+    },
+    "offerTitle": "Co lze v Google Ads spustit a spravovat",
+    "offerDescription": "Nevybíráme všechny formáty naráz, ale kombinaci podle poptávky, geografie, prodejního cyklu a obchodního cíle.",
+    "offerCards": {
+      "0": {
+        "title": "Vyhledávací reklama",
+        "subtitle": "Na horkou poptávku",
+        "description": "Nejpřímější formát, pokud má firma jasnou službu a lidé ji skutečně hledají na Googlu."
+      },
+      "1": {
+        "title": "Kampaně na poptávky a hovory",
+        "subtitle": "Pro lokální servis",
+        "description": "Vhodné, když firma potřebuje formuláře, hovory, rezervace a konzultace, ne jen návštěvy webu."
+      },
+      "2": {
+        "title": "Remarketing a škálování",
+        "subtitle": "Po prvních datech",
+        "description": "Zapojujeme další scénáře, když už je vidět, které dotazy a stránky dávají nejlepší výsledky."
+      }
+    },
+    "includedTitle": "Co je zahrnuto v ceně",
+    "includedItems": {
+      "0": "Nastavení a správa reklamních kampaní",
+      "1": "Optimalizace dotazů, nabídek a rozpočtu",
+      "2": "Měsíční report se srozumitelnými čísly",
+      "3": "Doporučení k landing pages",
+      "4": "Kreativy — podle rozsahu a tarifu"
+    },
+    "priceLabel": "Správa Google Ads",
+    "priceValue": "od 8 000 Kč / měsíc",
+    "priceNote": "Reklamní rozpočet se platí zvlášť. Konečný rozsah potvrdíme po krátkém rozboru.",
+    "faqTitle": "Časté otázky ke Google Ads",
+    "faqDescription": "Otázky, které obvykle vznikají před spuštěním nebo před přechodem na pravidelnou správu.",
+    "faqs": {
+      "0": {
+        "question": "Kolik stojí nastavení a správa Google Ads?",
+        "answer": "Základní správa obvykle začíná od 8 000 Kč měsíčně, ale výsledná cena závisí na počtu kampaní, geografii, poptávce a složitosti konverzní cesty."
+      },
+      "1": {
+        "question": "Hodí se Google Ads, i když jsem ještě nikdy reklamu nespustil?",
+        "answer": "Ano. Právě proto je prvním krokem rozbor a plán. Nejdřív pochopíme, zda se vyhledávání hodí pro váš byznys a které kampaně spustit jako první."
+      },
+      "2": {
+        "question": "Potřebuju web, abych mohl spustit Google Ads?",
+        "answer": "Téměř vždy je potřeba alespoň slušná landing page. Pokud je stránka slabá, reklama jen urychlí ztrácení peněz. Proto se hned díváme na cestu k poptávce a CTA."
+      },
+      "3": {
+        "question": "Pracujete jen s Google Ads?",
+        "answer": "Ne. Ale Google Ads a Meta Ads je lepší rozebrat zvlášť, protože jde o jiný typ poptávky a jinou logiku spuštění."
+      }
+    },
+    "finalTitle": "Pokud poptávka už existuje, Google Ads by měl být jasným kanálem",
+    "finalText": "Nechte nám úkol, odkaz na web nebo stávající reklamu. Rozebereme, co přesně spustit, kde se ztrácejí peníze a jaký další krok přinese nejrychlejší efekt.",
+    "formConfig": {
+      "title": "Získejte rozbor a plán",
+      "subtitle": "Pokud reklama už běží, ukážeme, kde se ztrácejí poptávky. Pokud ještě ne, dáme plán spuštění a strukturu účtu.",
+      "successMessage": "Ozveme se vám v pracovní době a probereme Google Ads, aktuální situaci i další krok.",
+      "presenceLabel": "Web, Instagram nebo stávající reklama (pokud existuje)",
+      "presencePlaceholder": "https://... nebo @vas_profil",
+      "consentText": "Souhlasím se zpracováním údajů. Kontakt použijeme jen pro odpověď ke Google Ads a plánu spuštění.",
+      "cta": "Získat rozbor a plán",
+      "whatsappLabel": "Napsat na WhatsApp →"
+    }
+  },
+  "metaAdsService": {
+    "eyebrow": "Pro firmy, kde je potřeba poptávku generovat",
+    "title": "Meta Ads pro poptávky, zprávy a prodeje v Česku",
+    "description": "Meta Ads nefungují tehdy, když se jen točí provoz, ale když jsou nabídka, kreativa, publikum a stránka spojené do jedné jasné konverzní cesty. Pomůžeme buď opravit stávající targeting, nebo spustit Meta Ads od nuly bez chaotických testů a náhodných poptávek.",
+    "jsonLd": {
+      "name": "Meta Ads v Česku",
+      "description": "Meta Ads pro firmy v Česku: spuštění cílené reklamy, audit stávajícího targetingu, nabídky, kreativ, landing page a zpracování poptávek. Vhodné pro lokální služby, servis a e-shopy."
+    },
+    "chips": {
+      "0": "Instagram + Facebook",
+      "1": "Poptávky, zprávy, formuláře a prodeje",
+      "2": "Správa od 8 000 Kč / měsíc"
+    },
+    "proofs": {
+      "0": "Rozebíráme nejen účet, ale i celou vazbu: co ukazujeme, komu to ukazujeme a kam směřujeme provoz.",
+      "1": "Díváme se na kvalitu poptávky, ne jen na cenu prokliku nebo dosah.",
+      "2": "Pokud firma nejdřív potřebuje landing page, analytiku nebo jinou nabídku, řekneme to napřímo."
+    },
+    "intentTitle": "Kdy se Meta Ads hodí nejlépe",
+    "intentDescription": "Meta Ads jsou zvlášť užitečné pro firmy, kde poptávku nelze jednoduše zachytit ve vyhledávání. Důležitá je prezentace, publika, rozehřátí trhu a silná cesta od inzerátu k poptávce.",
+    "intentCards": {
+      "0": {
+        "title": "Spuštění od nuly",
+        "subtitle": "Když potřebujete jasný začátek",
+        "description": "Pomůžeme určit nabídku, publika, kreativy a konverzní cestu, abyste nepropálili rozpočet hned v prvních testech."
+      },
+      "1": {
+        "title": "Targeting už běží",
+        "subtitle": "Když je potřeba udělat v tom jasno",
+        "description": "Ukážeme, kde klesají výsledky: kreativa, nabídka, publikum, formulář, landing page nebo zpracování poptávek."
+      },
+      "2": {
+        "title": "Potřebujete správu",
+        "subtitle": "Když jsou důležité testy a tempo",
+        "description": "Převezmeme testování kreativ, optimalizaci kampaní a systematickou práci s výsledky."
+      }
+    },
+    "offerTitle": "Co lze v Meta Ads spustit a spravovat",
+    "offerDescription": "Nevybíráme jen formát inzerátu, ale funkční vazbu pro poptávky, zprávy, retargeting a prodeje.",
+    "offerCards": {
+      "0": {
+        "title": "Generování poptávek",
+        "subtitle": "Formuláře a rezervace",
+        "description": "Pro servisní firmy, beauty, lokální služby a projekty, kde je potřeba rychle dovést člověka k formuláři nebo zprávě."
+      },
+      "1": {
+        "title": "Provoz na web nebo landing page",
+        "subtitle": "Když je potřeba konverzní cesta",
+        "description": "Používáme, pokud prodej vyžaduje nabídku, reference, FAQ a srozumitelnou stránku, ne jen jeden profil na Instagramu."
+      },
+      "2": {
+        "title": "Retargeting a kreativní testy",
+        "subtitle": "Když je čas posílit",
+        "description": "Přidáváme opakovanou komunikaci, testy prezentace a nové vazby, když vidíme první funkční vzory."
+      }
+    },
+    "includedTitle": "Co je zahrnuto v ceně",
+    "includedItems": {
+      "0": "Nastavení a správa reklamních kampaní",
+      "1": "Testování kreativ a publik",
+      "2": "Měsíční report se srozumitelnými čísly",
+      "3": "Doporučení k nabídce a konverzní cestě",
+      "4": "Kreativy — podle rozsahu a tarifu"
+    },
+    "priceLabel": "Správa Meta Ads",
+    "priceValue": "od 8 000 Kč / měsíc",
+    "priceNote": "Reklamní rozpočet se platí zvlášť. Konečný rozsah potvrdíme po krátkém rozboru.",
+    "faqTitle": "Časté otázky k Meta Ads",
+    "faqDescription": "Otázky, které obvykle vznikají před prvním spuštěním nebo před přechodem na pravidelnou správu.",
+    "faqs": {
+      "0": {
+        "question": "Hodí se Meta Ads, i když nemám web?",
+        "answer": "Někdy lze začít i bez webu, ale častěji je potřeba alespoň jednoduchá landing page. Pokud je cesta z inzerátu slabá, problém není v tlačítku spuštění, ale v celé konverzní cestě."
+      },
+      "1": {
+        "question": "Co dělat, když reklama běží, ale poptávky jsou slabé?",
+        "answer": "Přesně to rozebíráme jako první. Obvykle nepropadává jeden prvek, ale vazba nabídky, kreativ, publika, formuláře a zpracování poptávky."
+      },
+      "2": {
+        "question": "Hodí se Meta Ads jen pro Instagram?",
+        "answer": "Ne. Na Meta Ads se díváme jako na reklamu na Instagramu a Facebooku, ne jako na propagaci jednoho profilu nebo příspěvku."
+      },
+      "3": {
+        "question": "Spravujete jen Meta Ads?",
+        "answer": "Ne. Ale Meta Ads a Google Ads je lepší rozebrat zvlášť, protože pracují s jiným typem poptávky a vyžadují jiný přístup."
+      }
+    },
+    "finalTitle": "Pokud je potřeba poptávku generovat, Meta Ads musí vést do jasné konverzní cesty",
+    "finalText": "Nechte nám úkol, odkaz na web, profil nebo stávající reklamu. Rozebereme, jaká nabídka a scénář spuštění se hodí pro vaši firmu a kde se aktuálně ztrácí výsledek.",
+    "formConfig": {
+      "title": "Získejte rozbor a plán",
+      "subtitle": "Pokud targeting už běží, ukážeme, kde se konverzní cesta láme. Pokud ještě ne, dáme plán spuštění, nabídku a další krok.",
+      "successMessage": "Ozveme se vám v pracovní době a probereme Meta Ads, aktuální situaci i další krok.",
+      "presenceLabel": "Web, Instagram nebo stávající reklama (pokud existuje)",
+      "presencePlaceholder": "https://... nebo @vas_profil",
+      "consentText": "Souhlasím se zpracováním údajů. Kontakt použijeme jen pro odpověď k Meta Ads a plánu spuštění.",
+      "cta": "Získat rozbor a plán",
+      "whatsappLabel": "Napsat na WhatsApp →"
+    }
+  },
+  "contactPage": {
+    "badge": "Nejjednodušší způsob, jak začít",
+    "titleLine1": "Probereme váš projekt",
+    "titleLine2": "bez zbytečných kol.",
+    "subtitle": "Pokud potřebujete web, reklamu, analytiku nebo automatizaci, pošlete nám podklady. Podíváme se na úkol a odpovíme, čím je nejlepší začít.",
+    "details": {
+      "emailLabel": "E-mail",
+      "phoneLabel": "Telefon",
+      "officeLabel": "Kancelář",
+      "officeValue": "Praha, Česko",
+      "messengersLabel": "Messengery"
+    },
+    "responseFacts": {
+      "0": {
+        "label": "Obvykle odpovídáme",
+        "value": "Během pracovního dne"
+      },
+      "1": {
+        "label": "Co pomůže rychleji",
+        "value": "Krátký brief + odkaz na web nebo reklamu"
+      }
+    },
+    "briefChecklistTitle": "Co poslat v první zprávě",
+    "briefChecklist": {
+      "0": "odkaz na web, profil nebo aktuální stránku",
+      "1": "co vás zajímá: web, reklama, analytika, automatizace nebo balíček",
+      "2": "jaký další krok potřebujete: poptávky, hovory, prodeje, rezervace"
+    },
+    "jsonLd": {
+      "name": "Kontakty HaloAgency",
+      "description": "Kontaktujte HaloAgency a probereme web, reklamu, analytiku nebo automatizaci pro vaši firmu v Česku. Odpovídáme k věci a bez zbytečné byrokracie."
+    }
+  },
+  "aboutPage": {
+    "jsonLd": {
+      "name": "O HaloAgency",
+      "description": "Jak HaloAgency propojuje web, reklamu, analytiku a automatizaci do jednoho funkčního systému pro poptávky a prodeje."
+    },
+    "hero": {
+      "founderAlt": "Artem Krickij — zakladatel HaloAgency",
+      "badge": "Jak se díváme na marketing",
+      "titleLine1": "Marketing jako systém,",
+      "titleLine2": "ne sbírka služeb",
+      "paragraph1": "Prošel jsem celou cestu online marketingu v praxi: od tvorby webu a spouštění reklamy až po analytiku a automatizaci. Díky práci se službovými firmami a e-shopy dobře rozumím reálným úkolům i omezením malého a středního podnikání.",
+      "paragraph2": "Základem mého přístupu je budovat jednotný systém, kde web, reklama a interní procesy jsou propojené a nevyžadují neustálé ruční řízení.",
+      "paragraph3": "Dnes používám AI a automatizaci ne kvůli trendu, ale jako pracovní základ pro analytiku, optimalizaci reklamy a rozhodování na základě dat.",
+      "signature": "Artem K.",
+      "ctaPrimary": "Probrat projekt",
+      "ctaSecondary": "Podívat se na reference →"
+    },
+    "teamCards": {
+      "0": {
+        "title": "Kdo odpovídá za projekt",
+        "text": "Artem vede komunikaci, přijímá klíčová rozhodnutí a drží v ohnisku komerční výsledek."
+      },
+      "1": {
+        "title": "Kdo dělá práci",
+        "text": "Na úkol se připojují design, vývoj, reklama a analytika. Každý odpovídá za svou část, bez rozmyté odpovědnosti."
+      },
+      "2": {
+        "title": "Jak startujeme",
+        "text": "Nejdřív se podíváme na aktuální situaci: web, reklamu, data i zpracování poptávek. Pak navrhneme srozumitelný první krok."
+      },
+      "3": {
+        "title": "Co klient dostane",
+        "text": "Jeden kontakt, jasný plán práce a systém, ve kterém web, reklama a analytika nesoupeří mezi sebou."
+      }
+    },
+    "principles": {
+      "badge": "Jak se díváme na úkol",
+      "title": "Neprodáváme web ani reklamu naslepo",
+      "items": {
+        "0": "Nejdřív zjistíme, jak firma vydělává a kde se ztrácejí poptávky. Pak navrhneme formát práce.",
+        "1": "Pokud problém není ve webu, řekneme to napřímo a neprodáváme zbytečný vývoj.",
+        "2": "Komunikujete s jedním člověkem, ale za projektem stojí odborný tým, ne náhodná skupina subdodavatelů.",
+        "3": "Každé rozhodnutí je navázané na poptávky, prodeje a pořádnou analytiku, ne na vizuál kvůli vizuálu."
+      }
+    },
+    "decisionPoints": {
+      "badge": "Jak poznáme, čím začít",
+      "items": {
+        "0": {
+          "title": "Kdy je třeba nový web",
+          "text": "Když aktuální struktura brzdí reklamu, nevysvětluje nabídku a nedovede člověka k poptávce."
+        },
+        "1": {
+          "title": "Kdy web není hlavní problém",
+          "text": "Když poptávka už existuje, ale ztrácejí se poptávky, nejsou nastavené události nebo vázne zpracování dotazů."
+        },
+        "2": {
+          "title": "Kdy je lepší začít krátkým rozborem",
+          "text": "Když zatím není jasné, co přesně brzdí růst, a je potřeba klidná diagnóza před startem prací."
+        }
+      }
+    },
+    "testimonials": {
+      "badge": "Co říkají klienti",
+      "title": "Recenze po spuštění webu, reklamy a prvních úprav",
+      "subtitle": "Přicházejí s různými úkoly: někdo potřebuje web, někdo reklamu, někdo nejdřív rozbor. Ale obvykle si cení toho samého: srozumitelnosti, normální komunikace a řešení, která opravdu ovlivní poptávky.",
+      "items": {
+        "0": {
+          "quote": "Objednal jsem audit PPC reklamy. Ukázalo se, že kampaně byly vedené pasivně a téměř se netestovaly. Po zavedení doporučení se náklady na reklamu snížily a návratnost vzrostla na více než dvojnásobek.",
+          "author": "Alexej R.",
+          "details": "E-shop, Praha",
+          "focus": "Google Ads a audit",
+          "initial": "AR"
+        },
+        "1": {
+          "quote": "Dřív nám všichni klienti psali na Instagram a pořád se ptali na ceny. Korespondence zabírala hodně času. Po spuštění webu bylo jednodušší ukázat služby a vytvořit pohodlný formulář. Teď reklama vede na web a poptávky přicházejí přímo.",
+          "author": "Anna V.",
+          "details": "Salon krásy, Praha",
+          "focus": "Web pro objednávky a reklamu",
+          "initial": "A"
+        },
+        "2": {
+          "quote": "Mysleli jsme si, že problém je v reklamě, ale audit ukázal, že neprodává samotný web: nabídka byla nejasná a formulář skrytý. Po změně struktury stránky a posílení výzvy k akci počet poptávek výrazně vzrostl.",
+          "author": "Roman G.",
+          "details": "Prádelnictví, Praha",
+          "focus": "Struktura webu a konverze",
+          "initial": "RG"
+        },
+        "3": {
+          "quote": "Dlouho jsme plánovali objednat web, ale pořád jsme se k tomu nedostali. Proto se nám moc líbil přístup, kdy nám nejdřív ukázali demo. Podívali jsme se, probrali úpravy a rozhodli se pro plnohodnotný web. Nakonec to dopadlo ještě lépe, než jsme čekali.",
+          "author": "Katerina M.",
+          "details": "Kavárna, Praha",
+          "focus": "Demo a spuštění webu",
+          "initial": "K"
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Pokud nechcete chaos subdodavatelů, ale funkční systém",
+      "subtitle": "Pošlete nám podklady k úkolu. Podíváme se, co už u vás funguje, co brzdí růst a jaký další krok bude nejrozumnější.",
+      "ctaPrimary": "Probrat projekt",
+      "ctaSecondary": "Nejdřív krátký rozbor →"
+    }
+  },
+  "growthPlanPage": {
+    "badge": "Když potřebujete pohled zvenku",
+    "titleLine1": "Krátký rozbor",
+    "titleLine2": "před startem",
+    "subtitle": "Pokud zatím není jasné, co přesně brzdí poptávky a prodeje, pošlete podklady. Podíváme se na web, reklamu, analytiku i procesy a poradíme, čím je nejrozumnější začít.",
+    "ctaPrimary": "Vyplnit krátký brief",
+    "ctaSecondary": "Pokud už je úkol jasný, přejít k domluvě →",
+    "jsonLd": {
+      "name": "Krátký rozbor situace",
+      "description": "Pokud zatím není jasné, čím začít, pošlete krátký brief. Pomůžeme pochopit, co brzdí růst a jaký krok udělat jako první."
+    }
+  },
+  "landingPagesService": {
+    "jsonLd": {
+      "name": "Landing pages v Česku",
+      "description": "Tvorba landing pages pro firmy v Česku: stránky pro poptávky, hovory, rezervace i reklamu. Silný první dojem, jasné CTA a struktura pro reklamu i analytiku."
+    },
+    "eyebrow": "Pro nabídku, reklamu a krátkou cestu k poptávce",
+    "badge": "Landing page",
+    "title": "Landing pages pro poptávky, hovory a rezervace",
+    "description": "Landing page není o tom, aby firma jen vypadala hezky. Jejím úkolem je rychle dovést návštěvníka od prvního dojmu k jasné akci. Promyslíme strukturu, napíšeme texty pro vaši nabídku a postavíme stránku tak, aby šla rovnou spustit, ne dodělávat za pochodu.",
+    "chips": {
+      "0": "Rychlé spuštění a krátké termíny",
+      "1": "Jeden cíl: poptávka, hovor nebo rezervace",
+      "2": "Struktura pro reklamu a analytiku"
+    },
+    "proofs": {
+      "0": "Landing page musí odpovídat provozu i slibu inzerátu, jinak se rozpočet spálí hned při prvním zobrazení.",
+      "1": "Silná landing page není přetížená zbytečnými bloky a nesnaží se být zároveň webem firmy, katalogem i portfoliem.",
+      "2": "Formulář, CTA i další krok musí být zapojené do reálného procesu zpracování poptávky, ne žít odděleně od firmy."
+    },
+    "scenarioTitle": "Kdy je landing page na prvním místě",
+    "scenarioDescription": "Landing page se vyplatí dělat jako první, když je důležité rychlé spuštění, jasná nabídka a krátká cesta k oslovení.",
+    "scenarioCards": {
+      "0": {
+        "title": "Spuštění reklamy",
+        "subtitle": "Když potřebujete stránku pro reklamu",
+        "description": "Pokud vedete Google Ads nebo Meta Ads na obecnou stránku, landing page často nabízí srozumitelnější konverzní logiku."
+      },
+      "1": {
+        "title": "Ověření poptávky",
+        "subtitle": "Když je potřeba nabídku rychle otestovat",
+        "description": "Landing page pomůže pochopit, zda je zájem o produkt, službu nebo novou niku bez velkého webu a dlouhého výrobního cyklu."
+      },
+      "2": {
+        "title": "Lokální servis",
+        "subtitle": "Když potřebujete poptávky a hovory",
+        "description": "Pro služby, kde je důležité rychle pochopit nabídku, cenu, reference a nechat poptávku za 1 až 2 minuty."
+      }
+    },
+    "deliverableTitle": "Co posiluje dobrou landing page",
+    "deliverableDescription": "Důležitý není dekorativní design, ale struktura, která pomáhá reklamě a provozu proměnit se v poptávku.",
+    "deliverableCards": {
+      "0": {
+        "title": "Silný první dojem",
+        "subtitle": "Nabídka a CTA bez šumu",
+        "description": "Člověk musí během několika vteřin pochopit, co nabízíte, pro koho to je a co má dělat dál."
+      },
+      "1": {
+        "title": "Důkazy a odpovědi na námitky",
+        "subtitle": "Reference, čísla, FAQ",
+        "description": "Landing page musí odpovídat na zjevné pochybnosti dřív, než uživatel stránku opustí."
+      },
+      "2": {
+        "title": "Formuláře a analytika",
+        "subtitle": "Jasná cesta k poptávce",
+        "description": "Formulář, události i cesta po odeslání musí být připravené na analytiku, ne se lepit jako záplata po spuštění."
+      }
+    },
+    "includedTitle": "Co je zahrnuto v ceně",
+    "includedItems": {
+      "0": "Texty píšeme a stránku naplníme za vás",
+      "1": "Kontaktní formulář s notifikacemi na e-mail",
+      "2": "Mobilní verze a rychlé načítání",
+      "3": "Příprava ke spuštění reklamy a analytiky"
+    },
+    "includedBonus": "Hosting a doména na 1 rok v ceně",
+    "priceLabel": "Landing page",
+    "priceValue": "od 10 000 Kč",
+    "priceNote": "Přesná cena závisí na rozsahu úkolu, integracích a připravenosti materiálů. Probereme ji po krátkém briefu.",
+    "faqTitle": "Časté otázky k landing pages",
+    "faqDescription": "Otázky, které obvykle vznikají před spuštěním nebo před přechodem z reklamy na novou stránku.",
+    "faqs": {
+      "0": {
+        "question": "Čím se landing page liší od firemního webu?",
+        "answer": "Landing page řeší jeden úkol a vede k jedné akci. Firemní web je potřeba, když je důležité ukázat služby, reference, o firmě a dát člověku více cest."
+      },
+      "1": {
+        "question": "Lze vést reklamu přímo na hlavní stránku?",
+        "answer": "Někdy ano, ale častěji tím konverze trpí. Pokud provoz míří na stránku bez jasné nabídky a CTA, landing page obvykle nabízí srozumitelnější cestu k poptávce."
+      },
+      "2": {
+        "question": "Jak dlouho trvá spuštění landing page?",
+        "answer": "Obvykle jde o nejrychlejší webový formát. Přesný termín závisí na připravenosti nabídky, materiálů a integrací, ale je výrazně kratší než u velkého vícestránkového webu."
+      },
+      "3": {
+        "question": "Je landing page jen pro reklamu?",
+        "answer": "Ne. Ale nejčastěji se vytváří pro reklamu, speciální nabídku nebo krátkou cestu k oslovení."
+      }
+    }
+  },
+  "businessWebsitesService": {
+    "jsonLd": {
+      "name": "Firemní weby v Česku",
+      "description": "Tvorba firemních webů v Česku: struktura služeb, stránky důvěry, reference, SEO základ, formuláře a logika webu. Pro firmy, které nepotřebují landing page, ale plnohodnotný web."
+    },
+    "eyebrow": "Pro služby, důvěru a organickou návštěvnost",
+    "badge": "Firemní web",
+    "title": "Firemní weby, které vysvětlují a pomáhají prodávat",
+    "description": "Vícestránkový web je potřeba, když jedna stránka už nestačí: je třeba vysvětlit služby, ukázat reference, vybudovat důvěru a dát člověku srozumitelnou cestu po webu. Není to jen vizitka, ale funkční firemní nebo korporátní web pro služby.",
+    "chips": {
+      "0": "Služby, reference, o firmě, kontakty",
+      "1": "Struktura pro důvěru a SEO",
+      "2": "Vhodné pro vyhledávání, značku a doporučení"
+    },
+    "proofs": {
+      "0": "Tento formát je zvlášť vhodný pro kliniky, studia, lokální servis, stavební firmy, B2B týmy a všechny, kdo potřebují v klidu vysvětlit své služby.",
+      "1": "Firemní web musí člověku pomoci vybrat službu a přesvědčit ho, že vám lze důvěřovat.",
+      "2": "Důležitý je nejen design a rychlost, ale i struktura stránek: služby, reference, o firmě, balíčky a kontakty.",
+      "3": "Pokud se takový web staví jako sbírka náhodných bloků, prohrává v SEO, konverzi i kvalitě poptávek."
+    },
+    "scenarioTitle": "Komu se hodí firemní web",
+    "scenarioDescription": "Takový web potřebují firmy, pro které je důležité nejen rychle získávat poptávky, ale i v klidu vysvětlit služby, přístup a zkušenosti.",
+    "scenarioCards": {
+      "0": {
+        "title": "Sféra služeb",
+        "subtitle": "Když je třeba v klidu vysvětlit nabídku",
+        "description": "Vhodné pro kliniky, beauty studia, agentury, právní služby, opravy a další firmy, kde si člověk nevybírá podle jedné obrazovky."
+      },
+      "1": {
+        "title": "Více služeb",
+        "subtitle": "Když má každá služba svůj kontext",
+        "description": "Vícestránkový web dává každé službě vlastní kontext, vlastní argumenty a vlastní cestu k poptávce."
+      },
+      "2": {
+        "title": "Potřebujete vyhledávání a důvěru",
+        "subtitle": "Když je důležité SEO a značka",
+        "description": "Pokud chcete rozvíjet nejen reklamu, ale i stránky pro služby a informační obsah, potřebujete hlubší web."
+      }
+    },
+    "deliverableTitle": "Co musí mít silný firemní web",
+    "deliverableDescription": "Takový web nemá jen vypadat solidně, ale reálně pomáhat uživateli pochopit firmu, vybrat službu a přejít ke kontaktu.",
+    "deliverableCards": {
+      "0": {
+        "title": "Struktura stránek",
+        "subtitle": "Ne jen sbírka bloků",
+        "description": "Hlavní stránka, stránky služeb, reference, o firmě, balíčky a kontakty musí fungovat jako propojený systém, ne jako oddělené dokumenty."
+      },
+      "1": {
+        "title": "Bloky důvěry",
+        "subtitle": "Reference, čísla, proces",
+        "description": "Člověk musí rychle vidět zkušenosti, čísla, příklady práce a pochopit, proč se obrátit právě na vás."
+      },
+      "2": {
+        "title": "Obsah pro další růst",
+        "subtitle": "SEO a rozšíření struktury",
+        "description": "Dobrý firemní web není jednorázový. Umožňuje přidávat nové stránky služeb, reference a obsah bez kompletní předělávky."
+      }
+    },
+    "includedTitle": "Co je zahrnuto v ceně",
+    "includedItems": {
+      "0": "Texty napíšeme a všechny stránky naplníme za vás",
+      "1": "Stránky služeb, reference, o firmě a kontakty",
+      "2": "Formuláře zpětné vazby s notifikacemi",
+      "3": "SEO základ a struktura pro další růst"
+    },
+    "includedBonus": "Hosting a doména na 1 rok v ceně",
+    "priceLabel": "Firemní web",
+    "priceValue": "od 15 000 Kč",
+    "priceNote": "Konečný rozsah spočítáme po krátkém briefu. Pokud je více stránek, služeb a obsahu, cenu probereme zvlášť.",
+    "faqTitle": "Časté otázky k firemním webům",
+    "faqDescription": "Otázky, které obvykle vznikají u firem před přechodem od jednoduchého webu nebo landing page k silnější struktuře.",
+    "faqs": {
+      "0": {
+        "question": "Kdy stačí landing page a kdy je potřeba firemní web?",
+        "answer": "Landing page je pro jednu nabídku a krátkou cestu k poptávce. Firemní web je potřeba, když je třeba ukázat služby, reference, proces a dát člověku více informací před oslovením."
+      },
+      "1": {
+        "question": "Pomůže firemní web s SEO lépe než landing page?",
+        "answer": "Obvykle ano, protože má více plnohodnotných stránek pro služby, reference a otázky klientů. Ale jen pokud je struktura skutečně promyšlená, ne složená z náhodných stránek."
+      },
+      "2": {
+        "question": "Lze nejdřív spustit firemní web a pak přidat reklamu?",
+        "answer": "Ano. To je normální cesta, pokud je nejdřív třeba vybudovat důvěru a strukturu služeb a až potom posílit tok poptávek reklamou."
+      },
+      "3": {
+        "question": "Je na takovém webu potřeba samostatná stránka kontaktu?",
+        "answer": "Ano. Lepší je mít samostatnou stránku kontaktu, než se spoléhat jen na sekci dole na hlavní stránce nebo modální okno."
+      }
+    }
+  },
+  "ecommerceService": {
+    "jsonLd": {
+      "name": "Tvorba e-shopu v Česku",
+      "description": "Tvorba e-shopu pro firmy v Česku: katalog, košík, platba, analytika, reklama a architektura pro růst. Pro projekty, které potřebují nejen spuštění, ale i škálování."
+    },
+    "eyebrow": "Pro katalog, platbu, analytiku a růst",
+    "badge": "E-shop",
+    "title": "E-shopy pro prodej, analytiku a škálování",
+    "description": "E-shop vyžaduje jinou disciplínu než běžný web. Důležité jsou nejen stránky a design, ale i katalog, platba, logistika, analytika prodeje, retargeting a schopnost škálovat objednávky bez ručního chaosu.",
+    "chips": {
+      "0": "Katalog, košík a objednávkový proces",
+      "1": "Analytika objednávek a dat",
+      "2": "Architektura pro růst"
+    },
+    "proofs": {
+      "0": "E-shop nelze hodnotit jen podle vzhledu. Kritické jsou struktura, platba, doručení, analytika a rychlost rozhodování na základě dat.",
+      "1": "Pokud se e-shop spouští bez správné analytiky prodeje, firma rychle ztrácí přehled, které kampaně a produkty se skutečně vyplácejí.",
+      "2": "Dobrý e-shop musí být připraven nejen na spuštění, ale i na růst sortimentu, provozu a operací."
+    },
+    "scenarioTitle": "Kdy je potřeba plnohodnotný e-shop",
+    "scenarioDescription": "Plnohodnotný e-shop je potřeba tam, kde prodej, analytika a provozní procesy musí fungovat jako jeden systém.",
+    "scenarioCards": {
+      "0": {
+        "title": "Máte zboží a sortiment",
+        "subtitle": "Když je třeba skutečný obchod",
+        "description": "Pokud firma už má zboží a plán růstu, běžný web nestačí. Je třeba katalog, košík, objednávkový proces a pořádná logika objednávek."
+      },
+      "1": {
+        "title": "Potřebujete data o prodeji",
+        "subtitle": "Když je důležitá ekonomika objednávek",
+        "description": "Bez pochopení zdrojů prodeje, průměrného košíku a efektivity kampaní se škálování mění v hádání."
+      },
+      "2": {
+        "title": "Plánujete růst obchodu",
+        "subtitle": "Když reklama a katalog budou růst",
+        "description": "E-shop potřebuje strukturu, která unese nové produkty, kanály, retargeting a další integrace."
+      }
+    },
+    "deliverableTitle": "Co musí mít silný e-shop",
+    "deliverableDescription": "Důležité je nejen postavit hezkou vitrínu, ale promyslet systémové prvky, bez kterých nelze obchod normálně vést a škálovat.",
+    "deliverableCards": {
+      "0": {
+        "title": "Katalog a objednávkový proces",
+        "subtitle": "Jasná cesta k nákupu",
+        "description": "Produktové karty, filtry, košík a objednávkový proces musí fungovat rychle a bez zbytečného tření na mobilech i desktopu."
+      },
+      "1": {
+        "title": "Platba a logistika",
+        "subtitle": "Ne jen frontend",
+        "description": "Integrace platby, doručení a provozní trasy objednávky ovlivňuje reálnou ziskovost a kvalitu zákaznické zkušenosti."
+      },
+      "2": {
+        "title": "Analytika a reklama",
+        "subtitle": "Základ pro růst",
+        "description": "Analytika prodeje, katalogy, retargeting a data o objednávkách musí být zapojené od samého začátku, ne jako nadstavba po spuštění."
+      }
+    },
+    "includedTitle": "Co je zahrnuto v ceně",
+    "includedItems": {
+      "0": "Katalog, produktové karty a košík",
+      "1": "Připojení plateb a doručení",
+      "2": "Analytika prodeje a události pro reklamu",
+      "3": "Připravenost pro Google Shopping a Meta katalogy"
+    },
+    "includedBonus": "Hosting a doména na 1 rok v ceně",
+    "priceLabel": "E-shop",
+    "priceValue": "od 35 000 Kč",
+    "priceNote": "Konečná cena závisí na sortimentu, integracích a složitosti katalogu. Probereme ji po krátkém briefu.",
+    "faqTitle": "Časté otázky k e-shopům",
+    "faqDescription": "Otázky, které obvykle vznikají před spuštěním nebo před přechodem od jednoduchého webu k plnohodnotnému e-shopu.",
+    "faqs": {
+      "0": {
+        "question": "Čím se e-shop liší od běžného firemního webu?",
+        "answer": "Firemní web především vysvětluje služby a posiluje důvěru. E-shop navíc musí zvládat sortiment, košík, platbu, doručení a analytiku prodeje. To je jiná technická i komerční zátěž."
+      },
+      "1": {
+        "question": "Lze nejdřív spustit obchod a analytiku připojit později?",
+        "answer": "Technicky ano, ale je to špatná cesta. Bez analytiky prodeje rychle ztrácíte přehled o tom, co funguje v reklamě, u produktů a v ekonomice objednávek."
+      },
+      "2": {
+        "question": "Je potřeba reklama hned po spuštění obchodu?",
+        "answer": "Často ano, zvlášť pokud je brandové poptávky málo. Proto je lepší e-shop rovnou stavět s ohledem na Google Ads, Meta Ads a katalogové scénáře."
+      },
+      "3": {
+        "question": "Hodí se tento formát jen pro velké obchody?",
+        "answer": "Ne. Ale je zvlášť důležitý tam, kde už je sortiment, plány na růst a potřeba rozhodovat se na základě dat, ne intuitivně."
+      }
+    }
+  },
+  "packagesOverview": {
+    "jsonLdName": "Balíčky HaloAgency",
+    "jsonLdDescription": "Balíčky HaloAgency pro firmy v Česku: startovací web, systém poptávek, e-shop a vlastní projekty. Pomáhají rychle pochopit formát práce a orientační rozpočet.",
+    "badge": "Balíčky a orientační ceny",
+    "titleLine1": "Balíčky a orientační ceny",
+    "titleLine2": "pro další krok",
+    "description": "Balíček vyjde levněji než stejné služby zvlášť. Web, reklama, analytika a správa už jsou spojené do jednoho celku s jasnou cenou.",
+    "ctaButton": "Probrat zadání"
+  },
+  "packageSitePage": {
+    "jsonLdName": "Balíček \"Start\"",
+    "jsonLdDescription": "Web, reklama, analytika a místní vyhledávání pro firmy v Česku. Od 15 000 Kč za spuštění + od 5 000 Kč/měsíc.",
+    "badge": "Startovací balíček",
+    "titlePrefix": "Balíček",
+    "titleAccent": "Start",
+    "svgTitle": "Zvýraznění",
+    "subtitle": "Hotová webová prezentace během jednoho týdne. Web, analytika, místní vyhledávání a AI výsledky, vše nastavené a pod kontrolou.",
+    "oneTimeLabel": "Jednorázově",
+    "oneTimePrice": "15 000 Kč",
+    "oneTimeDesc": "Kompletní nastavení",
+    "monthlyLabel": "Měsíčně",
+    "monthlyPrice": "od 5 000 Kč",
+    "monthlyDesc": "Správa reklamy + podpora",
+    "ctaButton": "Objednat web →",
+    "links": {
+      "0": {
+        "title": "Landing pages",
+        "description": "Když potřebujete krátkou cestu od reklamy k formuláři a jednu hlavní akci."
+      },
+      "1": {
+        "title": "Vícestránkové weby",
+        "description": "Když potřebujete více stránek, navigaci po službách a silnější důvěru ve firmu."
+      }
+    },
+    "includedTitle": "Co je v balíčku",
+    "includedSubtitle": "Web, reklama, analytika a místní prezentace, vše, co potřebujete pro start, bez zbytečné složitosti.",
+    "sections": {
+      "0": {
+        "title": "Vývoj",
+        "items": {
+          "0": "landing page nebo web do 3 stránek",
+          "1": "struktura pro služby, kontakty a důvěru",
+          "2": "design a sestavení v Next.js",
+          "3": "rychlé načítání a technický základ",
+          "4": "publikace a připojení domény"
+        }
+      },
+      "1": {
+        "title": "Responzivita",
+        "items": {
+          "0": "správné zobrazení na telefonu i notebooku",
+          "1": "kontrola klíčových obrazovek",
+          "2": "srozumitelná tlačítka a formuláře na mobilech",
+          "3": "optimalizovaná rychlost načítání",
+          "4": "připravenost na další úpravy"
+        }
+      },
+      "2": {
+        "title": "Kontaktní formuláře",
+        "items": {
+          "0": "kontaktní formulář",
+          "1": "odesílání poptávek na e-mail",
+          "2": "validace polí",
+          "3": "základní ochrana proti spamu",
+          "4": "příprava na napojení CRM nebo Telegramu"
+        }
+      },
+      "3": {
+        "title": "SEO a místní vyhledávání",
+        "items": {
+          "0": "title, description a Open Graph",
+          "1": "robots.txt a sitemap",
+          "2": "viditelnost v AI vyhledávání",
+          "3": "profil na Google Maps",
+          "4": "připravenost k indexaci"
+        }
+      },
+      "4": {
+        "title": "1 reklamní kanál",
+        "items": {
+          "0": "Google Ads nebo Meta Ads dle výběru",
+          "1": "nastavení reklamního účtu",
+          "2": "struktura kampaně podle zadání firmy",
+          "3": "základní kreativy a texty pro start",
+          "4": "spuštění prvních kampaní"
+        }
+      },
+      "5": {
+        "title": "Analytika",
+        "items": {
+          "0": "GA4 + HaloTrack",
+          "1": "záznamy návštěv a chování na webu",
+          "2": "základní nastavení událostí a konverzí",
+          "3": "kontrola správnosti dat",
+          "4": "přehledný report klíčových metrik"
+        }
+      }
+    },
+    "idealForTitle": "Pro koho je tento balíček?",
+    "idealFor": {
+      "0": {
+        "title": "Freelanceři a konzultanti",
+        "desc": "Potřebují přehlednou stránku se službami, referencemi a kontakty."
+      },
+      "1": {
+        "title": "Lokální služby",
+        "desc": "Salony, řemeslníci, studia a služby, které potřebují jednoduchý způsob získávání poptávek."
+      },
+      "2": {
+        "title": "Nový projekt",
+        "desc": "Potřebují rychle jít online bez velkého zakázkového vývoje na startu."
+      },
+      "3": {
+        "title": "Malý byznys",
+        "desc": "Kavárny, dílny a malé firmy, které potřebují pořádný web místo zastaralé vizitky."
+      }
+    },
+    "timelineTitle": "Etapy práce",
+    "timeline": {
+      "0": {
+        "day": "Den 1",
+        "title": "Hovor a struktura",
+        "desc": "Krátce probereme zadání, shromáždíme podklady a odsouhlasíme obsah stránek."
+      },
+      "1": {
+        "day": "Den 2-3",
+        "title": "Design a sestavení",
+        "desc": "Sestavíme stránku, sladíme vizuální styl a zkontrolujeme klíčové bloky."
+      },
+      "2": {
+        "day": "Den 4",
+        "title": "Formuláře, analytika a kontrola",
+        "desc": "Připojíme GA4, HaloTrack a formuláře. Otestujeme mobilní verzi i rychlost načítání."
+      },
+      "3": {
+        "day": "Den 5",
+        "title": "Reklama a publikace",
+        "desc": "Připojíme doménu, publikujeme web, nastavíme reklamní kanál a spustíme první kampaně."
+      }
+    },
+    "upgradeTitle": "Potřebujete víc, tedy oba reklamní kanály?",
+    "upgradeDescription": "V balíčku \"Lead Machine\" je firemní web na více stránek, Google Ads + Meta Ads, serverová analytika a kompletní správa.",
+    "upgradeButton": "Podívat se na \"Lead Machine\" →",
+    "ctaTitle": "Potřebujete pořádný web s reklamou a analytikou?",
+    "ctaDescription": "Sestavíme startovací verzi, která dobře vypadá, rychle se načítá a přivádí první klienty přes reklamu.",
+    "ctaPricing": "15 000 Kč za spuštění + od 5 000 Kč/měsíc",
+    "ctaFinalButton": "Objednat web →"
+  },
+  "packageLeadsPage": {
+    "jsonLdName": "Balíček \"Lead Machine\"",
+    "jsonLdDescription": "Firemní web, reklama a serverová analytika v jednom celku. Balíček pro firmy, které potřebují hotový systém poptávek: 35 000 Kč za spuštění + od 16 000 Kč/měsíc.",
+    "badge": "Web + reklama + analytika",
+    "titlePrefix": "Balíček",
+    "titleAccent": "Lead Machine",
+    "svgTitle": "Zvýraznění",
+    "subtitle": "Firemní web, napojená reklama a serverová analytika, vše nastavené, spuštěné a pod naší kontrolou.",
+    "oneTimeLabel": "Jednorázově",
+    "oneTimePrice": "35 000 Kč",
+    "oneTimeDesc": "2 reklamní kanály",
+    "monthlyLabel": "Měsíčně",
+    "monthlyPrice": "od 16 000 Kč",
+    "monthlyDesc": "Kompletní správa + podpora",
+    "oneChannelNote": "1 kanál, od 27 000 Kč za spuštění, od 8 000 Kč/měsíc",
+    "bonusBadge": "První měsíc správy reklamy v ceně",
+    "ctaButton": "Probrat balíček →",
+    "links": {
+      "0": {
+        "title": "Google Ads",
+        "description": "Pro aktivní poptávku a přímou cestu z vyhledávání k poptávce."
+      },
+      "1": {
+        "title": "Meta Ads",
+        "description": "Pro budování poptávky, kreativy a retargeting."
+      },
+      "2": {
+        "title": "Tracking a analytika",
+        "description": "Aby reklama a stránka pracovaly s reálnými poptávkami, ne s neúplnými daty."
+      }
+    },
+    "setupTitle": "Co je součástí spuštění",
+    "setupSubtitle": "Sestavíme firemní web, napojíme reklamu, analytiku a celou infrastrukturu. Pak přejdeme ke správě a optimalizaci.",
+    "setupSections": {
+      "0": {
+        "title": "Firemní web",
+        "items": {
+          "0": "web na více stránek se srozumitelnou strukturou",
+          "1": "responzivní design pro mobilní zařízení",
+          "2": "formuláře pro poptávky a základní texty",
+          "3": "SEO optimalizace a viditelnost v AI vyhledávání",
+          "4": "připravenost na reklamní provoz"
+        }
+      },
+      "1": {
+        "title": "Serverová analytika",
+        "items": {
+          "0": "GA4 + HaloTrack + záznamy návštěv",
+          "1": "serverový přenos událostí (server-side)",
+          "2": "Meta CAPI a přenos konverzí",
+          "3": "kontrola správnosti všech událostí",
+          "4": "přehledný report klíčových metrik"
+        }
+      },
+      "2": {
+        "title": "Spuštění reklamy",
+        "items": {
+          "0": "Google Ads a/nebo Meta Ads podle zadání firmy",
+          "1": "struktura kampaní a cílové skupiny",
+          "2": "kreativy a texty pro start",
+          "3": "kontrola odkazů a formulářů",
+          "4": "spuštění prvních kampaní"
+        }
+      },
+      "3": {
+        "title": "Kompletní infrastruktura",
+        "items": {
+          "0": "připojení a nastavení domény",
+          "1": "hosting a SSL certifikát",
+          "2": "pixely, GTM a reklamní tagy",
+          "3": "GDPR: cookies a consent mode",
+          "4": "vše potřebné, aby klient nemusel nic nastavovat sám"
+        }
+      }
+    },
+    "managementTitle": "Co je součástí správy",
+    "managementSubtitle": "Po spuštění projekt nenecháváme bez pozornosti: spravujeme reklamu, sledujeme analytiku a udržujeme web.",
+    "managementSections": {
+      "0": {
+        "title": "Správa reklamy",
+        "items": {
+          "0": "týdenní optimalizace rozpočtu a sazeb",
+          "1": "testy cílových skupin, nabídek a kreativ",
+          "2": "vypnutí slabých kombinací",
+          "3": "měsíční report se závěry",
+          "4": "konzultace k dalšímu kroku"
+        }
+      },
+      "1": {
+        "title": "Monitoring analytiky",
+        "items": {
+          "0": "kontrola správnosti analytiky a událostí",
+          "1": "analýza poptávek a slabých míst funnelu",
+          "2": "kontrola kvality poptávek",
+          "3": "doporučení ke stránce a formulářům",
+          "4": "srozumitelná čísla bez ručního chaosu"
+        }
+      }
+    },
+    "supportTitle": "Správa webu a operativní podpora",
+    "supportDescription": "Problémy s webem, reklamou nebo analytikou řešíme rychle, bez dlouhého řetězce prostředníků. Vše v jedněch rukou.",
+    "idealForTitle": "Pro koho je tento balíček?",
+    "idealFor": {
+      "0": {
+        "title": "Lokální firmy",
+        "desc": "Služby, řemeslníci, salony a další projekty, které potřebují stabilní tok poptávek.",
+        "examples": {
+          "0": "Stomatologie",
+          "1": "Právníci",
+          "2": "Opravy techniky"
+        }
+      },
+      "1": {
+        "title": "B2B služby",
+        "desc": "Konzulting, agentury a servisní firmy, kde prodej začíná poptávkou nebo hovorem.",
+        "examples": {
+          "0": "IT konzulting",
+          "1": "Účetnictví",
+          "2": "HR služby"
+        }
+      },
+      "2": {
+        "title": "Online vzdělávání",
+        "desc": "Školy, kurzy a programy, kde je důležité přivést lidi na zkušební krok nebo konzultaci.",
+        "examples": {
+          "0": "Jazykové školy",
+          "1": "Doučování",
+          "2": "Koučink"
+        }
+      },
+      "3": {
+        "title": "Malý e-shop",
+        "desc": "Když nepotřebujete velký obchod, ale srozumitelný start prodeje přes reklamu a formulář objednávky.",
+        "examples": {
+          "0": "Handmade",
+          "1": "Dropshipping",
+          "2": "Specializované zboží"
+        }
+      }
+    },
+    "timelineTitle": "Jak probíhá práce",
+    "timeline": {
+      "0": {
+        "week": "Dny 1-3",
+        "title": "Firemní web a infrastruktura",
+        "desc": "Sestavíme web na více stránek, připojíme doménu, hosting, formuláře a základní strukturu."
+      },
+      "1": {
+        "week": "Dny 4-5",
+        "title": "Analytika a serverový tracking",
+        "desc": "Připojíme GA4, HaloTrack, serverové události a zkontrolujeme správnost dat."
+      },
+      "2": {
+        "week": "Den 6",
+        "title": "Spuštění reklamy",
+        "desc": "Sestavíme kampaně v Google Ads a/nebo Meta Ads, zkontrolujeme propojení a spustíme je."
+      },
+      "3": {
+        "week": "Den 7+",
+        "title": "Optimalizace a správa",
+        "desc": "Sledujeme poptávky, odstraníme slabá místa a posílíme to, co funguje. Spravujeme web i reklamu."
+      }
+    },
+    "ctaTitle": "Potřebujete web, reklamu a analytiku v jednom celku?",
+    "ctaDescription": "Probereme zadání, zjistíme, jestli je tento balíček pro vás, a řekneme, čím začít.",
+    "ctaPricing": "35 000 Kč za spuštění + od 16 000 Kč/měsíc",
+    "ctaFinalButton": "Probrat balíček →"
+  },
+  "packageEcommercePage": {
+    "jsonLdName": "Balíček \"E-shop\"",
+    "jsonLdDescription": "E-shop na klíč s reklamou, analytikou prodeje a správou. 50 000 Kč za spuštění + od 20 000 Kč/měsíc.",
+    "badge": "Balíček pro e-shop",
+    "titlePrefix": "Balíček",
+    "titleAccent": "E-shop",
+    "svgTitle": "Zvýraznění",
+    "subtitle": "Kompletně připravený e-shop s reklamou, analytikou prodeje a správou. Vy se staráte o zboží, my se staráme o růst.",
+    "oneTimeLabel": "Jednorázově",
+    "oneTimePrice": "50 000 Kč",
+    "oneTimeDesc": "Kompletní vývoj",
+    "monthlyLabel": "Měsíčně",
+    "monthlyPrice": "od 20 000 Kč",
+    "monthlyDesc": "Správa + škálování",
+    "ctaButton": "Spustit e-shop →",
+    "links": {
+      "0": {
+        "title": "E-shopy",
+        "description": "Pro katalog, košík, objednávky a další růst obchodu."
+      },
+      "1": {
+        "title": "Google Ads",
+        "description": "Pro poptávku z vyhledávání, Shopping a přímé prodeje."
+      },
+      "2": {
+        "title": "Tracking a analytika",
+        "description": "Aby e-shop učil reklamu podle nákupů a tržeb, ne podle šumu."
+      }
+    },
+    "setupTitle": "Co je součástí spuštění",
+    "setupSubtitle": "Nejdřív sestavíme obchod, platby, dopravu a analytiku. Pak připojíme růst a pravidelnou správu.",
+    "setupSections": {
+      "0": {
+        "title": "Vývoj e-shopu",
+        "items": {
+          "0": "katalog zboží do 200 SKU",
+          "1": "košík a objednávkový proces",
+          "2": "produktové karty a kategorie",
+          "3": "vyhledávání a filtry",
+          "4": "zákaznický účet"
+        }
+      },
+      "1": {
+        "title": "Platby a doprava",
+        "items": {
+          "0": "napojení Stripe / PayPal",
+          "1": "bankovní převod dle potřeby",
+          "2": "výpočet dopravného",
+          "3": "stavy a analytika objednávek",
+          "4": "e-mailová upozornění zákazníkovi"
+        }
+      },
+      "2": {
+        "title": "Analytika a reklama",
+        "items": {
+          "0": "analytika prodeje v GA4",
+          "1": "serverová analytika: GA4 + HaloTrack + e-commerce události",
+          "2": "příprava Google Shopping",
+          "3": "remarketing podle prohlížení a košíku",
+          "4": "Meta Catalog + CAPI"
+        }
+      }
+    },
+    "securityTitle": "Bezpečnost a výkon",
+    "securityItems": {
+      "0": "SSL certifikát (HTTPS)",
+      "1": "GDPR: cookies a consent mode",
+      "2": "CDN pro rychlé načítání",
+      "3": "optimalizace obrázků",
+      "4": "stabilní technický základ pro růst"
+    },
+    "managementProcessTitle": "Správa a procesy",
+    "managementProcessItems": {
+      "0": "admin panel pro zboží a objednávky",
+      "1": "import a export zboží",
+      "2": "automatické e-maily k objednávkám",
+      "3": "slevové kódy a slevy",
+      "4": "příprava na vícejazyčnost"
+    },
+    "managementTitle": "Co je součástí správy",
+    "managementSubtitle": "Po spuštění sledujeme reklamu, funnel i samotný obchod, aby prodeje rostly na solidním základě, ne chaoticky.",
+    "managementSections": {
+      "0": {
+        "title": "Správa reklamy",
+        "items": {
+          "0": "Google Shopping + Performance Max",
+          "1": "Meta Dynamic Ads (katalog)",
+          "2": "remarketing pro opuštěné košíky",
+          "3": "testy kreativ a cílových skupin",
+          "4": "týdenní optimalizace rozpočtu"
+        }
+      },
+      "1": {
+        "title": "Analytika a CRO",
+        "items": {
+          "0": "analýza nákupního funnelu",
+          "1": "sledování opuštěných košíků",
+          "2": "testy stránek a produktových karet",
+          "3": "hypotézy pro zvýšení konverze",
+          "4": "měsíční report o poptávce a prodeji"
+        }
+      },
+      "2": {
+        "title": "Technická podpora",
+        "items": {
+          "0": "aktualizace zboží a kolekcí",
+          "1": "nastavení promo akcí",
+          "2": "opravy chyb",
+          "3": "aktualizace a bezpečnost",
+          "4": "prioritní podpora pro běžné úkoly"
+        }
+      },
+      "3": {
+        "title": "Škálování",
+        "items": {
+          "0": "spuštění nových reklamních kanálů",
+          "1": "rozšíření sortimentu",
+          "2": "integrace s marketplace",
+          "3": "e-mail marketing a automatizace",
+          "4": "konzultace k růstu"
+        }
+      }
+    },
+    "idealForTitle": "Pro koho je tento balíček?",
+    "idealFor": {
+      "0": {
+        "title": "Značky s vlastní produkcí",
+        "desc": "Potřebují obchod, který přehledně ukazuje produkt a pomáhá škálovat prodeje.",
+        "examples": {
+          "0": "Oblečení",
+          "1": "Kosmetika",
+          "2": "Doplňky"
+        }
+      },
+      "1": {
+        "title": "Distributoři",
+        "desc": "Potřebují katalog, srozumitelnou strukturu objednávek a připravenost na velký sortiment.",
+        "examples": {
+          "0": "B2B + B2C",
+          "1": "Náhradní díly",
+          "2": "Vybavení"
+        }
+      },
+      "2": {
+        "title": "Specializované obchody",
+        "desc": "Potřebují řízený start bez zbytečného rozsahu, ale s pořádným základem pro růst.",
+        "examples": {
+          "0": "Specializované zboží",
+          "1": "Tisk na zakázku",
+          "2": "Handmade"
+        }
+      },
+      "3": {
+        "title": "Přechod z offline do online",
+        "desc": "Už mají offline prodeje, ale potřebují pořádný e-shop s platbami a analytikou.",
+        "examples": {
+          "0": "Obchody",
+          "1": "Showroomy",
+          "2": "Velkoobchody"
+        }
+      }
+    },
+    "ctaTitle": "Potřebujete obchod, který můžete měřit a posilovat?",
+    "ctaDescription": "Sestavíme e-shop, napojíme platby, analytiku a připravíme platformu na reklamu bez zbytečného množství dodavatelů.",
+    "ctaPricing": "50 000 Kč za spuštění + od 20 000 Kč/měsíc",
+    "ctaFinalButton": "Spustit e-shop →"
+  },
+  "caseStudyLayout": {
+    "breadcrumbHome": "Domů",
+    "breadcrumbCaseStudies": "Reference",
+    "backToCaseStudies": "Zpět na reference",
+    "screenshotAlt": "Screenshot projektu {title}",
+    "problemBadge": "Problém",
+    "keyChallenges": "Klíčové výzvy",
+    "solutionBadge": "Řešení",
+    "technologies": "Technologie",
+    "whatWeDid": "Co jsme udělali",
+    "openFullSize": "Otevřít v plné velikosti",
+    "mobileScreenAlt": "Mobilní obrazovka projektu {title}",
+    "analyticsScreenAlt": "Obrazovka analytiky projektu {title}",
+    "resultBadge": "Výsledek",
+    "similarTaskTitle": "Máte podobné zadání?",
+    "similarTaskDescription": "Tady můžete rychle pokračovat k další službě, analytice nebo nezávazné konzultaci projektu.",
+    "relatedRouteCta": "Přejít →",
+    "finalCtaTitle": "Chcete podobný výsledek?",
+    "finalCtaText": "Probereme vaše zadání a ponoříme se do vašeho byznysu stejně důkladně jako v této referenci.",
+    "primaryCtaLabel": "Probrat projekt",
+    "secondaryCtaLabel": "Balíčky a orientační ceny"
+  },
+  "blogArticle": {
+    "summary": "Stručně",
+    "nextStep": "Další krok",
+    "ctaTitle": "Poznáváte v článku svou situaci? Nejlepší je rozebrat ji na reálném projektu",
+    "ctaDescription": "Žádný obecný rozhovor o marketingu. Podíváme se na web, reklamu, data a další užitečný krok přímo pro váš úkol.",
+    "backToBlog": "Zpět na blog →"
+  },
+  "blogCard": {
+    "comingSoon": "Již brzy",
+    "categories": {
+      "sites": "Weby",
+      "ads": "Reklama",
+      "tracking": "Tracking a analytika"
+    }
+  }
+}

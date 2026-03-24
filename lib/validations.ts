@@ -1,113 +1,150 @@
 import { z } from "zod";
 
-// Contact Form Schema
-export const contactFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Имя должно содержать минимум 2 символа")
-    .max(100, "Имя слишком длинное"),
-  email: z
-    .string()
-    .min(1, "Email обязателен")
-    .email("Неверный формат email"),
-  message: z
-    .string()
-    .min(10, "Сообщение должно содержать минимум 10 символов")
-    .max(1000, "Сообщение слишком длинное"),
-  service: z.string().optional(),
-  phone: z.string().optional(),
-  consent: z.boolean().refine((val) => val === true, {
-    message: "Необходимо согласие с политикой конфиденциальности",
-  }),
-});
+// Default validation messages (Russian)
+const defaultValidationMessages = {
+  nameMin: "Имя должно содержать минимум 2 символа",
+  nameTooLong: "Имя слишком длинное",
+  emailRequired: "Email обязателен",
+  emailInvalid: "Неверный формат email",
+  messageMin: "Сообщение должно содержать минимум 10 символов",
+  messageTooLong: "Сообщение слишком длинное",
+  consentRequired: "Необходимо согласие с политикой конфиденциальности",
+  urlRequired: "URL обязателен",
+  urlInvalid: "Неверный формат URL",
+  urlProtocol: "URL должен начинаться с http:// или https://",
+  siteOrProfileRequired: "Укажите сайт или профиль бизнеса",
+  businessTypeRequired: "Выберите тип бизнеса",
+  mainGoalRequired: "Выберите главную цель",
+  textTooLong: "Текст слишком длинный",
+  businessTypeMin: "Укажите тип бизнеса",
+};
 
+type ValidationMessages = typeof defaultValidationMessages;
+
+function defaultT(key: string): string {
+  return defaultValidationMessages[key as keyof ValidationMessages] ?? key;
+}
+
+// --- Factory Functions ---
+
+export function createContactFormSchema(t: (key: string) => string) {
+  return z.object({
+    name: z
+      .string()
+      .min(2, t("nameMin"))
+      .max(100, t("nameTooLong")),
+    email: z
+      .string()
+      .min(1, t("emailRequired"))
+      .email(t("emailInvalid")),
+    message: z
+      .string()
+      .min(10, t("messageMin"))
+      .max(1000, t("messageTooLong")),
+    service: z.string().optional(),
+    phone: z.string().optional(),
+    consent: z.boolean().refine((val) => val === true, {
+      message: t("consentRequired"),
+    }),
+  });
+}
+
+export function createWebsiteAnalysisSchema(t: (key: string) => string) {
+  return z.object({
+    url: z
+      .string()
+      .min(1, t("urlRequired"))
+      .url(t("urlInvalid"))
+      .refine(
+        (url) => {
+          try {
+            const parsed = new URL(url);
+            return parsed.protocol === "http:" || parsed.protocol === "https:";
+          } catch {
+            return false;
+          }
+        },
+        { message: t("urlProtocol") }
+      ),
+    email: z
+      .string()
+      .min(1, t("emailRequired"))
+      .email(t("emailInvalid")),
+    phone: z.string().optional(),
+    consent: z
+      .boolean()
+      .refine((val) => val === true, {
+        message: t("consentRequired"),
+      }),
+  });
+}
+
+export function createGrowthPlanSchema(t: (key: string) => string) {
+  return z.object({
+    websiteOrProfile: z
+      .string()
+      .min(1, t("siteOrProfileRequired")),
+    businessType: z
+      .string()
+      .min(1, t("businessTypeRequired")),
+    mainGoal: z
+      .string()
+      .min(1, t("mainGoalRequired")),
+    triedBefore: z
+      .array(z.string())
+      .optional(),
+    mainProblem: z
+      .string()
+      .max(500, t("textTooLong"))
+      .optional(),
+    contact: z
+      .string()
+      .min(1, t("emailRequired"))
+      .email(t("emailInvalid")),
+    phone: z.string().optional(),
+    consent: z
+      .boolean()
+      .refine((val) => val === true, {
+        message: t("consentRequired"),
+      }),
+  });
+}
+
+export function createAuditConsultationSchema(t: (key: string) => string) {
+  return z.object({
+    businessType: z
+      .string()
+      .min(2, t("businessTypeMin")),
+    websiteOrProfile: z
+      .string()
+      .optional(),
+    email: z
+      .string()
+      .min(1, t("emailRequired"))
+      .email(t("emailInvalid")),
+    phone: z
+      .string()
+      .optional(),
+    consent: z
+      .boolean()
+      .refine((val) => val === true, {
+        message: t("consentRequired"),
+      }),
+  });
+}
+
+// --- Backward-compatible static exports ---
+
+export const contactFormSchema = createContactFormSchema(defaultT);
 export type ContactFormData = z.infer<typeof contactFormSchema>;
 
-// Lead Magnet / Website Analysis Schema
-export const websiteAnalysisSchema = z.object({
-  url: z
-    .string()
-    .min(1, "URL обязателен")
-    .url("Неверный формат URL")
-    .refine(
-      (url) => {
-        try {
-          const parsed = new URL(url);
-          return parsed.protocol === "http:" || parsed.protocol === "https:";
-        } catch {
-          return false;
-        }
-      },
-      { message: "URL должен начинаться с http:// или https://" }
-    ),
-  email: z
-    .string()
-    .min(1, "Email обязателен")
-    .email("Неверный формат email"),
-  phone: z.string().optional(),
-  consent: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: "Необходимо согласие с политикой конфиденциальности",
-    }),
-});
-
+export const websiteAnalysisSchema = createWebsiteAnalysisSchema(defaultT);
 export type WebsiteAnalysisData = z.infer<typeof websiteAnalysisSchema>;
 
-// Growth Plan Lead Magnet Schema
-export const growthPlanSchema = z.object({
-  websiteOrProfile: z
-    .string()
-    .min(1, "Укажите сайт или профиль бизнеса"),
-  businessType: z
-    .string()
-    .min(1, "Выберите тип бизнеса"),
-  mainGoal: z
-    .string()
-    .min(1, "Выберите главную цель"),
-  triedBefore: z
-    .array(z.string())
-    .optional(),
-  mainProblem: z
-    .string()
-    .max(500, "Текст слишком длинный")
-    .optional(),
-  contact: z
-    .string()
-    .min(1, "Email обязателен")
-    .email("Неверный формат email"),
-  phone: z.string().optional(),
-  consent: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: "Необходимо согласие с политикой конфиденциальности",
-    }),
-});
-
+export const growthPlanSchema = createGrowthPlanSchema(defaultT);
 export type GrowthPlanData = z.infer<typeof growthPlanSchema>;
 
-// Audit Consultation LP Schema (minimal form — max CVR)
-export const auditConsultationSchema = z.object({
-  businessType: z
-    .string()
-    .min(2, "Укажите тип бизнеса"),
-  websiteOrProfile: z
-    .string()
-    .optional(),
-  email: z
-    .string()
-    .min(1, "Email обязателен")
-    .email("Неверный формат email"),
-  phone: z
-    .string()
-    .optional(),
-  consent: z
-    .boolean()
-    .refine((val) => val === true, {
-      message: "Необходимо согласие с политикой конфиденциальности",
-    }),
-});
-
+export const auditConsultationSchema = createAuditConsultationSchema(defaultT);
 export type AuditConsultationData = z.infer<typeof auditConsultationSchema>;
 
 // Post-submit micro-survey (optional, for lead scoring)

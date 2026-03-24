@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 const stats = [
-  { end: 55, suffix: "+", label: "ПРОЕКТОВ", highlight: false },
-  { end: 250, suffix: "%", label: "СРЕДНИЙ РОСТ", highlight: true },
-  { end: 9, suffix: "+", label: "ЛЕТ ОПЫТА", highlight: false },
+  { end: 55, suffix: "+", key: "0" as const, highlight: false },
+  { end: 250, suffix: "%", key: "1" as const, highlight: true },
+  { end: 9, suffix: "+", key: "2" as const, highlight: false },
 ];
 
 function useCountUp(end: number, duration = 1800) {
@@ -56,6 +57,8 @@ function useCountUp(end: number, duration = 1800) {
 }
 
 export default function SocialProof() {
+  const t = useTranslations("socialProof");
+
   return (
     <section className="px-5 py-6 md:px-6 md:py-8">
       <div className="mx-auto max-w-[1200px]">
@@ -64,7 +67,7 @@ export default function SocialProof() {
             const { count, ref } = useCountUp(stat.end);
             return (
               <div
-                key={stat.label}
+                key={stat.key}
                 ref={ref}
                 className="flex flex-col items-center gap-1 px-6 py-6 md:gap-2 md:px-10 md:py-8"
               >
@@ -72,21 +75,11 @@ export default function SocialProof() {
                   className={`text-4xl font-extrabold tracking-tight md:text-6xl ${stat.highlight ? "text-[#FF3366]" : "text-[#1A1A1A]"}`}
                   style={{ fontFamily: "var(--font-display)" }}
                 >
-                  {stat.highlight && (
-                    <>
-                      {count}
-                      {stat.suffix}
-                    </>
-                  )}
-                  {!stat.highlight && (
-                    <>
-                      {count}
-                      {stat.suffix}
-                    </>
-                  )}
+                  {count}
+                  {stat.suffix}
                 </span>
                 <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A]/50 md:text-sm md:tracking-[0.2em]">
-                  {stat.label}
+                  {t(`stats.${stat.key}.label`)}
                 </span>
               </div>
             );

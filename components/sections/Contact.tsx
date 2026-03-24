@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -12,9 +14,12 @@ import {
   waitForHaloTrack,
 } from "@/lib/halotrack";
 import { trackLeadSubmission } from "@/lib/site-tracking";
-import { type ContactFormData, contactFormSchema } from "@/lib/validations";
+import { createContactFormSchema, type ContactFormData } from "@/lib/validations";
 
 export default function Contact() {
+  const t = useTranslations("contact");
+  const tCommon = useTranslations("common");
+  const tv = useTranslations("validation.contact");
   const [selectedService, setSelectedService] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -33,16 +38,21 @@ export default function Contact() {
     formState: { errors },
     reset,
   } = useForm<ContactFormData>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(
+      createContactFormSchema((key) =>
+        tv(
+          (
+            {
+              nameTooLong: "nameMax",
+              messageTooLong: "messageMax",
+            } as Record<string, string>
+          )[key] ?? key,
+        ),
+      ),
+    ),
   });
 
-  const services = [
-    { value: "web", label: "Сайты и лендинги" },
-    { value: "ads", label: "Google Ads / Meta Ads" },
-    { value: "tracking", label: "Аналитика и данные" },
-    { value: "package", label: "Пакет / ориентир" },
-    { value: "other", label: "Другое" },
-  ];
+  const serviceKeys = ["web", "ads", "tracking", "package", "other"] as const;
 
   const onSubmit = async (data: ContactFormData) => {
     setIsSubmitting(true);
@@ -75,7 +85,7 @@ export default function Contact() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Ошибка отправки формы");
+        throw new Error(result.message || tCommon("errors.formSubmitError"));
       }
 
       void trackFormEvent("contact_form_submit", {
@@ -104,7 +114,7 @@ export default function Contact() {
       setSubmitError(
         error instanceof Error
           ? error.message
-          : "Произошла ошибка. Попробуйте позже или напишите нам в Telegram.",
+          : tCommon("errors.genericError"),
       );
     } finally {
       setIsSubmitting(false);
@@ -120,10 +130,10 @@ export default function Contact() {
         className="mb-2 text-2xl font-extrabold text-[#1A1A1A] md:text-3xl"
         style={{ fontFamily: "var(--font-display)" }}
       >
-        Готовы обсудить проект?
+        {t("title")}
       </h2>
       <p className="mb-6 text-sm text-[#1A1A1A]/60 md:text-base">
-        Оставьте короткий бриф, и мы ответим по делу.
+        {t("subtitle")}
       </p>
 
       {submitSuccess ? (
@@ -135,10 +145,10 @@ export default function Contact() {
             className="mb-3 text-2xl font-bold text-[#1A1A1A]"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Заявка отправлена!
+            {t("success.title")}
           </h3>
           <p className="text-[#1A1A1A]/60">
-            Мы свяжемся с вами в течение рабочего дня.
+            {t("success.message")}
           </p>
         </div>
       ) : (
@@ -159,12 +169,12 @@ export default function Contact() {
                   htmlFor="name"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Имя <span className="text-red-500">*</span>
+                  {t("form.nameLabel")} <span className="text-red-500">*</span>
                 </label>
                 <Input
                   id="name"
                   {...register("name")}
-                  placeholder="Иван Иванов"
+                  placeholder={t("form.namePlaceholder")}
                   className={`h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A] ${errors.name ? "border-red-500 shadow-[4px_4px_0px_0px_#ef4444]" : ""}`}
                 />
                 {errors.name && (
@@ -178,7 +188,7 @@ export default function Contact() {
                   htmlFor="email"
                   className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
                 >
-                  Email <span className="text-red-500">*</span>
+                  {t("form.emailLabel")} <span className="text-red-500">*</span>
                 </label>
                 <Input
                   id="email"
@@ -200,37 +210,37 @@ export default function Contact() {
                 htmlFor="phone"
                 className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
               >
-                Телефон{" "}
+                {t("form.phoneLabel")}{" "}
                 <span className="text-xs font-normal text-[#1A1A1A]/40">
-                  (опционально)
+                  {t("form.phoneOptional")}
                 </span>
               </label>
               <Input
                 id="phone"
                 type="tel"
                 {...register("phone")}
-                placeholder="+420 123 456 789"
+                placeholder={t("form.phonePlaceholder")}
                 className="h-auto rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
               />
             </div>
 
             <div className="flex flex-col gap-3">
               <div className="ml-4 text-sm font-bold text-[#1A1A1A]/80">
-                Интересующая услуга
+                {t("form.serviceLabel")}
               </div>
               <div className="flex flex-wrap gap-2">
-                {services.map((service) => (
+                {serviceKeys.map((key) => (
                   <button
-                    key={service.value}
+                    key={key}
                     type="button"
-                    onClick={() => setSelectedService(service.value)}
+                    onClick={() => setSelectedService(key)}
                     className={`rounded-xl border-2 border-[#1A1A1A] px-4 py-2 text-sm font-bold transition-all ${
-                      selectedService === service.value
+                      selectedService === key
                         ? "translate-x-[2px] translate-y-[2px] bg-[#1A1A1A] text-white shadow-[2px_2px_0px_0px_#FF3366]"
                         : "bg-white text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-x-[1px] hover:-translate-y-[1px] hover:shadow-[5px_5px_0px_0px_#1A1A1A]"
                     }`}
                   >
-                    {service.label}
+                    {t(`form.services.${key}`)}
                   </button>
                 ))}
               </div>
@@ -241,12 +251,12 @@ export default function Contact() {
                 htmlFor="message"
                 className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
               >
-                О проекте <span className="text-red-500">*</span>
+                {t("form.messageLabel")} <span className="text-red-500">*</span>
               </label>
               <Textarea
                 id="message"
                 {...register("message")}
-                placeholder="Расскажите немного о вашей задаче..."
+                placeholder={t("form.messagePlaceholder")}
                 className={`min-h-[120px] w-full resize-none rounded-2xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A] ${errors.message ? "border-red-500 shadow-[4px_4px_0px_0px_#ef4444]" : ""}`}
               />
               {errors.message && (
@@ -267,15 +277,14 @@ export default function Contact() {
                 htmlFor="consent-contact"
                 className="cursor-pointer text-xs text-[#1A1A1A]/60"
               >
-                Принимаю{" "}
-                <a
+                {tCommon("consent.accept")}{" "}
+                <Link
                   href="/privacy-policy"
                   target="_blank"
                   className="text-[#FF3366] hover:underline"
-                  rel="noopener"
                 >
-                  политику конфиденциальности
-                </a>
+                  {tCommon("consent.privacyPolicy")}
+                </Link>
               </label>
             </div>
             {errors.consent && (
@@ -289,11 +298,11 @@ export default function Contact() {
               disabled={isSubmitting}
               className="w-full rounded-2xl border-2 border-[#1A1A1A] bg-[#1A1A1A] px-10 py-5 text-lg font-bold text-white shadow-[4px_4px_0px_0px_#FFFFFF] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#FFFFFF] active:translate-x-1 active:translate-y-1 active:shadow-[0px_0px_0px_0px_#FFFFFF] disabled:opacity-70"
             >
-              {isSubmitting ? "Отправка..." : "Отправить заявку"}
+              {isSubmitting ? t("form.submitting") : t("form.submitButton")}
             </button>
 
             <p className="text-center text-xs text-[#1A1A1A]/40">
-              Обычно отвечаем в течение рабочего дня
+              {t("form.responseNote")}
             </p>
           </form>
         </>

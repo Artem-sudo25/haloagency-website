@@ -1,51 +1,23 @@
-import { BarChart3, LineChart, Rocket, Search, Settings } from "lucide-react";
-import Link from "next/link";
+"use client";
 
-const steps = [
-  {
-    number: "1",
-    title: "Коротко понимаем задачу",
-    timeline: "Шаг 1",
-    icon: Search,
-    description:
-      "Нам достаточно ссылки на текущий сайт, рекламу или короткого описания ситуации, чтобы понять, что сейчас мешает росту.",
-  },
-  {
-    number: "2",
-    title: "Смотрим, что уже есть",
-    timeline: "Шаг 2",
-    icon: Settings,
-    description:
-      "Проверяем страницу, рекламу, аналитику и обработку заявок. Часто проблема не там, где её ищут вначале.",
-  },
-  {
-    number: "3",
-    title: "Предлагаем понятный формат работы",
-    timeline: "Шаг 3",
-    icon: BarChart3,
-    description:
-      "Говорим, что лучше делать первым: новый сайт, рекламный запуск, настройку аналитики, автоматизацию или точечный фикс.",
-  },
-  {
-    number: "4",
-    title: "Делаем и измеряем",
-    timeline: "Шаг 4",
-    icon: Rocket,
-    description:
-      "Запускаем работу, подключаем данные и смотрим на заявки, звонки, продажи и качество потока, а не на абстрактные ощущения.",
-  },
-  {
-    number: "5",
-    title: "Дальше усиливаем то, что работает",
-    timeline: "Дальше",
-    icon: LineChart,
-    description:
-      "Когда база собрана правильно, можно спокойно усиливать рекламу, добавлять новые страницы и автоматизировать процессы без лишнего хаоса.",
-    isFinal: true,
-  },
-];
+import { BarChart3, LineChart, Rocket, Search, Settings } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/routing";
+
+const stepIcons = [Search, Settings, BarChart3, Rocket, LineChart];
 
 export default function Process() {
+  const t = useTranslations("process");
+
+  const steps = Array.from({ length: 5 }, (_, i) => ({
+    number: String(i + 1),
+    title: t(`steps.${i}.title`),
+    timeline: t(`steps.${i}.timeline`),
+    description: t(`steps.${i}.description`),
+    icon: stepIcons[i],
+    isFinal: i === 4,
+  }));
+
   return (
     <section id="process" className="bg-white px-5 py-12 md:px-6 md:py-24">
       <div className="mx-auto flex max-w-[1200px] flex-col gap-8 md:gap-12">
@@ -54,11 +26,10 @@ export default function Process() {
             className="text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Как выглядит следующий шаг
+            {t("title")}
           </h2>
           <p className="mt-2 max-w-2xl text-base text-[#1A1A1A]/70 md:mt-4 md:text-lg">
-            Без длинной бюрократии. Важно быстро понять задачу и предложить
-            первый разумный шаг, который реально поможет бизнесу.
+            {t("subtitle")}
           </p>
         </div>
 
@@ -121,7 +92,7 @@ export default function Process() {
               href="/contact"
               className="relative z-10 flex-shrink-0 whitespace-nowrap rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-3 text-sm font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-1 active:translate-y-1 active:shadow-none md:px-8 md:text-base"
             >
-              Отправить вводные
+              {t("cta")}
             </Link>
           </div>
         )}

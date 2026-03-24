@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, CheckCircle2, Maximize2, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -78,10 +79,11 @@ export default function CaseStudyLayout({
   relatedRoutes,
   cta,
 }: CaseStudyLayoutProps & { analyticsImage?: string; mobileImage?: string }) {
+  const t = useTranslations("caseStudyLayout");
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const breadcrumbItems = [
-    { label: "Главная", href: "/" },
-    { label: "Кейсы", href: "/case-studies" },
+    { label: t("breadcrumbHome"), href: "/" },
+    { label: t("breadcrumbCaseStudies"), href: "/case-studies" },
     { label: title, href: path },
   ];
 
@@ -117,7 +119,7 @@ export default function CaseStudyLayout({
             className="inline-flex items-center gap-2 text-[#1A1A1A] font-bold hover:text-[#FF3366] mb-8 transition-colors underline decoration-2 underline-offset-4"
           >
             <ArrowLeft className="w-4 h-4" />
-            Назад к кейсам
+            {t("backToCaseStudies")}
           </Link>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -168,7 +170,7 @@ export default function CaseStudyLayout({
                 <img
                   src={heroImage}
                   alt={
-                    heroImageAlt ?? `Скриншот проекта ${title} от HaloAgency`
+                    heroImageAlt ?? t("screenshotAlt", { title })
                   }
                   className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
@@ -189,7 +191,7 @@ export default function CaseStudyLayout({
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF3366] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
               <span className="text-sm font-bold text-white uppercase tracking-wider">
-                Проблема
+                {t("problemBadge")}
               </span>
             </div>
             <h2
@@ -204,7 +206,7 @@ export default function CaseStudyLayout({
           </div>
           <div className="bg-[#FFD166] border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[8px_8px_0px_0px_#1A1A1A]">
             <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6">
-              Ключевые сложности
+              {t("keyChallenges")}
             </h3>
             <ul className="space-y-4">
               {challenge.points.map((point) => (
@@ -231,7 +233,7 @@ export default function CaseStudyLayout({
               <span
                 className={`text-sm font-bold ${accentBg === "bg-[#118AB2]" ? "text-white" : "text-[#1A1A1A]"} uppercase tracking-wider`}
               >
-                Решение
+                {t("solutionBadge")}
               </span>
             </div>
             <h2
@@ -249,7 +251,7 @@ export default function CaseStudyLayout({
             {/* Tech Stack */}
             <div className="bg-white border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[6px_6px_0px_0px_#1A1A1A]">
               <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6 flex items-center gap-2">
-                Технологии
+                {t("technologies")}
               </h3>
               <div className="flex flex-wrap gap-2">
                 {solution.technologies.map((tech) => (
@@ -266,7 +268,7 @@ export default function CaseStudyLayout({
             {/* Key Features / Steps */}
             <div className="bg-white border-2 border-[#1A1A1A] rounded-3xl p-8 shadow-[6px_6px_0px_0px_#1A1A1A]">
               <h3 className="text-2xl font-bold text-[#1A1A1A] mb-6">
-                Что мы сделали
+                {t("whatWeDid")}
               </h3>
               <ul className="space-y-4">
                 {solution.features.map((feature) => (
@@ -293,7 +295,7 @@ export default function CaseStudyLayout({
                     <button
                       type="button"
                       onClick={() => setIsLightboxOpen(true)}
-                      aria-label="Открыть изображение в полном размере"
+                      aria-label={t("openFullSize")}
                       className="relative flex-shrink-0 cursor-zoom-in group/image max-w-[280px] md:max-w-xs lg:max-w-md w-full text-left"
                     >
                       <div className="relative rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] bg-white transition-transform duration-500 group-hover/image:-translate-y-1 group-hover/image:-translate-x-1 group-hover/image:shadow-[6px_6px_0px_0px_#1A1A1A]">
@@ -302,7 +304,7 @@ export default function CaseStudyLayout({
                           src={mobileImage}
                           alt={
                             mobileImageAlt ??
-                            `Мобильный экран проекта ${title} от HaloAgency`
+                            t("mobileScreenAlt", { title })
                           }
                           className="w-full h-auto block border-2 border-[#1A1A1A] rounded-xl"
                         />
@@ -371,7 +373,7 @@ export default function CaseStudyLayout({
                             src={mobileImage}
                             alt={
                               mobileImageAlt ??
-                              `Мобильный экран проекта ${title} от HaloAgency`
+                              t("mobileScreenAlt", { title })
                             }
                             className="max-h-[90vh] w-auto object-contain bg-white rounded-xl"
                           />
@@ -398,7 +400,7 @@ export default function CaseStudyLayout({
                         src={analyticsImage}
                         alt={
                           analyticsImageAlt ??
-                          `Экран аналитики по проекту ${title} от HaloAgency`
+                          t("analyticsScreenAlt", { title })
                         }
                         className="w-full h-auto block rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]"
                       />
@@ -418,7 +420,7 @@ export default function CaseStudyLayout({
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#06D6A0] border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-6">
                 <span className="text-sm font-bold text-[#1A1A1A] uppercase tracking-wider">
-                  Результат
+                  {t("resultBadge")}
                 </span>
               </div>
               <h2
@@ -466,11 +468,10 @@ export default function CaseStudyLayout({
                 className="text-3xl md:text-5xl font-extrabold text-[#1A1A1A] mb-4"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Если у вас похожая задача
+                {t("similarTaskTitle")}
               </h2>
               <p className="max-w-3xl mx-auto text-lg text-[#1A1A1A]/70 leading-relaxed">
-                Здесь можно быстро перейти к следующему шагу: нужной услуге,
-                аналитике или обсуждению проекта.
+                {t("similarTaskDescription")}
               </p>
             </div>
 
@@ -488,7 +489,7 @@ export default function CaseStudyLayout({
                     {route.text}
                   </p>
                   <span className="mt-auto text-sm font-bold text-[#FF3366]">
-                    Перейти →
+                    {t("relatedRouteCta")}
                   </span>
                 </Link>
               ))}
@@ -503,11 +504,10 @@ export default function CaseStudyLayout({
             className="text-4xl md:text-5xl font-extrabold text-[#1A1A1A] mb-6"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            {cta?.title || "Готовы повторить успех?"}
+            {cta?.title || t("finalCtaTitle")}
           </h2>
           <p className="text-xl text-[#1A1A1A]/80 font-medium mb-10 max-w-2xl mx-auto">
-            {cta?.text ||
-              "Давайте обсудим вашу задачу. Мы погрузимся в ваш бизнес так же глубоко, как в этом кейсе."}
+            {cta?.text || t("finalCtaText")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -518,11 +518,11 @@ export default function CaseStudyLayout({
               <Link
                 href="/contact"
                 data-cta-track="true"
-                data-cta-name="Обсудить проект"
+                data-cta-name={t("primaryCtaLabel")}
                 data-cta-location="case_study_detail_final_cta"
                 data-cta-category="primary"
               >
-                Обсудить проект
+                {t("primaryCtaLabel")}
               </Link>
             </Button>
             <Button
@@ -532,11 +532,11 @@ export default function CaseStudyLayout({
               <Link
                 href="/packages"
                 data-cta-track="true"
-                data-cta-name="Пакеты и ориентиры"
+                data-cta-name={t("secondaryCtaLabel")}
                 data-cta-location="case_study_detail_final_cta"
                 data-cta-category="secondary"
               >
-                Пакеты и ориентиры
+                {t("secondaryCtaLabel")}
               </Link>
             </Button>
           </div>
