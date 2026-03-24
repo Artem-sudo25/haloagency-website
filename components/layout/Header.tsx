@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
@@ -36,7 +36,6 @@ export default function Header({
 }: HeaderProps) {
   const t = useTranslations("header");
   const tCommon = useTranslations("common");
-  const locale = useLocale();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpandedLink, setMobileExpandedLink] = useState<string | null>(
@@ -44,7 +43,6 @@ export default function Header({
   );
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const closeDropdownTimeoutRef = useRef<number | null>(null);
-  const languageLabel = locale === "cs" ? "Jazyk" : "Язык";
 
   const navLinks: NavLink[] = [
     {
@@ -340,13 +338,6 @@ export default function Header({
               transition={{ duration: 0.2 }}
               className="fixed left-4 right-4 top-[84px] bottom-4 z-[9998] flex flex-col overflow-hidden rounded-[28px] border-2 border-[#1A1A1A] bg-white p-4 shadow-[6px_6px_0px_0px_#1A1A1A] md:hidden"
             >
-              <div className="mb-3 flex items-center justify-between rounded-2xl border-2 border-[#1A1A1A] bg-[#F5F5F7] px-4 py-3">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/45">
-                  {languageLabel}
-                </span>
-                <LocaleSwitcher className="rounded-xl border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-sm font-extrabold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hover:bg-[#FFD166] hover:text-[#1A1A1A]" />
-              </div>
-
               <nav className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto overscroll-contain pr-1">
                 {navLinks.map((link) => (
                   <div
@@ -441,6 +432,10 @@ export default function Header({
                     {t("cta")}
                   </Link>
                 </Button>
+
+                <div className="mt-4 flex justify-center pt-1">
+                  <LocaleSwitcher className="rounded-xl border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-sm font-extrabold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hover:bg-[#FFD166] hover:text-[#1A1A1A]" />
+                </div>
               </div>
             </motion.div>
           </>
