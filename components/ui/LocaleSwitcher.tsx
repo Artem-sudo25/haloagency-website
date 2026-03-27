@@ -12,6 +12,11 @@ export function LocaleSwitcher({ className }: LocaleSwitcherProps) {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+
+  if (pathname === "/lp/v2" || pathname === "/lp/v3") {
+    return null;
+  }
+
   const otherLocale = locale === "ru" ? "cs" : "ru";
   const label = otherLocale === "cs" ? "CZ" : "RU";
   const ariaLabel =

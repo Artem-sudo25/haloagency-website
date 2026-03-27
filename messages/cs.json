@@ -593,8 +593,8 @@
     }
   },
   "contact": {
-    "title": "Chcete probrat projekt?",
-    "subtitle": "Nechte krátký brief a ozveme se věcně.",
+    "title": "Pošlete nám stručné zadání",
+    "subtitle": "Stačí pár vět a ozveme se věcně.",
     "form": {
       "nameLabel": "Jméno",
       "namePlaceholder": "Jan Novák",
@@ -602,7 +602,7 @@
       "phoneLabel": "Telefon",
       "phoneOptional": "(nepovinné)",
       "phonePlaceholder": "+420 123 456 789",
-      "serviceLabel": "O co máte zájem",
+      "serviceLabel": "Co chcete řešit",
       "services": {
         "web": "Weby a landing pages",
         "ads": "Google Ads / Meta Ads",
@@ -610,15 +610,15 @@
         "package": "Balíček / odhad",
         "other": "Jiné"
       },
-      "messageLabel": "O projektu",
-      "messagePlaceholder": "Řekněte nám něco o svém zadání...",
+      "messageLabel": "Stručně o zadání",
+      "messagePlaceholder": "Napište, co řešíte a jaký další krok potřebujete...",
       "submitButton": "Odeslat poptávku",
       "submitting": "Odesíláme...",
-      "responseNote": "Obvykle odpovídáme během pracovního dne"
+      "responseNote": "Obvykle se ozveme během pracovního dne"
     },
     "success": {
-      "title": "Poptávka odeslána!",
-      "message": "Ozveme se vám během pracovního dne."
+      "title": "Poptávka je odeslaná.",
+      "message": "Ozveme se během pracovního dne."
     }
   },
   "adsFaq": {
@@ -1968,31 +1968,31 @@
   },
   "contactPage": {
     "badge": "Nejjednodušší způsob, jak začít",
-    "titleLine1": "Probereme váš projekt",
-    "titleLine2": "bez zbytečných kol.",
-    "subtitle": "Pokud potřebujete web, reklamu, analytiku nebo automatizaci, pošlete nám podklady. Podíváme se na úkol a odpovíme, čím je nejlepší začít.",
+    "titleLine1": "Pojďme probrat",
+    "titleLine2": "vaše zadání věcně.",
+    "subtitle": "Pokud řešíte web, reklamu, analytiku nebo automatizaci, pošlete nám stručné podklady. Podíváme se na situaci a řekneme, čím má smysl začít.",
     "details": {
       "emailLabel": "E-mail",
       "phoneLabel": "Telefon",
       "officeLabel": "Kancelář",
       "officeValue": "Praha, Česko",
-      "messengersLabel": "Messengery"
+      "messengersLabel": "WhatsApp a Telegram"
     },
     "responseFacts": {
       "0": {
-        "label": "Obvykle odpovídáme",
-        "value": "Během pracovního dne"
+        "label": "Kdy se ozveme",
+        "value": "Obvykle během pracovního dne"
       },
       "1": {
-        "label": "Co pomůže rychleji",
-        "value": "Krátký brief + odkaz na web nebo reklamu"
+        "label": "Co pomůže nejvíc",
+        "value": "Stručné zadání + odkaz na web nebo reklamu"
       }
     },
-    "briefChecklistTitle": "Co poslat v první zprávě",
+    "briefChecklistTitle": "Co poslat do první zprávy",
     "briefChecklist": {
-      "0": "odkaz na web, profil nebo aktuální stránku",
-      "1": "co vás zajímá: web, reklama, analytika, automatizace nebo balíček",
-      "2": "jaký další krok potřebujete: poptávky, hovory, prodeje, rezervace"
+      "0": "odkaz na web, profil nebo aktuální landing page",
+      "1": "co chcete řešit: web, reklamu, analytiku, automatizaci nebo balíček",
+      "2": "jaký výsledek potřebujete: poptávky, hovory, prodeje nebo rezervace"
     },
     "jsonLd": {
       "name": "Kontakty HaloAgency",
@@ -2006,12 +2006,12 @@
     },
     "hero": {
       "founderAlt": "Artem Krickij — zakladatel HaloAgency",
-      "badge": "Jak se díváme na marketing",
+      "badge": "Jak přemýšlíme o marketingu",
       "titleLine1": "Marketing jako systém,",
-      "titleLine2": "ne sbírka služeb",
-      "paragraph1": "Prošel jsem celou cestu online marketingu v praxi: od tvorby webu a spouštění reklamy až po analytiku a automatizaci. Díky práci se službovými firmami a e-shopy dobře rozumím reálným úkolům i omezením malého a středního podnikání.",
-      "paragraph2": "Základem mého přístupu je budovat jednotný systém, kde web, reklama a interní procesy jsou propojené a nevyžadují neustálé ruční řízení.",
-      "paragraph3": "Dnes používám AI a automatizaci ne kvůli trendu, ale jako pracovní základ pro analytiku, optimalizaci reklamy a rozhodování na základě dat.",
+      "titleLine2": "ne soubor služeb",
+      "paragraph1": "V online marketingu jsem si v praxi prošel celou cestou: od tvorby webů a spouštění reklam až po analytiku a automatizaci. Díky práci pro servisní firmy i e-shopy dobře rozumím reálným úkolům a omezením malých a středních firem.",
+      "paragraph2": "Můj přístup stojí na jednom propojeném systému, ve kterém web, reklama i interní procesy fungují spolu a nevyžadují neustálé ruční zásahy.",
+      "paragraph3": "AI a automatizaci dnes nepoužívám kvůli módě, ale jako běžnou pracovní vrstvu pro analytiku, optimalizaci reklam a rozhodování opřené o data.",
       "signature": "Artem K.",
       "ctaPrimary": "Probrat projekt",
       "ctaSecondary": "Podívat se na reference →"
@@ -2019,11 +2019,11 @@
     "teamCards": {
       "0": {
         "title": "Kdo odpovídá za projekt",
-        "text": "Artem vede komunikaci, přijímá klíčová rozhodnutí a drží v ohnisku komerční výsledek."
+        "text": "Artem vede komunikaci, dělá klíčová rozhodnutí a drží v centru pozornosti obchodní výsledek."
       },
       "1": {
         "title": "Kdo dělá práci",
-        "text": "Na úkol se připojují design, vývoj, reklama a analytika. Každý odpovídá za svou část, bez rozmyté odpovědnosti."
+        "text": "Do projektu se zapojují design, vývoj, reklama i analytika. Každý nese odpovědnost za svou část, bez rozmělněné odpovědnosti."
       },
       "2": {
         "title": "Jak startujeme",
@@ -2031,64 +2031,64 @@
       },
       "3": {
         "title": "Co klient dostane",
-        "text": "Jeden kontakt, jasný plán práce a systém, ve kterém web, reklama a analytika nesoupeří mezi sebou."
+        "text": "Jeden kontakt, jasný plán práce a systém, ve kterém web, reklama a analytika nejdou proti sobě."
       }
     },
     "principles": {
-      "badge": "Jak se díváme na úkol",
+      "badge": "Jak přemýšlíme o zadání",
       "title": "Neprodáváme web ani reklamu naslepo",
       "items": {
-        "0": "Nejdřív zjistíme, jak firma vydělává a kde se ztrácejí poptávky. Pak navrhneme formát práce.",
+        "0": "Nejdřív zjistíme, jak firma vydělává a kde se ztrácejí poptávky. Teprve potom navrhneme formát spolupráce.",
         "1": "Pokud problém není ve webu, řekneme to napřímo a neprodáváme zbytečný vývoj.",
-        "2": "Komunikujete s jedním člověkem, ale za projektem stojí odborný tým, ne náhodná skupina subdodavatelů.",
-        "3": "Každé rozhodnutí je navázané na poptávky, prodeje a pořádnou analytiku, ne na vizuál kvůli vizuálu."
+        "2": "Komunikujete s jedním člověkem, ale za projektem stojí specializovaný tým, ne náhodná skupina subdodavatelů.",
+        "3": "Každé rozhodnutí se opírá o poptávky, prodeje a poctivou analytiku, ne o vizuál pro vizuál."
       }
     },
     "decisionPoints": {
-      "badge": "Jak poznáme, čím začít",
+      "badge": "Jak poznáme, kde začít",
       "items": {
         "0": {
           "title": "Kdy je třeba nový web",
-          "text": "Když aktuální struktura brzdí reklamu, nevysvětluje nabídku a nedovede člověka k poptávce."
+          "text": "Když stávající struktura brzdí reklamu, nevysvětluje nabídku a nedovede návštěvníka k poptávce."
         },
         "1": {
           "title": "Kdy web není hlavní problém",
-          "text": "Když poptávka už existuje, ale ztrácejí se poptávky, nejsou nastavené události nebo vázne zpracování dotazů."
+          "text": "Když už poptávka existuje, ale ztrácejí se kontakty, nejsou nastavené události nebo vázne zpracování poptávek."
         },
         "2": {
           "title": "Kdy je lepší začít krátkým rozborem",
-          "text": "Když zatím není jasné, co přesně brzdí růst, a je potřeba klidná diagnóza před startem prací."
+          "text": "Když zatím není jasné, co přesně brzdí růst, a před startem prací je potřeba klidná diagnostika."
         }
       }
     },
     "testimonials": {
       "badge": "Co říkají klienti",
-      "title": "Recenze po spuštění webu, reklamy a prvních úprav",
-      "subtitle": "Přicházejí s různými úkoly: někdo potřebuje web, někdo reklamu, někdo nejdřív rozbor. Ale obvykle si cení toho samého: srozumitelnosti, normální komunikace a řešení, která opravdu ovlivní poptávky.",
+      "title": "Reference po spuštění webu, reklamy a prvních úprav",
+      "subtitle": "Klienti přicházejí s různými situacemi: někdo potřebuje web, někdo reklamu, někdo nejdřív krátký rozbor. Většinou si ale cení totéž: srozumitelného postupu, normální komunikace a řešení, která mají reálný dopad na poptávky.",
       "items": {
         "0": {
-          "quote": "Objednal jsem audit PPC reklamy. Ukázalo se, že kampaně byly vedené pasivně a téměř se netestovaly. Po zavedení doporučení se náklady na reklamu snížily a návratnost vzrostla na více než dvojnásobek.",
+          "quote": "Nechal jsem si udělat audit PPC kampaní. Ukázalo se, že se vedly pasivně a skoro se netestovaly. Po zavedení doporučení šly náklady na reklamu dolů a návratnost vzrostla na víc než dvojnásobek.",
           "author": "Alexej R.",
           "details": "E-shop, Praha",
           "focus": "Google Ads a audit",
           "initial": "AR"
         },
         "1": {
-          "quote": "Dřív nám všichni klienti psali na Instagram a pořád se ptali na ceny. Korespondence zabírala hodně času. Po spuštění webu bylo jednodušší ukázat služby a vytvořit pohodlný formulář. Teď reklama vede na web a poptávky přicházejí přímo.",
+          "quote": "Dřív nám všichni klienti psali na Instagram a pořád se ptali na ceny. Komunikace nám brala spoustu času. Po spuštění webu je mnohem jednodušší ukázat služby a nasměrovat lidi do přehledného formuláře. Teď reklama vede na web a poptávky chodí přímo.",
           "author": "Anna V.",
           "details": "Salon krásy, Praha",
-          "focus": "Web pro objednávky a reklamu",
+          "focus": "Web pro rezervace a reklamu",
           "initial": "A"
         },
         "2": {
-          "quote": "Mysleli jsme si, že problém je v reklamě, ale audit ukázal, že neprodává samotný web: nabídka byla nejasná a formulář skrytý. Po změně struktury stránky a posílení výzvy k akci počet poptávek výrazně vzrostl.",
+          "quote": "Mysleli jsme si, že problém je v reklamě, ale audit ukázal, že neprodává samotný web: nabídka byla nejasná a formulář schovaný. Po změně struktury stránky a posílení výzvy k akci počet poptávek výrazně vzrostl.",
           "author": "Roman G.",
           "details": "Prádelnictví, Praha",
           "focus": "Struktura webu a konverze",
           "initial": "RG"
         },
         "3": {
-          "quote": "Dlouho jsme plánovali objednat web, ale pořád jsme se k tomu nedostali. Proto se nám moc líbil přístup, kdy nám nejdřív ukázali demo. Podívali jsme se, probrali úpravy a rozhodli se pro plnohodnotný web. Nakonec to dopadlo ještě lépe, než jsme čekali.",
+          "quote": "Dlouho jsme plánovali nový web, ale pořád jsme se k tomu nemohli rozhoupat. Líbilo se nám, že nám nejdřív ukázali demo. Prošli jsme si ho, doladili úpravy a pak se rozhodli pro plnohodnotný web. Výsledek dopadl ještě lépe, než jsme čekali.",
           "author": "Katerina M.",
           "details": "Kavárna, Praha",
           "focus": "Demo a spuštění webu",
@@ -2097,8 +2097,8 @@
       }
     },
     "finalCta": {
-      "title": "Pokud nechcete chaos subdodavatelů, ale funkční systém",
-      "subtitle": "Pošlete nám podklady k úkolu. Podíváme se, co už u vás funguje, co brzdí růst a jaký další krok bude nejrozumnější.",
+      "title": "Pokud nechcete chaos mezi dodavateli, ale funkční systém",
+      "subtitle": "Pošlete nám pár podkladů k zadání. Podíváme se, co už funguje, co brzdí růst a jaký další krok dává největší smysl.",
       "ctaPrimary": "Probrat projekt",
       "ctaSecondary": "Nejdřív krátký rozbor →"
     }
