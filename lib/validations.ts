@@ -29,18 +29,9 @@ function defaultT(key: string): string {
 
 export function createContactFormSchema(t: (key: string) => string) {
   return z.object({
-    name: z
-      .string()
-      .min(2, t("nameMin"))
-      .max(100, t("nameTooLong")),
-    email: z
-      .string()
-      .min(1, t("emailRequired"))
-      .email(t("emailInvalid")),
-    message: z
-      .string()
-      .min(10, t("messageMin"))
-      .max(1000, t("messageTooLong")),
+    name: z.string().min(2, t("nameMin")).max(100, t("nameTooLong")),
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
+    message: z.string().max(1000, t("messageTooLong")),
     service: z.string().optional(),
     phone: z.string().optional(),
     consent: z.boolean().refine((val) => val === true, {
@@ -64,72 +55,40 @@ export function createWebsiteAnalysisSchema(t: (key: string) => string) {
             return false;
           }
         },
-        { message: t("urlProtocol") }
+        { message: t("urlProtocol") },
       ),
-    email: z
-      .string()
-      .min(1, t("emailRequired"))
-      .email(t("emailInvalid")),
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
     phone: z.string().optional(),
-    consent: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: t("consentRequired"),
-      }),
+    consent: z.boolean().refine((val) => val === true, {
+      message: t("consentRequired"),
+    }),
   });
 }
 
 export function createGrowthPlanSchema(t: (key: string) => string) {
   return z.object({
-    websiteOrProfile: z
-      .string()
-      .min(1, t("siteOrProfileRequired")),
-    businessType: z
-      .string()
-      .min(1, t("businessTypeRequired")),
-    mainGoal: z
-      .string()
-      .min(1, t("mainGoalRequired")),
-    triedBefore: z
-      .array(z.string())
-      .optional(),
-    mainProblem: z
-      .string()
-      .max(500, t("textTooLong"))
-      .optional(),
-    contact: z
-      .string()
-      .min(1, t("emailRequired"))
-      .email(t("emailInvalid")),
+    websiteOrProfile: z.string().min(1, t("siteOrProfileRequired")),
+    businessType: z.string().min(1, t("businessTypeRequired")),
+    mainGoal: z.string().min(1, t("mainGoalRequired")),
+    triedBefore: z.array(z.string()).optional(),
+    mainProblem: z.string().max(500, t("textTooLong")).optional(),
+    contact: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
     phone: z.string().optional(),
-    consent: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: t("consentRequired"),
-      }),
+    consent: z.boolean().refine((val) => val === true, {
+      message: t("consentRequired"),
+    }),
   });
 }
 
 export function createAuditConsultationSchema(t: (key: string) => string) {
   return z.object({
-    businessType: z
-      .string()
-      .min(2, t("businessTypeMin")),
-    websiteOrProfile: z
-      .string()
-      .optional(),
-    email: z
-      .string()
-      .min(1, t("emailRequired"))
-      .email(t("emailInvalid")),
-    phone: z
-      .string()
-      .optional(),
-    consent: z
-      .boolean()
-      .refine((val) => val === true, {
-        message: t("consentRequired"),
-      }),
+    businessType: z.string().min(2, t("businessTypeMin")),
+    websiteOrProfile: z.string().optional(),
+    email: z.string().min(1, t("emailRequired")).email(t("emailInvalid")),
+    phone: z.string().optional(),
+    consent: z.boolean().refine((val) => val === true, {
+      message: t("consentRequired"),
+    }),
   });
 }
 

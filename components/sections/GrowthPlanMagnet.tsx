@@ -2,12 +2,12 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "@/i18n/routing";
 import {
   getHaloTrackSessionId,
   trackFormEvent,
@@ -105,7 +105,11 @@ export default function GrowthPlanMagnet() {
 
       const response = await fetch("/api/webhook/lead", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Webhook-Secret":
+            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+        },
         body: JSON.stringify({
           type: "growth-plan",
           session_id: haloSessionId,
@@ -128,7 +132,10 @@ export default function GrowthPlanMagnet() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to submit");
+        const result = await response
+          .json()
+          .catch(() => ({ error: tCommon("errors.submitError") }));
+        throw new Error(result.error || tCommon("errors.submitError"));
       }
 
       trackFormEvent("growth_plan_submit", {
@@ -319,7 +326,9 @@ export default function GrowthPlanMagnet() {
                       id="growth-business-type"
                       className="w-full cursor-pointer appearance-none rounded-xl border-2 border-[#1A1A1A] bg-white px-6 py-4 font-medium text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] outline-none transition-all focus:translate-x-[2px] focus:translate-y-[2px] focus:shadow-[2px_2px_0px_0px_#1A1A1A]"
                     >
-                      <option value="">{t("form.businessTypePlaceholder")}</option>
+                      <option value="">
+                        {t("form.businessTypePlaceholder")}
+                      </option>
                       {businessTypeKeys.map((key) => (
                         <option key={key} value={key}>
                           {t(`form.businessTypes.${key}`)}

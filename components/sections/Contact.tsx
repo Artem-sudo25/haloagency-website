@@ -2,19 +2,22 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "@/i18n/routing";
 import {
   getHaloTrackSessionId,
   trackFormEvent,
   waitForHaloTrack,
 } from "@/lib/halotrack";
 import { trackLeadSubmission } from "@/lib/site-tracking";
-import { createContactFormSchema, type ContactFormData } from "@/lib/validations";
+import {
+  type ContactFormData,
+  createContactFormSchema,
+} from "@/lib/validations";
 
 export default function Contact() {
   const t = useTranslations("contact");
@@ -112,9 +115,7 @@ export default function Contact() {
       }, 5000);
     } catch (error) {
       setSubmitError(
-        error instanceof Error
-          ? error.message
-          : tCommon("errors.genericError"),
+        error instanceof Error ? error.message : tCommon("errors.genericError"),
       );
     } finally {
       setIsSubmitting(false);
@@ -147,9 +148,7 @@ export default function Contact() {
           >
             {t("success.title")}
           </h3>
-          <p className="text-[#1A1A1A]/60">
-            {t("success.message")}
-          </p>
+          <p className="text-[#1A1A1A]/60">{t("success.message")}</p>
         </div>
       ) : (
         <>
@@ -251,7 +250,7 @@ export default function Contact() {
                 htmlFor="message"
                 className="ml-4 text-sm font-bold text-[#1A1A1A]/80"
               >
-                {t("form.messageLabel")} <span className="text-red-500">*</span>
+                {t("form.messageLabel")}
               </label>
               <Textarea
                 id="message"
