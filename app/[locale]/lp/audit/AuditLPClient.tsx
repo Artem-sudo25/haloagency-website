@@ -1,30 +1,24 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createAuditConsultationSchema,
-  type AuditConsultationData,
-} from "@/lib/validations";
-import {
-  waitForHaloTrack,
-  getHaloTrackSessionId,
-  trackFormEvent,
-} from "@/lib/halotrack";
+import { CheckCircle2, Minus, Phone, Plus, Users } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  CheckCircle2,
-  Minus,
-  Plus,
-  Phone,
-  Users,
-} from "lucide-react";
 import { Link } from "@/i18n/routing";
-import { useSearchParams } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { hasConsented } from "@/lib/consent";
+import {
+  getHaloTrackSessionId,
+  trackFormEvent,
+  waitForHaloTrack,
+} from "@/lib/halotrack";
+import {
+  type AuditConsultationData,
+  createAuditConsultationSchema,
+} from "@/lib/validations";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -85,14 +79,40 @@ const sourceHeadlineVariants: Record<
 // ---------------------------------------------------------------------------
 
 const deliverables = [
-  { step: "01", text: "Узнаете, какой канал (Google, Instagram, реклама) принесёт клиентов быстрее всего" },
-  { step: "02", text: "Получите 2\u20133 конкретных шага, которые можно внедрить на этой неделе" },
-  { step: "03", text: "Поймёте, сколько стоит один клиент из интернета в вашей нише" },
+  {
+    step: "01",
+    text: "Узнаете, какой канал (Google, Instagram, реклама) принесёт клиентов быстрее всего",
+  },
+  {
+    step: "02",
+    text: "Получите 2\u20133 конкретных шага, которые можно внедрить на этой неделе",
+  },
+  {
+    step: "03",
+    text: "Поймёте, сколько стоит один клиент из интернета в вашей нише",
+  },
 ];
 
 const testimonials = [
-  { quote: "Думал, будут впаривать услуги \u2014 а реально получил план с конкретными цифрами", author: "Алексей Р.", business: "Барбершоп", city: "Прага", initial: "А", accentColor: "#FF3366", stars: 5 },
-  { quote: "За 15 минут узнал больше, чем за 3 платных консультации у других", author: "Мартин К.", business: "ProPradlo", city: "Брно", initial: "P", accentColor: "#3B82F6", stars: 5 },
+  {
+    quote:
+      "Думал, будут впаривать услуги \u2014 а реально получил план с конкретными цифрами",
+    author: "Алексей Р.",
+    business: "Барбершоп",
+    city: "Прага",
+    initial: "А",
+    accentColor: "#FF3366",
+    stars: 5,
+  },
+  {
+    quote: "За 15 минут узнал больше, чем за 3 платных консультации у других",
+    author: "Мартин К.",
+    business: "ProPradlo",
+    city: "Брно",
+    initial: "P",
+    accentColor: "#3B82F6",
+    stars: 5,
+  },
 ];
 
 const heroStats = [
@@ -102,10 +122,22 @@ const heroStats = [
 ];
 
 const faqItems = [
-  { q: "Будете потом продавать услуги?", a: "Нет давления. Если после разбора вы захотите работать с нами \u2014 отлично. Если нет \u2014 вы уйдёте с конкретным планом, который сможете реализовать сами или с кем угодно." },
-  { q: "Это действительно бесплатно?", a: "Да. 15-минутный разбор полностью бесплатный и ни к чему не обязывает. Мы покажем конкретные шаги, а дальше вы решаете сами." },
-  { q: "Мне нужно что-то подготовить?", a: "Нет. Достаточно указать ваш бизнес и ссылку на сайт или соцсети \u2014 мы сами посмотрим всё перед звонком." },
-  { q: "Сколько длится звонок?", a: "15 минут. Без воды и продаж \u2014 только конкретика по вашей ситуации." },
+  {
+    q: "Будете потом продавать услуги?",
+    a: "Нет давления. Если после разбора вы захотите работать с нами \u2014 отлично. Если нет \u2014 вы уйдёте с конкретным планом, который сможете реализовать сами или с кем угодно.",
+  },
+  {
+    q: "Это действительно бесплатно?",
+    a: "Да. 15-минутный разбор полностью бесплатный и ни к чему не обязывает. Мы покажем конкретные шаги, а дальше вы решаете сами.",
+  },
+  {
+    q: "Мне нужно что-то подготовить?",
+    a: "Нет. Достаточно указать ваш бизнес и ссылку на сайт или соцсети \u2014 мы сами посмотрим всё перед звонком.",
+  },
+  {
+    q: "Сколько длится звонок?",
+    a: "15 минут. Без воды и продаж \u2014 только конкретика по вашей ситуации.",
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -113,15 +145,16 @@ const faqItems = [
 // ---------------------------------------------------------------------------
 
 export default function AuditLPClient({ avatar }: Props) {
+  const locale = useLocale() as "ru" | "cs";
   const tv = useTranslations("validation.auditConsultation");
   const searchParams = useSearchParams();
   const utmSource = (searchParams.get("utm_source") || "").toLowerCase();
   const trafficSource =
     searchParams.has("fbclid") ||
-      ["meta", "facebook", "instagram", "fb", "ig"].includes(utmSource)
+    ["meta", "facebook", "instagram", "fb", "ig"].includes(utmSource)
       ? "meta"
       : searchParams.has("gclid") ||
-        ["google", "adwords", "gads"].includes(utmSource)
+          ["google", "adwords", "gads"].includes(utmSource)
         ? "google"
         : "other";
   const variant = avatar
@@ -136,7 +169,9 @@ export default function AuditLPClient({ avatar }: Props) {
   const [hasCookieChoice, setHasCookieChoice] = useState(true);
 
   // Post-submit micro-survey
-  const [postSubmitTimeline, setPostSubmitTimeline] = useState<string | null>(null);
+  const [postSubmitTimeline, setPostSubmitTimeline] = useState<string | null>(
+    null,
+  );
   const [timelineSaved, setTimelineSaved] = useState(false);
 
   // Sticky CTA
@@ -190,8 +225,10 @@ export default function AuditLPClient({ avatar }: Props) {
   useEffect(() => {
     if (!formRef.current) return;
     const observer = new IntersectionObserver(
-      ([entry]) => { setShowSticky(!entry.isIntersecting); },
-      { threshold: 0 }
+      ([entry]) => {
+        setShowSticky(!entry.isIntersecting);
+      },
+      { threshold: 0 },
     );
     observer.observe(formRef.current);
     return () => observer.disconnect();
@@ -213,10 +250,13 @@ export default function AuditLPClient({ avatar }: Props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+          "X-Webhook-Secret":
+            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "audit-consultation",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           email: data.email,
           phone: data.phone || "",
           businessType: data.businessType,
@@ -241,8 +281,20 @@ export default function AuditLPClient({ avatar }: Props) {
       }
 
       // Facebook Pixel
-      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
-        (window as any).fbq("track", "Lead", { content_name: "audit_consultation", currency: "CZK", value: leadValue }, { eventID: leadId });
+      if (
+        typeof window !== "undefined" &&
+        typeof (window as any).fbq === "function"
+      ) {
+        (window as any).fbq(
+          "track",
+          "Lead",
+          {
+            content_name: "audit_consultation",
+            currency: "CZK",
+            value: leadValue,
+          },
+          { eventID: leadId },
+        );
       }
 
       // Google Ads Enhanced Conversions
@@ -291,7 +343,13 @@ export default function AuditLPClient({ avatar }: Props) {
   return (
     <main className="min-h-screen bg-[#F5F5F7]">
       {/* Dot grid background */}
-      <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(#d1d5db 1px, transparent 1px)', backgroundSize: '24px 24px' }} />
+      <div
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#d1d5db 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
 
       <div className="relative z-10">
         {/* ================================================================= */}
@@ -309,7 +367,10 @@ export default function AuditLPClient({ avatar }: Props) {
                   </span>
                 </div>
 
-                <h1 className="text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] mb-3 md:mb-5 leading-[1.15] tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>
+                <h1
+                  className="text-3xl md:text-5xl lg:text-[3.5rem] font-extrabold text-[#1A1A1A] mb-3 md:mb-5 leading-[1.15] tracking-tight"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
                   {variant.h1}
                 </h1>
 
@@ -321,15 +382,23 @@ export default function AuditLPClient({ avatar }: Props) {
                 <div className="flex items-center gap-6 md:gap-8 mb-4 md:mb-8">
                   {heroStats.map((stat, i) => (
                     <div key={i} className="flex flex-col">
-                      <span className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A] tracking-tight">{stat.value}</span>
-                      <span className="text-xs md:text-sm text-[#1A1A1A]/40 leading-tight mt-0.5">{stat.label}</span>
+                      <span className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A] tracking-tight">
+                        {stat.value}
+                      </span>
+                      <span className="text-xs md:text-sm text-[#1A1A1A]/40 leading-tight mt-0.5">
+                        {stat.label}
+                      </span>
                     </div>
                   ))}
                 </div>
 
                 {/* Trust indicators — desktop */}
                 <div className="hidden lg:flex items-center gap-6">
-                  {["Без обязательств", "Конкретный план", "Для бизнеса в Чехии"].map((text) => (
+                  {[
+                    "Без обязательств",
+                    "Конкретный план",
+                    "Для бизнеса в Чехии",
+                  ].map((text) => (
                     <div key={text} className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-[#FF3366] flex-shrink-0" />
                       <span className="text-sm text-[#1A1A1A]/60">{text}</span>
@@ -346,29 +415,42 @@ export default function AuditLPClient({ avatar }: Props) {
                       <div className="w-16 h-16 mx-auto mb-5 rounded-full bg-[#FF3366]/10 flex items-center justify-center">
                         <CheckCircle2 className="w-8 h-8 text-[#FF3366]" />
                       </div>
-                      <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3">Заявка принята!</h3>
+                      <h3 className="text-2xl font-bold text-[#1A1A1A] mb-3">
+                        Заявка принята!
+                      </h3>
                       <p className="text-[#1A1A1A]/60 max-w-sm mx-auto leading-relaxed mb-6">
-                        Мы свяжемся с вами в течение 2 рабочих часов и согласуем удобный формат (звонок или сообщение).
+                        Мы свяжемся с вами в течение 2 рабочих часов и согласуем
+                        удобный формат (звонок или сообщение).
                       </p>
 
                       {/* Post-submit micro-survey */}
                       {!timelineSaved ? (
                         <div className="border-t border-[#1A1A1A]/5 pt-5">
-                          <p className="text-sm text-[#1A1A1A]/40 mb-3">Ещё один вопрос — когда планируете запускать продвижение?</p>
+                          <p className="text-sm text-[#1A1A1A]/40 mb-3">
+                            Ещё один вопрос — когда планируете запускать
+                            продвижение?
+                          </p>
                           <div className="flex flex-col gap-2">
                             {[
                               { value: "asap", label: "Нужны клиенты срочно" },
-                              { value: "quarter", label: "Планирую рост бизнеса" },
-                              { value: "research", label: "Хочу разобраться в маркетинге" },
+                              {
+                                value: "quarter",
+                                label: "Планирую рост бизнеса",
+                              },
+                              {
+                                value: "research",
+                                label: "Хочу разобраться в маркетинге",
+                              },
                             ].map((opt) => (
                               <button
                                 key={opt.value}
                                 type="button"
                                 onClick={() => handleTimelineSelect(opt.value)}
-                                className={`w-full px-4 py-2.5 rounded-xl text-sm text-left transition-all border ${postSubmitTimeline === opt.value
+                                className={`w-full px-4 py-2.5 rounded-xl text-sm text-left transition-all border ${
+                                  postSubmitTimeline === opt.value
                                     ? "bg-[#FF3366]/10 border-[#FF3366]/30 text-[#FF3366]"
                                     : "bg-[#F5F5F7] border-[#1A1A1A]/5 text-[#1A1A1A]/60 hover:border-[#1A1A1A]/10"
-                                  }`}
+                                }`}
                               >
                                 {opt.label}
                               </button>
@@ -377,15 +459,24 @@ export default function AuditLPClient({ avatar }: Props) {
                         </div>
                       ) : (
                         <div className="border-t border-[#1A1A1A]/5 pt-5">
-                          <p className="text-sm text-[#FF3366]">Спасибо! Учтём это при подготовке к звонку.</p>
+                          <p className="text-sm text-[#FF3366]">
+                            Спасибо! Учтём это при подготовке к звонку.
+                          </p>
                         </div>
                       )}
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <form
+                      onSubmit={handleSubmit(onSubmit)}
+                      className="space-y-4"
+                    >
                       <div className="mb-2">
-                        <h2 className="text-lg font-bold text-[#1A1A1A]">Узнайте, где вы теряете клиентов</h2>
-                        <p className="text-sm text-[#1A1A1A]/40 mt-1">Заполните форму — мы свяжемся и разберём вашу ситуацию</p>
+                        <h2 className="text-lg font-bold text-[#1A1A1A]">
+                          Узнайте, где вы теряете клиентов
+                        </h2>
+                        <p className="text-sm text-[#1A1A1A]/40 mt-1">
+                          Заполните форму — мы свяжемся и разберём вашу ситуацию
+                        </p>
                       </div>
 
                       <div>
@@ -394,7 +485,11 @@ export default function AuditLPClient({ avatar }: Props) {
                           placeholder="Например: салон красоты, автосервис, клиника..."
                           className="h-12 bg-[#F5F5F7] border-[#1A1A1A]/5 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:ring-[#FF3366]/20 rounded-xl"
                         />
-                        {errors.businessType && <p className="text-red-500 text-xs mt-1">{errors.businessType.message}</p>}
+                        {errors.businessType && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.businessType.message}
+                          </p>
+                        )}
                       </div>
 
                       <div>
@@ -412,7 +507,11 @@ export default function AuditLPClient({ avatar }: Props) {
                           placeholder="Email для связи"
                           className="h-12 bg-[#F5F5F7] border-[#1A1A1A]/5 text-[#1A1A1A] placeholder:text-[#1A1A1A]/30 focus:border-[#FF3366] focus:ring-[#FF3366]/20 rounded-xl"
                         />
-                        {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
+                        {errors.email && (
+                          <p className="text-red-500 text-xs mt-1">
+                            {errors.email.message}
+                          </p>
+                        )}
                       </div>
 
                       <div>
@@ -433,24 +532,40 @@ export default function AuditLPClient({ avatar }: Props) {
                         />
                         <span className="text-xs text-[#1A1A1A]/40 leading-relaxed">
                           Согласен с{" "}
-                          <Link href="/privacy-policy" target="_blank" className="text-[#FF3366] hover:text-[#FF3366]/80 underline underline-offset-2">
+                          <Link
+                            href="/privacy-policy"
+                            target="_blank"
+                            className="text-[#FF3366] hover:text-[#FF3366]/80 underline underline-offset-2"
+                          >
                             политикой конфиденциальности
                           </Link>
                         </span>
                       </label>
-                      {errors.consent && <p className="text-red-500 text-xs -mt-2">{errors.consent.message}</p>}
+                      {errors.consent && (
+                        <p className="text-red-500 text-xs -mt-2">
+                          {errors.consent.message}
+                        </p>
+                      )}
 
-                      {submitError && <p className="text-red-500 text-sm text-center">{submitError}</p>}
+                      {submitError && (
+                        <p className="text-red-500 text-sm text-center">
+                          {submitError}
+                        </p>
+                      )}
 
                       <Button
                         type="submit"
                         disabled={isSubmitting}
                         className="w-full h-12 md:h-14 bg-[#FF3366] hover:bg-[#FF3366]/90 text-white font-bold text-base md:text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)] rounded-xl transition-all duration-300 disabled:opacity-50"
                       >
-                        {isSubmitting ? "Отправляем..." : "Получить бесплатный разбор →"}
+                        {isSubmitting
+                          ? "Отправляем..."
+                          : "Получить бесплатный разбор →"}
                       </Button>
 
-                      <p className="text-[11px] text-[#1A1A1A]/30 text-center">Свяжемся в течение 2 рабочих часов</p>
+                      <p className="text-[11px] text-[#1A1A1A]/30 text-center">
+                        Свяжемся в течение 2 рабочих часов
+                      </p>
                     </form>
                   )}
                 </div>
@@ -459,7 +574,11 @@ export default function AuditLPClient({ avatar }: Props) {
 
             {/* Trust indicators — mobile only */}
             <div className="flex flex-wrap items-center justify-center gap-4 mt-6 lg:hidden">
-              {["Без обязательств", "Конкретный план", "Для бизнеса в Чехии"].map((text) => (
+              {[
+                "Без обязательств",
+                "Конкретный план",
+                "Для бизнеса в Чехии",
+              ].map((text) => (
                 <div key={text} className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-3.5 h-3.5 text-[#FF3366] flex-shrink-0" />
                   <span className="text-xs text-[#1A1A1A]/40">{text}</span>
@@ -474,15 +593,28 @@ export default function AuditLPClient({ avatar }: Props) {
         {/* ================================================================= */}
         <section className="py-12 md:py-16 px-4">
           <div className="container mx-auto max-w-4xl">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A] text-center mb-10" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2
+              className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A] text-center mb-10"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Что вы получите за 15 минут
             </h2>
 
             <div className="grid md:grid-cols-3 gap-5">
               {deliverables.map((item) => (
-                <div key={item.step} className="p-6 rounded-[2rem] bg-white border border-[#1A1A1A]/5 hover:border-[#FF3366]/30 transition-colors duration-300 shadow-sm">
-                  <span className="text-2xl font-extrabold text-[#FF3366]/30 mb-3 block" style={{ fontFamily: 'var(--font-hand)' }}>{item.step}</span>
-                  <p className="text-[#1A1A1A]/70 text-[15px] leading-relaxed">{item.text}</p>
+                <div
+                  key={item.step}
+                  className="p-6 rounded-[2rem] bg-white border border-[#1A1A1A]/5 hover:border-[#FF3366]/30 transition-colors duration-300 shadow-sm"
+                >
+                  <span
+                    className="text-2xl font-extrabold text-[#FF3366]/30 mb-3 block"
+                    style={{ fontFamily: "var(--font-hand)" }}
+                  >
+                    {item.step}
+                  </span>
+                  <p className="text-[#1A1A1A]/70 text-[15px] leading-relaxed">
+                    {item.text}
+                  </p>
                 </div>
               ))}
             </div>
@@ -495,19 +627,32 @@ export default function AuditLPClient({ avatar }: Props) {
         <section className="py-14 md:py-16 md:py-20 px-4">
           <div className="container mx-auto max-w-4xl">
             <div className="text-center mb-10">
-              <p className="text-[#FF3366] text-sm font-bold tracking-widest uppercase mb-3">Отзывы клиентов</p>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]" style={{ fontFamily: 'var(--font-display)' }}>
+              <p className="text-[#FF3366] text-sm font-bold tracking-widest uppercase mb-3">
+                Отзывы клиентов
+              </p>
+              <h2
+                className="text-2xl md:text-3xl font-extrabold text-[#1A1A1A]"
+                style={{ fontFamily: "var(--font-display)" }}
+              >
                 Что говорят о разборе
               </h2>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
               {testimonials.map((t, i) => (
-                <div key={i} className="relative p-7 rounded-[2rem] bg-white border border-[#1A1A1A]/5 hover:border-[#FF3366]/30 transition-all duration-300 shadow-sm hover:shadow-md">
+                <div
+                  key={i}
+                  className="relative p-7 rounded-[2rem] bg-white border border-[#1A1A1A]/5 hover:border-[#FF3366]/30 transition-all duration-300 shadow-sm hover:shadow-md"
+                >
                   {/* Stars */}
                   <div className="flex gap-0.5 mb-4">
                     {Array.from({ length: t.stars }).map((_, si) => (
-                      <svg key={si} className="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                      <svg
+                        key={si}
+                        className="w-4 h-4 text-amber-400"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
                     ))}
@@ -520,13 +665,20 @@ export default function AuditLPClient({ avatar }: Props) {
                   <div className="flex items-center gap-3 pt-4 border-t border-[#1A1A1A]/5">
                     <div
                       className="w-10 h-10 rounded-lg flex items-center justify-center font-bold text-sm flex-shrink-0"
-                      style={{ backgroundColor: t.accentColor + "20", color: t.accentColor }}
+                      style={{
+                        backgroundColor: t.accentColor + "20",
+                        color: t.accentColor,
+                      }}
                     >
                       {t.initial}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[#1A1A1A] text-sm font-medium truncate">{t.author}</p>
-                      <p className="text-[#1A1A1A]/40 text-xs truncate">{t.business} &middot; {t.city}</p>
+                      <p className="text-[#1A1A1A] text-sm font-medium truncate">
+                        {t.author}
+                      </p>
+                      <p className="text-[#1A1A1A]/40 text-xs truncate">
+                        {t.business} &middot; {t.city}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -547,7 +699,10 @@ export default function AuditLPClient({ avatar }: Props) {
         {/* ================================================================= */}
         <section className="py-12 md:py-16 px-4">
           <div className="container mx-auto max-w-2xl">
-            <h2 className="text-xl md:text-2xl font-extrabold text-[#1A1A1A] text-center mb-8" style={{ fontFamily: 'var(--font-display)' }}>
+            <h2
+              className="text-xl md:text-2xl font-extrabold text-[#1A1A1A] text-center mb-8"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
               Частые вопросы
             </h2>
 
@@ -561,20 +716,33 @@ export default function AuditLPClient({ avatar }: Props) {
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                     className="w-full text-left"
                   >
-                    <div className={`rounded-2xl border transition-all duration-300 ${isOpen
-                        ? "bg-[#FF3366]/5 border-[#FF3366]/20"
-                        : "bg-white border-[#1A1A1A]/5 hover:border-[#1A1A1A]/10"
-                      }`}>
+                    <div
+                      className={`rounded-2xl border transition-all duration-300 ${
+                        isOpen
+                          ? "bg-[#FF3366]/5 border-[#FF3366]/20"
+                          : "bg-white border-[#1A1A1A]/5 hover:border-[#1A1A1A]/10"
+                      }`}
+                    >
                       <div className="flex items-center justify-between p-5">
-                        <span className={`font-medium text-[15px] pr-4 transition-colors ${isOpen ? "text-[#FF3366]" : "text-[#1A1A1A]"
-                          }`}>
+                        <span
+                          className={`font-medium text-[15px] pr-4 transition-colors ${
+                            isOpen ? "text-[#FF3366]" : "text-[#1A1A1A]"
+                          }`}
+                        >
                           {item.q}
                         </span>
-                        <div className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${isOpen
-                            ? "bg-[#FF3366]/10 text-[#FF3366]"
-                            : "bg-[#1A1A1A]/5 text-[#1A1A1A]/40"
-                          }`}>
-                          {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                        <div
+                          className={`flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                            isOpen
+                              ? "bg-[#FF3366]/10 text-[#FF3366]"
+                              : "bg-[#1A1A1A]/5 text-[#1A1A1A]/40"
+                          }`}
+                        >
+                          {isOpen ? (
+                            <Minus className="w-4 h-4" />
+                          ) : (
+                            <Plus className="w-4 h-4" />
+                          )}
                         </div>
                       </div>
                       <div
@@ -582,7 +750,9 @@ export default function AuditLPClient({ avatar }: Props) {
                         style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                       >
                         <div className="overflow-hidden">
-                          <p className="px-5 pb-5 text-[#1A1A1A]/60 text-sm leading-relaxed">{item.a}</p>
+                          <p className="px-5 pb-5 text-[#1A1A1A]/60 text-sm leading-relaxed">
+                            {item.a}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -608,7 +778,11 @@ export default function AuditLPClient({ avatar }: Props) {
               Уже помогли 50+ бизнесам в Чехии найти точки роста
             </p>
             <Button
-              onClick={() => document.getElementById("audit-form")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() =>
+                document
+                  .getElementById("audit-form")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
               className="h-12 md:h-14 px-8 bg-[#FF3366] hover:bg-[#FF3366]/90 text-white font-bold text-base md:text-lg shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)] rounded-xl transition-all duration-300"
             >
               Получить бесплатный разбор &rarr;
@@ -618,7 +792,11 @@ export default function AuditLPClient({ avatar }: Props) {
             <div className="mt-16 pt-8 border-t border-[#1A1A1A]/5">
               <p className="text-[#1A1A1A]/30 text-xs">
                 &copy; {new Date().getFullYear()} HaloAgency.cz &middot;{" "}
-                <Link href="/privacy-policy" target="_blank" className="hover:text-[#FF3366] transition-colors">
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  className="hover:text-[#FF3366] transition-colors"
+                >
                   Политика конфиденциальности
                 </Link>
               </p>
@@ -630,12 +808,18 @@ export default function AuditLPClient({ avatar }: Props) {
         {/* STICKY MOBILE CTA */}
         {/* ================================================================= */}
         <div
-          className={`fixed left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#FF3366]/20 p-3 transition-transform duration-300 ${hasCookieChoice ? "bottom-0" : "bottom-28"
-            } ${showSticky && !showSuccess ? "translate-y-0" : "translate-y-full"
-            }`}
+          className={`fixed left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-[#FF3366]/20 p-3 transition-transform duration-300 ${
+            hasCookieChoice ? "bottom-0" : "bottom-28"
+          } ${
+            showSticky && !showSuccess ? "translate-y-0" : "translate-y-full"
+          }`}
         >
           <Button
-            onClick={() => document.getElementById("audit-form")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .getElementById("audit-form")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
             className="w-full h-12 bg-[#FF3366] hover:bg-[#FF3366]/90 text-white font-bold rounded-xl shadow-[4px_4px_0px_0px_rgba(26,26,26,1)] hover:translate-y-1 hover:shadow-[0px_0px_0px_0px_rgba(26,26,26,1)] transition-all"
           >
             Получить бесплатный разбор &rarr;

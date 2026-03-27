@@ -9,8 +9,9 @@ import {
 } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 import { type FormEvent, useState } from "react";
+import { Link } from "@/i18n/routing";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -163,6 +164,7 @@ export default function PaidAdsLPTemplate({
 }: {
   config: PaidAdsLPConfig;
 }) {
+  const locale = useLocale() as "ru" | "cs";
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
@@ -214,6 +216,8 @@ export default function PaidAdsLPTemplate({
         },
         body: JSON.stringify({
           type: config.submit.leadType,
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source: config.submit.source,
           landing_page_type: config.submit.landingPageType,

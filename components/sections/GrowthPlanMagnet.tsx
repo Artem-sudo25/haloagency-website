@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,7 @@ const triedValues: Record<string, string> = {
 };
 
 export default function GrowthPlanMagnet() {
+  const locale = useLocale() as "ru" | "cs";
   const t = useTranslations("growthPlanMagnet");
   const tCommon = useTranslations("common");
   const tv = useTranslations("validation.growthPlan");
@@ -112,6 +113,8 @@ export default function GrowthPlanMagnet() {
         },
         body: JSON.stringify({
           type: "growth-plan",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           session_id: haloSessionId,
           websiteOrProfile: data.websiteOrProfile,
           businessType: data.businessType,

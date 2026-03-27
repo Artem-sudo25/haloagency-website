@@ -15,8 +15,9 @@ import {
 } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 import { type FormEvent, useRef, useState } from "react";
+import { Link } from "@/i18n/routing";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -217,6 +218,7 @@ type MarketingWindow = Window & {
 };
 
 export default function WebDevelopmentLPClient() {
+  const locale = useLocale() as "ru" | "cs";
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
@@ -274,6 +276,8 @@ export default function WebDevelopmentLPClient() {
         },
         body: JSON.stringify({
           type: "website",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source: "lp_web_development",
           landing_page_type: "web-development",

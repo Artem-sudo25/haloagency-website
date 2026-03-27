@@ -14,8 +14,15 @@ import {
 } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import { useLocale } from "next-intl";
+import {
+  type FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "@/i18n/routing";
-import { type FormEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -190,6 +197,7 @@ type FormValues = {
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
 export default function LPV3Client() {
+  const locale = useLocale() as "ru" | "cs";
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
@@ -288,6 +296,8 @@ export default function LPV3Client() {
         },
         body: JSON.stringify({
           type: "website-demo-v3",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source: "lp_v3",
           landing_page_type: "v3",
@@ -311,12 +321,20 @@ export default function LPV3Client() {
       }
 
       // Facebook Pixel — Lead event
-      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
-        (window as any).fbq("track", "Lead", {
-          content_name: "website_demo_v3",
-          currency: "CZK",
-          value: 0,
-        }, { eventID: leadId });
+      if (
+        typeof window !== "undefined" &&
+        typeof (window as any).fbq === "function"
+      ) {
+        (window as any).fbq(
+          "track",
+          "Lead",
+          {
+            content_name: "website_demo_v3",
+            currency: "CZK",
+            value: 0,
+          },
+          { eventID: leadId },
+        );
       }
 
       // Google Ads / GTM — dataLayer push
@@ -965,110 +983,111 @@ export default function LPV3Client() {
           <span>© 2026 HaloAgency.cz</span>
         </div>
       </footer>
-      {galleryOpen !== null && (() => {
-        const site = websiteExamples[galleryOpen];
-        const images = site.gallery;
-        return (
-          <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-            onClick={closeGallery}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`Просмотр сайта: ${site.title}`}
-          >
+      {galleryOpen !== null &&
+        (() => {
+          const site = websiteExamples[galleryOpen];
+          const images = site.gallery;
+          return (
             <div
-              className="relative mx-2 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:mx-4"
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+              onClick={closeGallery}
+              role="dialog"
+              aria-modal="true"
+              aria-label={`Просмотр сайта: ${site.title}`}
             >
-              {/* Header */}
-              <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 sm:px-6 sm:py-4">
-                <div className="mr-2 min-w-0 flex-1">
-                  <h3 className="truncate text-base font-bold text-gray-900 sm:text-lg">
-                    {site.title}
-                  </h3>
-                  <p className="truncate text-xs text-gray-500 sm:text-sm">
-                    {site.feature}
-                  </p>
+              <div
+                className="relative mx-2 flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl sm:mx-4"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between border-b border-gray-100 px-4 py-3 sm:px-6 sm:py-4">
+                  <div className="mr-2 min-w-0 flex-1">
+                    <h3 className="truncate text-base font-bold text-gray-900 sm:text-lg">
+                      {site.title}
+                    </h3>
+                    <p className="truncate text-xs text-gray-500 sm:text-sm">
+                      {site.feature}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={closeGallery}
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 sm:h-10 sm:w-10"
+                    aria-label="Закрыть"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={closeGallery}
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-400 transition-colors hover:bg-gray-100 hover:text-gray-600 sm:h-10 sm:w-10"
-                  aria-label="Закрыть"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              </div>
 
-              {/* Image area */}
-              <div className="relative flex-1 overflow-hidden bg-[#f5f5f7]">
-                <div className="relative p-2 sm:p-4">
-                  <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-                    <div className="relative aspect-[16/10] overflow-hidden">
-                      {images.map((src, i) => (
-                        <Image
-                          key={src}
-                          src={src}
-                          alt={`${site.alt} — скриншот ${i + 1}`}
-                          fill
-                          sizes="(max-width: 768px) 95vw, 960px"
-                          className={`object-cover object-top transition-opacity duration-300 ${
-                            i === galleryImageIndex
-                              ? "opacity-100"
-                              : "opacity-0"
-                          }`}
-                          priority={i === 0}
-                        />
-                      ))}
+                {/* Image area */}
+                <div className="relative flex-1 overflow-hidden bg-[#f5f5f7]">
+                  <div className="relative p-2 sm:p-4">
+                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+                      <div className="relative aspect-[16/10] overflow-hidden">
+                        {images.map((src, i) => (
+                          <Image
+                            key={src}
+                            src={src}
+                            alt={`${site.alt} — скриншот ${i + 1}`}
+                            fill
+                            sizes="(max-width: 768px) 95vw, 960px"
+                            className={`object-cover object-top transition-opacity duration-300 ${
+                              i === galleryImageIndex
+                                ? "opacity-100"
+                                : "opacity-0"
+                            }`}
+                            priority={i === 0}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
+
+                  {/* Prev/Next arrows over the image */}
+                  {galleryImageIndex > 0 && (
+                    <button
+                      type="button"
+                      onClick={() => navigateImage(-1)}
+                      className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:left-6 sm:h-12 sm:w-12"
+                      aria-label="Предыдущий скриншот"
+                    >
+                      <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+                  )}
+                  {galleryImageIndex < images.length - 1 && (
+                    <button
+                      type="button"
+                      onClick={() => navigateImage(1)}
+                      className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:right-6 sm:h-12 sm:w-12"
+                      aria-label="Следующий скриншот"
+                    >
+                      <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
+                    </button>
+                  )}
                 </div>
 
-                {/* Prev/Next arrows over the image */}
-                {galleryImageIndex > 0 && (
-                  <button
-                    type="button"
-                    onClick={() => navigateImage(-1)}
-                    className="absolute left-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:left-6 sm:h-12 sm:w-12"
-                    aria-label="Предыдущий скриншот"
-                  >
-                    <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-                  </button>
-                )}
-                {galleryImageIndex < images.length - 1 && (
-                  <button
-                    type="button"
-                    onClick={() => navigateImage(1)}
-                    className="absolute right-4 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-gray-700 shadow-lg backdrop-blur-sm transition-colors hover:bg-white sm:right-6 sm:h-12 sm:w-12"
-                    aria-label="Следующий скриншот"
-                  >
-                    <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-                  </button>
-                )}
-              </div>
-
-              {/* Footer with dots */}
-              <div className="flex items-center justify-center border-t border-gray-100 px-4 py-3 sm:py-4">
-                <div className="flex items-center gap-2">
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setGalleryImageIndex(i)}
-                      className={`h-2.5 rounded-full transition-all ${
-                        i === galleryImageIndex
-                          ? "w-7 bg-gray-900"
-                          : "w-2.5 bg-gray-300 hover:bg-gray-400"
-                      }`}
-                      aria-label={`Скриншот ${i + 1}`}
-                    />
-                  ))}
+                {/* Footer with dots */}
+                <div className="flex items-center justify-center border-t border-gray-100 px-4 py-3 sm:py-4">
+                  <div className="flex items-center gap-2">
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => setGalleryImageIndex(i)}
+                        className={`h-2.5 rounded-full transition-all ${
+                          i === galleryImageIndex
+                            ? "w-7 bg-gray-900"
+                            : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                        }`}
+                        aria-label={`Скриншот ${i + 1}`}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        );
-      })()}
+          );
+        })()}
     </main>
   );
 }

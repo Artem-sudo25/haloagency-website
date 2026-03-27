@@ -1,8 +1,8 @@
 "use client";
 
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
-import { useTranslations } from "next-intl";
 
 type DataLayerEvent = { event: string; [key: string]: unknown };
 type MarketingWindow = Window & {
@@ -48,6 +48,7 @@ export default function AdsLeadForm({
   sectionTitle: string;
   sectionText: string;
 }) {
+  const locale = useLocale() as "ru" | "cs";
   const t = useTranslations("common");
   const [values, setValues] = useState<FormValues>({
     name: "",
@@ -64,8 +65,7 @@ export default function AdsLeadForm({
     const nextErrors: FormErrors = {};
     if (!values.name.trim()) nextErrors.name = t("form.nameRequired");
     if (!values.phone.trim()) nextErrors.phone = t("form.phoneRequired");
-    if (!values.consent)
-      nextErrors.consent = t("form.consentRequired");
+    if (!values.consent) nextErrors.consent = t("form.consentRequired");
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -78,8 +78,7 @@ export default function AdsLeadForm({
 
     try {
       const leadId = crypto.randomUUID();
-      const sessionId =
-        (window as any).HaloTrack?.getSessionId?.() || null;
+      const sessionId = (window as any).HaloTrack?.getSessionId?.() || null;
 
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
@@ -90,6 +89,8 @@ export default function AdsLeadForm({
         },
         body: JSON.stringify({
           type: config.leadType,
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source: config.source,
           name: values.name.trim(),
@@ -139,9 +140,7 @@ export default function AdsLeadForm({
       setErrors({});
     } catch (err) {
       setSubmitError(
-        err instanceof Error
-          ? err.message
-          : t("errors.submitFailed"),
+        err instanceof Error ? err.message : t("errors.submitFailed"),
       );
     } finally {
       setIsSubmitting(false);
@@ -178,9 +177,7 @@ export default function AdsLeadForm({
           className="rounded-3xl border-2 border-[#1A1A1A] p-8 shadow-[8px_8px_0px_0px_#1A1A1A] md:p-10"
           style={{ backgroundColor: config.accentColor }}
         >
-          <div
-            className="mb-2 inline-flex rounded-full border-2 border-[#1A1A1A] bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A] shadow-[3px_3px_0px_0px_#1A1A1A]"
-          >
+          <div className="mb-2 inline-flex rounded-full border-2 border-[#1A1A1A] bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A] shadow-[3px_3px_0px_0px_#1A1A1A]">
             {config.badge}
           </div>
           <h3

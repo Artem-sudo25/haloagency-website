@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckCircle2 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,7 @@ import {
 } from "@/lib/validations";
 
 export default function Contact() {
+  const locale = useLocale() as "ru" | "cs";
   const t = useTranslations("contact");
   const tCommon = useTranslations("common");
   const tv = useTranslations("validation.contact");
@@ -74,6 +75,8 @@ export default function Contact() {
         body: JSON.stringify({
           type: "contact",
           ...data,
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           service: selectedService || undefined,
           session_id: haloSessionId,
           source: "contact_form",

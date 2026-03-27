@@ -1,8 +1,8 @@
 "use client";
 
-import { type FormEvent, useState } from "react";
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { type FormEvent, useState } from "react";
 
 type FormValues = {
   name: string;
@@ -27,6 +27,7 @@ export default function DemoForm({
   source = "web_service_page",
   accentColor = "#FFD166",
 }: DemoFormProps) {
+  const locale = useLocale() as "ru" | "cs";
   const t = useTranslations("demoForm");
   const tCommon = useTranslations("common");
   const [values, setValues] = useState<FormValues>({
@@ -44,8 +45,7 @@ export default function DemoForm({
     const nextErrors: FormErrors = {};
     if (!values.name.trim()) nextErrors.name = t("validation.nameRequired");
     if (!values.phone.trim()) nextErrors.phone = t("validation.phoneRequired");
-    if (!values.consent)
-      nextErrors.consent = t("validation.consentRequired");
+    if (!values.consent) nextErrors.consent = t("validation.consentRequired");
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -58,8 +58,7 @@ export default function DemoForm({
 
     try {
       const leadId = crypto.randomUUID();
-      const sessionId =
-        (window as any).HaloTrack?.getSessionId?.() || null;
+      const sessionId = (window as any).HaloTrack?.getSessionId?.() || null;
 
       const res = await fetch("/api/webhook/lead", {
         method: "POST",
@@ -70,6 +69,8 @@ export default function DemoForm({
         },
         body: JSON.stringify({
           type: "website",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source,
           landing_page_type: "web-demo",
@@ -120,9 +121,7 @@ export default function DemoForm({
       setErrors({});
     } catch (err) {
       setSubmitError(
-        err instanceof Error
-          ? err.message
-          : tCommon("errors.submitFailed"),
+        err instanceof Error ? err.message : tCommon("errors.submitFailed"),
       );
     } finally {
       setIsSubmitting(false);
@@ -301,9 +300,7 @@ export default function DemoForm({
                   disabled={isSubmitting}
                   className="group flex w-full items-center justify-center gap-2 rounded-xl border-2 border-[#1A1A1A] bg-[#FF3366] py-4 font-bold text-white shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {isSubmitting
-                    ? t("form.submitting")
-                    : t("form.submitButton")}
+                  {isSubmitting ? t("form.submitting") : t("form.submitButton")}
                   {!isSubmitting && (
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   )}

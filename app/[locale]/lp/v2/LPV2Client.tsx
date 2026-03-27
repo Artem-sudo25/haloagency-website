@@ -1,10 +1,11 @@
 "use client";
 
+import { ArrowRight, Phone, Star } from "lucide-react";
 import { Inter } from "next/font/google";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { useLocale } from "next-intl";
 import { useState } from "react";
-import { ArrowRight, Phone, Star } from "lucide-react";
+import { Link } from "@/i18n/routing";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic-ext"],
@@ -32,8 +33,18 @@ const caseStudies = [
     resultText:
       "Реклама стала стабильнее масштабироваться без резкого роста стоимости продаж.",
     results: [
-      { label: "Возвратность рекламы", before: "3.3", value: "5.8", delta: "+76%" },
-      { label: "Стоимость продажи", before: "463", value: "229 CZK", delta: "−51%" },
+      {
+        label: "Возвратность рекламы",
+        before: "3.3",
+        value: "5.8",
+        delta: "+76%",
+      },
+      {
+        label: "Стоимость продажи",
+        before: "463",
+        value: "229 CZK",
+        delta: "−51%",
+      },
       { label: "Конверсии", value: "+35%" },
     ],
   },
@@ -51,7 +62,12 @@ const caseStudies = [
       "Количество записей из рекламы выросло, а стоимость привлечения клиента снизилась.",
     results: [
       { label: "Рост количества записей", value: "+55%" },
-      { label: "Стоимость продажи", before: "630", value: "280 CZK", delta: "−56%" },
+      {
+        label: "Стоимость продажи",
+        before: "630",
+        value: "280 CZK",
+        delta: "−56%",
+      },
       { label: "Доля новых клиентов из рекламы", value: "+40%" },
     ],
   },
@@ -96,19 +112,22 @@ const faqItems = [
 
 const testimonials = [
   {
-    quote: "Заказал аудит контекстной рекламы. Выяснилось, что кампании велись пассивно и почти не тестировались. После внедрения рекомендаций расходы на рекламу снизились, а окупаемость выросла более чем в 2 раза.",
+    quote:
+      "Заказал аудит контекстной рекламы. Выяснилось, что кампании велись пассивно и почти не тестировались. После внедрения рекомендаций расходы на рекламу снизились, а окупаемость выросла более чем в 2 раза.",
     author: "Алексей Р.",
     business: "Интернет-магазин, Прага",
     initial: "АР",
   },
   {
-    quote: "Работали только через Instagram и запускали рекламу на профиль. Сначала помогли настроить рекламу в форму заявки, позже сделали простую посадочную страницую. Поток заявок заметно вырос — запись теперь заполнена примерно на месяц вперёд.",
+    quote:
+      "Работали только через Instagram и запускали рекламу на профиль. Сначала помогли настроить рекламу в форму заявки, позже сделали простую посадочную страницую. Поток заявок заметно вырос — запись теперь заполнена примерно на месяц вперёд.",
     author: "Виктория Б.",
     business: "Бьюти Салон, Брно",
     initial: "ВБ",
   },
   {
-    quote: "Думали, что проблема в рекламе, но аудит показал, что не продаёт сам веб-сайт — предложение было неясныи, а форма заявки спрятана. После изменения структуры страницы и усиления призыва к действию количество заявок заметно выросло.",
+    quote:
+      "Думали, что проблема в рекламе, но аудит показал, что не продаёт сам веб-сайт — предложение было неясныи, а форма заявки спрятана. После изменения структуры страницы и усиления призыва к действию количество заявок заметно выросло.",
     author: "Роман Г.",
     business: "Прачечная, Прага",
     initial: "РГ",
@@ -126,6 +145,7 @@ type FormErrors = Partial<Record<keyof FormValues, string>>;
 
 /* ─── Component ─── */
 export default function LPV2Client() {
+  const locale = useLocale() as "ru" | "cs";
   const [values, setValues] = useState<FormValues>({
     name: "",
     websiteOrProfile: "",
@@ -138,7 +158,9 @@ export default function LPV2Client() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const scrollToForm = () => {
-    document.getElementById("v2-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document
+      .getElementById("v2-form")
+      ?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const validate = () => {
@@ -162,10 +184,13 @@ export default function LPV2Client() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret": process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
+          "X-Webhook-Secret":
+            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "growth-audit-v2",
+          page_locale: locale,
+          reply_language: locale === "cs" ? "czech" : undefined,
           lead_id: leadId,
           source: "lp_v2",
           landing_page_type: "v2",
@@ -186,12 +211,20 @@ export default function LPV2Client() {
       }
 
       // Facebook Pixel — Lead event
-      if (typeof window !== "undefined" && typeof (window as any).fbq === "function") {
-        (window as any).fbq("track", "Lead", {
-          content_name: "growth_audit_v2",
-          currency: "CZK",
-          value: 0,
-        }, { eventID: leadId });
+      if (
+        typeof window !== "undefined" &&
+        typeof (window as any).fbq === "function"
+      ) {
+        (window as any).fbq(
+          "track",
+          "Lead",
+          {
+            content_name: "growth_audit_v2",
+            currency: "CZK",
+            value: 0,
+          },
+          { eventID: leadId },
+        );
       }
 
       // Google Ads / GTM — dataLayer push
@@ -216,7 +249,9 @@ export default function LPV2Client() {
       setErrors({});
     } catch (err) {
       setSubmitError(
-        err instanceof Error ? err.message : "Не удалось отправить заявку. Попробуйте снова.",
+        err instanceof Error
+          ? err.message
+          : "Не удалось отправить заявку. Попробуйте снова.",
       );
     } finally {
       setIsSubmitting(false);
@@ -237,7 +272,15 @@ export default function LPV2Client() {
       }}
     >
       {/* ── Nav ── */}
-      <header className="fixed top-0 w-full z-50 shadow-sm" style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", borderBottom: "1px solid rgba(255,255,255,0.3)" }}>
+      <header
+        className="fixed top-0 w-full z-50 shadow-sm"
+        style={{
+          background: "rgba(255,255,255,0.7)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderBottom: "1px solid rgba(255,255,255,0.3)",
+        }}
+      >
         <div className={`${shell} flex h-20 items-center justify-between`}>
           <span className="text-2xl font-bold tracking-tight text-gray-900">
             Halo<span className="text-[#f43f5e]">Agency</span>
@@ -254,7 +297,9 @@ export default function LPV2Client() {
 
       {/* ── Hero ── */}
       <section className="pt-32 pb-20 relative">
-        <div className={`${shell} relative grid gap-16 lg:grid-cols-12 items-start`}>
+        <div
+          className={`${shell} relative grid gap-16 lg:grid-cols-12 items-start`}
+        >
           {/* Left copy */}
           <div className="lg:col-span-7 flex flex-col justify-center pt-8">
             <p className="text-sm font-medium text-[#f43f5e] tracking-wide uppercase mb-4">
@@ -262,17 +307,23 @@ export default function LPV2Client() {
             </p>
 
             <h1 className="text-5xl lg:text-6xl font-bold leading-[1.1] mb-8 tracking-tight text-gray-900">
-              Реклама работает,<br />
-              а заявок мало?<br />
+              Реклама работает,
+              <br />а заявок мало?
+              <br />
               <span className="relative inline-block">
-                <span className="relative z-10">Покажем, где теряются<br />клиенты. Бесплатно.</span>
+                <span className="relative z-10">
+                  Покажем, где теряются
+                  <br />
+                  клиенты. Бесплатно.
+                </span>
                 <span className="absolute bottom-1 left-0 w-full h-3 bg-[#f43f5e]/20 -z-0 -skew-x-[15deg]"></span>
               </span>
             </h1>
 
             <div className="border-l-4 border-[#f43f5e] pl-6 py-2 mb-8">
               <p className="text-lg text-gray-500 leading-relaxed">
-                За 20–30 минут покажем 3–5 конкретных ошибок, которые мешают получать заявки.
+                За 20–30 минут покажем 3–5 конкретных ошибок, которые мешают
+                получать заявки.
               </p>
             </div>
 
@@ -292,7 +343,11 @@ export default function LPV2Client() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-6 mb-3">
-              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn}`}>
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className={`w-full sm:w-auto ${primaryBtn}`}
+              >
                 Записаться на бесплатный разбор
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
@@ -305,22 +360,43 @@ export default function LPV2Client() {
                 Написать в WhatsApp →
               </a>
             </div>
-            <p className="text-sm text-gray-400 mb-10">Без обязательств работать с нами</p>
+            <p className="text-sm text-gray-400 mb-10">
+              Без обязательств работать с нами
+            </p>
 
             <div className="flex items-center gap-4">
               <div className="flex items-center -space-x-2">
                 <div className="w-10 h-10 rounded-full border-2 border-[#fafafa] overflow-hidden">
-                  <Image src="/victoria-drapes.png" alt="Виктория" width={40} height={40} className="object-cover w-full h-full" />
+                  <Image
+                    src="/victoria-drapes.png"
+                    alt="Виктория"
+                    width={40}
+                    height={40}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
                 <div className="w-10 h-10 rounded-full bg-white border-2 border-[#fafafa] overflow-hidden flex items-center justify-center z-10">
-                  <Image src="/logo_nejbalonky.webp" alt="NejBalonky" width={36} height={36} className="object-contain" />
+                  <Image
+                    src="/logo_nejbalonky.webp"
+                    alt="NejBalonky"
+                    width={36}
+                    height={36}
+                    className="object-contain"
+                  />
                 </div>
                 <div className="w-10 h-10 rounded-full border-2 border-[#fafafa] overflow-hidden">
-                  <Image src="/alex-grooming.png" alt="Алексей" width={40} height={40} className="object-cover w-full h-full" />
+                  <Image
+                    src="/alex-grooming.png"
+                    alt="Алексей"
+                    width={40}
+                    height={40}
+                    className="object-cover w-full h-full"
+                  />
                 </div>
               </div>
               <p className="text-sm text-gray-500 font-medium">
-                <span className="font-bold text-gray-900">90+</span> аудитов рекламы и сайтов для бизнеса в Чехии
+                <span className="font-bold text-gray-900">90+</span> аудитов
+                рекламы и сайтов для бизнеса в Чехии
               </p>
             </div>
           </div>
@@ -335,13 +411,18 @@ export default function LPV2Client() {
                 <span className="inline-block px-3 py-1 bg-green-50 text-green-800 text-xs font-bold rounded-md tracking-wider uppercase mb-3">
                   Бесплатный аудит
                 </span>
-                <h3 className="text-2xl font-bold mb-1">Оставьте контакты для разбора</h3>
-                <p className="text-sm text-gray-500">Проверим рекламу, сайт и аналитику</p>
+                <h3 className="text-2xl font-bold mb-1">
+                  Оставьте контакты для разбора
+                </h3>
+                <p className="text-sm text-gray-500">
+                  Проверим рекламу, сайт и аналитику
+                </p>
               </div>
 
               {submitSuccess && (
                 <div className="mt-5 rounded-lg border border-green-300 bg-green-50 p-4 text-sm font-medium text-green-800">
-                  Заявка отправлена. Перезвоним в течение 20 минут в рабочее время.
+                  Заявка отправлена. Перезвоним в течение 20 минут в рабочее
+                  время.
                 </div>
               )}
               {submitError && (
@@ -361,7 +442,9 @@ export default function LPV2Client() {
                       className={fieldClass}
                       placeholder="Ваше имя"
                       value={values.name}
-                      onChange={(e) => setValues((p) => ({ ...p, name: e.target.value }))}
+                      onChange={(e) =>
+                        setValues((p) => ({ ...p, name: e.target.value }))
+                      }
                     />
                     {errors.name && <p className={errorClass}>{errors.name}</p>}
                   </div>
@@ -375,7 +458,10 @@ export default function LPV2Client() {
                       placeholder="https://... или @ваш_профиль"
                       value={values.websiteOrProfile}
                       onChange={(e) =>
-                        setValues((p) => ({ ...p, websiteOrProfile: e.target.value }))
+                        setValues((p) => ({
+                          ...p,
+                          websiteOrProfile: e.target.value,
+                        }))
                       }
                     />
                     {errors.websiteOrProfile && (
@@ -392,9 +478,13 @@ export default function LPV2Client() {
                       className={fieldClass}
                       placeholder="777 777 777"
                       value={values.phone}
-                      onChange={(e) => setValues((p) => ({ ...p, phone: e.target.value }))}
+                      onChange={(e) =>
+                        setValues((p) => ({ ...p, phone: e.target.value }))
+                      }
                     />
-                    {errors.phone && <p className={errorClass}>{errors.phone}</p>}
+                    {errors.phone && (
+                      <p className={errorClass}>{errors.phone}</p>
+                    )}
                   </div>
                   <div className="flex items-start gap-3 pt-2">
                     <div className="flex items-center h-5">
@@ -402,16 +492,22 @@ export default function LPV2Client() {
                         type="checkbox"
                         checked={values.consent}
                         onChange={(e) =>
-                          setValues((p) => ({ ...p, consent: e.target.checked }))
+                          setValues((p) => ({
+                            ...p,
+                            consent: e.target.checked,
+                          }))
                         }
                         className="w-4 h-4 rounded border-gray-300 text-[#f43f5e] focus:ring-[#f43f5e] bg-[#fafafa]"
                       />
                     </div>
                     <label className="text-xs text-gray-500 leading-snug">
-                      Согласен(а) на обработку данных. Мы используем контакт только для ответа по разбору.
+                      Согласен(а) на обработку данных. Мы используем контакт
+                      только для ответа по разбору.
                     </label>
                   </div>
-                  {errors.consent && <p className={errorClass}>{errors.consent}</p>}
+                  {errors.consent && (
+                    <p className={errorClass}>{errors.consent}</p>
+                  )}
 
                   <button
                     type="submit"
@@ -419,8 +515,12 @@ export default function LPV2Client() {
                     className="group w-full py-4 bg-gray-900 text-white font-bold rounded-xl transition-all hover:opacity-90 flex items-center justify-center gap-2 mt-2 disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <span className="flex items-center justify-center gap-2">
-                      {isSubmitting ? "Отправляем..." : "Записаться на бесплатный разбор"}
-                      {!isSubmitting && <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />}
+                      {isSubmitting
+                        ? "Отправляем..."
+                        : "Записаться на бесплатный разбор"}
+                      {!isSubmitting && (
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      )}
                     </span>
                   </button>
                   <p className="text-center text-xs text-gray-400 mt-4">
@@ -448,7 +548,10 @@ export default function LPV2Client() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {testimonials.map((t) => (
-              <div key={t.author} className="bg-white p-8 rounded-2xl border border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] flex flex-col h-full">
+              <div
+                key={t.author}
+                className="bg-white p-8 rounded-2xl border border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] flex flex-col h-full"
+              >
                 {/* Stars */}
                 <div className="flex gap-1 text-yellow-400 mb-4">
                   {[1, 2, 3, 4, 5].map((s) => (
@@ -481,7 +584,8 @@ export default function LPV2Client() {
       <section className="mb-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Что обычно находим на <span className="text-[#f43f5e]">первом разборе</span>
+            Что обычно находим на{" "}
+            <span className="text-[#f43f5e]">первом разборе</span>
           </h2>
           <p className="text-gray-500 mb-8">Самые частые проблемы:</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -512,7 +616,8 @@ export default function LPV2Client() {
             </h2>
             <div className="border-l-2 border-[#f43f5e] pl-4">
               <p className="text-gray-500">
-                Примеры проектов, где важен результат — заявки, продажи и окупаемость рекламы.
+                Примеры проектов, где важен результат — заявки, продажи и
+                окупаемость рекламы.
               </p>
             </div>
           </div>
@@ -521,17 +626,25 @@ export default function LPV2Client() {
             {caseStudies.map((cs, idx) => (
               <article
                 key={cs.business}
-                className={`bg-white rounded-2xl border ${idx === 0 ? 'border-[#f43f5e]/30 shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)]' : 'border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]'} overflow-hidden`}
+                className={`bg-white rounded-2xl border ${idx === 0 ? "border-[#f43f5e]/30 shadow-[0_8px_30px_-4px_rgba(244,63,94,0.12)]" : "border-gray-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]"} overflow-hidden`}
               >
                 {/* Card header */}
-                <div className={`px-8 py-5 border-b ${idx === 0 ? 'bg-gradient-to-r from-[#f43f5e]/[0.04] to-transparent border-[#f43f5e]/10' : 'bg-gray-50/80 border-gray-100'}`}>
+                <div
+                  className={`px-8 py-5 border-b ${idx === 0 ? "bg-gradient-to-r from-[#f43f5e]/[0.04] to-transparent border-[#f43f5e]/10" : "bg-gray-50/80 border-gray-100"}`}
+                >
                   <div className="flex items-center gap-3">
-                    <span className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${idx === 0 ? 'bg-[#f43f5e] text-white' : 'bg-gray-900 text-white'}`}>
+                    <span
+                      className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm ${idx === 0 ? "bg-[#f43f5e] text-white" : "bg-gray-900 text-white"}`}
+                    >
                       0{idx + 1}
                     </span>
                     <div>
-                      <h3 className="text-lg font-bold leading-tight">{cs.business}</h3>
-                      <p className="text-xs text-gray-500 mt-0.5">{cs.context}</p>
+                      <h3 className="text-lg font-bold leading-tight">
+                        {cs.business}
+                      </h3>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {cs.context}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -540,7 +653,9 @@ export default function LPV2Client() {
                   {/* Left: Content */}
                   <div className="p-8 md:w-2/3 border-b md:border-b-0 md:border-r border-gray-100">
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Ситуация</h4>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
+                        Ситуация
+                      </h4>
                       <p className="text-sm text-gray-700 leading-relaxed">
                         {cs.situation}
                       </p>
@@ -549,7 +664,9 @@ export default function LPV2Client() {
                     <div className="h-px bg-gray-100 mb-6"></div>
 
                     <div className="mb-6">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">Что сделали</h4>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+                        Что сделали
+                      </h4>
                       <ul className="space-y-2.5 text-sm text-gray-900">
                         {cs.changes.map((c) => (
                           <li key={c} className="flex items-start gap-2.5">
@@ -565,7 +682,9 @@ export default function LPV2Client() {
                     <div className="h-px bg-gray-100 mb-6"></div>
 
                     <div className="border-l-3 border-green-500 pl-4 py-1 bg-green-50/50 rounded-r-lg">
-                      <h4 className="text-xs font-bold uppercase tracking-wider text-green-700 mb-1.5">Результат</h4>
+                      <h4 className="text-xs font-bold uppercase tracking-wider text-green-700 mb-1.5">
+                        Результат
+                      </h4>
                       <p className="text-sm text-gray-900 leading-relaxed font-medium">
                         {cs.resultText}
                       </p>
@@ -575,9 +694,14 @@ export default function LPV2Client() {
                   {/* Right: Metrics */}
                   <div className="p-8 md:w-1/3 bg-gray-50 flex flex-col justify-center space-y-0">
                     {cs.results.map((r, rIdx) => (
-                      <div key={r.label} className={`${rIdx > 0 ? 'border-t border-gray-200 pt-5 mt-5' : ''}`}>
+                      <div
+                        key={r.label}
+                        className={`${rIdx > 0 ? "border-t border-gray-200 pt-5 mt-5" : ""}`}
+                      >
                         <div className="flex justify-between items-center mb-2">
-                          <span className="text-xs text-gray-500 uppercase tracking-wide">{r.label}</span>
+                          <span className="text-xs text-gray-500 uppercase tracking-wide">
+                            {r.label}
+                          </span>
                           {r.delta && (
                             <span className="px-2.5 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">
                               {r.delta}
@@ -586,12 +710,18 @@ export default function LPV2Client() {
                         </div>
                         {r.before ? (
                           <div className="flex items-baseline gap-2">
-                            <span className="text-sm text-gray-400 line-through">{r.before}</span>
+                            <span className="text-sm text-gray-400 line-through">
+                              {r.before}
+                            </span>
                             <ArrowRight className="h-3 w-3 text-gray-400" />
-                            <span className="text-2xl font-bold text-gray-900">{r.value}</span>
+                            <span className="text-2xl font-bold text-gray-900">
+                              {r.value}
+                            </span>
                           </div>
                         ) : (
-                          <span className="text-2xl font-bold text-gray-900">{r.value}</span>
+                          <span className="text-2xl font-bold text-gray-900">
+                            {r.value}
+                          </span>
                         )}
                       </div>
                     ))}
@@ -600,7 +730,9 @@ export default function LPV2Client() {
               </article>
             ))}
           </div>
-          <p className="text-xs text-gray-400 text-center">Данные усреднены по проектам.</p>
+          <p className="text-xs text-gray-400 text-center">
+            Данные усреднены по проектам.
+          </p>
         </div>
       </section>
 
@@ -611,21 +743,29 @@ export default function LPV2Client() {
             <span className="inline-block px-3 py-1 bg-blue-50 text-blue-800 text-xs font-bold tracking-wider uppercase rounded mb-6">
               Гарантия прозрачности
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Без обязательств</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Без обязательств
+            </h2>
             <div className="border-l-2 border-gray-200 pl-6 space-y-4 mb-10">
               <p className="text-lg text-gray-900 leading-relaxed">
                 На звонке разбираем вашу ситуацию : где теряются деньги, что
-                мешает расти конверсии, что в трекинге даёт неправильную картину.
-                После — присылаем <strong>документ с приоритетами</strong>.
+                мешает расти конверсии, что в трекинге даёт неправильную
+                картину. После — присылаем{" "}
+                <strong>документ с приоритетами</strong>.
               </p>
               <p className="text-lg text-gray-900 leading-relaxed">
-                Хотите работать с нами дальше — хорошо. Не хотите — этот план остаётся
-                у вас и подходит для внедрения с любой командой или подрядчиком.
+                Хотите работать с нами дальше — хорошо. Не хотите — этот план
+                остаётся у вас и подходит для внедрения с любой командой или
+                подрядчиком.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn} shadow-md`}>
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className={`w-full sm:w-auto ${primaryBtn} shadow-md`}
+              >
                 Записаться бесплатно
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>
@@ -645,9 +785,7 @@ export default function LPV2Client() {
       {/* ── FAQ ── */}
       <section className="mb-32">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold mb-8">
-            Частые вопросы
-          </h2>
+          <h2 className="text-2xl font-bold mb-8">Частые вопросы</h2>
           <div className="space-y-4">
             {faqItems.map((item) => (
               <details
@@ -671,17 +809,20 @@ export default function LPV2Client() {
       <section className="mb-32">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-white rounded-2xl border border-gray-200 p-10 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
-            <h2 className="text-2xl font-bold mb-6">
-              Разбор подойдёт, если:
-            </h2>
+            <h2 className="text-2xl font-bold mb-6">Разбор подойдёт, если:</h2>
             <ul className="space-y-4">
               {[
                 "Вы уже запускаете рекламу",
                 "Хотите увеличить количество заявок",
                 "Готовы внедрять рекомендации",
               ].map((item) => (
-                <li key={item} className="flex items-center gap-3 text-gray-900">
-                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold shrink-0">✓</span>
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-gray-900"
+                >
+                  <span className="w-6 h-6 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-sm font-bold shrink-0">
+                    ✓
+                  </span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -701,16 +842,22 @@ export default function LPV2Client() {
               Финальный шаг
             </span>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
-              20 минут, чтобы понять,<br />
+              20 минут, чтобы понять,
+              <br />
               <span className="text-[#f43f5e]">где теряются заявки</span>
             </h2>
             <p className="text-lg text-gray-500 max-w-2xl mx-auto mb-10">
-              Бесплатный разбор рекламы, лендинга и трекинга. <br className="hidden sm:block" />
+              Бесплатный разбор рекламы, лендинга и трекинга.{" "}
+              <br className="hidden sm:block" />
               PDF с приоритетами после звонка. Без обязательств.
             </p>
 
             <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-              <button type="button" onClick={scrollToForm} className={`w-full sm:w-auto ${primaryBtn} text-lg px-10`}>
+              <button
+                type="button"
+                onClick={scrollToForm}
+                className={`w-full sm:w-auto ${primaryBtn} text-lg px-10`}
+              >
                 Записаться бесплатно
                 <ArrowRight className="ml-2 h-4 w-4" />
               </button>

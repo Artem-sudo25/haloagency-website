@@ -1,4 +1,4 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { after, type NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
 export const runtime = "edge";
@@ -33,32 +33,42 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // --- 1. Email Notification to Admin (Primary) ---
     const resendApiKey = process.env.RESEND_API_KEY;
     const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
-    let emailPromise: Promise<unknown> = Promise.resolve(null);
+    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
+    const halotrackDomain = process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN;
 
-    if (resendApiKey && adminEmail) {
-      const resend = new Resend(resendApiKey);
-      const timestamp = new Date().toLocaleString("cs-CZ", {
-        timeZone: "Europe/Prague",
-      });
-      const leadHeadline =
-        type === "website-demo-v3"
-          ? "Новая заявка на демо сайта"
-          : typeof type === "string" && type.includes("plan")
-            ? "Новая заявка на разбор и план"
-            : typeof type === "string" && type.includes("audit")
-              ? "Новая заявка на разбор"
-              : type === "website"
-                ? "Новая заявка на сайт"
-                : "Новая заявка";
-      const websiteOrProfile =
-        formData.websiteOrProfile || formData.currentPresence || "—";
-      const phoneCell = phone ? `<a href="tel:${phone}">${phone}</a>` : "—";
-      const emailCell = email ? `<a href="mailto:${email}">${email}</a>` : "—";
+    after(async () => {
+      const tasks: Promise<unknown>[] = [];
 
-      const emailContent = `
+      // --- 1. Email Notification to Admin (Primary) ---
+      if (resendApiKey && adminEmail) {
+        tasks.push(
+          (async () => {
+            const resend = new Resend(resendApiKey);
+            const timestamp = new Date().toLocaleString("cs-CZ", {
+              timeZone: "Europe/Prague",
+            });
+            const leadHeadline =
+              type === "website-demo-v3"
+                ? "Новая заявка на демо сайта"
+                : typeof type === "string" && type.includes("plan")
+                  ? "Новая заявка на разбор и план"
+                  : typeof type === "string" && type.includes("audit")
+                    ? "Новая заявка на разбор"
+                    : type === "website"
+                      ? "Новая заявка на сайт"
+                      : "Новая заявка";
+            const websiteOrProfile =
+              formData.websiteOrProfile || formData.currentPresence || "—";
+            const phoneCell = phone
+              ? `<a href="tel:${phone}">${phone}</a>`
+              : "—";
+            const emailCell = email
+              ? `<a href="mailto:${email}">${email}</a>`
+              : "—";
+
+            const emailContent = `
                 <h1>📞 ${leadHeadline}</h1>
                 <table style="border-collapse:collapse;width:100%;max-width:500px;">
                     <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Имя</td><td style="padding:8px;border-bottom:1px solid #eee;">${name || "—"}</td></tr>
@@ -71,132 +81,129 @@ export async function POST(req: NextRequest) {
                 </table>
             `;
 
-      const subjectLabel = name
-        ? `${name} (${phone || email || "без контакта"})`
-        : phone || email || "без контакта";
+            const subjectLabel = name
+              ? `${name} (${phone || email || "без контакта"})`
+              : phone || email || "без контакта";
 
-      emailPromise = resend.emails
-        .send({
-          from: "HaloAgency Lead <leads@haloagency.cz>",
-          to: adminEmail,
-          subject: `📞 ${leadHeadline}: ${subjectLabel}`,
-          html: emailContent,
-        })
-        .then(({ data, error }) => {
-          if (error) {
-            console.error("Email notification failed (API Error):", error);
-            return null;
-          }
-          console.log("Email notification sent:", data?.id);
-          return data;
-        })
-        .catch((err) => {
-          console.error("Email notification failed (Network Error):", err);
-          return null;
-        });
-    } else {
-      console.error(
-        "RESEND_API_KEY or ADMIN_NOTIFICATION_EMAIL is not defined",
-      );
-    }
+            const { data, error } = await resend.emails.send({
+              from: "HaloAgency Lead <leads@haloagency.cz>",
+              to: adminEmail,
+              subject: `📞 ${leadHeadline}: ${subjectLabel}`,
+              html: emailContent,
+            });
 
-    // --- 2. Send to n8n (Optional Automation) ---
-    let n8nPromise = Promise.resolve(
-      new Response(JSON.stringify({ skipped: true }), { status: 200 }),
-    );
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
+            if (error) {
+              console.error("Email notification failed (API Error):", error);
+              return;
+            }
 
-    if (n8nWebhookUrl) {
-      const payload = {
-        ...body,
-        timestamp: new Date().toISOString(),
-        source: normalizedSource,
-      };
+            console.log("Email notification sent:", data?.id);
+          })().catch((err) => {
+            console.error("Email notification failed (Network Error):", err);
+          }),
+        );
+      } else {
+        console.error(
+          "RESEND_API_KEY or ADMIN_NOTIFICATION_EMAIL is not defined",
+        );
+      }
 
-      n8nPromise = fetch(n8nWebhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-    }
+      // --- 2. Send to n8n (Optional Automation) ---
+      if (n8nWebhookUrl) {
+        tasks.push(
+          (async () => {
+            const payload = {
+              ...body,
+              timestamp: new Date().toISOString(),
+              source: normalizedSource,
+            };
 
-    // --- 3. Send to HaloTrack (Attribution / Dashboard) ---
-    const halotrackDomain = process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN;
-    let halotrackPromise: Promise<Response | null> = Promise.resolve(null);
+            const n8nResponse = await fetch(n8nWebhookUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
+            });
 
-    if (halotrackDomain) {
-      const {
-        type,
-        email,
-        contact,
-        name,
-        phone,
-        message,
-        session_id,
-        consent_given,
-        lead_id,
-        source,
-        value,
-        currency,
-        ...extras
-      } = body;
+            if (!n8nResponse.ok) {
+              const errorText = await n8nResponse
+                .text()
+                .catch(() => "No error details");
+              console.error(
+                `n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`,
+                errorText,
+              );
+            }
+          })().catch((err) => {
+            console.error("n8n webhook error:", err);
+          }),
+        );
+      }
 
-      const halotrackPayload = {
-        lead_id: lead_id || crypto.randomUUID(),
-        source: source || normalizedSource,
-        form_type: type,
-        email: email || contact || "",
-        name: name || "",
-        phone: phone || "",
-        message: message || JSON.stringify(extras),
-        session_id: session_id,
-        consent_given: consent_given ?? true,
-        lead_value: Number.isFinite(Number(value)) ? Number(value) : 0,
-        currency: typeof currency === "string" && currency ? currency : "CZK",
-        custom_fields: extras,
-      };
+      // --- 3. Send to HaloTrack (Attribution / Dashboard) ---
+      if (halotrackDomain) {
+        tasks.push(
+          (async () => {
+            const {
+              type,
+              email,
+              contact,
+              name,
+              phone,
+              message,
+              session_id,
+              consent_given,
+              lead_id,
+              source,
+              value,
+              currency,
+              ...extras
+            } = body;
 
-      const protocol = halotrackDomain.startsWith("localhost")
-        ? "http"
-        : "https";
-      halotrackPromise = fetch(
-        `${protocol}://${halotrackDomain}/api/webhook/lead`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Webhook-Secret": process.env.HALOTRACK_WEBHOOK_SECRET || "",
-          },
-          body: JSON.stringify(halotrackPayload),
-        },
-      )
-        .then((res) => {
-          if (!res.ok) console.error(`HaloTrack push failed: ${res.status}`);
-          return res;
-        })
-        .catch((err) => {
-          console.error("HaloTrack push error:", err);
-          return null;
-        });
-    }
+            const halotrackPayload = {
+              lead_id: lead_id || crypto.randomUUID(),
+              source: source || normalizedSource,
+              form_type: type,
+              email: email || contact || "",
+              name: name || "",
+              phone: phone || "",
+              message: message || JSON.stringify(extras),
+              session_id: session_id,
+              consent_given: consent_given ?? true,
+              lead_value: Number.isFinite(Number(value)) ? Number(value) : 0,
+              currency:
+                typeof currency === "string" && currency ? currency : "CZK",
+              custom_fields: extras,
+            };
 
-    // Await all services
-    const [_emailResult, n8nResponse] = await Promise.all([
-      emailPromise,
-      n8nPromise,
-      halotrackPromise,
-    ]);
+            const protocol = halotrackDomain.startsWith("localhost")
+              ? "http"
+              : "https";
+            const halotrackResponse = await fetch(
+              `${protocol}://${halotrackDomain}/api/webhook/lead`,
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "X-Webhook-Secret":
+                    process.env.HALOTRACK_WEBHOOK_SECRET || "",
+                },
+                body: JSON.stringify(halotrackPayload),
+              },
+            );
 
-    // Log n8n failure but don't block the response (email is primary)
-    if (n8nWebhookUrl && !n8nResponse.ok) {
-      const errorText = await n8nResponse
-        .text()
-        .catch(() => "No error details");
-      console.error(
-        `n8n webhook failed: ${n8nResponse.status} ${n8nResponse.statusText}`,
-        errorText,
-      );
-    }
+            if (!halotrackResponse.ok) {
+              console.error(
+                `HaloTrack push failed: ${halotrackResponse.status}`,
+              );
+            }
+          })().catch((err) => {
+            console.error("HaloTrack push error:", err);
+          }),
+        );
+      }
+
+      await Promise.allSettled(tasks);
+    });
 
     return NextResponse.json({ success: true, message: "Lead processed" });
   } catch (error) {
