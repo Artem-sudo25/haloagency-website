@@ -5,7 +5,7 @@ import { Link } from "@/i18n/routing";
 const stepIcons = [Search, Settings, BarChart3, Rocket, LineChart];
 
 export default async function Process() {
-  const t = await getTranslations({ namespace: "process" });
+  const t = await getTranslations("process");
 
   const steps = Array.from({ length: 5 }, (_, i) => ({
     number: String(i + 1),

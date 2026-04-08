@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
+import WebProcess from "@/components/sections/WebProcess";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbJsonLd,
@@ -90,7 +91,7 @@ export default async function WebPage({
         ]}
       />
       <ScopedNextIntlProvider namespaces={["breadcrumbs", "webPage"]}>
-        <WebPageClient />
+        <WebPageClient processSection={<WebProcess />} />
       </ScopedNextIntlProvider>
     </>
   );

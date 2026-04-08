@@ -376,7 +376,7 @@ export default function CaseStudyLayout({
                     </div>
                   )}
                 </div>
-              ) : (
+              ) : analyticsImage ? (
                 <div className="p-4 md:p-8 lg:p-12 relative">
                   {/* Browser Window Container */}
                   <div className="relative rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] bg-white">
@@ -403,7 +403,7 @@ export default function CaseStudyLayout({
                     </div>
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           )}
         </div>

@@ -9,7 +9,7 @@ const quickRoutes = [
 ];
 
 export default async function Hero() {
-  const t = await getTranslations({ namespace: "hero" });
+  const t = await getTranslations("hero");
 
   return (
     <section className="relative flex min-h-[100svh] px-5 pb-6 pt-24 md:min-h-0 md:px-6 md:pb-10 md:pt-28">

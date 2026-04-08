@@ -54,7 +54,7 @@ const serviceConfigs = [
 ];
 
 export default async function Services() {
-  const t = await getTranslations({ namespace: "services" });
+  const t = await getTranslations("services");
 
   return (
     <section id="services" className="bg-white px-5 py-12 md:px-6 md:py-24">

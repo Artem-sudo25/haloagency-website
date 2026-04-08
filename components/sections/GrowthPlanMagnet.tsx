@@ -4,7 +4,7 @@ import { Link } from "@/i18n/routing";
 import GrowthPlanMagnetFormLazy from "./GrowthPlanMagnetFormLazy";
 
 export default async function GrowthPlanMagnet() {
-  const t = await getTranslations({ namespace: "growthPlanMagnet" });
+  const t = await getTranslations("growthPlanMagnet");
 
   return (
     <section

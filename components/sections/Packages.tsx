@@ -56,7 +56,7 @@ const whyIcons = [Layers, Users, Zap];
 const processIcons = [MessageSquare, ClipboardList, Rocket];
 
 export default async function Packages() {
-  const t = await getTranslations({ namespace: "packages" });
+  const t = await getTranslations("packages");
 
   return (
     <div className="flex flex-col">

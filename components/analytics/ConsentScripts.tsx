@@ -11,17 +11,16 @@ declare global {
     __haloMetaPixelInitialized?: boolean;
     _fbq?: MetaPixel;
     _uxa?: Array<[command: "trackPageview", url: string]>;
-    fbq?: MetaPixel;
   }
 }
 
 type IdleHandle = number;
-type MetaPixel = {
-  (...args: unknown[]): void;
-  callMethod?: (...args: unknown[]) => void;
+type MetaPixelArgs = Parameters<NonNullable<Window["fbq"]>>;
+type MetaPixel = NonNullable<Window["fbq"]> & {
+  callMethod?: (...args: MetaPixelArgs) => void;
   loaded?: boolean;
-  push: (...args: unknown[]) => void;
-  queue: unknown[][];
+  push: (...args: MetaPixelArgs) => void;
+  queue: MetaPixelArgs[];
   version?: string;
 };
 
@@ -132,7 +131,7 @@ function ConsentScriptsInner() {
     }
 
     if (typeof window.fbq !== "function") {
-      const metaPixel = ((...args: unknown[]) => {
+      const metaPixel = ((...args: MetaPixelArgs) => {
         if (typeof metaPixel.callMethod === "function") {
           metaPixel.callMethod(...args);
           return;

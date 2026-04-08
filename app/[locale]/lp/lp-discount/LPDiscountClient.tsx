@@ -388,8 +388,10 @@ export default function LPDiscountClient({
       }
 
       if (typeof window !== "undefined") {
-        if (typeof marketingWindow.fbq === "function") {
-          marketingWindow.fbq(
+        const browserWindow = window as MarketingWindow;
+
+        if (typeof browserWindow.fbq === "function") {
+          browserWindow.fbq(
             "track",
             "Lead",
             {
@@ -401,8 +403,8 @@ export default function LPDiscountClient({
           );
         }
 
-        marketingWindow.dataLayer = marketingWindow.dataLayer || [];
-        marketingWindow.dataLayer.push({
+        browserWindow.dataLayer = browserWindow.dataLayer || [];
+        browserWindow.dataLayer.push({
           event: "generate_lead_lp_discount",
           eventID: leadId,
           user_data: {

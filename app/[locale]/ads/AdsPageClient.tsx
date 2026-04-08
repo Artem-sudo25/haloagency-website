@@ -2,7 +2,6 @@
 
 import {
   ArrowRight,
-  BarChart3,
   Check,
   ExternalLink,
   Layers,
@@ -13,13 +12,17 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
+import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
-import AdsProcess from "@/components/sections/AdsProcess";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
-export default function AdsPageClient() {
+type AdsPageClientProps = {
+  processSection: ReactNode;
+};
+
+export default function AdsPageClient({ processSection }: AdsPageClientProps) {
   const t = useTranslations("adsPage");
   const tc = useTranslations("common");
   const tb = useTranslations("breadcrumbs");
@@ -180,7 +183,6 @@ export default function AdsPageClient() {
                   {tc("cta.discussAds")}
                 </Link>
               </Button>
-
             </div>
 
             <div className="grid gap-4">
@@ -413,7 +415,7 @@ export default function AdsPageClient() {
           </div>
         </section>
 
-        <AdsProcess />
+        {processSection}
 
         <section className="px-4 py-16 md:py-24">
           <div className="container mx-auto max-w-5xl">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
+import AdsProcess from "@/components/sections/AdsProcess";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbJsonLd,
@@ -95,7 +96,7 @@ export default async function AdsPage({
         ]}
       />
       <ScopedNextIntlProvider namespaces={["adsPage", "breadcrumbs", "common"]}>
-        <AdsPageClient />
+        <AdsPageClient processSection={<AdsProcess />} />
       </ScopedNextIntlProvider>
     </>
   );

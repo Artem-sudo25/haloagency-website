@@ -12,7 +12,7 @@ type ProjectsProps = {
 };
 
 export default async function Projects({ locale }: ProjectsProps) {
-  const t = await getTranslations({ namespace: "projects" });
+  const t = await getTranslations("projects");
   const featuredProjects = getCaseStudyCards(locale).filter(
     (project) => project.featuredOnHome,
   );

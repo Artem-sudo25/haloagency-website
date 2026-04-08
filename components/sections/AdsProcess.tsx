@@ -3,7 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { CSSScrollAnimation } from "@/components/ui/css-scroll-animation";
 
 export default async function AdsProcess() {
-  const t = await getTranslations({ namespace: "adsProcess" });
+  const t = await getTranslations("adsProcess");
 
   return (
     <section className="py-16 md:py-24 bg-white border-y-2 border-[#1A1A1A] relative overflow-hidden">

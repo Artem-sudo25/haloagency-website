@@ -12,26 +12,45 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import type { ReactNode } from "react";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
-import WebProcess from "@/components/sections/WebProcess";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
+
+type WebPageClientProps = {
+  processSection: ReactNode;
+};
 
 const siteTypeIcons = [Rocket, Layout, ShoppingCart];
 const siteTypeAccents = ["bg-[#FFD166]", "bg-[#06D6A0]", "bg-[#B19CD9]"];
-const siteTypeHrefs = ["/web/landing-pages", "/web/business-websites", "/web/ecommerce"] as const;
+const siteTypeHrefs = [
+  "/web/landing-pages",
+  "/web/business-websites",
+  "/web/ecommerce",
+] as const;
 
 const quickLinkIcons = [Rocket, Globe, ShoppingCart];
-const quickLinkHrefs = ["/web/landing-pages", "/web/business-websites", "/web/ecommerce"] as const;
+const quickLinkHrefs = [
+  "/web/landing-pages",
+  "/web/business-websites",
+  "/web/ecommerce",
+] as const;
 
 const proofTitles = ["Nejbalonky.cz", "ProPradlo.cz", "DoggyStyle"];
-const proofHrefs = ["/case-studies/nejablonky", "/case-studies/propradlo", "/case-studies/doggy-salon"] as const;
+const proofHrefs = [
+  "/case-studies/nejablonky",
+  "/case-studies/propradlo",
+  "/case-studies/doggy-salon",
+] as const;
 
-export default function WebPageClient() {
+export default function WebPageClient({ processSection }: WebPageClientProps) {
   const t = useTranslations("webPage");
   const tb = useTranslations("breadcrumbs");
 
-  const breadcrumbItems = [{ label: tb("home"), href: "/" }, { label: tb("web") }];
+  const breadcrumbItems = [
+    { label: tb("home"), href: "/" },
+    { label: tb("web") },
+  ];
 
   return (
     <main className="min-h-screen bg-[#F5F5F7] pt-20">
@@ -104,13 +123,22 @@ export default function WebPageClient() {
               </div>
 
               <div className="mt-8 flex flex-wrap gap-4 text-sm font-medium text-[#1A1A1A]/55">
-                <Link href="#site-types" className="transition-colors hover:text-[#FF3366]">
+                <Link
+                  href="#site-types"
+                  className="transition-colors hover:text-[#FF3366]"
+                >
                   {t("anchorTypes")}
                 </Link>
-                <Link href="#fit" className="transition-colors hover:text-[#FF3366]">
+                <Link
+                  href="#fit"
+                  className="transition-colors hover:text-[#FF3366]"
+                >
                   {t("anchorFit")}
                 </Link>
-                <Link href="#proof" className="transition-colors hover:text-[#FF3366]">
+                <Link
+                  href="#proof"
+                  className="transition-colors hover:text-[#FF3366]"
+                >
                   {t("anchorProof")}
                 </Link>
               </div>
@@ -306,7 +334,7 @@ export default function WebPageClient() {
           </div>
         </section>
 
-        <WebProcess />
+        {processSection}
 
         <section id="proof" className="px-4 py-16 md:py-24">
           <div className="container mx-auto max-w-6xl">
