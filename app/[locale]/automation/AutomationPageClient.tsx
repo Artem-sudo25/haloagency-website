@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import {
   ArrowRight,
   Bot,
@@ -16,12 +15,12 @@ import {
   XCircle,
   Zap,
 } from "lucide-react";
-import { Link } from "@/i18n/routing";
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
 import { useEffect } from "react";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 // Custom Python Icon
 function CodePython(props: ComponentProps<"svg">) {
@@ -125,22 +124,14 @@ export default function AutomationPage() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div className="text-left">
                 <Breadcrumbs items={breadcrumbItems} />
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] mb-8"
-                >
+                <div className="mb-8 inline-flex items-center gap-2 rounded-xl border-2 border-[#1A1A1A] bg-white px-4 py-2 shadow-[4px_4px_0px_0px_#1A1A1A]">
                   <Cpu className="w-4 h-4 text-[#FF3366]" />
                   <span className="text-sm font-bold text-[#1A1A1A] tracking-wide uppercase">
                     {t("hero.badge")}
                   </span>
-                </motion.div>
+                </div>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.1 }}
+                <h1
                   className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#1A1A1A] mb-6 leading-tight tracking-tight"
                   style={{ fontFamily: "var(--font-display)" }}
                 >
@@ -163,23 +154,13 @@ export default function AutomationPage() {
                       />
                     </svg>
                   </span>
-                </motion.h1>
+                </h1>
 
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-lg md:text-xl text-[#1A1A1A]/60 mb-10 max-w-xl leading-relaxed"
-                >
+                <p className="mb-10 max-w-xl text-lg leading-relaxed text-[#1A1A1A]/60 md:text-xl">
                   {t("hero.subtitle")}
-                </motion.p>
+                </p>
 
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="flex flex-col sm:flex-row gap-4 items-start sm:items-center"
-                >
+                <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                   <Button
                     asChild
                     size="lg"
@@ -201,16 +182,11 @@ export default function AutomationPage() {
                   >
                     {t("hero.heroSecondary")}
                   </Link>
-                </motion.div>
+                </div>
               </div>
 
               {/* Hero Graphic: Automation Workflow UI */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, delay: 0.2 }}
-                className="relative hidden lg:block"
-              >
+              <div className="relative hidden lg:block">
                 <div className="relative bg-white border-2 border-[#1A1A1A] rounded-3xl shadow-[8px_8px_0px_0px_#1A1A1A] p-6 overflow-hidden">
                   {/* Header */}
                   <div className="flex items-center justify-between pb-4 mb-6 border-b border-[#1A1A1A]/5">
@@ -240,11 +216,8 @@ export default function AutomationPage() {
                     <div className="absolute left-[27px] top-8 bottom-8 w-0.5 bg-[#1A1A1A]/10" />
 
                     {heroNodesConfig.map((node, i) => (
-                      <motion.div
+                      <div
                         key={t(`heroGraphic.nodes.${i}.title`)}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.5 + i * 0.2 }}
                         className="relative z-10 flex items-center gap-4 p-3 rounded-xl bg-[#F5F5F7] border-2 border-[#1A1A1A] hover:-translate-y-[1px] hover:-translate-x-[1px] hover:shadow-[4px_4px_0px_0px_#1A1A1A] transition-all"
                       >
                         <div className="w-14 h-14 rounded-full bg-[#FF3366]/10 flex items-center justify-center shrink-0">
@@ -263,19 +236,8 @@ export default function AutomationPage() {
                             {t(`heroGraphic.nodes.${i}.sub`)}
                           </span>
                         </div>
-                        <motion.div
-                          animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.5, 1, 0.5],
-                          }}
-                          transition={{
-                            duration: 2,
-                            repeat: Infinity,
-                            delay: i * 0.5,
-                          }}
-                          className="w-2 h-2 rounded-full bg-green-500/50"
-                        />
-                      </motion.div>
+                        <div className="w-2 h-2 rounded-full bg-green-500/50 animate-pulse" />
+                      </div>
                     ))}
                   </div>
 
@@ -305,7 +267,7 @@ export default function AutomationPage() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -335,7 +297,10 @@ export default function AutomationPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-[#1A1A1A]/70 font-medium tracking-tight">
                   {[0, 1, 2].map((i) => (
-                    <li key={i} className="flex gap-3">
+                    <li
+                      key={t(`introCards.whatHappens.${i}`)}
+                      className="flex gap-3"
+                    >
                       <span className="mt-1.5 h-2 w-2 rounded-full border border-[#1A1A1A] bg-red-400 shrink-0" />
                       <span>{t(`introCards.whatHappens.${i}`)}</span>
                     </li>
@@ -350,7 +315,10 @@ export default function AutomationPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-[#1A1A1A]/80 font-bold tracking-tight">
                   {[0, 1, 2].map((i) => (
-                    <li key={i} className="flex gap-3">
+                    <li
+                      key={t(`introCards.whatAutomationDoes.${i}`)}
+                      className="flex gap-3"
+                    >
                       <span className="mt-1.5 h-2 w-2 rounded-full border border-[#1A1A1A] bg-white shrink-0" />
                       <span>{t(`introCards.whatAutomationDoes.${i}`)}</span>
                     </li>
@@ -365,7 +333,10 @@ export default function AutomationPage() {
                 </div>
                 <ul className="space-y-3 text-sm text-[#1A1A1A]/80 font-bold tracking-tight">
                   {[0, 1, 2].map((i) => (
-                    <li key={i} className="flex gap-3">
+                    <li
+                      key={t(`introCards.businessBenefit.${i}`)}
+                      className="flex gap-3"
+                    >
                       <span className="mt-1.5 h-2 w-2 rounded-full border border-[#1A1A1A] bg-white shrink-0" />
                       <span>{t(`introCards.businessBenefit.${i}`)}</span>
                     </li>
@@ -407,12 +378,8 @@ export default function AutomationPage() {
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {techStackConfig.map((tech, i) => (
-                <motion.div
+                <div
                   key={tech.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
                   className={`group relative p-6 rounded-2xl ${tech.bg} border-2 border-[#1A1A1A] transition-all duration-300 overflow-hidden shadow-[6px_6px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[10px_10px_0px_0px_#1A1A1A]`}
                 >
                   <div className="relative z-10 flex flex-col items-center text-center">
@@ -429,7 +396,7 @@ export default function AutomationPage() {
                       {t(`techStack.${i}.helper`)}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>
@@ -482,16 +449,21 @@ export default function AutomationPage() {
                     <ul
                       className={`space-y-2 text-sm ${service.textColor ? "text-white/80" : "text-[#1A1A1A]/70"}`}
                     >
-                      {Array.from({ length: service.includedCount }).map((_, li) => (
-                        <li key={li} className="flex gap-2">
-                          <Check
-                            className={`w-4 h-4 ${service.textColor ? "text-white" : "text-[#FF3366]"} mt-0.5 shrink-0`}
-                          />
-                          <span className="leading-relaxed">
-                            {t(`services.${si}.included.${li}`)}
-                          </span>
-                        </li>
-                      ))}
+                      {Array.from({ length: service.includedCount }).map(
+                        (_, li) => (
+                          <li
+                            key={`${service.id}-${t(`services.${si}.included.${li}`)}`}
+                            className="flex gap-2"
+                          >
+                            <Check
+                              className={`w-4 h-4 ${service.textColor ? "text-white" : "text-[#FF3366]"} mt-0.5 shrink-0`}
+                            />
+                            <span className="leading-relaxed">
+                              {t(`services.${si}.included.${li}`)}
+                            </span>
+                          </li>
+                        ),
+                      )}
                     </ul>
                   </div>
 
@@ -515,7 +487,8 @@ export default function AutomationPage() {
                       className="w-full justify-between rounded-xl border-2 border-[#1A1A1A] bg-white text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-all px-4 font-bold shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-y-[2px] active:translate-x-[2px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
                     >
                       <Link href="/contact">
-                        {t("services.orderButton")} <ArrowRight className="w-4 h-4" />
+                        {t("services.orderButton")}{" "}
+                        <ArrowRight className="w-4 h-4" />
                       </Link>
                     </Button>
                   </div>
@@ -604,7 +577,7 @@ export default function AutomationPage() {
                 <div className="flex flex-wrap gap-3">
                   {[0, 1, 2, 3, 4].map((i) => (
                     <div
-                      key={i}
+                      key={t(`leadMagnet.commonAutomations.${i}.text`)}
                       className="group rounded-full border border-[#1A1A1A]/5 bg-[#F5F5F7] px-4 py-2 hover:border-[#FF3366]/30 hover:bg-[#FF3366]/5 transition-colors"
                       title={t(`leadMagnet.commonAutomations.${i}.note`)}
                     >
@@ -649,7 +622,10 @@ export default function AutomationPage() {
                     </div>
                     <ul className="mt-4 space-y-3 text-sm text-[#1A1A1A]/70">
                       {[0, 1, 2].map((i) => (
-                        <li key={i} className="flex gap-3">
+                        <li
+                          key={t(`leadMagnet.contactItems.${i}`)}
+                          className="flex gap-3"
+                        >
                           <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#FF3366]" />
                           <span>{t(`leadMagnet.contactItems.${i}`)}</span>
                         </li>
@@ -698,7 +674,7 @@ export default function AutomationPage() {
             <div className="space-y-4">
               {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
                 <details
-                  key={i}
+                  key={tf(`${i}.question`)}
                   className="group rounded-2xl bg-white border-2 border-[#1A1A1A] transition-all overflow-hidden shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A]"
                 >
                   <summary className="flex items-center justify-between p-5 cursor-pointer list-none border-b-2 border-transparent group-open:border-[#1A1A1A]">

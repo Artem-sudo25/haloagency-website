@@ -1,6 +1,4 @@
 "use client";
-
-import { motion } from "framer-motion";
 import {
   Apple,
   ArrowRight,
@@ -18,9 +16,9 @@ import {
   Zap,
 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import { getCaseStudyCards } from "@/lib/case-study-cards";
 
 const problemCardConfig = [
@@ -156,7 +154,9 @@ export default function TrackingPage() {
                     className="text-[#1A1A1A]/40 hover:text-[#FF3366] p-0 h-auto font-normal hover:bg-transparent"
                     asChild
                   >
-                    <Link href="#target-audience">{t("hero.quickLinks.forWhom")}</Link>
+                    <Link href="#target-audience">
+                      {t("hero.quickLinks.forWhom")}
+                    </Link>
                   </Button>
                   <Button
                     variant="ghost"
@@ -199,7 +199,9 @@ export default function TrackingPage() {
 
                   <div className="absolute top-1/2 right-12 -translate-y-1/2 w-24 h-24 bg-[#FF3366] rounded-xl border-2 border-[#1A1A1A] flex flex-col items-center justify-center z-10 shadow-[4px_4px_0px_0px_#1A1A1A]">
                     <Server className="w-8 h-8 text-white mb-2" />
-                    <span className="text-xs font-bold text-white">{t("heroGraphic.server")}</span>
+                    <span className="text-xs font-bold text-white">
+                      {t("heroGraphic.server")}
+                    </span>
                   </div>
 
                   <div className="absolute top-1/2 left-36 right-36 h-0.5 bg-[#1A1A1A]/10 -translate-y-1/2">
@@ -236,9 +238,7 @@ export default function TrackingPage() {
                     {t("whySection.title")}
                   </h2>
                   <div className="space-y-2 text-[#1A1A1A]/60 leading-relaxed">
-                    <p>
-                      {t("whySection.text")}
-                    </p>
+                    <p>{t("whySection.text")}</p>
                     <p className="text-[#FF3366] font-medium">
                       {t("whySection.solution")}
                     </p>
@@ -266,11 +266,8 @@ export default function TrackingPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {problemCardConfig.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                <div
+                  key={t(`problem.cards.${i}.title`)}
                   className={`group p-6 rounded-2xl ${item.bg} border-2 border-[#1A1A1A] transition-all duration-300 shadow-[6px_6px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[10px_10px_0px_0px_#1A1A1A]`}
                 >
                   <div className="w-12 h-12 rounded-xl border-2 border-[#1A1A1A] bg-white shadow-[2px_2px_0px_0px_#1A1A1A] flex items-center justify-center mb-4 group-hover:-translate-y-[2px] group-hover:-translate-x-[2px] group-hover:shadow-[4px_4px_0px_0px_#1A1A1A] transition-all">
@@ -279,8 +276,10 @@ export default function TrackingPage() {
                   <h3 className="text-lg font-bold text-[#1A1A1A] mb-2">
                     {t(`problem.cards.${i}.title`)}
                   </h3>
-                  <p className="text-sm text-[#1A1A1A]/60">{t(`problem.cards.${i}.desc`)}</p>
-                </motion.div>
+                  <p className="text-sm text-[#1A1A1A]/60">
+                    {t(`problem.cards.${i}.desc`)}
+                  </p>
+                </div>
               ))}
             </div>
 
@@ -308,7 +307,7 @@ export default function TrackingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {solutionCardConfig.map((item, i) => (
                 <div
-                  key={i}
+                  key={t(`solution.cards.${i}.title`)}
                   className="group p-6 rounded-2xl bg-white border-2 border-[#1A1A1A] transition-all duration-300 shadow-[6px_6px_0px_0px_#1A1A1A] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A]"
                 >
                   <div className="w-12 h-12 rounded-xl border-2 border-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] flex items-center justify-center mb-4 bg-white group-hover:-translate-y-[2px] group-hover:-translate-x-[2px] group-hover:shadow-[4px_4px_0px_0px_#1A1A1A] transition-all">
@@ -344,12 +343,8 @@ export default function TrackingPage() {
                 </div>
               </div>
               <div className="space-y-4 text-[#1A1A1A]/60 leading-relaxed">
-                <p>
-                  {t("serverSide.p1")}
-                </p>
-                <p>
-                  {t("serverSide.p2")}
-                </p>
+                <p>{t("serverSide.p1")}</p>
+                <p>{t("serverSide.p2")}</p>
                 <p className="text-[#1A1A1A]/80 font-medium">
                   {t("serverSide.p3")}
                 </p>
@@ -371,7 +366,7 @@ export default function TrackingPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {statBgColors.map((bg, i) => (
                 <div
-                  key={i}
+                  key={t(`results.stats.${i}.label`)}
                   className={`p-8 rounded-2xl ${bg} border-2 border-[#1A1A1A] shadow-[6px_6px_0px_0px_#1A1A1A] transition-all hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[10px_10px_0px_0px_#1A1A1A]`}
                 >
                   <p
@@ -380,7 +375,9 @@ export default function TrackingPage() {
                   >
                     {t(`results.stats.${i}.value`)}
                   </p>
-                  <p className="text-[#1A1A1A] font-bold">{t(`results.stats.${i}.label`)}</p>
+                  <p className="text-[#1A1A1A] font-bold">
+                    {t(`results.stats.${i}.label`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -406,13 +403,15 @@ export default function TrackingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {targetAudienceConfig.map((item, i) => (
                 <div
-                  key={i}
+                  key={t(`targetAudience.items.${i}`)}
                   className="flex items-center gap-4 p-5 rounded-2xl bg-white border-2 border-[#1A1A1A] transition-all shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A]"
                 >
                   <div className="w-10 h-10 rounded-xl bg-white border-2 border-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] flex items-center justify-center text-[#1A1A1A] flex-shrink-0">
                     <item.icon className="w-5 h-5" />
                   </div>
-                  <p className="text-[#1A1A1A]/70">{t(`targetAudience.items.${i}`)}</p>
+                  <p className="text-[#1A1A1A]/70">
+                    {t(`targetAudience.items.${i}`)}
+                  </p>
                 </div>
               ))}
             </div>
@@ -541,7 +540,7 @@ export default function TrackingPage() {
                 <div className="space-y-4">
                   {[0, 1, 2, 3].map((i) => (
                     <div
-                      key={i}
+                      key={t(`pricing.features.${i}`)}
                       className="flex items-center gap-3 text-[#1A1A1A]/70"
                     >
                       <Check className="w-5 h-5 text-[#FF3366]" />
@@ -572,7 +571,7 @@ export default function TrackingPage() {
             <div className="space-y-4">
               {Array.from({ length: FAQ_COUNT }, (_, i) => (
                 <details
-                  key={i}
+                  key={tf(`items.${i}.question`)}
                   className="group rounded-2xl bg-white border-2 border-[#1A1A1A] transition-all overflow-hidden shadow-[4px_4px_0px_0px_#1A1A1A] hover:-translate-y-[2px] hover:-translate-x-[2px] hover:shadow-[6px_6px_0px_0px_#1A1A1A]"
                 >
                   <summary className="flex items-center justify-between p-5 cursor-pointer list-none border-b-2 border-transparent group-open:border-[#1A1A1A]">

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import CaseStudyLayout from "@/components/case-studies/CaseStudyLayoutIntl";
 import { buildMetadata } from "@/lib/seo";
 
 const baseProps = {

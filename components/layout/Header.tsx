@@ -1,12 +1,11 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "@/i18n/routing";
 import { Button } from "@/components/ui/button";
 import { LocaleSwitcher } from "@/components/ui/LocaleSwitcher";
+import { Link } from "@/i18n/routing";
 
 type HeaderMode = "default" | "lp";
 type TrafficSource = "meta" | "google" | "other";
@@ -52,7 +51,10 @@ export default function Header({
           title: t("dropdown.ads.title"),
           items: [
             { name: t("dropdown.ads.items.ads"), href: "/ads" },
-            { name: t("dropdown.ads.items.googleAds"), href: "/ads/google-ads" },
+            {
+              name: t("dropdown.ads.items.googleAds"),
+              href: "/ads/google-ads",
+            },
             { name: t("dropdown.ads.items.metaAds"), href: "/ads/meta-ads" },
           ],
         },
@@ -60,16 +62,28 @@ export default function Header({
           title: t("dropdown.web.title"),
           items: [
             { name: t("dropdown.web.items.websites"), href: "/web" },
-            { name: t("dropdown.web.items.landingPages"), href: "/web/landing-pages" },
-            { name: t("dropdown.web.items.businessWebsites"), href: "/web/business-websites" },
+            {
+              name: t("dropdown.web.items.landingPages"),
+              href: "/web/landing-pages",
+            },
+            {
+              name: t("dropdown.web.items.businessWebsites"),
+              href: "/web/business-websites",
+            },
             { name: t("dropdown.web.items.ecommerce"), href: "/web/ecommerce" },
           ],
         },
         {
           title: t("dropdown.system.title"),
           items: [
-            { name: t("dropdown.system.items.analyticsAndData"), href: "/tracking" },
-            { name: t("dropdown.system.items.automation"), href: "/automation" },
+            {
+              name: t("dropdown.system.items.analyticsAndData"),
+              href: "/tracking",
+            },
+            {
+              name: t("dropdown.system.items.automation"),
+              href: "/automation",
+            },
           ],
         },
       ],
@@ -85,7 +99,7 @@ export default function Header({
     };
 
     handleScroll();
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -321,126 +335,122 @@ export default function Header({
       </header>
 
       {/* Mobile Menu */}
-      <AnimatePresence>
-        {mobileMenuOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 top-0 z-[9997] bg-black/20 backdrop-blur-sm md:hidden"
-              onClick={() => setMobileMenuOpen(false)}
-            />
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="fixed left-4 right-4 top-[84px] bottom-4 z-[9998] flex flex-col overflow-hidden rounded-[28px] border-2 border-[#1A1A1A] bg-white p-4 shadow-[6px_6px_0px_0px_#1A1A1A] md:hidden"
+      <div
+        className={`fixed inset-0 top-0 z-[9997] bg-black/20 backdrop-blur-sm transition-opacity duration-200 md:hidden ${
+          mobileMenuOpen
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+        aria-hidden={!mobileMenuOpen}
+      />
+      <div
+        className={`fixed left-4 right-4 top-[84px] bottom-4 z-[9998] flex flex-col overflow-hidden rounded-[28px] border-2 border-[#1A1A1A] bg-white p-4 shadow-[6px_6px_0px_0px_#1A1A1A] transition-all duration-200 md:hidden ${
+          mobileMenuOpen
+            ? "pointer-events-auto translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-2 opacity-0"
+        }`}
+        aria-hidden={!mobileMenuOpen}
+      >
+        <nav className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto overscroll-contain pr-1">
+          {navLinks.map((link) => (
+            <div
+              key={link.name}
+              className="rounded-2xl border border-[#1A1A1A]/10 bg-[#F5F5F7] px-4 py-3"
             >
-              <nav className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto overscroll-contain pr-1">
-                {navLinks.map((link) => (
-                  <div
-                    key={link.name}
-                    className="rounded-2xl border border-[#1A1A1A]/10 bg-[#F5F5F7] px-4 py-3"
-                  >
-                    {link.href && !link.dropdownSections ? (
-                      <Link
-                        href={link.href}
-                        className="block text-base font-bold text-[#1A1A1A]"
-                        onClick={() =>
-                          !link.dropdownSections && setMobileMenuOpen(false)
-                        }
-                      >
-                        {link.name}
-                      </Link>
-                    ) : (
-                      <button
-                        type="button"
-                        className="flex w-full items-center justify-between gap-3 text-left text-base font-bold text-[#1A1A1A]"
-                        onClick={() =>
-                          setMobileExpandedLink((current) =>
-                            current === link.name ? null : link.name,
-                          )
-                        }
-                        aria-expanded={mobileExpandedLink === link.name}
-                      >
-                        <span>{link.name}</span>
-                        <ChevronDown
-                          className={`h-5 w-5 flex-shrink-0 transition-transform ${
-                            mobileExpandedLink === link.name
-                              ? "rotate-180"
-                              : "rotate-0"
-                          }`}
-                        />
-                      </button>
-                    )}
-
-                    <AnimatePresence initial={false}>
-                      {link.dropdownSections &&
-                        mobileExpandedLink === link.name && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="overflow-hidden"
-                          >
-                            <div className="ml-1 mt-3 flex flex-col gap-3 border-l-2 border-[#FF3366]/20 pl-4">
-                              {link.dropdownSections.map((section) => (
-                                <div
-                                  key={section.title}
-                                  className="flex flex-col gap-1"
-                                >
-                                  <div className="pt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/40">
-                                    {section.title}
-                                  </div>
-                                  {section.items.map((item) => (
-                                    <Link
-                                      key={item.name}
-                                      href={item.href}
-                                      className="block py-1.5 text-sm font-semibold text-[#1A1A1A]/70 transition-colors hover:text-[#FF3366]"
-                                      onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                      {item.name}
-                                    </Link>
-                                  ))}
-                                </div>
-                              ))}
-                            </div>
-                          </motion.div>
-                        )}
-                    </AnimatePresence>
-                  </div>
-                ))}
-              </nav>
-
-              <div className="mt-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-[#1A1A1A] hover:text-white hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
+              {link.href && !link.dropdownSections ? (
+                <Link
+                  href={link.href}
+                  className="block text-base font-bold text-[#1A1A1A]"
+                  onClick={() =>
+                    !link.dropdownSections && setMobileMenuOpen(false)
+                  }
                 >
-                  <Link
-                    href="/contact"
-                    data-cta-track="true"
-                    data-cta-name={t("cta")}
-                    data-cta-location="header_mobile"
-                    data-cta-category="primary"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {t("cta")}
-                  </Link>
-                </Button>
+                  {link.name}
+                </Link>
+              ) : (
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-3 text-left text-base font-bold text-[#1A1A1A]"
+                  onClick={() =>
+                    setMobileExpandedLink((current) =>
+                      current === link.name ? null : link.name,
+                    )
+                  }
+                  aria-expanded={mobileExpandedLink === link.name}
+                >
+                  <span>{link.name}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 flex-shrink-0 transition-transform ${
+                      mobileExpandedLink === link.name
+                        ? "rotate-180"
+                        : "rotate-0"
+                    }`}
+                  />
+                </button>
+              )}
 
-                <div className="mt-4 flex justify-center pt-1">
-                  <LocaleSwitcher className="rounded-xl border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-sm font-extrabold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hover:bg-[#FFD166] hover:text-[#1A1A1A]" />
+              {link.dropdownSections && (
+                <div
+                  className={`grid overflow-hidden transition-all duration-200 ${
+                    mobileExpandedLink === link.name
+                      ? "mt-3 grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="min-h-0">
+                    <div className="ml-1 flex flex-col gap-3 border-l-2 border-[#FF3366]/20 pl-4">
+                      {link.dropdownSections.map((section) => (
+                        <div
+                          key={section.title}
+                          className="flex flex-col gap-1"
+                        >
+                          <div className="pt-1 text-[11px] font-bold uppercase tracking-[0.2em] text-[#1A1A1A]/40">
+                            {section.title}
+                          </div>
+                          {section.items.map((item) => (
+                            <Link
+                              key={item.name}
+                              href={item.href}
+                              className="block py-1.5 text-sm font-semibold text-[#1A1A1A]/70 transition-colors hover:text-[#FF3366]"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {item.name}
+                            </Link>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              )}
+            </div>
+          ))}
+        </nav>
+
+        <div className="mt-4">
+          <Button
+            asChild
+            size="lg"
+            className="w-full rounded-xl border-2 border-[#1A1A1A] bg-white font-bold text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transition-all hover:-translate-x-[2px] hover:-translate-y-[2px] hover:bg-[#1A1A1A] hover:text-white hover:shadow-[6px_6px_0px_0px_#1A1A1A] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_0px_#1A1A1A]"
+          >
+            <Link
+              href="/contact"
+              data-cta-track="true"
+              data-cta-name={t("cta")}
+              data-cta-location="header_mobile"
+              data-cta-category="primary"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              {t("cta")}
+            </Link>
+          </Button>
+
+          <div className="mt-4 flex justify-center pt-1">
+            <LocaleSwitcher className="rounded-xl border-2 border-[#1A1A1A] bg-white px-3 py-1.5 text-sm font-extrabold text-[#1A1A1A] shadow-[2px_2px_0px_0px_#1A1A1A] hover:bg-[#FFD166] hover:text-[#1A1A1A]" />
+          </div>
+        </div>
+      </div>
     </>
   );
 }

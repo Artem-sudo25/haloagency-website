@@ -1,7 +1,5 @@
-"use client";
-
 import { ArrowRight, BarChart3, Code2, Cog, Megaphone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 const serviceConfigs = [
@@ -55,8 +53,8 @@ const serviceConfigs = [
   },
 ];
 
-export default function Services() {
-  const t = useTranslations("services");
+export default async function Services() {
+  const t = await getTranslations({ namespace: "services" });
 
   return (
     <section id="services" className="bg-white px-5 py-12 md:px-6 md:py-24">

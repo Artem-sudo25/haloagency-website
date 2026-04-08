@@ -1,10 +1,11 @@
 import type { LucideIcon } from "lucide-react";
 import { Check, Globe, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import DemoForm from "@/components/sections/DemoForm";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 
 type InfoCard = {
   title: string;
@@ -374,10 +375,12 @@ export default function WebServicePage({
           </div>
         </section>
 
-        <DemoForm
-          source={`web_${badge.toLowerCase().replace(/\s+/g, "_")}`}
-          accentColor={accentColor}
-        />
+        <ScopedNextIntlProvider namespaces={["common", "demoForm"]}>
+          <DemoForm
+            source={`web_${badge.toLowerCase().replace(/\s+/g, "_")}`}
+            accentColor={accentColor}
+          />
+        </ScopedNextIntlProvider>
       </div>
     </main>
   );

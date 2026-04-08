@@ -1,16 +1,21 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
+import type { SeoFaqItem } from "@/lib/seo";
 import {
   breadcrumbJsonLd,
   buildMetadata,
   faqPageJsonLd,
   serviceJsonLd,
 } from "@/lib/seo";
-import type { SeoFaqItem } from "@/lib/seo";
 import AutomationPageClient from "./AutomationPageClient";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.automation" });
   return buildMetadata({
@@ -23,7 +28,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function AutomationPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function AutomationPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -67,7 +76,11 @@ export default async function AutomationPage({ params }: { params: Promise<{ loc
           faqPageJsonLd(faqItems),
         ]}
       />
-      <AutomationPageClient />
+      <ScopedNextIntlProvider
+        namespaces={["automationFaq", "automationPage", "breadcrumbs"]}
+      >
+        <AutomationPageClient />
+      </ScopedNextIntlProvider>
     </>
   );
 }

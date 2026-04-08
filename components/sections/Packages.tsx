@@ -1,5 +1,3 @@
-"use client";
-
 import {
   ArrowRight,
   Check,
@@ -12,21 +10,53 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 const packageConfigs = [
-  { key: "0" as const, href: "/packages/site", highlight: false, icon: Rocket, iconBg: "bg-[#06D6A0]", featuresCount: 6, relatedLinksHrefs: ["/web/landing-pages", "/web/business-websites"] },
-  { key: "1" as const, href: "/packages/leads", highlight: true, icon: Zap, iconBg: "bg-[#FF3366]", featuresCount: 5, relatedLinksHrefs: ["/ads/google-ads", "/ads/meta-ads", "/tracking"] },
-  { key: "2" as const, href: "/packages/ecommerce", highlight: false, icon: ShoppingCart, iconBg: "bg-[#FFD166]", featuresCount: 6, relatedLinksHrefs: ["/web/ecommerce", "/tracking", "/ads"] },
-  { key: "3" as const, href: "/contact", highlight: false, icon: Crown, iconBg: "bg-[#B19CD9]", featuresCount: 6, relatedLinksHrefs: ["/automation", "/tracking", "/contact"] },
+  {
+    key: "0" as const,
+    href: "/packages/site",
+    highlight: false,
+    icon: Rocket,
+    iconBg: "bg-[#06D6A0]",
+    featuresCount: 6,
+    relatedLinksHrefs: ["/web/landing-pages", "/web/business-websites"],
+  },
+  {
+    key: "1" as const,
+    href: "/packages/leads",
+    highlight: true,
+    icon: Zap,
+    iconBg: "bg-[#FF3366]",
+    featuresCount: 5,
+    relatedLinksHrefs: ["/ads/google-ads", "/ads/meta-ads", "/tracking"],
+  },
+  {
+    key: "2" as const,
+    href: "/packages/ecommerce",
+    highlight: false,
+    icon: ShoppingCart,
+    iconBg: "bg-[#FFD166]",
+    featuresCount: 6,
+    relatedLinksHrefs: ["/web/ecommerce", "/tracking", "/ads"],
+  },
+  {
+    key: "3" as const,
+    href: "/contact",
+    highlight: false,
+    icon: Crown,
+    iconBg: "bg-[#B19CD9]",
+    featuresCount: 6,
+    relatedLinksHrefs: ["/automation", "/tracking", "/contact"],
+  },
 ];
 
 const whyIcons = [Layers, Users, Zap];
 const processIcons = [MessageSquare, ClipboardList, Rocket];
 
-export default function Packages() {
-  const t = useTranslations("packages");
+export default async function Packages() {
+  const t = await getTranslations({ namespace: "packages" });
 
   return (
     <div className="flex flex-col">
@@ -112,7 +142,10 @@ export default function Packages() {
 
                 <ul className="flex flex-1 flex-col gap-3 text-sm">
                   {Array.from({ length: pkg.featuresCount }, (_, i) => (
-                    <li key={i} className="flex items-start gap-2">
+                    <li
+                      key={t(`items.${pkg.key}.features.${i}`)}
+                      className="flex items-start gap-2"
+                    >
                       <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF3366]" />
                       <span>{t(`items.${pkg.key}.features.${i}`)}</span>
                     </li>
@@ -173,7 +206,7 @@ export default function Packages() {
               const Icon = whyIcons[i];
               return (
                 <div
-                  key={i}
+                  key={t(`whyPackage.items.${i}.title`)}
                   className="rounded-3xl border-2 border-white/15 bg-white/5 p-8"
                 >
                   <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl border-2 border-white/20 bg-[#FF3366]">
@@ -213,7 +246,7 @@ export default function Packages() {
               const num = String(i + 1).padStart(2, "0");
               return (
                 <div
-                  key={i}
+                  key={t(`process.steps.${i}.title`)}
                   className="relative rounded-3xl border-2 border-[#1A1A1A] bg-white p-8 shadow-[8px_8px_0px_0px_#1A1A1A]"
                 >
                   <div className="mb-5 flex items-center gap-4">
@@ -300,7 +333,7 @@ export default function Packages() {
           <div className="space-y-6">
             {[0, 1, 2].map((i) => (
               <div
-                key={i}
+                key={t(`faq.items.${i}.question`)}
                 className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-8 shadow-[8px_8px_0px_0px_#1A1A1A]"
               >
                 <h3 className="mb-3 text-lg font-bold text-[#1A1A1A]">

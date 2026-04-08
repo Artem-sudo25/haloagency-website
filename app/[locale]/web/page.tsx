@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbJsonLd,
@@ -8,7 +9,11 @@ import {
 } from "@/lib/seo";
 import WebPageClient from "./WebPageClient";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.web" });
   const keywords =
@@ -47,7 +52,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function WebPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function WebPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tb = await getTranslations({ locale, namespace: "breadcrumbs" });
@@ -80,7 +89,9 @@ export default async function WebPage({ params }: { params: Promise<{ locale: st
           }),
         ]}
       />
-      <WebPageClient />
+      <ScopedNextIntlProvider namespaces={["breadcrumbs", "webPage"]}>
+        <WebPageClient />
+      </ScopedNextIntlProvider>
     </>
   );
 }

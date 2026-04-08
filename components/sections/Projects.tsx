@@ -1,14 +1,18 @@
-"use client";
-
 import { TrendingUp } from "lucide-react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
-import { getCaseStudyCards } from "@/lib/case-study-cards";
+import {
+  type CaseStudyLocale,
+  getCaseStudyCards,
+} from "@/lib/case-study-cards";
 
-export default function Projects() {
-  const locale = useLocale() as "ru" | "cs";
-  const t = useTranslations("projects");
+type ProjectsProps = {
+  locale: CaseStudyLocale;
+};
+
+export default async function Projects({ locale }: ProjectsProps) {
+  const t = await getTranslations({ namespace: "projects" });
   const featuredProjects = getCaseStudyCards(locale).filter(
     (project) => project.featuredOnHome,
   );

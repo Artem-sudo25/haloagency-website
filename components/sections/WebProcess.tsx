@@ -1,13 +1,11 @@
-"use client";
-
 import { Check, Terminal } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { CSSScrollAnimation } from "@/components/ui/css-scroll-animation";
 
 const stages = ["DISCOVERY", "DESIGN", "DEVELOPMENT", "TESTING", "LAUNCH"];
 
-export default function WebProcess() {
-  const t = useTranslations("webProcess");
+export default async function WebProcess() {
+  const t = await getTranslations({ namespace: "webProcess" });
 
   return (
     <section className="py-16 md:py-24 bg-white border-y-2 border-[#1A1A1A] relative overflow-hidden">

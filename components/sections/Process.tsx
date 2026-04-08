@@ -1,13 +1,11 @@
-"use client";
-
 import { BarChart3, LineChart, Rocket, Search, Settings } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 const stepIcons = [Search, Settings, BarChart3, Rocket, LineChart];
 
-export default function Process() {
-  const t = useTranslations("process");
+export default async function Process() {
+  const t = await getTranslations({ namespace: "process" });
 
   const steps = Array.from({ length: 5 }, (_, i) => ({
     number: String(i + 1),

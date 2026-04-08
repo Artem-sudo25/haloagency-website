@@ -1,13 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
 
-const stats = [
-  { end: 55, suffix: "+", key: "0" as const, highlight: false },
-  { end: 250, suffix: "%", key: "1" as const, highlight: true },
-  { end: 9, suffix: "+", key: "2" as const, highlight: false },
-];
+type SocialProofItem = {
+  end: number;
+  highlight: boolean;
+  label: string;
+  suffix: string;
+};
+
+type SocialProofProps = {
+  items: SocialProofItem[];
+};
+
+type SocialProofStatProps = {
+  item: SocialProofItem;
+};
 
 function useCountUp(end: number, duration = 1800) {
   const [count, setCount] = useState(0);
@@ -41,7 +49,7 @@ function useCountUp(end: number, duration = 1800) {
     const timer = setInterval(() => {
       current++;
       const progress = current / steps;
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const eased = 1 - (1 - progress) ** 3;
       setCount(Math.round(eased * end));
 
       if (current >= steps) {
@@ -56,36 +64,38 @@ function useCountUp(end: number, duration = 1800) {
   return { count, ref };
 }
 
-export default function SocialProof() {
-  const t = useTranslations("socialProof");
-
+export default function SocialProof({ items }: SocialProofProps) {
   return (
     <section className="px-5 py-6 md:px-6 md:py-8">
       <div className="mx-auto max-w-[1200px]">
         <div className="grid grid-cols-1 divide-y-2 divide-[#1A1A1A]/10 rounded-2xl border-2 border-[#1A1A1A] bg-white shadow-[6px_6px_0px_0px_#1A1A1A] sm:grid-cols-3 sm:divide-x-2 sm:divide-y-0">
-          {stats.map((stat) => {
-            const { count, ref } = useCountUp(stat.end);
-            return (
-              <div
-                key={stat.key}
-                ref={ref}
-                className="flex flex-col items-center gap-1 px-6 py-6 md:gap-2 md:px-10 md:py-8"
-              >
-                <span
-                  className={`text-4xl font-extrabold tracking-tight md:text-6xl ${stat.highlight ? "text-[#FF3366]" : "text-[#1A1A1A]"}`}
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  {count}
-                  {stat.suffix}
-                </span>
-                <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A]/50 md:text-sm md:tracking-[0.2em]">
-                  {t(`stats.${stat.key}.label`)}
-                </span>
-              </div>
-            );
-          })}
+          {items.map((item) => (
+            <SocialProofStat key={item.label} item={item} />
+          ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function SocialProofStat({ item }: SocialProofStatProps) {
+  const { count, ref } = useCountUp(item.end);
+
+  return (
+    <div
+      ref={ref}
+      className="flex flex-col items-center gap-1 px-6 py-6 md:gap-2 md:px-10 md:py-8"
+    >
+      <span
+        className={`text-4xl font-extrabold tracking-tight md:text-6xl ${item.highlight ? "text-[#FF3366]" : "text-[#1A1A1A]"}`}
+        style={{ fontFamily: "var(--font-display)" }}
+      >
+        {count}
+        {item.suffix}
+      </span>
+      <span className="text-xs font-bold uppercase tracking-[0.15em] text-[#1A1A1A]/50 md:text-sm md:tracking-[0.2em]">
+        {item.label}
+      </span>
+    </div>
   );
 }

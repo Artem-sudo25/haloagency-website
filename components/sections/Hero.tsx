@@ -1,6 +1,4 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
 const quickRoutes = [
@@ -10,8 +8,8 @@ const quickRoutes = [
   { key: "automation" as const, href: "/automation" },
 ];
 
-export default function Hero() {
-  const t = useTranslations("hero");
+export default async function Hero() {
+  const t = await getTranslations({ namespace: "hero" });
 
   return (
     <section className="relative flex min-h-[100svh] px-5 pb-6 pt-24 md:min-h-0 md:px-6 md:pb-10 md:pt-28">

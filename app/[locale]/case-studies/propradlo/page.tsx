@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import CaseStudyLayout from "@/components/case-studies/CaseStudyLayoutIntl";
 import { buildMetadata } from "@/lib/seo";
 
 const baseProps = {
@@ -23,7 +23,13 @@ const caseStudyContent = {
       "Мобильный результат поиска ProPradlo.cz с высокой видимостью в Google",
     subtitle:
       "Цифровая трансформация для прачечной: современный лендинг, автоматизация заказов и доминирование в локальном поиске.",
-    tags: ["Лендинг", "Локальное SEO", "Автоматизация", "Лид-магнит", "Google Ads"],
+    tags: [
+      "Лендинг",
+      "Локальное SEO",
+      "Автоматизация",
+      "Лид-магнит",
+      "Google Ads",
+    ],
     imageContext: {
       title: "Доминирование в AI и поиске",
       description:
@@ -102,13 +108,18 @@ const caseStudyContent = {
     metaDescription:
       "Reference ProPradlo.cz: landing page, lokální SEO, automatizace a Google Ads pro růst online poptávek prádelny v Praze.",
     openGraphTitle: "ProPradlo.cz - reference HaloAgency",
-    heroImageAlt:
-      "Hlavní obrazovka landing page ProPradlo.cz s výrazným CTA",
+    heroImageAlt: "Hlavní obrazovka landing page ProPradlo.cz s výrazným CTA",
     mobileImageAlt:
       "Mobilní výsledek vyhledávání ProPradlo.cz s vysokou viditelností v Google",
     subtitle:
       "Proměna prádelny: moderní landing page, automatizace objednávek a silná viditelnost v lokálním vyhledávání.",
-    tags: ["Landing page", "Lokální SEO", "Automatizace", "Sběr kontaktů", "Google Ads"],
+    tags: [
+      "Landing page",
+      "Lokální SEO",
+      "Automatizace",
+      "Sběr kontaktů",
+      "Google Ads",
+    ],
     imageContext: {
       title: "Viditelnost v AI i ve vyhledávání",
       description:

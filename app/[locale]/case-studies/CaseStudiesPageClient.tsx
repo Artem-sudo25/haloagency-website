@@ -1,11 +1,9 @@
 "use client";
-
-import { motion } from "framer-motion";
 import { Filter } from "lucide-react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
+import { Link } from "@/i18n/routing";
 import { getCaseStudyCards } from "@/lib/case-study-cards";
 
 export default function CaseStudiesPage() {
@@ -14,7 +12,10 @@ export default function CaseStudiesPage() {
   const tb = useTranslations("breadcrumbs");
   const caseStudyCards = getCaseStudyCards(locale);
 
-  const breadcrumbItems = [{ label: tb("home"), href: "/" }, { label: tb("caseStudies") }];
+  const breadcrumbItems = [
+    { label: tb("home"), href: "/" },
+    { label: tb("caseStudies") },
+  ];
 
   return (
     <main className="min-h-screen bg-[#F5F5F7] pt-20">
@@ -71,11 +72,7 @@ export default function CaseStudiesPage() {
           <div className="container mx-auto max-w-6xl">
             <div className="grid grid-cols-1 gap-6 auto-rows-[400px] md:grid-cols-3">
               {caseStudyCards.map((project) => (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4 }}
+                <div
                   key={project.id}
                   className={`group relative overflow-hidden rounded-2xl border-2 border-[#1A1A1A] bg-white shadow-[6px_6px_0px_0px_#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[12px_12px_0px_0px_#1A1A1A] ${
                     project.size === "large" ? "md:col-span-2" : "md:col-span-1"
@@ -142,7 +139,7 @@ export default function CaseStudiesPage() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </div>

@@ -1,13 +1,13 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowLeft, CheckCircle2, Maximize2, X } from "lucide-react";
-import { Link } from "@/i18n/routing";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import { articleJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 interface StatProps {
@@ -166,13 +166,13 @@ export default function CaseStudyLayout({
             {/* Image Column */}
             <div className="relative">
               <div className="relative rounded-3xl overflow-hidden border-2 border-[#1A1A1A] shadow-[8px_8px_0px_0px_#1A1A1A] bg-white aspect-[4/3] group">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={heroImage}
-                  alt={
-                    heroImageAlt ?? t("screenshotAlt", { title })
-                  }
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                  alt={heroImageAlt ?? t("screenshotAlt", { title })}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover transform group-hover:scale-105 transition-transform duration-700"
                 />
               </div>
               {/* Decorative Elements */}
@@ -299,14 +299,15 @@ export default function CaseStudyLayout({
                       className="relative flex-shrink-0 cursor-zoom-in group/image max-w-[280px] md:max-w-xs lg:max-w-md w-full text-left"
                     >
                       <div className="relative rounded-2xl overflow-hidden border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] bg-white transition-transform duration-500 group-hover/image:-translate-y-1 group-hover/image:-translate-x-1 group-hover/image:shadow-[6px_6px_0px_0px_#1A1A1A]">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                        <Image
                           src={mobileImage}
                           alt={
-                            mobileImageAlt ??
-                            t("mobileScreenAlt", { title })
+                            mobileImageAlt ?? t("mobileScreenAlt", { title })
                           }
-                          className="w-full h-auto block border-2 border-[#1A1A1A] rounded-xl"
+                          width={720}
+                          height={1440}
+                          sizes="(min-width: 1024px) 24rem, (min-width: 768px) 20rem, 100vw"
+                          className="h-auto w-full rounded-xl border-2 border-[#1A1A1A] block"
                         />
                         <div className="absolute inset-0 bg-[#1A1A1A]/0 group-hover/image:bg-[#1A1A1A]/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover/image:opacity-100">
                           <div className="bg-white border-2 border-[#1A1A1A] p-3 rounded-xl text-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] transform translate-y-4 group-hover/image:translate-y-0 transition-transform duration-300">
@@ -344,43 +345,36 @@ export default function CaseStudyLayout({
                   </div>
 
                   {/* Lightbox Modal */}
-                  <AnimatePresence>
-                    {isLightboxOpen && (
-                      <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          onClick={() => setIsLightboxOpen(false)}
-                          className="absolute inset-0 bg-[#1A1A1A]/90 backdrop-blur-sm"
-                        />
+                  {isLightboxOpen && (
+                    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                      <button
+                        type="button"
+                        onClick={() => setIsLightboxOpen(false)}
+                        className="absolute inset-0 bg-[#1A1A1A]/90 backdrop-blur-sm"
+                        aria-label={t("closeFullscreen")}
+                      />
 
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.95 }}
-                          className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden rounded-2xl shadow-2xl border-2 border-white"
+                      <div className="relative z-10 max-h-[90vh] max-w-[90vw] overflow-hidden rounded-2xl border-2 border-white shadow-2xl">
+                        <button
+                          type="button"
+                          onClick={() => setIsLightboxOpen(false)}
+                          className="absolute top-4 right-4 z-20 rounded-xl border-2 border-[#1A1A1A] bg-white p-2 text-[#1A1A1A] transition-all hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[4px_4px_0px_0px_#1A1A1A]"
                         >
-                          <button
-                            type="button"
-                            onClick={() => setIsLightboxOpen(false)}
-                            className="absolute top-4 right-4 p-2 bg-white hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0px_0px_#1A1A1A] border-2 border-[#1A1A1A] text-[#1A1A1A] rounded-xl transition-all z-20"
-                          >
-                            <X className="w-5 h-5" />
-                          </button>
-                          {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img
-                            src={mobileImage}
-                            alt={
-                              mobileImageAlt ??
-                              t("mobileScreenAlt", { title })
-                            }
-                            className="max-h-[90vh] w-auto object-contain bg-white rounded-xl"
-                          />
-                        </motion.div>
+                          <X className="w-5 h-5" />
+                        </button>
+                        <Image
+                          src={mobileImage}
+                          alt={
+                            mobileImageAlt ?? t("mobileScreenAlt", { title })
+                          }
+                          width={1080}
+                          height={2160}
+                          sizes="90vw"
+                          className="max-h-[90vh] w-auto rounded-xl bg-white object-contain"
+                        />
                       </div>
-                    )}
-                  </AnimatePresence>
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="p-4 md:p-8 lg:p-12 relative">
@@ -395,14 +389,16 @@ export default function CaseStudyLayout({
 
                     {/* Image */}
                     <div className="relative bg-white border-t-0 p-4">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                      <Image
                         src={analyticsImage}
                         alt={
                           analyticsImageAlt ??
                           t("analyticsScreenAlt", { title })
                         }
-                        className="w-full h-auto block rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A]"
+                        width={1440}
+                        height={900}
+                        sizes="(min-width: 1024px) 72rem, 100vw"
+                        className="h-auto w-full rounded-xl border-2 border-[#1A1A1A] shadow-[4px_4px_0px_0px_#1A1A1A] block"
                       />
                     </div>
                   </div>

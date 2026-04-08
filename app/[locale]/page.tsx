@@ -82,6 +82,30 @@ export default async function Home({
           description:
             "Сайты, реклама, аналитика и автоматизация для бизнеса в Чехии. Главная страница HaloAgency с услугами, кейсами и понятным следующим шагом.",
         };
+  const socialProofTranslations = await getTranslations({
+    locale,
+    namespace: "socialProof",
+  });
+  const socialProofItems = [
+    {
+      end: 55,
+      highlight: false,
+      label: socialProofTranslations("stats.0.label"),
+      suffix: "+",
+    },
+    {
+      end: 250,
+      highlight: true,
+      label: socialProofTranslations("stats.1.label"),
+      suffix: "%",
+    },
+    {
+      end: 9,
+      highlight: false,
+      label: socialProofTranslations("stats.2.label"),
+      suffix: "+",
+    },
+  ];
 
   return (
     <>
@@ -108,9 +132,9 @@ export default async function Home({
         />
         <div className="relative z-10">
           <Hero />
-          <SocialProof />
+          <SocialProof items={socialProofItems} />
           <Services />
-          <Projects />
+          <Projects locale={locale as "ru" | "cs"} />
           <About />
           <Process />
           <GrowthPlanMagnet />

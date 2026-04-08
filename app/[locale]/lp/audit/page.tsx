@@ -1,6 +1,7 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import LocalizedLpPlaceholder from "@/app/[locale]/lp/_components/LocalizedLpPlaceholder";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { buildMetadata } from "@/lib/seo";
 import AuditLPClient from "./AuditLPClient";
 
@@ -52,9 +53,15 @@ export default async function AuditLPPage({
     );
   }
   const resolvedSearchParams = await searchParams;
-  const avatar = ["insta", "burned", "deadsite"].includes(resolvedSearchParams.a || "")
+  const avatar = ["insta", "burned", "deadsite"].includes(
+    resolvedSearchParams.a || "",
+  )
     ? (resolvedSearchParams.a as AvatarType)
     : undefined;
 
-  return <AuditLPClient avatar={avatar} />;
+  return (
+    <ScopedNextIntlProvider namespaces={["validation.auditConsultation"]}>
+      <AuditLPClient avatar={avatar} />
+    </ScopedNextIntlProvider>
+  );
 }

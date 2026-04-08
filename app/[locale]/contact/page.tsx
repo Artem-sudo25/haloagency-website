@@ -1,11 +1,16 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import Contact from "@/components/sections/Contact";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { breadcrumbJsonLd, buildMetadata, webPageJsonLd } from "@/lib/seo";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "metadata.contact" });
   return buildMetadata({
@@ -18,7 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function ContactPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "contactPage" });
@@ -134,7 +143,11 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
                 {/* Right: Form */}
                 <div className="lg:sticky lg:top-24">
-                  <Contact />
+                  <ScopedNextIntlProvider
+                    namespaces={["common", "contact", "validation.contact"]}
+                  >
+                    <Contact />
+                  </ScopedNextIntlProvider>
                 </div>
               </div>
             </div>

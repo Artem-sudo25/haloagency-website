@@ -1,9 +1,29 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import Script from "next/script";
+import { Suspense, useEffect, useState } from "react";
 import { getConsentPreferences, updateGTMConsent } from "@/lib/consent";
+import { initPosthog } from "@/lib/posthog-client";
+
+declare global {
+  interface Window {
+    __haloMetaPixelInitialized?: boolean;
+    _fbq?: MetaPixel;
+    _uxa?: Array<[command: "trackPageview", url: string]>;
+    fbq?: MetaPixel;
+  }
+}
+
+type IdleHandle = number;
+type MetaPixel = {
+  (...args: unknown[]): void;
+  callMethod?: (...args: unknown[]) => void;
+  loaded?: boolean;
+  push: (...args: unknown[]) => void;
+  queue: unknown[][];
+  version?: string;
+};
 
 export function ConsentScripts() {
   return (
@@ -22,6 +42,8 @@ function ConsentScriptsInner() {
   const searchParams = useSearchParams();
   const [analyticsConsent, setAnalyticsConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
+  const currentUrl =
+    pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
 
   // Listen for consent changes (localStorage updates from cookie banner)
   useEffect(() => {
@@ -61,27 +83,90 @@ function ConsentScriptsInner() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!analyticsConsent) {
+      return;
+    }
+
+    const scheduleIdle =
+      typeof window.requestIdleCallback === "function"
+        ? window.requestIdleCallback.bind(window)
+        : (callback: IdleRequestCallback): IdleHandle =>
+            window.setTimeout(
+              () =>
+                callback({
+                  didTimeout: false,
+                  timeRemaining: () => 0,
+                } as IdleDeadline),
+              1200,
+            );
+
+    const cancelIdle =
+      typeof window.cancelIdleCallback === "function"
+        ? window.cancelIdleCallback.bind(window)
+        : window.clearTimeout.bind(window);
+
+    const handle = scheduleIdle(() => {
+      void initPosthog();
+    });
+
+    return () => cancelIdle(handle);
+  }, [analyticsConsent]);
+
   // SPA route change tracking for Contentsquare
   useEffect(() => {
     if (!analyticsConsent) return;
 
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : "");
-
     // Notify Contentsquare of SPA navigation via _uxa API
-    if (typeof window !== "undefined" && (window as any)._uxa) {
-      (window as any)._uxa.push(["trackPageview", url]);
+    if (typeof window !== "undefined" && window._uxa) {
+      window._uxa.push(["trackPageview", currentUrl]);
     }
-  }, [pathname, searchParams, analyticsConsent]);
+  }, [analyticsConsent, currentUrl]);
 
   // SPA route change tracking for Meta Pixel
   useEffect(() => {
     if (!marketingConsent) return;
 
-    // Track PageView on route change for Meta Pixel
-    if (typeof window !== "undefined" && (window as any).fbq) {
-      (window as any).fbq("track", "PageView");
+    if (typeof window === "undefined") {
+      return;
     }
-  }, [pathname, searchParams, marketingConsent]);
+
+    if (typeof window.fbq !== "function") {
+      const metaPixel = ((...args: unknown[]) => {
+        if (typeof metaPixel.callMethod === "function") {
+          metaPixel.callMethod(...args);
+          return;
+        }
+
+        metaPixel.queue.push(args);
+      }) as MetaPixel;
+
+      metaPixel.push = metaPixel;
+      metaPixel.loaded = true;
+      metaPixel.queue = [];
+      metaPixel.version = "2.0";
+
+      window.fbq = metaPixel;
+      window._fbq = metaPixel;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.src = "https://connect.facebook.net/en_US/fbevents.js";
+      document.head.appendChild(script);
+    }
+
+    if (!window.__haloMetaPixelInitialized) {
+      window.fbq?.("init", "2213571369171089");
+      window.__haloMetaPixelInitialized = true;
+    }
+
+    const pageViewUrl = currentUrl;
+
+    // Track PageView on route change for Meta Pixel
+    if (pageViewUrl && typeof window.fbq === "function") {
+      window.fbq("track", "PageView");
+    }
+  }, [marketingConsent, currentUrl]);
 
   return (
     <>
@@ -90,31 +175,10 @@ function ConsentScriptsInner() {
         <Script
           id="contentsquare"
           src="https://t.contentsquare.net/uxa/4e2ca2b8d17a0.js"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       )}
-
-      {/* Meta Pixel - only loads when marketing consent granted */}
-      {marketingConsent && (
-        <Script
-          id="meta-pixel"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '2213571369171089');
-              fbq('track', 'PageView');
-            `,
-          }}
-        />
-      )}
+      {/* Meta Pixel is initialized in an effect after consent is granted. */}
     </>
   );
 }

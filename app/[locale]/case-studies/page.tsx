@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbJsonLd,
@@ -8,9 +9,16 @@ import {
 } from "@/lib/seo";
 import CaseStudiesPageClient from "./CaseStudiesPageClient";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "metadata.caseStudies" });
+  const t = await getTranslations({
+    locale,
+    namespace: "metadata.caseStudies",
+  });
   return buildMetadata({
     title: t("title"),
     description: t("description"),
@@ -21,7 +29,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   });
 }
 
-export default async function CaseStudiesPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function CaseStudiesPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tb = await getTranslations({ locale, namespace: "breadcrumbs" });
@@ -54,7 +66,9 @@ export default async function CaseStudiesPage({ params }: { params: Promise<{ lo
           }),
         ]}
       />
-      <CaseStudiesPageClient />
+      <ScopedNextIntlProvider namespaces={["breadcrumbs", "caseStudiesPage"]}>
+        <CaseStudiesPageClient />
+      </ScopedNextIntlProvider>
     </>
   );
 }

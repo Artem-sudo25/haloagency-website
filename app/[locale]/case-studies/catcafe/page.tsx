@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
-import CaseStudyLayout from "@/components/case-studies/CaseStudyLayout";
+import CaseStudyLayout from "@/components/case-studies/CaseStudyLayoutIntl";
 import { buildMetadata } from "@/lib/seo";
 
 const baseProps = {
@@ -16,8 +16,7 @@ const caseStudyContent = {
     metaDescription:
       "Кейс CatCafe: редизайн сайта кафе, онлайн-бронирование и синхронизация записей с Google Календарём для роста онлайн-броней.",
     openGraphTitle: "CatCafe - кейс HaloAgency",
-    heroImageAlt:
-      "Главный экран сайта CatCafe с онлайн-бронированием столиков",
+    heroImageAlt: "Главный экран сайта CatCafe с онлайн-бронированием столиков",
     subtitle:
       "Полный редизайн сайта кафе: современный адаптивный дизайн, оптимизация под рекламу и система онлайн-бронирования с синхронизацией в Google Календарь владельца.",
     tags: [
@@ -113,8 +112,7 @@ const caseStudyContent = {
     metaDescription:
       "Reference CatCafe: redesign webu kavárny, online rezervace a synchronizace rezervací s Google Kalendářem pro růst online rezervací.",
     openGraphTitle: "CatCafe - reference HaloAgency",
-    heroImageAlt:
-      "Hlavní obrazovka webu CatCafe s online rezervací stolů",
+    heroImageAlt: "Hlavní obrazovka webu CatCafe s online rezervací stolů",
     subtitle:
       "Kompletní redesign webu kavárny: moderní responzivní design, příprava pro reklamu a online rezervační systém synchronizovaný do Google Kalendáře majitele.",
     tags: [

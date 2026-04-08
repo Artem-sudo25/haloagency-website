@@ -1,9 +1,10 @@
 import type { LucideIcon } from "lucide-react";
 import { Check, Search, ShieldCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/routing";
 import AdsLeadForm, { type AdsLeadFormConfig } from "./AdsLeadForm";
 
 type InfoCard = {
@@ -44,7 +45,6 @@ type AdsServicePageProps = {
   finalText: string;
   formConfig: AdsLeadFormConfig;
 };
-
 
 export default function AdsServicePage({
   eyebrow,
@@ -366,11 +366,13 @@ export default function AdsServicePage({
           </div>
         </section>
 
-        <AdsLeadForm
-          config={formConfig}
-          sectionTitle={finalTitle}
-          sectionText={finalText}
-        />
+        <ScopedNextIntlProvider namespaces={["common"]}>
+          <AdsLeadForm
+            config={formConfig}
+            sectionTitle={finalTitle}
+            sectionText={finalText}
+          />
+        </ScopedNextIntlProvider>
       </div>
     </main>
   );

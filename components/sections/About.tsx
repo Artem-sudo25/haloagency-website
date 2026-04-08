@@ -1,11 +1,9 @@
-"use client";
-
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
-export default function About() {
-  const t = useTranslations("about");
+export default async function About() {
+  const t = await getTranslations({ namespace: "about" });
 
   return (
     <section id="about" className="px-5 py-8 md:px-6 md:py-12">
