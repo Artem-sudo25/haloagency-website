@@ -1,9 +1,9 @@
-import { Link } from "@/i18n/routing";
 import {
   BulletList,
   NoteCard,
   SectionHeading,
-} from "@/app/[locale]/blog/_components/article-primitives";
+} from "@/app/[locale]/(site)/blog/_components/article-primitives";
+import { Link } from "@/i18n/routing";
 
 type ArticleLocale = "ru" | "cs";
 
@@ -19,11 +19,13 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           Když „Google Ads nefunguje“, problém často není v samotných kampaních.
           Člověk už službu hledá, klikne, přijde na web a tam narazí na slabou
           nabídku, špatnou stránku, rozbitou analytiku nebo pomalé zpracování
-          poptávek. Proto normální audit Google Ads skoro nikdy nezačíná u tlačítek
-          v účtu, ale kontrolou celé cesty od dotazu až po poptávku.
+          poptávek. Proto normální audit Google Ads skoro nikdy nezačíná u
+          tlačítek v účtu, ale kontrolou celé cesty od dotazu až po poptávku.
         </p>
 
-        <SectionHeading>Proč Google Ads tak často vypadá jako nefunkční kanál</SectionHeading>
+        <SectionHeading>
+          Proč Google Ads tak často vypadá jako nefunkční kanál
+        </SectionHeading>
         <p>
           Google Ads je velmi přímý kanál. Člověk už hledá službu nebo produkt,
           zadá dotaz, uvidí reklamu a přejde na stránku. Pokud pak něco nesedí,
@@ -62,10 +64,12 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           Pokud je stránka slabá významově, Google Ads sám výsledek nezachrání.
         </p>
 
-        <SectionHeading>Důvod 2. Vstupní stránka neodpovídá dotazu</SectionHeading>
+        <SectionHeading>
+          Důvod 2. Vstupní stránka neodpovídá dotazu
+        </SectionHeading>
         <p>
-          Velmi častý scénář: člověk hledá jednu konkrétní službu, ale dopadne na
-          příliš obecné stránce.
+          Velmi častý scénář: člověk hledá jednu konkrétní službu, ale dopadne
+          na příliš obecné stránce.
         </p>
         <BulletList
           items={[
@@ -75,7 +79,8 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           ]}
         />
         <p>
-          Pokud firma propaguje jednu jasnou nabídku, často funguje lépe samostatná{" "}
+          Pokud firma propaguje jednu jasnou nabídku, často funguje lépe
+          samostatná{" "}
           <Link
             href="/web/landing-pages"
             className="font-bold text-[#FF3366] underline decoration-2 underline-offset-4"
@@ -86,7 +91,10 @@ export function WhyGoogleAdsDoesNotWorkArticle({
         </p>
 
         <SectionHeading>Důvod 3. Web je nepohodlný na mobilu</SectionHeading>
-        <p>Google Ads často přivádí mobilní návštěvnost. Signály bývají jednoduché:</p>
+        <p>
+          Google Ads často přivádí mobilní návštěvnost. Signály bývají
+          jednoduché:
+        </p>
         <BulletList
           items={[
             "tlačítko není dost zřejmé",
@@ -101,7 +109,9 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           formulářem.
         </p>
 
-        <SectionHeading>Důvod 4. Formulář nebo cesta ke kontaktu je slabá</SectionHeading>
+        <SectionHeading>
+          Důvod 4. Formulář nebo cesta ke kontaktu je slabá
+        </SectionHeading>
         <p>
           Někdy problém není ani v reklamě, ani v celé stránce, ale v samotném
           přechodu ke kontaktu.
@@ -119,7 +129,9 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           už rozhoduje stránka.
         </p>
 
-        <SectionHeading>Důvod 5. Analytika ukazuje jen část reality</SectionHeading>
+        <SectionHeading>
+          Důvod 5. Analytika ukazuje jen část reality
+        </SectionHeading>
         <p>
           To je jeden z nejnebezpečnějších problémů, protože firma pak rozhoduje
           podle křivých dat.
@@ -143,7 +155,9 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           , a teprve potom se hádat o kvalitě kampaní.
         </p>
 
-        <SectionHeading>Důvod 6. Zpracování poptávek je pomalé nebo chaotické</SectionHeading>
+        <SectionHeading>
+          Důvod 6. Zpracování poptávek je pomalé nebo chaotické
+        </SectionHeading>
         <p>
           Google Ads může přivést kvalitní poptávku. Pokud ale firma odpovídá
           pozdě, nekonzistentně nebo dotazy rovnou ztrácí, reklama začne vypadat
@@ -168,7 +182,10 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           nebo aspoň základní proces práce s poptávkami.
         </p>
 
-        <SectionHeading>Důvod 7. Kampaně vedou návštěvnost tam, kde firma ještě není připravená</SectionHeading>
+        <SectionHeading>
+          Důvod 7. Kampaně vedou návštěvnost tam, kde firma ještě není
+          připravená
+        </SectionHeading>
         <p>Někdy se reklama spouští dřív, než je hotový základ:</p>
         <BulletList
           items={[
@@ -204,7 +221,10 @@ export function WhyGoogleAdsDoesNotWorkArticle({
               "3. Vstupní stránka",
               "Je úvodní obrazovka jasná, cesta logická a mobilní verze v pořádku?",
             ],
-            ["4. Formulář a CTA", "Je jednoduché dojít k poptávce a opravdu ji odeslat?"],
+            [
+              "4. Formulář a CTA",
+              "Je jednoduché dojít k poptávce a opravdu ji odeslat?",
+            ],
             ["5. Tracking", "Vidíte reálné události a reálné poptávky?"],
             [
               "6. Zpracování poptávky",
@@ -215,7 +235,9 @@ export function WhyGoogleAdsDoesNotWorkArticle({
               key={title}
               className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-5 shadow-[5px_5px_0px_0px_#1A1A1A]"
             >
-              <div className="text-lg font-extrabold text-[#1A1A1A]">{title}</div>
+              <div className="text-lg font-extrabold text-[#1A1A1A]">
+                {title}
+              </div>
               <p className="mt-3">{text}</p>
             </div>
           ))}
@@ -232,9 +254,7 @@ export function WhyGoogleAdsDoesNotWorkArticle({
             "ale landing page, formulář a tracking zůstávají stejné",
           ]}
         />
-        <p>
-          Za měsíc jsou všichni unavení, peněz ubylo a jasno stále není.
-        </p>
+        <p>Za měsíc jsou všichni unavení, peněz ubylo a jasno stále není.</p>
         <p>
           Ve skutečně dobrém auditu{" "}
           <Link
@@ -248,7 +268,9 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           část odpovědi.
         </p>
 
-        <SectionHeading>Reálný scénář: když se nemění jen reklama</SectionHeading>
+        <SectionHeading>
+          Reálný scénář: když se nemění jen reklama
+        </SectionHeading>
         <NoteCard label="Příklad">
           <p>
             Na projektech jako{" "}
@@ -279,8 +301,8 @@ export function WhyGoogleAdsDoesNotWorkArticle({
           ]}
         />
         <p>
-          Pokud je aspoň u dvou bodů odpověď nejasná, problém už velmi pravděpodobně
-          není jen v Google Ads.
+          Pokud je aspoň u dvou bodů odpověď nejasná, problém už velmi
+          pravděpodobně není jen v Google Ads.
         </p>
 
         <SectionHeading>Časté otázky</SectionHeading>
@@ -318,8 +340,8 @@ export function WhyGoogleAdsDoesNotWorkArticle({
         <SectionHeading>Závěr</SectionHeading>
         <p>
           Google Ads nemá zachraňovat slabý systém okolo sebe. Jen přivádí
-          poptávku tam, kde je firma buď připravená, nebo nepřipravená ji převést
-          v reálný kontakt.
+          poptávku tam, kde je firma buď připravená, nebo nepřipravená ji
+          převést v reálný kontakt.
         </p>
         <p>
           Pokud tedy kliky jsou, ale poptávky ne, dává smysl dívat se nejen do

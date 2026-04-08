@@ -1,10 +1,10 @@
-import { Link } from "@/i18n/routing";
 import {
   BulletList,
   NoteCard,
   SectionHeading,
   SubHeading,
-} from "@/app/[locale]/blog/_components/article-primitives";
+} from "@/app/[locale]/(site)/blog/_components/article-primitives";
+import { Link } from "@/i18n/routing";
 
 type ArticleLocale = "ru" | "cs";
 
@@ -25,17 +25,21 @@ export function NormalTrackingForSmallBusinessArticle({
           dělo dál.
         </p>
 
-        <SectionHeading>Proč se z trackingu tak rychle stává nesrozumitelné téma</SectionHeading>
+        <SectionHeading>
+          Proč se z trackingu tak rychle stává nesrozumitelné téma
+        </SectionHeading>
         <p>Protože trh rád všechno komplikuje.</p>
         <p>
-          Firmám se vypráví o data layeru, server containeru, event architecture,
-          atribučních modelech a pipelines.
+          Firmám se vypráví o data layeru, server containeru, event
+          architecture, atribučních modelech a pipelines.
         </p>
         <p>
           Méně často ale někdo vysvětlí to hlavní: co má majitel firmy na konci
           skutečně vidět a jaká rozhodnutí mu to umožní dělat.
         </p>
-        <p>Malý byznys většinou nepotřebuje analytiku „jako korporát“. Potřebuje:</p>
+        <p>
+          Malý byznys většinou nepotřebuje analytiku „jako korporát“. Potřebuje:
+        </p>
         <BulletList
           items={[
             "vidět reálné poptávky",
@@ -83,13 +87,15 @@ export function NormalTrackingForSmallBusinessArticle({
 
         <SubHeading>2. GTM jako řiditelná vrstva</SubHeading>
         <p>
-          Přes GTM se pohodlně spravuje logika událostí bez chaotických zásahů do
-          webu pokaždé, když se něco změní. Samotný GTM ale nic neřeší. Jen
+          Přes GTM se pohodlně spravuje logika událostí bez chaotických zásahů
+          do webu pokaždé, když se něco změní. Samotný GTM ale nic neřeší. Jen
           pomáhá události udržet přehledné a ověřitelné.
         </p>
 
         <SubHeading>3. Klíčové obchodní události</SubHeading>
-        <p>Ne všechno. Ne desítky eventů jen proto, aby report vypadal bohatě.</p>
+        <p>
+          Ne všechno. Ne desítky eventů jen proto, aby report vypadal bohatě.
+        </p>
         <p>Pro malou firmu bývají opravdu důležité hlavně:</p>
         <BulletList
           items={[
@@ -136,19 +142,21 @@ export function NormalTrackingForSmallBusinessArticle({
 
         <SubHeading>Špatně poskládané formuláře</SubHeading>
         <p>
-          Někdy se poptávka odešle, ale analytika ji nepozná jako konverzi. Jindy
-          je to naopak: event se započítá, ale formulář ve skutečnosti nikam
-          nedorazí.
+          Někdy se poptávka odešle, ale analytika ji nepozná jako konverzi.
+          Jindy je to naopak: event se započítá, ale formulář ve skutečnosti
+          nikam nedorazí.
         </p>
 
         <SubHeading>Rozpojení mezi webem a reklamou</SubHeading>
         <p>
-          Poptávky existují, ale v Google Ads nebo Meta se odrážejí slabě. Kampaně
-          se pak učí ne z nejlepších signálů, ale z toho, co vůbec stihnou
-          „uvidět“.
+          Poptávky existují, ale v Google Ads nebo Meta se odrážejí slabě.
+          Kampaně se pak učí ne z nejlepších signálů, ale z toho, co vůbec
+          stihnou „uvidět“.
         </p>
 
-        <SectionHeading>Kdy má server-side tracking opravdu smysl</SectionHeading>
+        <SectionHeading>
+          Kdy má server-side tracking opravdu smysl
+        </SectionHeading>
         <p>
           Server-side tracking není potřeba všem jen proto, že to zní moderně.
         </p>
@@ -177,8 +185,8 @@ export function NormalTrackingForSmallBusinessArticle({
         <SectionHeading>Co malé firmy nejčastěji dělají špatně</SectionHeading>
         <SubHeading>1. Počítají kliky místo poptávek</SubHeading>
         <p>
-          Kliků může být hodně. Pokud ale nevidíte skutečné poptávky, samo o sobě
-          vám to nic zásadního neřekne.
+          Kliků může být hodně. Pokud ale nevidíte skutečné poptávky, samo o
+          sobě vám to nic zásadního neřekne.
         </p>
 
         <SubHeading>2. Myslí si, že GA4 vše vyřeší samo</SubHeading>
@@ -189,8 +197,8 @@ export function NormalTrackingForSmallBusinessArticle({
 
         <SubHeading>3. Nesrovnávají analytiku s reálnými poptávkami</SubHeading>
         <p>
-          Pokud CRM, formuláře, e-mail a analytika ukazují rozdílná čísla, problém
-          už existuje. Otázkou je jen rozsah.
+          Pokud CRM, formuláře, e-mail a analytika ukazují rozdílná čísla,
+          problém už existuje. Otázkou je jen rozsah.
         </p>
 
         <SubHeading>4. Spouštějí reklamu dřív, než ověří základ</SubHeading>
@@ -201,8 +209,8 @@ export function NormalTrackingForSmallBusinessArticle({
 
         <SectionHeading>Jak vypadá funkční minimum</SectionHeading>
         <p>
-          Když odříznete zbytečnou složitost, rozumný základ pro malý byznys bývá
-          většinou tento:
+          Když odříznete zbytečnou složitost, rozumný základ pro malý byznys
+          bývá většinou tento:
         </p>
         <ol className="list-decimal space-y-2 pl-6 text-[17px] font-medium leading-relaxed text-[#1A1A1A]/80">
           <li>jasně definované cíle byznysu</li>
@@ -218,7 +226,9 @@ export function NormalTrackingForSmallBusinessArticle({
         </p>
 
         <SectionHeading>A kde je v tom automatizace</SectionHeading>
-        <p>Tracking a automatizace nejsou totéž, ale spolu fungují výrazně lépe.</p>
+        <p>
+          Tracking a automatizace nejsou totéž, ale spolu fungují výrazně lépe.
+        </p>
         <p>Když jsou data poskládaná správně, můžete pak:</p>
         <BulletList
           items={[
@@ -239,7 +249,9 @@ export function NormalTrackingForSmallBusinessArticle({
           pomáhá zajistit, aby se po události nic neztratilo.
         </p>
 
-        <SectionHeading>Minimum, které má smysl zkontrolovat hned teď</SectionHeading>
+        <SectionHeading>
+          Minimum, které má smysl zkontrolovat hned teď
+        </SectionHeading>
         <BulletList
           items={[
             "Jsou nastavené klíčové události, ne jen zobrazení stránek?",
@@ -250,8 +262,8 @@ export function NormalTrackingForSmallBusinessArticle({
           ]}
         />
         <p>
-          Pokud je u poloviny bodů odpověď „nevím jistě“, firma už má důvod řešit
-          tracking teď, ne někdy později.
+          Pokud je u poloviny bodů odpověď „nevím jistě“, firma už má důvod
+          řešit tracking teď, ne někdy později.
         </p>
 
         <SectionHeading>Časté otázky</SectionHeading>
@@ -290,8 +302,8 @@ export function NormalTrackingForSmallBusinessArticle({
         <NoteCard label="Shrnutí">
           <p>
             Normální tracking pro malý byznys není těžký stack pro efekt. Je to
-            srozumitelný systém, v němž web, formuláře, analytika a reklamní účty
-            spolupracují dost dobře na to, abyste viděli reálné poptávky a
+            srozumitelný systém, v němž web, formuláře, analytika a reklamní
+            účty spolupracují dost dobře na to, abyste viděli reálné poptávky a
             nerozhodovali se v mlze.
           </p>
           <p>

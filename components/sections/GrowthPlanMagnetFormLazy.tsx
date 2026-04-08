@@ -29,7 +29,7 @@ export default function GrowthPlanMagnetFormLazy() {
           observer.disconnect();
         }
       },
-      { rootMargin: "400px 0px" },
+      { rootMargin: "160px 0px" },
     );
 
     observer.observe(node);

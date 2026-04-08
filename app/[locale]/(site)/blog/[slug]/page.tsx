@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { BlogArticleLayout } from "@/app/[locale]/blog/_components/BlogArticleLayout";
-import { WhatServiceWebsiteNeedsArticle } from "@/app/[locale]/blog/_content/chto-dolzhno-byt-na-saite-uslug-article";
-import { LendingVsSiteArticle } from "@/app/[locale]/blog/_content/lending-ili-polnotsennyi-sait-article";
-import { NormalTrackingForSmallBusinessArticle } from "@/app/[locale]/blog/_content/normalnyi-treking-dlya-malogo-biznesa-article";
-import { WhyGoogleAdsDoesNotWorkArticle } from "@/app/[locale]/blog/_content/pochemu-google-ads-ne-rabotaet-article";
+import { BlogArticleLayout } from "@/app/[locale]/(site)/blog/_components/BlogArticleLayout";
+import { WhatServiceWebsiteNeedsArticle } from "@/app/[locale]/(site)/blog/_content/chto-dolzhno-byt-na-saite-uslug-article";
+import { LendingVsSiteArticle } from "@/app/[locale]/(site)/blog/_content/lending-ili-polnotsennyi-sait-article";
+import { NormalTrackingForSmallBusinessArticle } from "@/app/[locale]/(site)/blog/_content/normalnyi-treking-dlya-malogo-biznesa-article";
+import { WhyGoogleAdsDoesNotWorkArticle } from "@/app/[locale]/(site)/blog/_content/pochemu-google-ads-ne-rabotaet-article";
 import {
   getBlogPostBySlug,
   getLocalizedBlogPostBySlug,
   publishedBlogPosts,
   type SupportedBlogLocale,
-} from "@/app/[locale]/blog/_content/posts";
+} from "@/app/[locale]/(site)/blog/_content/posts";
 import { buildMetadata } from "@/lib/seo";
 
 const articleBodies = {
@@ -67,7 +67,8 @@ export default async function BlogArticlePage({
     notFound();
   }
 
-  const ArticleBody = articleBodies[basePost.slug as keyof typeof articleBodies];
+  const ArticleBody =
+    articleBodies[basePost.slug as keyof typeof articleBodies];
 
   if (!ArticleBody) {
     notFound();

@@ -1,8 +1,8 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
-import type { BlogPost } from "@/app/[locale]/blog/_content/posts";
 import { useTranslations } from "next-intl";
+import type { BlogPost } from "@/app/[locale]/(site)/blog/_content/posts";
+import { Link } from "@/i18n/routing";
 
 const categoryStyles: Record<BlogPost["category"], string> = {
   Сайты: "bg-[#FFD166]",
@@ -10,7 +10,10 @@ const categoryStyles: Record<BlogPost["category"], string> = {
   "Трекинг и аналитика": "bg-[#06D6A0]",
 };
 
-const categoryKey: Record<BlogPost["category"], "categories.sites" | "categories.ads" | "categories.tracking"> = {
+const categoryKey: Record<
+  BlogPost["category"],
+  "categories.sites" | "categories.ads" | "categories.tracking"
+> = {
   Сайты: "categories.sites",
   Реклама: "categories.ads",
   "Трекинг и аналитика": "categories.tracking",

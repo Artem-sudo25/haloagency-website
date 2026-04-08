@@ -1,10 +1,10 @@
-import { Link } from "@/i18n/routing";
 import {
   BulletList,
   NoteCard,
   SectionHeading,
   SubHeading,
-} from "@/app/[locale]/blog/_components/article-primitives";
+} from "@/app/[locale]/(site)/blog/_components/article-primitives";
+import { Link } from "@/i18n/routing";
 
 type ArticleLocale = "ru" | "cs";
 
@@ -30,8 +30,8 @@ export function LendingVsSiteArticle({
         <p>
           Pro malé a střední firmy web skoro nikdy není „jen web“. Buď má rychle
           proměňovat reklamní návštěvnost v poptávky, nebo v klidu vysvětlit
-          byznys, služby a důvody, proč se obrátit právě na vás. Někdy obojí, ale
-          ne vždy ve stejném formátu.
+          byznys, služby a důvody, proč se obrátit právě na vás. Někdy obojí,
+          ale ne vždy ve stejném formátu.
         </p>
         <p>
           Zmatek začíná ve chvíli, kdy se debata stočí k vkusu. Jeden dodavatel
@@ -40,11 +40,13 @@ export function LendingVsSiteArticle({
           jaký úkol má web řešit právě teď.
         </p>
         <p>
-          Nejčastější chyba je jednoduchá: firma nevybírá roli webu, ale představu
-          v hlavě.
+          Nejčastější chyba je jednoduchá: firma nevybírá roli webu, ale
+          představu v hlavě.
         </p>
 
-        <SectionHeading>Landing page a plnohodnotný web: jaký je rozdíl</SectionHeading>
+        <SectionHeading>
+          Landing page a plnohodnotný web: jaký je rozdíl
+        </SectionHeading>
         <p>Ne designové srovnání, ale praktické rozhodnutí.</p>
 
         <div className="overflow-x-auto rounded-3xl border-2 border-[#1A1A1A] bg-[#F5F5F7] shadow-[5px_5px_0px_0px_#1A1A1A]">
@@ -140,7 +142,10 @@ export function LendingVsSiteArticle({
         </p>
 
         <SubHeading>3. Chcete rychle ověřit poptávku</SubHeading>
-        <p>Někdy firma na startu velký web prostě nepotřebuje. Nejdřív potřebuje zjistit:</p>
+        <p>
+          Někdy firma na startu velký web prostě nepotřebuje. Nejdřív potřebuje
+          zjistit:
+        </p>
         <BulletList
           items={[
             "jestli lidé vůbec nechávají poptávky",
@@ -149,8 +154,8 @@ export function LendingVsSiteArticle({
           ]}
         />
         <p>
-          Landing page je na to výborná. Spustí se rychleji a jednodušeji se na ní
-          testuje.
+          Landing page je na to výborná. Spustí se rychleji a jednodušeji se na
+          ní testuje.
         </p>
 
         <SubHeading>4. Zákazník má jednu hlavní akci</SubHeading>
@@ -167,7 +172,9 @@ export function LendingVsSiteArticle({
           desítku obrazovek a sekcí.
         </p>
 
-        <SectionHeading>Kdy je plnohodnotný web lepší než landing page</SectionHeading>
+        <SectionHeading>
+          Kdy je plnohodnotný web lepší než landing page
+        </SectionHeading>
         <p>
           Pokud má byznys více služeb, několik vstupních scénářů nebo delší
           rozhodování, jedna stránka začne velmi rychle ztrácet sílu.
@@ -188,9 +195,9 @@ export function LendingVsSiteArticle({
         />
         <p>
           Výsledek je jednoduchý: člověk neví, kam se dostal a co má udělat dál.
-          Pokud je služeb více, obvykle potřebujete normální strukturu: samostatné
-          stránky, samostatné argumenty a samostatné vstupy pro různé dotazy. To
-          už je teritorium{" "}
+          Pokud je služeb více, obvykle potřebujete normální strukturu:
+          samostatné stránky, samostatné argumenty a samostatné vstupy pro různé
+          dotazy. To už je teritorium{" "}
           <Link
             href="/web/business-websites"
             className="font-bold text-[#FF3366] underline decoration-2 underline-offset-4"
@@ -220,7 +227,10 @@ export function LendingVsSiteArticle({
         </p>
 
         <SubHeading>3. Potřebujete vyhledávání, ne jen reklamu</SubHeading>
-        <p>Pokud je pro firmu důležitá SEO vrstva, plnohodnotný web je skoro vždy silnější.</p>
+        <p>
+          Pokud je pro firmu důležitá SEO vrstva, plnohodnotný web je skoro vždy
+          silnější.
+        </p>
         <BulletList
           items={[
             "můžete mít samostatné stránky služeb",
@@ -250,7 +260,9 @@ export function LendingVsSiteArticle({
         </p>
 
         <SectionHeading>Kde firmy nejčastěji chybují</SectionHeading>
-        <SubHeading>Chyba 1. Vícestránkový web pro jednu reklamní nabídku</SubHeading>
+        <SubHeading>
+          Chyba 1. Vícestránkový web pro jednu reklamní nabídku
+        </SubHeading>
         <p>
           Člověk klikne na reklamu, přijde na web a neví, co má dělat dál. V
           hlavičce je pět odkazů, uprostřed tři služby a dole obecný formulář.
@@ -260,9 +272,9 @@ export function LendingVsSiteArticle({
 
         <SubHeading>Chyba 2. Pět služeb na jedné landing page</SubHeading>
         <p>
-          To je opačný extrém. Firmě připadá, že je to jednodušší. Ve skutečnosti
-          každá služba dostane málo prostoru a stránka začne působit jako
-          kompromis.
+          To je opačný extrém. Firmě připadá, že je to jednodušší. Ve
+          skutečnosti každá služba dostane málo prostoru a stránka začne působit
+          jako kompromis.
         </p>
 
         <SubHeading>Chyba 3. Očekávání SEO od stránky bez struktury</SubHeading>
@@ -275,7 +287,9 @@ export function LendingVsSiteArticle({
         <SubHeading>Chyba 4. Volba podle ceny místo podle úkolu</SubHeading>
         <p>Tohle bývá nejdražší chyba, protože se pak platí ještě jednou.</p>
 
-        <SectionHeading>Reálný scénář: kdy už jedna stránka nestačí</SectionHeading>
+        <SectionHeading>
+          Reálný scénář: kdy už jedna stránka nestačí
+        </SectionHeading>
         <NoteCard label="Příklad">
           <p>
             Na referenci{" "}
@@ -286,14 +300,14 @@ export function LendingVsSiteArticle({
               ProPradlo
             </Link>{" "}
             je dobře vidět, že výsledek nepřináší jen design, ale poskládaná
-            struktura: když má firma jasné podání, srozumitelné stránky a logiku,
-            kam návštěvnost posílat dál.
+            struktura: když má firma jasné podání, srozumitelné stránky a
+            logiku, kam návštěvnost posílat dál.
           </p>
           <p>
             Kdyby se v takové situaci všechno tlačilo do jedné landing page,
             stránka by se rychle přetížila. Pro krátký reklamní scénář to ještě
-            někdy projde. Pro firmu, která potřebuje důvěru, šíři nabídky a prostor
-            pro růst, už ne.
+            někdy projde. Pro firmu, která potřebuje důvěru, šíři nabídky a
+            prostor pro růst, už ne.
           </p>
         </NoteCard>
 
@@ -355,8 +369,8 @@ export function LendingVsSiteArticle({
           ]}
         />
         <p>
-          Když zvolíte správný formát hned na začátku, šetříte peníze, čas i počet
-          budoucích předělávek.
+          Když zvolíte správný formát hned na začátku, šetříte peníze, čas i
+          počet budoucích předělávek.
         </p>
 
         <SectionHeading>Časté otázky</SectionHeading>
@@ -397,9 +411,9 @@ export function LendingVsSiteArticle({
         </p>
         <p>
           Landing page je silná ve chvíli, kdy potřebujete jednu nabídku, jednu
-          cestu a rychlý start. Plnohodnotný web je správná volba tam, kde začíná
-          hrát roli důvěra, struktura, SEO a prostor pro růst. Chyba začíná ve
-          chvíli, kdy se formát vybírá podle dojmu, ne podle role.
+          cestu a rychlý start. Plnohodnotný web je správná volba tam, kde
+          začíná hrát roli důvěra, struktura, SEO a prostor pro růst. Chyba
+          začíná ve chvíli, kdy se formát vybírá podle dojmu, ne podle role.
         </p>
       </>
     );

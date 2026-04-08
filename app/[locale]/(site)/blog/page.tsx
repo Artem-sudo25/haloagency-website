@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { BlogCard } from "@/app/[locale]/blog/_components/BlogCard";
+import { BlogCard } from "@/app/[locale]/(site)/blog/_components/BlogCard";
 import {
   getLocalizedDraftBlogPosts,
   getLocalizedPublishedBlogPosts,
   type SupportedBlogLocale,
-} from "@/app/[locale]/blog/_content/posts";
+} from "@/app/[locale]/(site)/blog/_content/posts";
 import ScopedNextIntlProvider from "@/components/i18n/ScopedNextIntlProvider";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";

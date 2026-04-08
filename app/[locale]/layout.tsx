@@ -1,12 +1,10 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import Script from "next/script";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { ConsentScripts } from "@/components/analytics/ConsentScripts";
-import { CtaTrackingListener } from "@/components/analytics/CtaTrackingListener";
-import { LayoutShell } from "@/components/layout/LayoutShell";
 import { CookieBanner } from "@/components/ui/cookie-banner";
 import { locales } from "@/i18n/config";
 import { getScopedMessages } from "@/lib/i18n-messages";
@@ -23,7 +21,7 @@ const ibmPlexSans = IBM_Plex_Sans({
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin", "cyrillic", "latin-ext"],
   display: "swap",
-  preload: true,
+  preload: false,
   variable: "--font-mono",
 });
 
@@ -57,12 +55,7 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const messages = await getScopedMessages([
-    "common",
-    "cookieBanner",
-    "footer",
-    "header",
-  ]);
+  const messages = await getScopedMessages(["common", "cookieBanner"]);
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
 
   return (
@@ -117,14 +110,34 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             </noscript>
           </>
         )}
+        <Script id="cta-tracking-listener" strategy="afterInteractive">{`
+          document.addEventListener('click', function(event) {
+            if (!(event.target instanceof Element)) {
+              return;
+            }
+
+            var target = event.target.closest("[data-cta-track='true']");
+            if (!target) {
+              return;
+            }
+
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+              event: 'cta_clicked',
+              cta_name: target.dataset.ctaName || target.textContent?.trim() || 'cta',
+              cta_location: target.dataset.ctaLocation || window.location.pathname,
+              cta_category: target.dataset.ctaCategory || 'primary',
+              cta_href: target.getAttribute('href') || target.dataset.ctaHref || '',
+              page_path: window.location.pathname,
+              page_title: document.title,
+            });
+          });
+        `}</Script>
 
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <LayoutShell>
-            {children}
-            <CookieBanner />
-            <CtaTrackingListener />
-            <ConsentScripts />
-          </LayoutShell>
+          {children}
+          <CookieBanner />
+          <ConsentScripts />
         </NextIntlClientProvider>
         <SpeedInsights />
       </body>

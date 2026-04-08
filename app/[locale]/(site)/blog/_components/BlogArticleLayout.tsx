@@ -1,13 +1,13 @@
-import { Link } from "@/i18n/routing";
+import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import {
-  blogCategoryTranslationKey,
   type BlogPost,
-} from "@/app/[locale]/blog/_content/posts";
+  blogCategoryTranslationKey,
+} from "@/app/[locale]/(site)/blog/_content/posts";
 import { Breadcrumbs } from "@/components/navigation/Breadcrumbs";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { Link } from "@/i18n/routing";
 import { articleJsonLd, breadcrumbJsonLd, webPageJsonLd } from "@/lib/seo";
-import { getTranslations } from "next-intl/server";
 
 type BlogArticleLayoutProps = {
   post: BlogPost;
@@ -29,7 +29,11 @@ function formatDate(date: string | undefined, locale: string) {
   }).format(new Date(date));
 }
 
-export async function BlogArticleLayout({ post, children, locale }: BlogArticleLayoutProps) {
+export async function BlogArticleLayout({
+  post,
+  children,
+  locale,
+}: BlogArticleLayoutProps) {
   const t = await getTranslations({ locale, namespace: "blogArticle" });
   const tb = await getTranslations({ locale, namespace: "breadcrumbs" });
   const tc = await getTranslations({ locale, namespace: "blogCard" });

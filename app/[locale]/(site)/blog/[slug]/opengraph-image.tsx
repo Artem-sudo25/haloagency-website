@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
+import { getTranslations } from "next-intl/server";
 import {
   blogCategoryTranslationKey,
   getLocalizedBlogPostBySlug,
   type SupportedBlogLocale,
-} from "@/app/[locale]/blog/_content/posts";
+} from "@/app/[locale]/(site)/blog/_content/posts";
 import { OgImageCard } from "@/components/seo/OgImageCard";
-import { getTranslations } from "next-intl/server";
 
 export const runtime = "edge";
 export const alt = "HaloAgency blog article";

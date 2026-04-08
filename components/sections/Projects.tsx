@@ -58,7 +58,7 @@ export default async function Projects({ locale }: ProjectsProps) {
                   alt={t("casePreviewAlt", { name: project.name })}
                   fill
                   className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, 60vw"
+                  sizes="(max-width: 767px) calc(100vw - 2.5rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1279px) calc((100vw - 8rem) * 0.6), 720px"
                   priority={index < 1}
                 />
                 <div

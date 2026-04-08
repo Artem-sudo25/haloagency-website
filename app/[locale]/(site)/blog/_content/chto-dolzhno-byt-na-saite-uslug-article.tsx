@@ -1,10 +1,10 @@
-import { Link } from "@/i18n/routing";
 import {
   BulletList,
   NoteCard,
   SectionHeading,
   SubHeading,
-} from "@/app/[locale]/blog/_components/article-primitives";
+} from "@/app/[locale]/(site)/blog/_components/article-primitives";
+import { Link } from "@/i18n/routing";
 
 type ArticleLocale = "ru" | "cs";
 
@@ -23,9 +23,9 @@ export function WhatServiceWebsiteNeedsArticle({
           pochopit nabídku, získat důvěru a udělat další krok.
         </p>
         <p>
-          Dobrý web pro firmu poskytující služby nefunguje jako brožura ani jako sada hezkých
-          obrazovek. Vysvětluje, komu služba sedí, proč se obrátit právě na vás a
-          jak vás kontaktovat bez zbytečného váhání.
+          Dobrý web pro firmu poskytující služby nefunguje jako brožura ani jako
+          sada hezkých obrazovek. Vysvětluje, komu služba sedí, proč se obrátit
+          právě na vás a jak vás kontaktovat bez zbytečného váhání.
         </p>
 
         <SectionHeading>Krátká odpověď</SectionHeading>
@@ -37,24 +37,27 @@ export function WhatServiceWebsiteNeedsArticle({
           ]}
         />
 
-        <SectionHeading>Proč web služeb často nepřivádí poptávky</SectionHeading>
+        <SectionHeading>
+          Proč web služeb často nepřivádí poptávky
+        </SectionHeading>
         <p>
-          U firem poskytujících služby bývá cesta k rozhodnutí skoro vždy delší než u
-          jednoduchého produktového nákupu. Člověk službu nekoupí během pár
-          sekund. Nejdřív si potřebuje ujasnit, jestli mu vůbec sedí, jestli se
-          vám dá věřit a co bude následovat po první poptávce.
+          U firem poskytujících služby bývá cesta k rozhodnutí skoro vždy delší
+          než u jednoduchého produktového nákupu. Člověk službu nekoupí během
+          pár sekund. Nejdřív si potřebuje ujasnit, jestli mu vůbec sedí, jestli
+          se vám dá věřit a co bude následovat po první poptávce.
         </p>
         <p>
           Většina slabých webů neodpovídá právě na tyhle otázky, ale spíš na
-          interní logiku firmy. Najdete tam obecné „o nás“, ale slabě rozpracované
-          služby. Hezké bloky, ale málo důvodů, proč si vybrat právě vás. Web pak
-          vypadá slušně, ale funguje jen jako vizitka.
+          interní logiku firmy. Najdete tam obecné „o nás“, ale slabě
+          rozpracované služby. Hezké bloky, ale málo důvodů, proč si vybrat
+          právě vás. Web pak vypadá slušně, ale funguje jen jako vizitka.
         </p>
 
         <SectionHeading>Jaké stránky bývají skoro vždy potřeba</SectionHeading>
         <p>
-          Základ pro většinu firem poskytujících služby je překvapivě jednoduchý. Nejde o
-          počet stránek, ale o to, zda každá dělá svou práci.
+          Základ pro většinu firem poskytujících služby je překvapivě
+          jednoduchý. Nejde o počet stránek, ale o to, zda každá dělá svou
+          práci.
         </p>
         <BulletList
           items={[
@@ -66,9 +69,9 @@ export function WhatServiceWebsiteNeedsArticle({
           ]}
         />
         <p>
-          Když se celá tahle logika sesype do jednoho dlouhého scrollu, začne web
-          trpět typickou nemocí: „všechno tam je“, ale zákazník pořád nemá jasný
-          scénář.
+          Když se celá tahle logika sesype do jednoho dlouhého scrollu, začne
+          web trpět typickou nemocí: „všechno tam je“, ale zákazník pořád nemá
+          jasný scénář.
         </p>
 
         <SectionHeading>Co na webu služeb nesmí chybět</SectionHeading>
@@ -89,9 +92,9 @@ export function WhatServiceWebsiteNeedsArticle({
 
         <SubHeading>2. Samostatné stránky služeb</SubHeading>
         <p>
-          Jedna z nejčastějších chyb u firem poskytujících služby je snaha vysvětlit všechno
-          na jedné stránce. Výsledkem bývá dlouhá landing page, na které není
-          pořádně rozvinutá ani jedna služba.
+          Jedna z nejčastějších chyb u firem poskytujících služby je snaha
+          vysvětlit všechno na jedné stránce. Výsledkem bývá dlouhá landing
+          page, na které není pořádně rozvinutá ani jedna služba.
         </p>
         <BulletList
           items={[
@@ -115,8 +118,7 @@ export function WhatServiceWebsiteNeedsArticle({
         <SubHeading>3. Bloky důvěry</SubHeading>
         <p>
           Člověk nepotřebuje jen pochopit službu. Potřebuje taky snížit riziko.
-          Důvěra na webu služeb nevzniká obecným textem, ale konkrétními
-          důkazy.
+          Důvěra na webu služeb nevzniká obecným textem, ale konkrétními důkazy.
         </p>
         <BulletList
           items={[
@@ -135,14 +137,15 @@ export function WhatServiceWebsiteNeedsArticle({
           >
             Doggy Salon
           </Link>{" "}
-          je dobře vidět, jak u firem poskytujících služby nefunguje abstraktní branding,
-          ale kombinace jasně podané služby, správné struktury a srozumitelného
-          dalšího kroku.
+          je dobře vidět, jak u firem poskytujících služby nefunguje abstraktní
+          branding, ale kombinace jasně podané služby, správné struktury a
+          srozumitelného dalšího kroku.
         </p>
 
         <SubHeading>4. Jasná cesta ke kontaktu</SubHeading>
         <p>
-          Návštěvník nemá hádat, kam kliknout. Dobrý web služeb obvykle potřebuje:
+          Návštěvník nemá hádat, kam kliknout. Dobrý web služeb obvykle
+          potřebuje:
         </p>
         <BulletList
           items={[
@@ -155,8 +158,8 @@ export function WhatServiceWebsiteNeedsArticle({
 
         <SubHeading>5. Odpovědi na běžné námitky</SubHeading>
         <p>
-          Poptávku často nebrzdí nedostatek zájmu, ale jedna jednoduchá pochybnost,
-          na kterou web neodpověděl.
+          Poptávku často nebrzdí nedostatek zájmu, ale jedna jednoduchá
+          pochybnost, na kterou web neodpověděl.
         </p>
         <BulletList
           items={[
@@ -179,8 +182,8 @@ export function WhatServiceWebsiteNeedsArticle({
           struktura chaotická, jakýkoli růst se mění v předělávku.
         </p>
         <p>
-          Web proto nemá být jen „hotový“, ale postavený jako pracovní základ pro
-          růst, SEO a reklamu.
+          Web proto nemá být jen „hotový“, ale postavený jako pracovní základ
+          pro růst, SEO a reklamu.
         </p>
 
         <SectionHeading>Kde se nejčastěji ztrácejí poptávky</SectionHeading>
@@ -193,14 +196,14 @@ export function WhatServiceWebsiteNeedsArticle({
 
         <SubHeading>Všechny služby jsou hozené na jednu hromadu</SubHeading>
         <p>
-          Když má firma více směrů, potřebují alespoň základní samostatnou logiku.
-          Jinak web působí jako seznam, ne jako srozumitelná nabídka.
+          Když má firma více směrů, potřebují alespoň základní samostatnou
+          logiku. Jinak web působí jako seznam, ne jako srozumitelná nabídka.
         </p>
 
         <SubHeading>Chybí konkrétní důkazy</SubHeading>
         <p>
-          Bez referencí, recenzí, ukázek a čitelného procesu web nesnižuje riziko
-          a nepřesvědčuje.
+          Bez referencí, recenzí, ukázek a čitelného procesu web nesnižuje
+          riziko a nepřesvědčuje.
         </p>
 
         <SubHeading>Chybí jasné CTA</SubHeading>
@@ -211,12 +214,14 @@ export function WhatServiceWebsiteNeedsArticle({
 
         <SubHeading>Web není připravený na návštěvnost</SubHeading>
         <p>
-          Firmám často připadá, že jim chybí více návštěvnosti. Ve skutečnosti ale
-          někdy nejdřív potřebují udělat web, na který má smysl tu návštěvnost
-          vůbec posílat.
+          Firmám často připadá, že jim chybí více návštěvnosti. Ve skutečnosti
+          ale někdy nejdřív potřebují udělat web, na který má smysl tu
+          návštěvnost vůbec posílat.
         </p>
 
-        <SectionHeading>Typický scénář, kdy web nedotaženě funguje</SectionHeading>
+        <SectionHeading>
+          Typický scénář, kdy web nedotaženě funguje
+        </SectionHeading>
         <NoteCard label="Scénář">
           <p>
             Firma má homepage, na níž jen stručně vypisuje služby, dole je jeden
@@ -233,8 +238,8 @@ export function WhatServiceWebsiteNeedsArticle({
 
         <SectionHeading>Co zkontrolovat za 15 minut</SectionHeading>
         <p>
-          Pokud chcete rychle zjistit, jestli web dělá svou práci, projděte si tenhle
-          krátký checklist.
+          Pokud chcete rychle zjistit, jestli web dělá svou práci, projděte si
+          tenhle krátký checklist.
         </p>
         <div className="grid gap-5 md:grid-cols-2">
           <div className="rounded-3xl border-2 border-[#1A1A1A] bg-white p-6 shadow-[5px_5px_0px_0px_#1A1A1A]">

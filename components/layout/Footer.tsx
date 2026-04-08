@@ -1,11 +1,9 @@
-"use client";
-
 import { Mail, Smartphone } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/routing";
 
-export default function Footer() {
-  const t = useTranslations("footer");
+export default async function Footer() {
+  const t = await getTranslations("footer");
 
   const growthLinks = [
     { label: t("growthColumn.links.ads"), href: "/ads" },
@@ -18,7 +16,10 @@ export default function Footer() {
   const webLinks = [
     { label: t("webColumn.links.websites"), href: "/web" },
     { label: t("webColumn.links.landingPages"), href: "/web/landing-pages" },
-    { label: t("webColumn.links.businessWebsites"), href: "/web/business-websites" },
+    {
+      label: t("webColumn.links.businessWebsites"),
+      href: "/web/business-websites",
+    },
     { label: t("webColumn.links.ecommerce"), href: "/web/ecommerce" },
   ];
 
@@ -43,9 +44,7 @@ export default function Footer() {
             >
               HALO<span className="text-[#FF3366]">AGENCY</span>
             </Link>
-            <p className="max-w-xs text-[#1A1A1A]/60">
-              {t("description")}
-            </p>
+            <p className="max-w-xs text-[#1A1A1A]/60">{t("description")}</p>
 
             <div className="space-y-3 pt-2">
               <a
