@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, JetBrains_Mono, Syne } from "next/font/google";
 import Script from "next/script";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { ConsentScripts } from "@/components/analytics/ConsentScripts";
@@ -125,6 +126,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             <ConsentScripts />
           </LayoutShell>
         </NextIntlClientProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
