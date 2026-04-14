@@ -37,9 +37,18 @@ export interface HaloTrackLead {
  * @returns Session ID or empty string if HaloTrack is not loaded
  */
 export function getHaloTrackSessionId(): string {
-    if (typeof window !== 'undefined' && window.HaloTrack) {
-        return window.HaloTrack.getSessionId();
+    if (typeof window === 'undefined') return '';
+
+    // Priority 1: HaloTrack object (set after /api/touch response)
+    if (window.HaloTrack?.getSessionId?.()) {
+        const sid = window.HaloTrack.getSessionId();
+        if (sid) return sid;
     }
+
+    // Priority 2: _halo cookie (set by tracking server)
+    const match = document.cookie.match(/(^| )_halo=([^;]+)/);
+    if (match?.[2]) return match[2];
+
     return '';
 }
 
@@ -130,7 +139,7 @@ export async function trackFormEvent(
         }
 
         // Send to HaloTrack event API
-        await fetch(`${process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN}/api/event`, {
+        await fetch(`https://${process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN}/api/event`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

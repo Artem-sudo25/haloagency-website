@@ -63,9 +63,19 @@ export default function GrowthPlanMagnetForm() {
   });
 
   useEffect(() => {
-    waitForHaloTrack().then(() => {
-      setHaloSessionId(getHaloTrackSessionId());
-    });
+    const getSession = async () => {
+      await waitForHaloTrack();
+      let sid = getHaloTrackSessionId();
+
+      // Retry once after 2s if still empty (script may still be loading)
+      if (!sid) {
+        await new Promise(r => setTimeout(r, 2000));
+        sid = getHaloTrackSessionId();
+      }
+
+      if (sid) setHaloSessionId(sid);
+    };
+    getSession();
   }, []);
 
   const toggleTried = (value: string) => {
