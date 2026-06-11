@@ -38,6 +38,11 @@ export async function POST(req: NextRequest) {
     const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
     const halotrackDomain = process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN;
 
+    // Visitor IP — the browser posts this route directly, so x-forwarded-for
+    // is the visitor, not a server. HaloTrack forwards it to Meta CAPI.
+    const visitorIp =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || null;
+
     after(async () => {
       const tasks: Promise<unknown>[] = [];
 
@@ -173,21 +178,33 @@ export async function POST(req: NextRequest) {
               currency:
                 typeof currency === "string" && currency ? currency : "CZK",
               custom_fields: extras,
+              ip_address: visitorIp,
             };
 
             const protocol = halotrackDomain.startsWith("localhost")
               ? "http"
               : "https";
+            const rawBody = JSON.stringify(halotrackPayload);
+            const secret = process.env.HALOTRACK_WEBHOOK_SECRET || "";
+            const timestamp = Math.floor(Date.now() / 1000).toString();
             const halotrackResponse = await fetch(
               `${protocol}://${halotrackDomain}/api/webhook/lead`,
               {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
-                  "X-Webhook-Secret":
-                    process.env.HALOTRACK_WEBHOOK_SECRET || "",
+                  // Legacy shared secret — kept until all HaloTrack
+                  // deployments verify the HMAC signature below
+                  "X-Webhook-Secret": secret,
+                  ...(secret && {
+                    "x-halo-timestamp": timestamp,
+                    "x-halo-signature": await hmacSha256Hex(
+                      `${timestamp}.${rawBody}`,
+                      secret,
+                    ),
+                  }),
                 },
-                body: JSON.stringify(halotrackPayload),
+                body: rawBody,
               },
             );
 
@@ -216,4 +233,21 @@ export async function POST(req: NextRequest) {
       { status: 500 },
     );
   }
+}
+
+// HMAC signature for HaloTrack webhook auth (x-halo-signature). Web Crypto —
+// this route runs on the edge runtime, where node:crypto is unavailable.
+async function hmacSha256Hex(message: string, secret: string): Promise<string> {
+  const enc = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    "raw",
+    enc.encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const sig = await crypto.subtle.sign("HMAC", key, enc.encode(message));
+  return Array.from(new Uint8Array(sig))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
 }

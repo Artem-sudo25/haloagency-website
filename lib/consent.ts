@@ -45,6 +45,10 @@ export function saveConsentPreferences(preferences: Omit<ConsentPreferences, "ti
 
   // Notify same-tab listeners (ConsentScripts component)
   window.dispatchEvent(new Event("consent-updated"));
+
+  // Notify HaloTrack t.js — it re-reads halo_cookie_consent and starts
+  // tracking when consent is granted after page load
+  window.dispatchEvent(new CustomEvent("halo:consent-changed"));
 }
 
 /**

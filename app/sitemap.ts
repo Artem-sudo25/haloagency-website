@@ -5,7 +5,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://haloagency.cz";
   const contentLastModified = new Date("2026-03-22T00:00:00+01:00");
   const legalLastModified = new Date("2026-01-23T00:00:00+01:00");
-  const blogLastModified = new Date("2026-03-23T00:00:00+01:00");
+  const blogIndexLastModified = new Date("2026-04-16T00:00:00+02:00");
+  const firstBlogBatchLastModified = new Date("2026-03-23T00:00:00+01:00");
+  const secondBlogBatchLastModified = new Date("2026-04-16T00:00:00+02:00");
 
   type RouteConfig = {
     path: string;
@@ -77,7 +79,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       path: "/blog",
-      lastModified: contentLastModified,
+      lastModified: blogIndexLastModified,
       changeFrequency: "weekly",
       priority: 0.8,
     },
@@ -158,25 +160,37 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Blog
     {
       path: "/blog/lending-ili-polnotsennyi-sait-v-chekhii",
-      lastModified: blogLastModified,
+      lastModified: firstBlogBatchLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       path: "/blog/chto-dolzhno-byt-na-saite-uslug",
-      lastModified: blogLastModified,
+      lastModified: firstBlogBatchLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       path: "/blog/pochemu-google-ads-ne-rabotaet",
-      lastModified: blogLastModified,
+      lastModified: firstBlogBatchLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },
     {
       path: "/blog/normalnyi-treking-dlya-malogo-biznesa",
-      lastModified: blogLastModified,
+      lastModified: firstBlogBatchLastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      path: "/blog/meta-ads-ili-google-ads",
+      lastModified: secondBlogBatchLastModified,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      path: "/blog/kak-podgotovit-sait-pod-reklamu",
+      lastModified: secondBlogBatchLastModified,
       changeFrequency: "monthly",
       priority: 0.7,
     },

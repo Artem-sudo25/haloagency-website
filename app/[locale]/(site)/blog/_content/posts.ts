@@ -137,12 +137,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Выбирать между Meta Ads и Google Ads нужно не по моде, а по типу спроса, длине сделки и тому, готов ли сайт превратить трафик в заявку.",
     category: "Реклама",
-    status: "draft",
+    status: "published",
     keywords: [
       "google ads или facebook ads",
       "meta ads или google ads",
       "какую рекламу выбрать для бизнеса",
     ],
+    datePublished: "2026-04-16",
+    dateModified: "2026-04-16",
     readingTime: "9 мин",
     primaryCtaLabel: "Обсудить задачу",
     primaryCtaHref: "/contact",
@@ -160,12 +162,14 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Реклама редко проваливается только из-за кабинета. Чаще бюджет уходит в слабую страницу, неясный оффер, плохую форму и сломанный трекинг.",
     category: "Сайты",
-    status: "draft",
+    status: "published",
     keywords: [
       "сайт под рекламу",
       "лендинг для google ads",
       "как подготовить сайт к рекламе",
     ],
+    datePublished: "2026-04-16",
+    dateModified: "2026-04-16",
     readingTime: "8 мин",
     primaryCtaLabel: "Обсудить задачу",
     primaryCtaHref: "/contact",
@@ -205,8 +209,7 @@ const csBlogPostOverrides: Record<
   >
 > = {
   "lending-ili-polnotsennyi-sait-v-chekhii": {
-    title:
-      "Kdy firma v Česku potřebuje landing page a kdy plnohodnotný web",
+    title: "Kdy firma v Česku potřebuje landing page a kdy plnohodnotný web",
     description:
       "Praktické srovnání, kdy firmě v Česku dává smysl landing page a kdy plnohodnotný web: podle nabídky, reklamy, SEO, důvěry a cesty ke konverzi.",
     excerpt:
@@ -246,7 +249,8 @@ const csBlogPostOverrides: Record<
     ],
   },
   "normalnyi-treking-dlya-malogo-biznesa": {
-    title: "Jak má vypadat normální tracking pro malou firmu: bez BigQuery a bolesti",
+    title:
+      "Jak má vypadat normální tracking pro malou firmu: bez BigQuery a bolesti",
     description:
       "Rozebíráme, co malá firma opravdu potřebuje pro funkční analytiku: GA4, GTM, eventy, server-side tracking a srozumitelnou kontrolu dat.",
     excerpt:
@@ -323,7 +327,10 @@ const csBlogPostOverrides: Record<
   },
 };
 
-function localizeBlogPost(post: BlogPost, locale: SupportedBlogLocale): BlogPost {
+function localizeBlogPost(
+  post: BlogPost,
+  locale: SupportedBlogLocale,
+): BlogPost {
   if (locale !== "cs") {
     return post;
   }
