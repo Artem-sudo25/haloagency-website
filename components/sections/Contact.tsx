@@ -5,6 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Link } from "@/i18n/routing";
@@ -29,6 +30,7 @@ export default function Contact() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [haloSessionId, setHaloSessionId] = useState<string>("");
+  const honeypot = useHoneypot();
 
   useEffect(() => {
     waitForHaloTrack().then(() => {
@@ -69,8 +71,6 @@ export default function Contact() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "contact",
@@ -85,6 +85,7 @@ export default function Contact() {
           currency: "CZK",
           lead_id: leadId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -165,6 +166,7 @@ export default function Contact() {
             className="flex flex-col gap-5"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {honeypot.field}
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               <div className="flex flex-col gap-2">
                 <label

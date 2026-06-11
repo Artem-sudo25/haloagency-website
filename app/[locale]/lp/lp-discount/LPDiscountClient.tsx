@@ -17,6 +17,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { type FormEvent, useEffect, useRef, useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Link } from "@/i18n/routing";
 
 const inter = Inter({
@@ -272,6 +273,7 @@ export default function LPDiscountClient({
     getPromoCountdown(initialNow),
   );
   const examplesRef = useRef<HTMLDivElement>(null);
+  const honeypot = useHoneypot();
   const isPromoExpired = countdown.expired;
   const primaryCtaLabel = isPromoExpired
     ? "Оставить заявку на лендинг"
@@ -350,8 +352,6 @@ export default function LPDiscountClient({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "website",
@@ -377,6 +377,7 @@ export default function LPDiscountClient({
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -685,6 +686,7 @@ export default function LPDiscountClient({
 
               {!submitSuccess && (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {honeypot.field}
                   <div>
                     <label className={labelClass} htmlFor="landing-name">
                       Имя

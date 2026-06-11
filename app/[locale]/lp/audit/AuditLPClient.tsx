@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Input } from "@/components/ui/input";
 import { Link } from "@/i18n/routing";
 import { hasConsented } from "@/lib/consent";
@@ -167,6 +168,7 @@ export default function AuditLPClient({ avatar }: Props) {
   const [submitError, setSubmitError] = useState("");
   const [haloSessionId, setHaloSessionId] = useState("");
   const [hasCookieChoice, setHasCookieChoice] = useState(true);
+  const honeypot = useHoneypot();
 
   // Post-submit micro-survey
   const [postSubmitTimeline, setPostSubmitTimeline] = useState<string | null>(
@@ -250,8 +252,6 @@ export default function AuditLPClient({ avatar }: Props) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "audit-consultation",
@@ -272,6 +272,7 @@ export default function AuditLPClient({ avatar }: Props) {
           avatar: avatar || "default",
           consent_given: true,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -470,6 +471,7 @@ export default function AuditLPClient({ avatar }: Props) {
                       onSubmit={handleSubmit(onSubmit)}
                       className="space-y-4"
                     >
+                      {honeypot.field}
                       <div className="mb-2">
                         <h2 className="text-lg font-bold text-[#1A1A1A]">
                           Узнайте, где вы теряете клиентов

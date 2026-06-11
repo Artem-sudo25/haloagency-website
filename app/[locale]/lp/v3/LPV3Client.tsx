@@ -22,6 +22,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Link } from "@/i18n/routing";
 
 const inter = Inter({
@@ -211,6 +212,7 @@ export default function LPV3Client() {
   const [galleryOpen, setGalleryOpen] = useState<number | null>(null);
   const [galleryImageIndex, setGalleryImageIndex] = useState(0);
   const examplesRef = useRef<HTMLDivElement>(null);
+  const honeypot = useHoneypot();
 
   const closeGallery = useCallback(() => {
     setGalleryOpen(null);
@@ -291,8 +293,6 @@ export default function LPV3Client() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "website-demo-v3",
@@ -310,6 +310,7 @@ export default function LPV3Client() {
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -544,6 +545,7 @@ export default function LPV3Client() {
 
               {!submitSuccess && (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {honeypot.field}
                   <div>
                     <label className={labelClass} htmlFor="v3-name">
                       Имя

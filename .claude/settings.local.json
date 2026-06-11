@@ -35,7 +35,17 @@
       "Bash(gh api:*)",
       "Bash(curl -s https://raw.githubusercontent.com/AgriciDaniel/claude-seo/main/install.sh)",
       "Bash(mkdir -p ~/.claude/skills)",
-      "Bash(git clone:*)"
+      "Bash(git clone:*)",
+      "Bash(awk -F= '{print $1, length\\($2\\)}')",
+      "Bash(grep -iE \"n8n_code_node|Lead.*Automation|\\\\.json$\")",
+      "Bash(grep -ioE \"\\(api_key|apikey|secret|token|password\\)[\\\\\"' :=]+[A-Za-z0-9_\\\\-\\\\.]{10,}\" .tmp_n8n_code_node.js \"Lead Magnet Automation.json\" \"Lead_Magnet_Antigravity_Fix.json\" \"Lead Magnet Automation \\(Complete Fix\\).json\" \"Lead_Magnet_Automation_Antigravity_Fix.json\")",
+      "Bash(grep -ioE \"\\(api_key|apikey|secret|token|password\\)[\\\\\"' :=]+[A-Za-z0-9_\\\\-\\\\.]{10,}\" .claude/settings.local.json .claude/launch.json)",
+      "Bash(npx biome *)",
+      "Bash(git stash *)",
+      "Bash(curl -sI http://localhost:3002/ru)",
+      "Bash(curl -s -X POST http://localhost:3002/api/webhook/lead -H \"Content-Type: application/json\" -d '{\"type\":\"contact\",\"name\":\"Test <script>alert\\(1\\)</script>\",\"phone\":\"+420123456789\",\"source\":\"manual_test\",\"consent_given\":true}')",
+      "Bash(curl -s -X POST http://localhost:3002/api/webhook/lead -H \"Content-Type: application/json\" -d '{\"phone\":\"123\"}')",
+      "Bash(ls /Users/artemhorvatsky/Documents/dev/)"
     ],
     "deny": [],
     "ask": []

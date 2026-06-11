@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Link } from "@/i18n/routing";
 
 const inter = Inter({
@@ -156,6 +157,7 @@ export default function LPV2Client() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const honeypot = useHoneypot();
 
   const scrollToForm = () => {
     document
@@ -184,8 +186,6 @@ export default function LPV2Client() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "growth-audit-v2",
@@ -203,6 +203,7 @@ export default function LPV2Client() {
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
       if (!res.ok) {
@@ -433,6 +434,7 @@ export default function LPV2Client() {
 
               {!submitSuccess && (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {honeypot.field}
                   <div>
                     <label className={labelClass} htmlFor="v2-name">
                       Имя

@@ -17,6 +17,7 @@ import { Inter } from "next/font/google";
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { type FormEvent, useRef, useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Link } from "@/i18n/routing";
 
 const inter = Inter({
@@ -230,6 +231,7 @@ export default function WebDevelopmentLPClient() {
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const examplesRef = useRef<HTMLDivElement>(null);
+  const honeypot = useHoneypot();
 
   const scrollToForm = () => {
     document
@@ -271,8 +273,6 @@ export default function WebDevelopmentLPClient() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "website",
@@ -291,6 +291,7 @@ export default function WebDevelopmentLPClient() {
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -538,6 +539,7 @@ export default function WebDevelopmentLPClient() {
 
               {!submitSuccess && (
                 <form onSubmit={handleSubmit} className="space-y-5">
+                  {honeypot.field}
                   <div>
                     <label className={labelClass} htmlFor="web-dev-name">
                       Имя

@@ -89,7 +89,6 @@ export async function sendLeadToWebhook(
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-Webhook-Secret': process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || '',
             },
             body: JSON.stringify(leadData),
         });
@@ -149,38 +148,5 @@ export async function trackFormEvent(
         });
     } catch (error) {
         console.error('Event tracking error:', error);
-    }
-}
-
-/**
- * Send lead directly to HaloTrack API (Client-Side)
- * Matches Propradlo implementation for accurate attribution
- */
-export async function sendLeadToHaloTrack(leadData: HaloTrackLead): Promise<void> {
-    try {
-        if (!process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN) {
-            console.warn("HaloTrack domain not set");
-            return;
-        }
-
-        const payload = {
-            ...leadData,
-            // Ensure lead_id is present if not provided
-            lead_id: leadData.lead_id || crypto.randomUUID(),
-            lead_value: leadData.lead_value || 0,
-            currency: leadData.currency || "CZK",
-        };
-
-        await fetch(`https://${process.env.NEXT_PUBLIC_HALOTRACK_DOMAIN}/api/webhook/lead`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Webhook-Secret': process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || '',
-            },
-            body: JSON.stringify(payload),
-        });
-    } catch (error) {
-        // Non-blocking error
-        console.error("HaloTrack direct submission failed:", error);
     }
 }

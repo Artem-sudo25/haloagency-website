@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 
 type DataLayerEvent = { event: string; [key: string]: unknown };
 type MarketingWindow = Window & {
@@ -60,6 +61,7 @@ export default function AdsLeadForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const honeypot = useHoneypot();
 
   const validate = () => {
     const nextErrors: FormErrors = {};
@@ -84,8 +86,6 @@ export default function AdsLeadForm({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: config.leadType,
@@ -103,6 +103,7 @@ export default function AdsLeadForm({
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -214,6 +215,7 @@ export default function AdsLeadForm({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              {honeypot.field}
               <div>
                 <label
                   htmlFor={`${config.formId}-name`}

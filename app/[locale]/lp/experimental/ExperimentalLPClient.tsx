@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useMemo, useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Link } from "@/i18n/routing";
 
 type FormValues = {
@@ -246,6 +247,7 @@ export default function ExperimentalLPClient() {
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [wantsSamplePdf, setWantsSamplePdf] = useState(false);
+  const honeypot = useHoneypot();
 
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
 
@@ -283,8 +285,6 @@ export default function ExperimentalLPClient() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "growth-audit-experimental",
@@ -303,6 +303,7 @@ export default function ExperimentalLPClient() {
           currency: "CZK",
           consent_given: true,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -485,6 +486,7 @@ export default function ExperimentalLPClient() {
               )}
 
               <form onSubmit={submitLead} className="mt-6 space-y-4">
+                {honeypot.field}
                 <div className="space-y-1.5 flex flex-col">
                   <label
                     className="text-xs font-bold tracking-wider text-[#1A1A1A]/40 uppercase"

@@ -1,20 +1,60 @@
 import { after, type NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { z } from "zod";
 
 export const runtime = "edge";
 
+const leadPayloadSchema = z
+  .object({
+    type: z.string().min(1).max(100),
+    phone: z.string().max(50).optional(),
+    email: z.string().max(200).optional(),
+    name: z.string().max(200).optional(),
+    source: z.string().max(100).optional(),
+    session_id: z.string().max(200).optional(),
+    consent_given: z.boolean().optional(),
+    lead_id: z.string().max(100).optional(),
+    value: z.union([z.number(), z.string()]).optional(),
+    currency: z.string().max(10).optional(),
+    // Honeypot — hidden field real users never fill (see components/ui/honeypot.tsx)
+    website_url: z.string().max(500).optional(),
+  })
+  .passthrough();
+
+function escapeHtml(value: unknown): string {
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    (char) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;",
+      })[char] as string,
+  );
+}
+
 export async function POST(req: NextRequest) {
   try {
-    // Validate webhook secret
-    const incomingSecret = req.headers.get("x-webhook-secret");
-    if (
-      process.env.WEBHOOK_SECRET &&
-      incomingSecret !== process.env.WEBHOOK_SECRET
-    ) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    const json = await req.json();
+    const parsed = leadPayloadSchema.safeParse(json);
+
+    if (!parsed.success) {
+      return NextResponse.json(
+        { success: false, error: "Invalid payload" },
+        { status: 400 },
+      );
     }
 
-    const body = await req.json();
+    // Honeypot: bots auto-fill the hidden website_url field. Pretend success
+    // so they don't learn the field is a trap; do nothing else.
+    const { website_url, ...body } = parsed.data;
+    if (website_url) {
+      console.log("Honeypot triggered, dropping lead silently");
+      return NextResponse.json({ success: true, message: "Lead processed" });
+    }
+
     const { type, phone, email, name, ...formData } = body;
     const normalizedSource =
       typeof body.source === "string" && body.source.trim().length > 0
@@ -64,24 +104,30 @@ export async function POST(req: NextRequest) {
                     : type === "website"
                       ? "Новая заявка на сайт"
                       : "Новая заявка";
-            const websiteOrProfile =
-              formData.websiteOrProfile || formData.currentPresence || "—";
+            const websiteOrProfile = escapeHtml(
+              formData.websiteOrProfile || formData.currentPresence || "—",
+            );
+            const safeName = escapeHtml(name || "—");
+            const safePhone = escapeHtml(phone);
+            const safeEmail = escapeHtml(email);
+            const safeType = escapeHtml(type);
+            const safeSource = escapeHtml(normalizedSource);
             const phoneCell = phone
-              ? `<a href="tel:${phone}">${phone}</a>`
+              ? `<a href="tel:${safePhone}">${safePhone}</a>`
               : "—";
             const emailCell = email
-              ? `<a href="mailto:${email}">${email}</a>`
+              ? `<a href="mailto:${safeEmail}">${safeEmail}</a>`
               : "—";
 
             const emailContent = `
                 <h1>📞 ${leadHeadline}</h1>
                 <table style="border-collapse:collapse;width:100%;max-width:500px;">
-                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Имя</td><td style="padding:8px;border-bottom:1px solid #eee;">${name || "—"}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Имя</td><td style="padding:8px;border-bottom:1px solid #eee;">${safeName}</td></tr>
                     <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Телефон</td><td style="padding:8px;border-bottom:1px solid #eee;">${phoneCell}</td></tr>
                     <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Email</td><td style="padding:8px;border-bottom:1px solid #eee;">${emailCell}</td></tr>
                     <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Сайт / Instagram</td><td style="padding:8px;border-bottom:1px solid #eee;">${websiteOrProfile}</td></tr>
-                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Тип</td><td style="padding:8px;border-bottom:1px solid #eee;">${type}</td></tr>
-                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Источник</td><td style="padding:8px;border-bottom:1px solid #eee;">${normalizedSource}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Тип</td><td style="padding:8px;border-bottom:1px solid #eee;">${safeType}</td></tr>
+                    <tr><td style="padding:8px;font-weight:bold;border-bottom:1px solid #eee;">Источник</td><td style="padding:8px;border-bottom:1px solid #eee;">${safeSource}</td></tr>
                     <tr><td style="padding:8px;font-weight:bold;">Время</td><td style="padding:8px;">${timestamp}</td></tr>
                 </table>
             `;

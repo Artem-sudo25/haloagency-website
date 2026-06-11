@@ -5,6 +5,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -36,6 +37,7 @@ export default function GrowthPlanMagnetForm() {
   const [selectedTried, setSelectedTried] = useState<string[]>([]);
   const [haloSessionId, setHaloSessionId] = useState<string>("");
   const [submitError, setSubmitError] = useState("");
+  const honeypot = useHoneypot();
 
   const {
     register,
@@ -118,8 +120,6 @@ export default function GrowthPlanMagnetForm() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "growth-plan",
@@ -141,6 +141,7 @@ export default function GrowthPlanMagnetForm() {
           source: "growth_plan_form",
           consent_given: true,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -206,6 +207,7 @@ export default function GrowthPlanMagnetForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      {honeypot.field}
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div className="flex flex-col gap-2">
           <label

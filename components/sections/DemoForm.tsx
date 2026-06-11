@@ -3,6 +3,7 @@
 import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { type FormEvent, useState } from "react";
+import { HONEYPOT_FIELD, useHoneypot } from "@/components/ui/honeypot";
 
 type FormValues = {
   name: string;
@@ -40,6 +41,7 @@ export default function DemoForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const honeypot = useHoneypot();
 
   const validate = () => {
     const nextErrors: FormErrors = {};
@@ -64,8 +66,6 @@ export default function DemoForm({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-Webhook-Secret":
-            process.env.NEXT_PUBLIC_HALOTRACK_WEBHOOK_SECRET || "",
         },
         body: JSON.stringify({
           type: "website",
@@ -84,6 +84,7 @@ export default function DemoForm({
           consent_given: true,
           session_id: sessionId,
           timestamp: new Date().toISOString(),
+          [HONEYPOT_FIELD]: honeypot.value(),
         }),
       });
 
@@ -201,6 +202,7 @@ export default function DemoForm({
 
             {!submitSuccess && (
               <form onSubmit={handleSubmit} className="space-y-4">
+                {honeypot.field}
                 <div>
                   <label
                     className="mb-1.5 block text-sm font-bold text-[#1A1A1A]"
